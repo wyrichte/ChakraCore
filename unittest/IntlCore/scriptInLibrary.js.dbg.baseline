@@ -53,7 +53,7 @@
         "start": 0,
         "length": 0,
         "text": "",
-        "frameDescription": "Array.prototype.forEach"
+        "frameDescription": "forEach"
       },
       {
         "start": 881,

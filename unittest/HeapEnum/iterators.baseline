@@ -554,61 +554,54 @@
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: every
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 14 forEach: type: FunctionObject flags: (new) optional info records (2)
- |  |    |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |    |  |    [Properties] count: 2
- |  |    |    |  |    | 0 length: value: 1.000000
- |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |    |  |    |    [Internal property] value: forEach
- |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 15 lastIndexOf: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    |  | 14 lastIndexOf: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String (seen)
- |  |    |    |  | 16 map: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    |  | 15 map: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: map
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 17 reduce: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    |  | 16 reduce: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: reduce
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 18 reduceRight: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    |  | 17 reduceRight: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: reduceRight
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 19 some: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    |  | 18 some: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: some
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 20 find: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    |  | 19 find: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: find
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 21 findIndex: type: FunctionObject flags: (new) optional info records (2)
+ |  |    |    |  | 20 findIndex: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: findIndex
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 22 keys: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  | 21 keys: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] keys
  |  |    |    |  |    [Properties] count: 2
@@ -616,7 +609,7 @@
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: keys
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 23 values: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  | 22 values: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] values
  |  |    |    |  |    [Properties] count: 2
@@ -624,8 +617,8 @@
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: values
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 24 Symbol.iterator: type: FunctionObject (seen)
- |  |    |    |  | 25 entries: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  | 23 Symbol.iterator: type: FunctionObject (seen)
+ |  |    |    |  | 24 entries: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] entries
  |  |    |    |  |    [Properties] count: 2
@@ -633,13 +626,13 @@
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: entries
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 26 indexOf: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  | 25 indexOf: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] indexOf
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String (seen)
- |  |    |    |  | 27 filter: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  | 26 filter: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] filter
  |  |    |    |  |    [Properties] count: 2
@@ -647,7 +640,7 @@
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: filter
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 28 flat: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  | 27 flat: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] flat
  |  |    |    |  |    [Properties] count: 2
@@ -655,13 +648,21 @@
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: flat
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 29 flatMap: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  | 28 flatMap: type: FunctionObject flags: (new) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] flatMap
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: flatMap
+ |  |    |    |  |    |    [Prototype] type: StringObject (seen)
+ |  |    |    |  | 29 forEach: type: FunctionObject flags: (new) optional info records (3)
+ |  |    |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |    |  |    [Function name] forEach
+ |  |    |    |  |    [Properties] count: 2
+ |  |    |    |  |    | 0 length: value: 1.000000
+ |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
+ |  |    |    |  |    |    [Internal property] value: forEach
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 30 Symbol.unscopables: type: ObjectObject flags: (new) optional info records (2)
  |  |    |    |  |    [Prototype] type: Null (seen)
@@ -1309,61 +1310,54 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: every
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 14 forEach: type: FunctionObject flags: (old) optional info records (2)
- |  |    |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |    |  |    [Properties] count: 2
- |  |    |    |  |    | 0 length: value: 1.000000
- |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
- |  |    |    |  |    |    [Internal property] value: forEach
- |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 15 lastIndexOf: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 14 lastIndexOf: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String (seen)
- |  |    |    |  | 16 map: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 15 map: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: map
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 17 reduce: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 16 reduce: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: reduce
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 18 reduceRight: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 17 reduceRight: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: reduceRight
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 19 some: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 18 some: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: some
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 20 find: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 19 find: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: find
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 21 findIndex: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 20 findIndex: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: findIndex
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 22 keys: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 21 keys: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] keys
  |  |    |    |  |    [Properties] count: 2
@@ -1371,7 +1365,7 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: keys
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 23 values: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 22 values: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] values
  |  |    |    |  |    [Properties] count: 2
@@ -1379,8 +1373,8 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: values
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 24 Symbol.iterator: type: FunctionObject (seen)
- |  |    |    |  | 25 entries: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 23 Symbol.iterator: type: FunctionObject (seen)
+ |  |    |    |  | 24 entries: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] entries
  |  |    |    |  |    [Properties] count: 2
@@ -1388,13 +1382,13 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: entries
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 26 indexOf: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 25 indexOf: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] indexOf
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String (seen)
- |  |    |    |  | 27 filter: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 26 filter: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] filter
  |  |    |    |  |    [Properties] count: 2
@@ -1402,7 +1396,7 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: filter
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 28 flat: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 27 flat: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] flat
  |  |    |    |  |    [Properties] count: 2
@@ -1410,13 +1404,21 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: flat
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 29 flatMap: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 28 flatMap: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] flatMap
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: flatMap
+ |  |    |    |  |    |    [Prototype] type: StringObject (seen)
+ |  |    |    |  | 29 forEach: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |    |  |    [Function name] forEach
+ |  |    |    |  |    [Properties] count: 2
+ |  |    |    |  |    | 0 length: value: 1.000000
+ |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |    |  |    |    [Internal property] value: forEach
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 30 Symbol.unscopables: type: ObjectObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: Null (seen)
@@ -2220,61 +2222,54 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: every
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 14 forEach: type: FunctionObject flags: (old) optional info records (2)
- |  |    |    |  |    [Prototype] type: FunctionObject (seen)
- |  |    |    |  |    [Properties] count: 2
- |  |    |    |  |    | 0 length: value: 1.000000
- |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
- |  |    |    |  |    |    [Internal property] value: forEach
- |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 15 lastIndexOf: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 14 lastIndexOf: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String (seen)
- |  |    |    |  | 16 map: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 15 map: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: map
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 17 reduce: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 16 reduce: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: reduce
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 18 reduceRight: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 17 reduceRight: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: reduceRight
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 19 some: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 18 some: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: some
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 20 find: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 19 find: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: find
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 21 findIndex: type: FunctionObject flags: (old) optional info records (2)
+ |  |    |    |  | 20 findIndex: type: FunctionObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: findIndex
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 22 keys: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 21 keys: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] keys
  |  |    |    |  |    [Properties] count: 2
@@ -2282,7 +2277,7 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: keys
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 23 values: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 22 values: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] values
  |  |    |    |  |    [Properties] count: 2
@@ -2290,8 +2285,8 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: values
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 24 Symbol.iterator: type: FunctionObject (seen)
- |  |    |    |  | 25 entries: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 23 Symbol.iterator: type: FunctionObject (seen)
+ |  |    |    |  | 24 entries: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] entries
  |  |    |    |  |    [Properties] count: 2
@@ -2299,13 +2294,13 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: entries
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 26 indexOf: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 25 indexOf: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] indexOf
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String (seen)
- |  |    |    |  | 27 filter: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 26 filter: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] filter
  |  |    |    |  |    [Properties] count: 2
@@ -2313,7 +2308,7 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: filter
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 28 flat: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 27 flat: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] flat
  |  |    |    |  |    [Properties] count: 2
@@ -2321,13 +2316,21 @@
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: flat
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |    |    |  | 29 flatMap: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  | 28 flatMap: type: FunctionObject flags: (old) optional info records (3)
  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |    |    |  |    [Function name] flatMap
  |  |    |    |  |    [Properties] count: 2
  |  |    |    |  |    | 0 length: value: 1.000000
  |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
  |  |    |    |  |    |    [Internal property] value: flatMap
+ |  |    |    |  |    |    [Prototype] type: StringObject (seen)
+ |  |    |    |  | 29 forEach: type: FunctionObject flags: (old) optional info records (3)
+ |  |    |    |  |    [Prototype] type: FunctionObject (seen)
+ |  |    |    |  |    [Function name] forEach
+ |  |    |    |  |    [Properties] count: 2
+ |  |    |    |  |    | 0 length: value: 1.000000
+ |  |    |    |  |    | 1 name: type: String flags: (old size_approximate) optional info records (2)
+ |  |    |    |  |    |    [Internal property] value: forEach
  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
  |  |    |    |  | 30 Symbol.unscopables: type: ObjectObject flags: (old) optional info records (2)
  |  |    |    |  |    [Prototype] type: Null (seen)

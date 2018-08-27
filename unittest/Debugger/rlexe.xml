@@ -2162,14 +2162,16 @@
   <test>
     <default>
       <files>specialproperties.js</files>
-      <compile-flags>-debuglaunch -targeted -es6functionnamefull -ES6Species -inspectmaxstringlength:110 -dbgbaseline:specialproperties.js.dbg.baseline</compile-flags>
+      <!-- Don't enable JsBuiltIns because of issues accessing arguments.callee.caller in jsbuiltin's version of forEach -->
+      <compile-flags>-debuglaunch -targeted -es6functionnamefull -ES6Species -JsBuiltIn- -inspectmaxstringlength:110 -dbgbaseline:specialproperties.js.dbg.baseline</compile-flags>
       <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
     <default>
       <files>specialproperties_attach.js</files>
-      <compile-flags>-targeted -inspectmaxstringlength:256 -ES6Species -dbgbaseline:specialproperties_attach.js.dbg.baseline</compile-flags>
+      <!-- Don't enable JsBuiltIns because of issues accessing arguments.callee.caller in jsbuiltin's version of forEach -->
+      <compile-flags>-targeted -inspectmaxstringlength:256 -ES6Species -JsBuiltIn- -dbgbaseline:specialproperties_attach.js.dbg.baseline</compile-flags>
     </default>
   </test>
   <test>
