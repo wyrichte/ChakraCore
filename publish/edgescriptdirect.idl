@@ -207,7 +207,8 @@ typedef [v1_enum] enum RegexFlags
     RegexFlags_Multiline    = 1 << 2,
     RegexFlags_Unicode      = 1 << 3,
     RegexFlags_Sticky       = 1 << 4,
-    RegexFlags_All          = (1 << 5) - 1
+    RegexFlags_DotAll       = 1 << 5,
+    RegexFlags_All          = (1 << 6) - 1
 } RegexFlags;
 
 typedef [v1_enum] enum TypedArrayBufferAllocationType
