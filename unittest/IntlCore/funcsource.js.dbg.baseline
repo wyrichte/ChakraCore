@@ -12,7 +12,7 @@
         "[Methods]": {
           "Collator": "function Collator() { [native code] }",
           "DateTimeFormat": "function DateTimeFormat() { [native code] }",
-          "getCanonicalLocales": "function() {\n    [native code]\n}",
+          "getCanonicalLocales": "function getCanonicalLocales() { [native code] }",
           "NumberFormat": "function NumberFormat() { [native code] }",
           "PluralRules": "function PluralRules() { [native code] }"
         },

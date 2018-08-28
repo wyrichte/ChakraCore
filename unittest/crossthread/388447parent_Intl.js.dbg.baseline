@@ -36,15 +36,18 @@
         },
         "e_Intl_Collator_proto": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "compare": "<large string>"
         },
         "e_Intl_DateTimeFormat_proto": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "format": "<large string>"
         },
         "e_Intl_NumberFormat_proto": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "format": "<large string>"
         },
         "Symbol.toStringTag": "global"
       },
@@ -162,18 +165,25 @@
         "name": "Collator",
         "prototype": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "compare": "<large string>"
         }
       },
       "e_Intl_Collator_proto": {
         "[Methods]": {
-          "compare": "<large string>",
           "constructor": "<large string>",
           "resolvedOptions": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
+        },
+        "compare": {
+          "__proto__": "",
+          "description": "<large string>",
+          "message": "<large string>",
+          "number": "-2146823172",
+          "stack": "<large string>"
         }
       },
       "e_Intl_DateTimeFormat": {
@@ -192,19 +202,26 @@
         "name": "<large string>",
         "prototype": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "format": "<large string>"
         }
       },
       "e_Intl_DateTimeFormat_proto": {
         "[Methods]": {
           "constructor": "<large string>",
-          "format": "<large string>",
           "formatToParts": "<large string>",
           "resolvedOptions": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
+        },
+        "format": {
+          "__proto__": "",
+          "description": "<large string>",
+          "message": "<large string>",
+          "number": "-2146823281",
+          "stack": "<large string>"
         }
       },
       "e_Intl_NumberFormat": {
@@ -223,19 +240,26 @@
         "name": "NumberFormat",
         "prototype": {
           "[Methods]": "{...}",
-          "__proto__": "{...}"
+          "__proto__": "{...}",
+          "format": "<large string>"
         }
       },
       "e_Intl_NumberFormat_proto": {
         "[Methods]": {
           "constructor": "<large string>",
-          "format": "<large string>",
           "formatToParts": "<large string>",
           "resolvedOptions": "<large string>"
         },
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__": "null"
+        },
+        "format": {
+          "__proto__": "",
+          "description": "<large string>",
+          "message": "<large string>",
+          "number": "-2146823281",
+          "stack": "<large string>"
         }
       }
     }

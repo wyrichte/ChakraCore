@@ -52,7 +52,7 @@ var bad_locales = [bad_locale];
         obj.supportedLocalesOf(bad_locales);
     });
 
-    if (obj.prototype.format) {
+    if (obj.prototype.hasOwnProperty("format")) {
         runTest(function () {
             new obj().format(bad_locale);
         });

@@ -60,6 +60,7 @@
         },
         "[5]": {
           "__proto__": "",
+          "dotAll": "false",
           "global": "false",
           "ignoreCase": "false",
           "lastIndex": "0",

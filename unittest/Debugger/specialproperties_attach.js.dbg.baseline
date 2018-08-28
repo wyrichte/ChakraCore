@@ -83,6 +83,7 @@
       "f": {
         "[Methods]": "{...}",
         "f.__proto__": "{...}",
+        "f.dotAll": "false",
         "f.global": "false",
         "f.ignoreCase": "false",
         "f.lastIndex": "0",
@@ -353,6 +354,7 @@
     "evaluate": {
       "f": {
         "f.__proto__": "",
+        "f.dotAll": "false",
         "f.global": "false",
         "f.ignoreCase": "false",
         "f.lastIndex": "0",

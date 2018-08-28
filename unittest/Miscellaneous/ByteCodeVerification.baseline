@@ -1,4 +1,4 @@
-Bytecode GUID = {39DEDDF4-EEE4-43E8-A2C8-2550A26007D6}
+Bytecode GUID = {DD4E773A-2839-44A0-8B4E-9283A700135A}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1384,6 +1384,7 @@ Property: compile
 Property: global
 Property: lastIndex
 Property: multiline
+Property: dotAll
 Property: ignoreCase
 Property: unicode
 Property: sticky
@@ -1498,6 +1499,8 @@ Property: tagPublicLibraryCode
 Property: winglob
 Property: platform
 Property: formatToParts
+Property: FallbackSymbol
+Property: _intlFallbackSymbol
 Property: NumberFormat
 Property: __currency
 Property: __currencyDisplay

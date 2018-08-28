@@ -89,8 +89,7 @@
             "formatToParts": {
               "__proto__": "<large string>",
               "length": "1",
-              "name": "formatToParts",
-              "prototype": "{...}"
+              "name": "formatToParts"
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
@@ -137,8 +136,7 @@
             "formatToParts": {
               "__proto__": "<large string>",
               "length": "1",
-              "name": "",
-              "prototype": "{...}"
+              "name": "formatToParts"
             },
             "resolvedOptions": {
               "__proto__": "<large string>",
