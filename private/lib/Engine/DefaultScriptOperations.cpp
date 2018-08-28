@@ -29,6 +29,7 @@ namespace Js
     C_ASSERT(::RegexFlags_Multiline == UnifiedRegex::MultilineRegexFlag);
     C_ASSERT(::RegexFlags_Unicode == UnifiedRegex::UnicodeRegexFlag);
     C_ASSERT(::RegexFlags_Sticky == UnifiedRegex::StickyRegexFlag);
+    C_ASSERT(::RegexFlags_DotAll == UnifiedRegex::DotAllRegexFlag);
     C_ASSERT(::RegexFlags_All == UnifiedRegex::AllRegexFlags);
 
     OperationUsage DefaultScriptOperations::defaultUsage =
