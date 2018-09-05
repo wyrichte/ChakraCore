@@ -5,17 +5,20 @@
 
 #include "JDBackendUtil.h"
 
-void PrintFunctionBody(RemoteFunctionBody& functionBody)
+void PrintFunctionBody(RemoteParseableFunctionInfo& function)
 {
-    functionBody.PrintNameAndNumberWithRawLink();
+    function.PrintNameAndNumberWithRawLink();
     GetExtension()->Out(" ");
-    functionBody.PrintByteCodeLink();
+    if (function.IsFunctionBody())
+    {
+        RemoteFunctionBody(function).PrintByteCodeLink();
+    }
     GetExtension()->Out("\n");
-    functionBody.PrintAuxPtrs();
+    function.PrintAuxPtrs();
     GetExtension()->Out("Source Url: ");
-    functionBody.PrintSourceUrl();
+    function.PrintSourceUrl();
     GetExtension()->Out("\n");
-    functionBody.PrintSource();
+    function.PrintSource();
     GetExtension()->Out("\n");
 
 }

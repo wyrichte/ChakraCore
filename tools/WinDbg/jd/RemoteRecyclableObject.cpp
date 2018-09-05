@@ -179,6 +179,16 @@ RemoteRecyclableObject::Print(bool printSlotIndex, int depth)
         }
         return; // done
     }
+    else if (strcmp(typeIdStr, "TypeIds_Symbol") == 0)
+    {
+        RemoteThreadContext threadContext = object.Field("type").Field("javascriptLibrary").Field("scriptContext").Field("threadContext");
+        EXT_CLASS_BASE::PropertyNameReader propertyNameReader(threadContext);
+        LONG propertyId = object.Field("propertyRecordUsageCache").Field("propertyRecord").Field("pid").GetLong();
+        ULONG64 pName = propertyNameReader.GetNameByPropertyId(propertyId);
+        g_Ext->Out("<Symbol PropertyId:%d", propertyId);
+        pName ? g_Ext->Out(" (%mu)>\n", pName) : g_Ext->Out(">\n");
+        return; //done;
+    }
     else if (depth == 0)
     {
         if (strcmp(typeIdStr, "TypeIds_StringObject") == 0)
