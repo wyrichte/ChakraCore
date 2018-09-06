@@ -1,4 +1,4 @@
-Bytecode GUID = {BAC3A947-4873-4DAF-AC60-915116FFE744}
+Bytecode GUID = {DE720CA5-2D6E-4200-B4AB-CCCE40399727}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1500,6 +1500,32 @@ Property: tagPublicLibraryCode
 Property: winglob
 Property: platform
 Property: formatToParts
+Property: co
+Property: kn
+Property: kf
+Property: nu
+Property: ca
+Property: hc
+Property: upper
+Property: lower
+Property: base
+Property: accent
+Property: case_
+Property: variant
+Property: code
+Property: decimal
+Property: percent
+Property: NumberFormatStyle
+Property: NumberFormatCurrencyDisplay
+Property: CollatorSensitivity
+Property: CollatorCaseFirst
+Property: LocaleDataKind
+Property: DateToLocaleString
+Property: DateToLocaleDateString
+Property: DateToLocaleTimeString
+Property: NumberToLocaleString
+Property: StringLocaleCompare
+Property: BuiltInFunctionID
 Property: FallbackSymbol
 Property: _intlFallbackSymbol
 Property: NumberFormat
@@ -1537,6 +1563,7 @@ Property: numeric
 Property: sensitivity
 Property: sensitivityEnum
 Property: caseFirstEnum
+Property: usage
 Property: DateTimeFormat
 Property: __boundFormat
 Property: __calendar
