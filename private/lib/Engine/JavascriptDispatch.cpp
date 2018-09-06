@@ -1212,7 +1212,9 @@ HRESULT JavascriptDispatch::InvokeBuiltInOperation(
     {
         if (parentObject->HasDeferredTypeHandler())
         {
+            BEGIN_JS_RUNTIME_CALL(scriptContext);
             parentObject->HasProperty(Js::Constants::NoProperty);
+            END_JS_RUNTIME_CALL(scriptContext);
         }
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr)

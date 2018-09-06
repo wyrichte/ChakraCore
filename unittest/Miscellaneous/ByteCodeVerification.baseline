@@ -1,4 +1,4 @@
-Bytecode GUID = {6CC5964E-CBF2-4053-99DA-987794182D7E}
+Bytecode GUID = {BAC3A947-4873-4DAF-AC60-915116FFE744}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1124,6 +1124,7 @@ Property: freeze
 Property: from
 Property: fromCharCode
 Property: fromCodePoint
+Property: fromEntries
 Property: function
 Property: Function
 Property: getDate
@@ -1583,6 +1584,7 @@ Property: InitInternalProperties
 Property: methodName
 Property: registerChakraLibraryFunction
 Property: registerFunction
+Property: staticMethod
 Property: toLength
 Property: toInteger
 Property: arraySpeciesCreate
@@ -1642,6 +1644,7 @@ Property: raiseNeedObject
 Property: raiseNeedObjectOfType
 Property: raiseNeedObjectOrString
 Property: raiseNotAConstructor
+Property: raiseNonObjectFromIterable
 Property: raiseObjectIsAlreadyInitialized
 Property: raiseObjectIsNonExtensible
 Property: raiseOptionValueOutOfRange_3
