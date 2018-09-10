@@ -149,6 +149,11 @@ void RemoteFunctionProxy::PrintAuxPtrs()
     });
 }
 
+bool RemoteFunctionProxy::IsFunctionBody()
+{
+    return strcmp(this->GetSimpleTypeName(), "Js::FunctionBody *") == 0;
+}
+
 JDRemoteTyped RemoteFunctionProxy::GetAuxWrappedField(char const * fieldName, char const* castType, char const* oldFieldName)
 {
     if (this->HasField("auxPtrs"))
@@ -279,28 +284,28 @@ RemoteFunctionBody::GetObjectLiteralTypes()
 }
 
 void
-RemoteFunctionBody::PrintNameAndNumber()
+RemoteParseableFunctionInfo::PrintNameAndNumber()
 {
     ExtBuffer<WCHAR> displayNameBuffer;
     GetExtension()->Out(_u("%s (#%d.%d, #%d)"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber());
 }
 
 void
-RemoteFunctionBody::PrintNameAndNumberWithLink()
+RemoteParseableFunctionInfo::PrintNameAndNumberWithLink()
 {
     ExtBuffer<WCHAR> displayNameBuffer;
     if (GetExtension()->PreferDML())
     {
-        GetExtension()->Dml(_u("<link cmd=\"!jd.fb (%S *)0x%p\">%s</link> (#%d.%d, #%d) (%d.%d)"), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetLineNumber(), GetColumnNumber());
+        GetExtension()->Dml(_u("<link cmd=\"!jd.fb (%S%S)0x%p\">%s</link> (#%d.%d, #%d) (%d.%d)"), GetExtension()->FillModule("%s!"), this->GetSimpleTypeName(), this->GetPtr(), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetLineNumber(), GetColumnNumber());
     }
     else
     {
-        GetExtension()->Out(_u("%s (#%d.%d, #%d) /*\"!jd.fb (%s *)0x%p\" to display*/"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetExtension()->FillModule("%s!Js::FunctionBody"), this->GetPtr());
+        GetExtension()->Out(_u("%s (#%d.%d, #%d) /*\"!jd.fb (%S%S)0x%p\" to display*/"), GetDisplayName(&displayNameBuffer), GetSourceContextId(), GetLocalFunctionId(), GetFunctionNumber(), GetExtension()->FillModule("%s!"), this->GetPtr());
     }
 }
 
 void
-RemoteFunctionBody::PrintNameAndNumberWithRawLink()
+RemoteParseableFunctionInfo::PrintNameAndNumberWithRawLink()
 {
     ExtBuffer<WCHAR> displayNameBuffer;
     if (GetExtension()->PreferDML())
@@ -332,13 +337,13 @@ RemoteFunctionBody::PrintByteCodeLink()
 }
 
 void
-RemoteFunctionBody::PrintSourceUrl()
+RemoteParseableFunctionInfo::PrintSourceUrl()
 {
     this->GetUtf8SourceInfo().PrintSourceUrl();
 }
 
 void
-RemoteFunctionBody::PrintSource()
+RemoteParseableFunctionInfo::PrintSource()
 {
     ULONG64 startOffset = JDUtil::GetWrappedField(*this, "m_cbStartOffset").GetSizeT();
     ULONG length = (ULONG)JDUtil::GetWrappedField(*this, "m_cbLength").GetSizeT();
@@ -346,7 +351,7 @@ RemoteFunctionBody::PrintSource()
 }
 
 RemoteUtf8SourceInfo
-RemoteFunctionBody::GetUtf8SourceInfo()
+RemoteFunctionProxy::GetUtf8SourceInfo()
 {
     return RemoteUtf8SourceInfo(JDUtil::GetWrappedField(*this, "m_utf8SourceInfo"));
 }

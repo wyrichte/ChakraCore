@@ -61,7 +61,10 @@ RemoteJavascriptFunction::Print()
         g_Ext->Out(_u("  [FunctionBody] "));
         functionBody.PrintNameAndNumberWithLink();
         g_Ext->Out(_u(" "));
-        functionBody.PrintByteCodeLink();
+        if (functionBody.IsFunctionBody())
+        {
+            functionBody.PrintByteCodeLink();
+        }
         g_Ext->Out("\n");
     }
     else

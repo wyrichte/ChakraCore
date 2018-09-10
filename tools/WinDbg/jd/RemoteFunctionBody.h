@@ -24,8 +24,32 @@ public:
     // Print all instantiated auxiliary pointers
     void PrintAuxPtrs();
 
+    ULONG GetSourceContextId()
+    {
+        return GetUtf8SourceInfo().GetSourceContextId();
+    }
+
+    ULONG GetLocalFunctionId()
+    {
+        if (HasField("functionId"))
+        {
+            return JDUtil::GetWrappedField(*this, "functionId").GetUlong();
+        }
+        else
+        {
+            return JDUtil::GetWrappedField(*this, "functionInfo").Field("functionId").GetUlong();
+        }
+    }
+
+    ULONG GetFunctionNumber()
+    {
+        return JDUtil::GetWrappedField(*this, "m_functionNumber").GetUlong();
+    }
+
+    bool IsFunctionBody();
 protected:
     JDRemoteTyped GetAuxWrappedField(char const* fieldName, char const* castType, char const* oldFieldName = nullptr);
+    RemoteUtf8SourceInfo GetUtf8SourceInfo();
 
 private:
     template<typename Fn>
@@ -136,6 +160,12 @@ public:
         return this->GetAuxWrappedFieldRecyclerData("propertyIdsForScopeSlotArray", "Js::PropertyId");
     }
     JDRemoteTyped GetDeferredStubs();
+
+    void PrintNameAndNumber();
+    void PrintNameAndNumberWithLink();
+    void PrintNameAndNumberWithRawLink();
+    void PrintSourceUrl();
+    void PrintSource();
 protected:
     JDRemoteTyped GetAuxWrappedFieldRecyclerData(char const * fieldName, char const* castType, char const * oldFieldName = nullptr);
 };
@@ -214,27 +244,6 @@ public:
     JDRemoteTyped GetThreadContext()
     {
         return GetScriptContext().Field("threadContext");
-    }
-    ULONG GetSourceContextId()
-    {
-        return GetUtf8SourceInfo().GetSourceContextId();
-    }
-
-    ULONG GetLocalFunctionId()
-    {
-        if (HasField("functionId"))
-        {
-            return JDUtil::GetWrappedField(*this, "functionId").GetUlong();
-        }
-        else
-        {
-            return JDUtil::GetWrappedField(*this, "functionInfo").Field("functionId").GetUlong();
-        }
-    }
-
-    ULONG GetFunctionNumber()
-    {
-        return JDUtil::GetWrappedField(*this, "m_functionNumber").GetUlong();
     }
 
     JDRemoteTyped GetStatementMaps()
@@ -318,17 +327,11 @@ public:
         return false;
     }
 
-    void PrintNameAndNumber();
-    void PrintNameAndNumberWithLink();
-    void PrintNameAndNumberWithRawLink();
     void PrintByteCodeLink();
-    void PrintSourceUrl();
-    void PrintSource();
+
 private:
     JDRemoteTyped GetFieldRecyclerData(char const * fieldName);
     JDRemoteTyped GetWrappedFieldRecyclerData(char const * fieldName);    
 
     uint32 GetCounterField(const char* oldName, bool wasWrapped = false);
-
-    RemoteUtf8SourceInfo GetUtf8SourceInfo();
 };

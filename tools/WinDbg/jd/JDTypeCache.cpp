@@ -21,6 +21,8 @@ void JDTypeCache::Clear()
     {
         delete i;
     }
+    this->isOverrideAddedToVtableTypeNameMap = false;
+    this->typeNameMap.clear();
     this->typeNames.clear();
     this->cacheTypeInfoCache.clear();
     this->chakraCacheTypeInfoCache.clear();
