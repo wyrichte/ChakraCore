@@ -3,8 +3,8 @@
 ===========>Starting Heap Dump for specific object<===============
 
  type: ErrorObject flags: (new) optional info records (2)
- |  [Prototype] type: ErrorObject flags: (new) optional info records (2)
- |  |  [Prototype] type: ErrorObject flags: (new) optional info records (2)
+ |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
+ |  |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |  |  [Prototype] type: ObjectObject flags: (new) optional info records (2)
  |  |  |  |  [Prototype] type: Null flags: (new) optional info records (0)
  |  |  |  |  [Properties] count: 13
@@ -108,7 +108,7 @@
  |  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (2)
  |  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |  |    [Properties] count: 4
- |  |  |  |    | 0 prototype: type: ErrorObject (seen)
+ |  |  |  |    | 0 prototype: type: ObjectObject (seen)
  |  |  |  |    | 1 length: value: 1.000000
  |  |  |  |    | 2 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |  |    |    [Internal property] value: Error
@@ -127,7 +127,7 @@
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    [Properties] count: 3
- |  |  |    | 0 prototype: type: ErrorObject (seen)
+ |  |  |    | 0 prototype: type: ObjectObject (seen)
  |  |  |    | 1 length: value: 1.000000
  |  |  |    | 2 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    [Internal property] value: ReferenceError

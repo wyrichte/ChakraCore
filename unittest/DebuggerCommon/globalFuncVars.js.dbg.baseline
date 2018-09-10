@@ -62,7 +62,7 @@
         "Symbol.toStringTag": "global"
       },
       "ex1": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -135,7 +135,7 @@
         "Symbol.toStringTag": "global"
       },
       "ex2": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",

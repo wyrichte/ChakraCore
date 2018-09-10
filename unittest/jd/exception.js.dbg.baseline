@@ -18,8 +18,8 @@
       "e2": "2 string",
       "e1 - [Type]": "Error",
       "e1": {
-        "__proto__ - [Type]": "Error",
-        "__proto__": "",
+        "__proto__ - [Type]": "Object",
+        "__proto__": "{...}",
         "description - [Type]": "String",
         "description": "1 Error",
         "message - [Type]": "String",

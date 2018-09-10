@@ -27,7 +27,7 @@
         "Symbol.toStringTag": "global"
       },
       "{exception}": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",

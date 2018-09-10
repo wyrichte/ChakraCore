@@ -33,7 +33,7 @@
         "length": "0"
       },
       "c": {
-        "__proto__": "Invalid Date"
+        "__proto__": "{...}"
       },
       "[Globals]": {
         "Symbol.toStringTag": "global",
@@ -117,7 +117,7 @@
         "length": "0"
       },
       "c": {
-        "__proto__": "Invalid Date"
+        "__proto__": "{...}"
       },
       "[Globals]": {
         "Symbol.toStringTag": "global",

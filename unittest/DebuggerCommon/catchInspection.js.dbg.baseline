@@ -99,7 +99,7 @@
         "length": "0"
       },
       "e": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -179,7 +179,7 @@
         "length": "0"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -220,7 +220,7 @@
         "length": "0"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -262,7 +262,7 @@
         "length": "0"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -304,7 +304,7 @@
         "length": "0"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -342,7 +342,7 @@
         "length": "0"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -380,7 +380,7 @@
         "length": "0"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -418,7 +418,7 @@
         "length": "0"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -452,7 +452,7 @@
         "top": "{...}"
       },
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -578,7 +578,7 @@
   {
     "evaluate": {
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",
@@ -589,7 +589,7 @@
   {
     "evaluate": {
       "ex": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "<large string>",
         "message": "<large string>",
         "number": "-2146823279",

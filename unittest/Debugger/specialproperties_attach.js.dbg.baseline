@@ -82,16 +82,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "f.__proto__": "{...}",
-        "f.dotAll": "false",
-        "f.global": "false",
-        "f.ignoreCase": "false",
-        "f.lastIndex": "0",
-        "f.multiline": "false",
-        "f.options": "",
-        "f.source": "(?:)",
-        "f.sticky": "false",
-        "f.unicode": "false"
+        "f.__proto__": "{...}"
       }
     }
   },
@@ -254,7 +245,7 @@
         "f.__proto__": "function() {\n    [native code]\n}",
         "f.length": "1",
         "f.name": "Error",
-        "f.prototype": "",
+        "f.prototype": "{...}",
         "f.stackTraceLimit": "10"
       }
     }
@@ -271,7 +262,7 @@
         "f.__proto__": "function() {\n    [native code]\n}",
         "f.length": "7",
         "f.name": "Date",
-        "f.prototype": "Invalid Date"
+        "f.prototype": "{...}"
       }
     }
   },
@@ -353,7 +344,7 @@
   {
     "evaluate": {
       "f": {
-        "f.__proto__": "",
+        "f.__proto__": "{...}",
         "f.dotAll": "false",
         "f.global": "false",
         "f.ignoreCase": "false",

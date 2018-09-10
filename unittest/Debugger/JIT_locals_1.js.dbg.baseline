@@ -77,7 +77,7 @@
         "__proto__": "{...}"
       },
       "k": {
-        "__proto__": "Invalid Date"
+        "__proto__": "{...}"
       },
       "y": "10",
       "[Globals]": {

@@ -52,14 +52,14 @@
           "[104]": "104"
         },
         "[4]": {
-          "__proto__": "",
+          "__proto__": "{...}",
           "description": "ErrorObj",
           "message": "ErrorObj",
           "stack": "<large string>",
           "[105]": "105"
         },
         "[5]": {
-          "__proto__": "",
+          "__proto__": "{...}",
           "dotAll": "false",
           "global": "false",
           "ignoreCase": "false",
@@ -72,7 +72,7 @@
           "[106]": "106"
         },
         "[6]": {
-          "__proto__": "Invalid Date",
+          "__proto__": "{...}",
           "[107]": "107"
         },
         "[7]": {

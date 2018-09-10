@@ -95,16 +95,7 @@
     "evaluate": {
       "f": {
         "[Methods]": "{...}",
-        "__proto__": "{...}",
-        "dotAll": "false",
-        "global": "false",
-        "ignoreCase": "false",
-        "lastIndex": "0",
-        "multiline": "false",
-        "options": "",
-        "source": "(?:)",
-        "sticky": "false",
-        "unicode": "false"
+        "__proto__": "{...}"
       }
     }
   },
@@ -327,7 +318,7 @@
         "__proto__": "function() {\n    [native code]\n}",
         "length": "1",
         "name": "Error",
-        "prototype": "",
+        "prototype": "{...}",
         "stackTraceLimit": "10"
       }
     }
@@ -344,7 +335,7 @@
         "__proto__": "function() {\n    [native code]\n}",
         "length": "7",
         "name": "Date",
-        "prototype": "Invalid Date"
+        "prototype": "{...}"
       }
     }
   },
@@ -442,7 +433,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "dotAll": "false",
         "global": "false",
         "ignoreCase": "false",
@@ -487,7 +478,7 @@
   {
     "evaluate": {
       "f": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "",
         "number": "0",
         "stack": "<large string>"

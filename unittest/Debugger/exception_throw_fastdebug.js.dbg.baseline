@@ -42,7 +42,7 @@
         "Symbol.toStringTag": "global"
       },
       "{exception}": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "",
         "number": "0",
         "stack": "<large string>"

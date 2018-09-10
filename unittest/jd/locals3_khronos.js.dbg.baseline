@@ -475,13 +475,13 @@
         },
         "date0 - [Type]": "Object, (Date)",
         "date0": {
-          "__proto__ - [Type]": "Object, (Date)",
-          "__proto__": "Invalid Date"
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}"
         },
         "date1 - [Type]": "Object, (Date)",
         "date1": {
-          "__proto__ - [Type]": "Object, (Date)",
-          "__proto__": "Invalid Date"
+          "__proto__ - [Type]": "Object",
+          "__proto__": "{...}"
         },
         "vardate0 - [Type]": "Date",
         "vardate0": "Thu Mar 14 2013 15:14:36 GMT-0700 (Pacific Daylight Time)",
@@ -490,29 +490,11 @@
       },
       "regex0 - [Type]": "Object, (Regular Expression)",
       "regex0": {
-        "__proto__ - [Type]": "Object, (Regular Expression)",
+        "__proto__ - [Type]": "Object",
         "__proto__": {
           "[Methods]": "{...}",
           "__proto__ - [Type]": "Object",
-          "__proto__": "{...}",
-          "dotAll - [Type]": "Boolean",
-          "dotAll": "false",
-          "global - [Type]": "Boolean",
-          "global": "false",
-          "ignoreCase - [Type]": "Boolean",
-          "ignoreCase": "false",
-          "lastIndex - [Type]": "Number",
-          "lastIndex": "0",
-          "multiline - [Type]": "Boolean",
-          "multiline": "false",
-          "options - [Type]": "String",
-          "options": "",
-          "source - [Type]": "String",
-          "source": "(?:)",
-          "sticky - [Type]": "Boolean",
-          "sticky": "false",
-          "unicode - [Type]": "Boolean",
-          "unicode": "false"
+          "__proto__": "{...}"
         },
         "dotAll - [Type]": "Boolean",
         "dotAll": "false",
@@ -595,29 +577,11 @@
         "length": "2",
         "name - [Type]": "String",
         "name": "RegExp",
-        "prototype - [Type]": "Object, (Regular Expression)",
+        "prototype - [Type]": "Object",
         "prototype": {
           "[Methods]": "{...}",
           "__proto__ - [Type]": "Object",
-          "__proto__": "{...}",
-          "dotAll - [Type]": "Boolean",
-          "dotAll": "false",
-          "global - [Type]": "Boolean",
-          "global": "false",
-          "ignoreCase - [Type]": "Boolean",
-          "ignoreCase": "false",
-          "lastIndex - [Type]": "Number",
-          "lastIndex": "0",
-          "multiline - [Type]": "Boolean",
-          "multiline": "false",
-          "options - [Type]": "String",
-          "options": "",
-          "source - [Type]": "String",
-          "source": "(?:)",
-          "sticky - [Type]": "Boolean",
-          "sticky": "false",
-          "unicode - [Type]": "Boolean",
-          "unicode": "false"
+          "__proto__": "{...}"
         },
         "rightContext - [Type]": "String",
         "rightContext": ""

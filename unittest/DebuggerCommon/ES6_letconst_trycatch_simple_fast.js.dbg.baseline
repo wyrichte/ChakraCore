@@ -37,7 +37,7 @@
         "length": "0"
       },
       "e": {
-        "__proto__": "",
+        "__proto__": "{...}",
         "description": "",
         "number": "0",
         "stack": "<large string>"
