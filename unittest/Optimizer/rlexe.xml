@@ -50,4 +50,10 @@
       <tags>exclude_dynapogo,exclude_serialized,exclude_nonative</tags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>boundCheckHoistBug.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+    </default>
+  </test>
 </regress-exe>
