@@ -18,9 +18,7 @@ undefined
  |  |  |  |    |  | 2 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |  |    |  |    [Internal property] value: (empty string)
  |  |  |  |    |  |    [Prototype] type: StringObject flags: (new) optional info records (2)
- |  |  |  |    |  |    |  [Internal property] type: String flags: (new size_approximate) optional info records (2)
- |  |  |  |    |  |    |  |    [Internal property] value: (empty string)
- |  |  |  |    |  |    |  |    [Prototype] type: StringObject (seen)
+ |  |  |  |    |  |    |  [Internal property] type: String (seen)
  |  |  |  |    |  |    |  [Prototype] type: ObjectObject (seen)
  |  |  |  |    |  | 3 apply: type: FunctionObject flags: (new) optional info records (2)
  |  |  |  |    |  |    [Prototype] type: FunctionObject (seen)
@@ -608,9 +606,7 @@ undefined
  |  |    |    | 0 y: value: 2.000000
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Properties] count: 2
- |  |    | 0 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |    [Internal property] value: bound 
- |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 0 name: type: String (seen)
  |  |    | 1 length: value: 1.000000
  |  [Array elements] count: 2
  |  | 0: type: FunctionObject flags: (new) optional info records (6)
@@ -629,9 +625,7 @@ undefined
  |  |    |    |    |    [Prototype] type: StringObject (seen)
  |  |    [Prototype] type: FunctionObject (seen)
  |  |    [Properties] count: 4
- |  |    | 0 name: type: String flags: (new size_approximate) optional info records (2)
- |  |    |    [Internal property] value: bound 
- |  |    |    [Prototype] type: StringObject (seen)
+ |  |    | 0 name: type: String (seen)
  |  |    | 1 length: value: 0.000000
  |  |    | 2 abacaba: type: String flags: (new size_approximate) optional info records (2)
  |  |    |    [Internal property] value: abacaba

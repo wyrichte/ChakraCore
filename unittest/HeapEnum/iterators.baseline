@@ -16,9 +16,7 @@
  |  |  |    |  | 2 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |  |    [Internal property] value: (empty string)
  |  |  |    |  |    [Prototype] type: StringObject flags: (new) optional info records (3)
- |  |  |    |  |    |  [Internal property] type: String flags: (new size_approximate) optional info records (2)
- |  |  |    |  |    |  |    [Internal property] value: (empty string)
- |  |  |    |  |    |  |    [Prototype] type: StringObject (seen)
+ |  |  |    |  |    |  [Internal property] type: String (seen)
  |  |  |    |  |    |  [Prototype] type: ObjectObject (seen)
  |  |  |    |  |    |  [Properties] count: 45
  |  |  |    |  |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
@@ -896,9 +894,7 @@
  |  |  |    |  | 2 name: type: String flags: (old size_approximate) optional info records (2)
  |  |  |    |  |    [Internal property] value: (empty string)
  |  |  |    |  |    [Prototype] type: StringObject flags: (old) optional info records (3)
- |  |  |    |  |    |  [Internal property] type: String flags: (old size_approximate) optional info records (2)
- |  |  |    |  |    |  |    [Internal property] value: (empty string)
- |  |  |    |  |    |  |    [Prototype] type: StringObject (seen)
+ |  |  |    |  |    |  [Internal property] type: String (seen)
  |  |  |    |  |    |  [Prototype] type: ObjectObject (seen)
  |  |  |    |  |    |  [Properties] count: 45
  |  |  |    |  |    |  | 0 constructor: type: FunctionObject flags: (old) optional info records (1)
@@ -1956,9 +1952,7 @@
  |  |  |    |  | 2 name: type: String flags: (old size_approximate) optional info records (2)
  |  |  |    |  |    [Internal property] value: (empty string)
  |  |  |    |  |    [Prototype] type: StringObject flags: (old) optional info records (3)
- |  |  |    |  |    |  [Internal property] type: String flags: (old size_approximate) optional info records (2)
- |  |  |    |  |    |  |    [Internal property] value: (empty string)
- |  |  |    |  |    |  |    [Prototype] type: StringObject (seen)
+ |  |  |    |  |    |  [Internal property] type: String (seen)
  |  |  |    |  |    |  [Prototype] type: ObjectObject (seen)
  |  |  |    |  |    |  [Properties] count: 45
  |  |  |    |  |    |  | 0 constructor: type: FunctionObject flags: (old) optional info records (1)

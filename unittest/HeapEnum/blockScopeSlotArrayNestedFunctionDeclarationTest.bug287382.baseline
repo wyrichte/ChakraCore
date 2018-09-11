@@ -106,9 +106,7 @@
  |  |  | 0 constructor: type: FunctionObject flags: (new) optional info records (1)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  | 1 length: value: 0.000000
- |  |  | 2 name: type: String flags: (new size_approximate) optional info records (2)
- |  |  |    [Internal property] value: (empty string)
- |  |  |    [Prototype] type: StringObject (seen)
+ |  |  | 2 name: type: String (seen)
  |  |  | 3 apply: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    [Properties] count: 2
