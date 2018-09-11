@@ -22,8 +22,8 @@ namespace Projection
 #if DBG_DUMP
             , pvtbl == g_IReferenceVtable ? referenceWrapper : referenceArrayWrapper
 #endif
-        ), 
-        m_pPropertyValue(nullptr), 
+        ),
+        m_pPropertyValue(nullptr),
         finalizableTypedArrayContents(nullptr)
     {
         getValueId = IdOfString(projectionContext->GetScriptContext(), _u("getValue"));
@@ -64,8 +64,8 @@ namespace Projection
         auto parentTypeNameId = IdOfString(projectionContext->GetScriptContext(), parentTypeName);
 
         HRESULT hr = projectionContext->GetProjectionBuilder()->GetInstantiatedIID(
-            parentTypeNameId, 
-            genericInstantiations, 
+            parentTypeNameId,
+            genericInstantiations,
             &HeapAllocator::Instance,
             &instantiatedIID);
         IfFailedReturn(hr);
@@ -97,7 +97,7 @@ namespace Projection
     }
 
     HRESULT ObjectAsIReference::CreateIReference(
-            __in ProjectionContext *projectionContext, 
+            __in ProjectionContext *projectionContext,
             __in size_t typeStorageSize,
             __in_bcount(typeStorageSize) byte *typeStorage,
             __in RtCONCRETETYPE elementType,
@@ -124,7 +124,7 @@ namespace Projection
     }
 
     HRESULT ObjectAsIReference::CreateIReferenceArray(
-            __in ProjectionContext *projectionContext, 
+            __in ProjectionContext *projectionContext,
             __in size_t typeStorageSize,
             __in_bcount(typeStorageSize) byte *typeStorage,
             __in RtCONCRETETYPE elementType,
@@ -154,6 +154,9 @@ namespace Projection
     {
         if (m_pPropertyValue == nullptr)
         {
+            // If m_pScriptSite is null, then the script context is closed and projectionContext has been freed
+            IfNullReturnError(m_pScriptSite, E_ACCESSDENIED);
+
             HRESULT hr = ObjectAsIPropertyValue::Create(projectionContext, this, &m_pPropertyValue);
             IfFailedReturn(hr);
         }
@@ -178,7 +181,7 @@ namespace Projection
         return hr;
     }
     CUnknownMethodNoError_Epilog()
-        
+
     CUnknownMethodNoError_Prolog(ObjectAsIReference, GetIids, __RPC__out ULONG *iidCount, __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids)
     {
         return GetTwoIids(Windows::Foundation::IID_IPropertyValue, iidCount, iids);
@@ -251,7 +254,7 @@ namespace Projection
 
         return S_OK;
     }
-    
+
     void ObjectAsIReference::MarkScriptContextDependentResources(Recycler *recycler, bool inPartialCollect)
     {
         if (finalizableTypedArrayContents != nullptr)
@@ -261,9 +264,9 @@ namespace Projection
         }
     }
 
-    LPCWSTR ObjectAsIReference::GetFullElementTypeName() 
-    { 
-        return StringOfId(projectionContext->GetScriptContext(), finalizableTypedArrayContents->elementType->fullTypeNameId); 
+    LPCWSTR ObjectAsIReference::GetFullElementTypeName()
+    {
+        return StringOfId(projectionContext->GetScriptContext(), finalizableTypedArrayContents->elementType->fullTypeNameId);
     }
 
     USHORT ObjectAsIReference::GetWinrtTypeFlags()

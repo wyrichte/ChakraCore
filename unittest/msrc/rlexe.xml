@@ -416,6 +416,18 @@
   </test>
   <test>
     <default>
+      <files>45722.js</files>
+      <compile-flags>-recyclerconcurrentstress</compile-flags>
+      <tags>exclude_test</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45722_assert.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>45787.js</files>
       <compile-flags>-force:deferParse -bgjit- -pageheap:2</compile-flags>
     </default>
@@ -438,6 +450,16 @@
   <test>
     <default>
       <files>45908.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>46326.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>46684.js</files>
     </default>
   </test>
 </regress-exe>
