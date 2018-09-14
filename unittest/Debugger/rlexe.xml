@@ -68,6 +68,7 @@
       <files>intlib.js</files>
       <baseline>intlib.baseline</baseline>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:intlib.js.dbg.baseline -Intl -LibraryStackFrame</compile-flags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>
@@ -75,6 +76,7 @@
       <files>intlib.js</files>
       <baseline>intlib.baseline</baseline>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:intlib.js.legacy_debugger.dbg.baseline -Intl -LibraryStackFrame -NoLibraryStackFrameDebugger</compile-flags>
+      <tags>exclude_dynapogo</tags>
     </default>
   </test>
   <test>

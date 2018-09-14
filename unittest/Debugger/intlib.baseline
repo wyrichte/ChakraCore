@@ -149,15 +149,6 @@ RangeError: Locale 'INVALID CURRENCY CODE' is not well-formed
    at Global code (intlib.js:86:2)
 RangeError: Locale 'INVALID CURRENCY CODE' is not well-formed
    at callBadFormat (intlib.js:20:5)
-   at filter (native code)
-   at Anonymous function (intlib.js:91:13)
-   at runTest (intlib.js:10:9)
-   at Anonymous function (intlib.js:90:9)
-   at forEach (native code)
-   at Anonymous function (intlib.js:89:5)
-   at Global code (intlib.js:86:2)
-RangeError: Locale 'INVALID CURRENCY CODE' is not well-formed
-   at callBadFormat (intlib.js:20:5)
    at Array.prototype.reduce (native code)
    at Anonymous function (intlib.js:91:13)
    at runTest (intlib.js:10:9)
