@@ -118,7 +118,7 @@
     "locals": {
       "this": "{...}",
       "[Anonymous function returned]": "<large string>",
-      "[forEach returned]": "undefined",
+      "[every returned]": "true",
       "arguments": "{...}",
       "d": "<large string>",
       "[Scope]1": "Run",
@@ -128,19 +128,19 @@
   {
     "callstack": [
       {
-        "start": 1243,
+        "start": 1241,
         "length": 8,
         "text": "return d",
         "frameDescription": "test7"
       },
       {
-        "start": 1273,
+        "start": 1271,
         "length": 7,
         "text": "test7()",
         "frameDescription": "test8"
       },
       {
-        "start": 1361,
+        "start": 1359,
         "length": 7,
         "text": "test8()",
         "frameDescription": "Run"
