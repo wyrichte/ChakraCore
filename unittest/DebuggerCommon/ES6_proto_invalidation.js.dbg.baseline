@@ -46,8 +46,10 @@
             "toString": "<large string>",
             "toUpperCase": "<large string>",
             "trim": "<large string>",
+            "trimEnd": "<large string>",
             "trimLeft": "<large string>",
             "trimRight": "<large string>",
+            "trimStart": "<large string>",
             "valueOf": "<large string>"
           },
           "__proto__": {

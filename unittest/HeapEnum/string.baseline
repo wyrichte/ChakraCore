@@ -20,7 +20,7 @@
  |  |  |    |    |  |    [Internal property] value: (empty string)
  |  |  |    |    |  |    [Prototype] type: StringObject (seen)
  |  |  |    |    |  [Prototype] type: ObjectObject (seen)
- |  |  |    |    |  [Properties] count: 45
+ |  |  |    |    |  [Properties] count: 47
  |  |  |    |    |  | 0 constructor: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    |    |  |    [Properties] count: 6
@@ -323,35 +323,37 @@
  |  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    |  |    |    [Internal property] value: includes
  |  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |  |    |    |  | 40 trimLeft: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    |  | 40 trimStart: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    |    |  |    [Properties] count: 2
  |  |  |    |    |  |    | 0 length: value: 0.000000
  |  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |  |    |    |  |    |    [Internal property] value: trimLeft
+ |  |  |    |    |  |    |    [Internal property] value: trimStart
  |  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |  |    |    |  | 41 trimRight: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    |  | 41 trimLeft: type: FunctionObject (seen)
+ |  |  |    |    |  | 42 trimEnd: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    |    |  |    [Properties] count: 2
  |  |  |    |    |  |    | 0 length: value: 0.000000
  |  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
- |  |  |    |    |  |    |    [Internal property] value: trimRight
+ |  |  |    |    |  |    |    [Internal property] value: trimEnd
  |  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |  |    |    |  | 42 Symbol.iterator: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    |  | 43 trimRight: type: FunctionObject (seen)
+ |  |  |    |    |  | 44 Symbol.iterator: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    |    |  |    [Properties] count: 2
  |  |  |    |    |  |    | 0 length: value: 0.000000
  |  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    |  |    |    [Internal property] value: [Symbol.iterator]
  |  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |  |    |    |  | 43 padStart: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    |  | 45 padStart: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    |    |  |    [Properties] count: 2
  |  |  |    |    |  |    | 0 length: value: 1.000000
  |  |  |    |    |  |    | 1 name: type: String flags: (new size_approximate) optional info records (2)
  |  |  |    |    |  |    |    [Internal property] value: padStart
  |  |  |    |    |  |    |    [Prototype] type: StringObject (seen)
- |  |  |    |    |  | 44 padEnd: type: FunctionObject flags: (new) optional info records (2)
+ |  |  |    |    |  | 46 padEnd: type: FunctionObject flags: (new) optional info records (2)
  |  |  |    |    |  |    [Prototype] type: FunctionObject (seen)
  |  |  |    |    |  |    [Properties] count: 2
  |  |  |    |    |  |    | 0 length: value: 1.000000

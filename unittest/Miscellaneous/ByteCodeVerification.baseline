@@ -1,4 +1,4 @@
-Bytecode GUID = {FFAB17C6-6AD9-41BC-AFDA-2DC8E1D4C594}
+Bytecode GUID = {A7B3E50E-9870-4A74-A155-58021B9B2202}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1351,7 +1351,9 @@ Property: toUpperCase
 Property: toUTCString
 Property: trim
 Property: trimLeft
+Property: trimStart
 Property: trimRight
+Property: trimEnd
 Property: true_
 Property: TypeError
 Property: undefined
