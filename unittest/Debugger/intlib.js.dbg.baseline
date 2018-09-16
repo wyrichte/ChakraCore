@@ -1283,6 +1283,58 @@
         "start": 0,
         "length": 0,
         "text": "",
+        "frameDescription": "filter"
+      },
+      {
+        "start": 2349,
+        "length": 32,
+        "text": "f.apply(arr, [callBadFormat, 0])",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 329,
+        "length": 6,
+        "text": "test()",
+        "frameDescription": "runTest"
+      },
+      {
+        "start": 2314,
+        "length": 80,
+        "text": "runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
+        "frameDescription": "forEach"
+      },
+      {
+        "start": 2197,
+        "length": 206,
+        "text": "[arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    })",
+        "frameDescription": "Anonymous function"
+      },
+      {
+        "start": 2144,
+        "length": 759,
+        "text": "function () {\n    // Array\n    var arr = [1];\n    [arr.every, arr.some, arr.forEach, arr.map, arr.filter, arr.reduce, arr.reduceRight].forEach(function (f) {\n        runTest(function () {\n            f.apply(arr, [callBadFormat, 0]);\n        });\n    });\n\n    // JSON\n    runTest(function () {\n        JSON.parse(\"{}\", callBadFormat);\n    });\n    runTest(function () {\n        JSON.stringify({}, callBadFormat);\n    });\n\n    // Map, Set\n    var m = new Map(); m.set(1, 1);\n    var s = new Set(); s.add(1);\n    [m, s].forEach(function (obj) {\n        runTest(function () {\n            obj.forEach(callBadFormat);\n        });\n    });\n\n    // String\n    runTest(function () {\n        \"abcd\".replace(\"ab\", callBadFormat);\n    });\n})()",
+        "frameDescription": "Global code"
+      }
+    ]
+  },
+  {
+    "callstack": [
+      {
+        "start": 375,
+        "length": 62,
+        "text": "var formatter = new Intl.NumberFormat(\"INVALID CURRENCY CODE\")",
+        "frameDescription": "callBadFormat"
+      },
+      {
+        "start": 0,
+        "length": 0,
+        "text": "",
         "frameDescription": "Array.prototype.reduce"
       },
       {

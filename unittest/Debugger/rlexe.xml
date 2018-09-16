@@ -63,7 +63,7 @@
       <compile-flags>-debuglaunch -targeted -dbgbaseline:setnextstatement2.js.dbg.baseline</compile-flags>
     </default>
   </test>
-  <!-- <test>
+  <test>
     <default>
       <files>intlib.js</files>
       <baseline>intlib.baseline</baseline>
@@ -76,7 +76,7 @@
       <baseline>intlib.baseline</baseline>
       <compile-flags>-targeted -debuglaunch -dbgbaseline:intlib.js.legacy_debugger.dbg.baseline -Intl -LibraryStackFrame -NoLibraryStackFrameDebugger</compile-flags>
     </default>
-  </test> -->
+  </test>
   <test>
     <default>
       <files>simplePropCheck.js</files>
