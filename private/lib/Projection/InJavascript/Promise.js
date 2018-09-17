@@ -8,11 +8,11 @@
     var Error = platform.Error;
 
     var ObjectGetPrototypeOf = platform.builtInJavascriptObjectEntryGetPrototypeOf;
-    var ObjectPreventExtensions = platform.builtInJavascriptObjectPreventExtensions;
-    var ObjectCreate = platform.builtInJavascriptObjectCreate;
-    var ObjectGetOwnPropertyDescriptor = platform.builtInJavascriptObjectGetOwnPropertyDescriptor;
+    var ObjectPreventExtensions = platform.builtInJavascriptObjectEntryPreventExtensions;
+    var ObjectCreate = platform.builtInJavascriptObjectEntryCreate;
+    var ObjectGetOwnPropertyDescriptor = platform.builtInJavascriptObjectEntryGetOwnPropertyDescriptor;
 
-    var GlobalObjectEval = platform.builtInGlobalObjectEval;
+    var GlobalObjectEval = platform.builtInGlobalObjectEntryEval;
 
     var DebugTraceAsyncCallbackStarting = platform.msTraceAsyncCallbackStarting;
     var DebugTraceAsyncCallbackCompleted = platform.msTraceAsyncCallbackCompleted;

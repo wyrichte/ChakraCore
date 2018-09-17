@@ -1,4 +1,4 @@
-Bytecode GUID = {A7B3E50E-9870-4A74-A155-58021B9B2202}
+Bytecode GUID = {BFA0BED0-7B1A-4018-83DA-B1D989D38BFD}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1617,6 +1617,16 @@ Property: toLength
 Property: toInteger
 Property: arraySpeciesCreate
 Property: arrayCreateDataPropertyOrThrow
+Property: Array_values
+Property: Array_keys
+Property: Array_entries
+Property: Array_indexOf
+Property: Array_filter
+Property: Array_flat
+Property: Array_flatMap
+Property: Array_forEach
+Property: Object_fromEntries
+Property: FunctionKind
 Property: builtInJavascriptArrayEntryFilter
 Property: builtInJavascriptArrayEntryForEach
 Property: builtInJavascriptArrayEntryIndexOf
@@ -1633,6 +1643,8 @@ Property: builtInJavascriptObjectEntryGetOwnPropertyNames
 Property: builtInJavascriptObjectEntryHasOwnProperty
 Property: builtInJavascriptObjectEntryKeys
 Property: builtInJavascriptObjectEntryCreate
+Property: builtInJavascriptObjectEntryGetOwnPropertyDescriptor
+Property: builtInJavascriptObjectEntryPreventExtensions
 Property: builtInJavascriptArrayEntryPush
 Property: builtInJavascriptArrayEntryJoin
 Property: builtInJavascriptArrayEntryMap
