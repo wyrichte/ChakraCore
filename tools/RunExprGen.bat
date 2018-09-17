@@ -50,6 +50,8 @@ IF "%6" neq ""  (
 set _ChakraBuildConfig=
 if "%_BuildType%" EQU "chk" (
     set _ChakraBuildConfig=Debug
+) else if "%_BuildType%" EQU "debug" (
+    set _ChakraBuildConfig=Debug
 ) else if "%_BuildType%" EQU "fre" (
     set _ChakraBuildConfig=Test
 ) else if "%_BuildType%" EQU "test" (
