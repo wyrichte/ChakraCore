@@ -305,8 +305,7 @@
         "[321]": {
           "__proto__": "<large string>",
           "length": "0",
-          "name": "321",
-          "prototype": "{...}"
+          "name": "321"
         }
       }
     }
