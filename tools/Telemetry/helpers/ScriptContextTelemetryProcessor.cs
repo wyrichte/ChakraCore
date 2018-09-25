@@ -53,6 +53,7 @@ namespace Chakra.Utils
                 "runType",
                 "discriminator1",
                 "discriminator2",
+                "chakraInstanceID",
                 "activityID",
                 "data",
                 "domain"

@@ -37,7 +37,15 @@
       <RemoveUselessParameters>False</RemoveUselessParameters>
       <ScopeClusterParameters>startDate=(\"2018-03-20\"),endDate=(\"2018-03-21\"),outputRoot=(\"/my/output/ChakraJavaScript/CookedChakraTelemetry/\")</ScopeClusterParameters>
     </Script>
-    <Script Include="output\ChakraDaily2\RecyclerTelemetryLast28Days.script" />
+    <Script Include="output\ChakraDaily2\RecyclerTelemetryTransmitEventsLast28Days.script" />
+    <Script Include="output\ChakraDaily2\RecyclerTelemetryGCPassEventsLast28Days.script" />
+    <Script Include="output\ChakraDaily2\ScriptContextTelemetrySummary.script" />
+    <Script Include="output\ChakraDaily2\RecyclerOutOfMemoryTelemetryLast28Days.script" />
+    <Script Include="output\ChakraDaily2\RecyclerOutOfMemoryTelemetry.script">
+      <RemoveUselessParameters>False</RemoveUselessParameters>
+      <ScopeClusterParameters>startDate=(\"2018-07-13\"),endDate=(\"2018-07-13\"),outputRoot=(\"/my/output/ChakraJavaScript/CookedChakraTelemetry/\")</ScopeClusterParameters>
+    </Script>
+    <Script Include="output\ChakraDaily2\RecyclerTelemetryUIThreadBlockedTimesLast28Days.script" />
     <Script Include="output\ChakraDaily2\ScriptContextTelemetryLast28Days.script" />
     <Script Include="output\ChakraDaily2\RecyclerTelemetry.script">
       <RemoveUselessParameters>False</RemoveUselessParameters>

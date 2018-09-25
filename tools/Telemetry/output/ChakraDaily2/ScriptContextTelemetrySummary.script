@@ -43,6 +43,7 @@
 
 #DECLARE retentionDays uint = 28;
 #DECLARE streamExpiry string = TimeSpan.FromDays(Math.Max(@startDate.AddDays(1 + Math.Min((uint)@retentionDays, 30)).Subtract(DateTime.UtcNow).TotalDays, 1.0)).ToString();
+#DECLARE streamExpiryOneYear string = TimeSpan.FromDays(Math.Max(@startDate.AddDays(1 + 365).Subtract(DateTime.UtcNow).TotalDays, 1.0)).ToString();
 // -------------------------------------------------------------------
 
 // For the NGP secondary tagging
@@ -53,45 +54,38 @@ MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.B
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
 
-rawEvents =
-    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEventsWithDomain.view"
-    PARAMS
-    (
-        startDate = @startDate,
-        endDate = @endDate,
-        eventName = "Microsoft.Web.Platform.Chakra.ScriptContextTelemetry",
-        includePrivateDomains = false
-    );
+#DECLARE inputPath string = string.Format("{0}/{1}/ScriptContextCounters.ss", @outputRoot, @outputDate);
 
-nameValuePairs = 
-    PROCESS rawEvents
-        PRODUCE
-            time,
-            activityID,
-            scriptContextID,
-            markupIsTopLevel,
-            markupDomainHash,
-            domain,
-            binaryVersion,
-            binaryFlavor,
-            binaryArch,
-            discriminator1,
-            discriminator2,
-            chakraInstanceID,
-            chakraBuildCommit,
-            runType,
-            scriptContextLifeSpanMicros,
-            recyclerID,
-            propName,
-            propValue,
-            propType
-        USING Chakra.Utils.ScriptContextTelemetryProcessor;
+scriptContextTelemetry = SSTREAM @inputPath;
 
-#DECLARE outputPath string = string.Format("{0}/{1}/ScriptContextCounters.ss", @outputRoot, @outputDate);
+summaryByDomain = 
+    SELECT
+        propType,
+        propName,
+        domain,
+        SUM(propValue) AS sumPropValue,
+        COUNT(propValue) AS numScriptContextInstances
+    GROUP BY propType, propName, domain
+    FROM scriptContextTelemetry;
+
+summary = 
+    SELECT 
+        @startDate AS streamDate,
+        propType,
+        propName,
+        SUM(sumPropValue) AS sumPropValue,
+        SUM(numScriptContextInstances) AS numScriptContextInstances,
+        COUNT(domain) AS numDomains
+    GROUP BY streamDate, propType, propName
+    FROM summaryByDomain;
+
+#DECLARE outputPathSummary string = string.Format("{0}/{1}/ScriptContextCountersSummary.ss", @outputRoot, @outputDate);
 [Privacy.Asset.NonPersonal]
-OUTPUT nameValuePairs TO SSTREAM @outputPath
+OUTPUT summary TO SSTREAM @outputPathSummary
 CLUSTERED BY 
-    domain,
     propName,
     propType
-WITH STREAMEXPIRY @streamExpiry;
+WITH STREAMEXPIRY @streamExpiryOneYear;
+
+
+

@@ -27,6 +27,7 @@ namespace Chakra.Utils
                 "runType",
                 "discriminator1",
                 "discriminator2",
+                "chakraInstanceID",
                 "recyclerID",
                 "transmitEventID",
                 "recyclerLifeSpanMicros",
@@ -86,6 +87,7 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("processAllocaterUsedBytes_end", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("processCommittedBytes_start", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("processCommittedBytes_end", ColumnDataType.LongQ));
+
             output_schema.Add(new ColumnInfo("threadPageAllocator_start_committedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("threadPageAllocator_start_usedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("threadPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
@@ -94,6 +96,7 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("threadPageAllocator_end_usedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("threadPageAllocator_end_reservedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("threadPageAllocator_end_numberOfSegments", ColumnDataType.LongQ));
+
             output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_start_committedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_start_usedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
@@ -102,6 +105,7 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_end_usedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_end_reservedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLeafPageAllocator_end_numberOfSegments", ColumnDataType.LongQ));
+
             output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_start_committedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_start_usedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
@@ -110,6 +114,7 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_end_usedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_end_reservedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerLargeBlockPageAllocator_end_numberOfSegments", ColumnDataType.LongQ));
+
             output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_start_committedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_start_usedBytes", ColumnDataType.LongQ));
             output_schema.Add(new ColumnInfo("recyclerWithBarrierPageAllocator_start_reservedBytes", ColumnDataType.LongQ));
@@ -146,6 +151,8 @@ namespace Chakra.Utils
                 bool[] isInScript = input_row["isInScript"].Value as bool[];
                 bool[] isScriptActive = input_row["isScriptActive"].Value as bool[];
                 //Int64[] UIThreadBlockedMicros = input_row["UIThreadBlockedMicros"].Value as Int64[];
+                //Int64[] UIThreadBlockedCpuUserTimeMicros = input_row["UIThreadBlockedCpuUserTimeMicros"].Value as Int64[];
+                //Int64[] UIThreadBlockedCpuKernelTimeMicros = input_row["UIThreadBlockedCpuKernelTimeMicros"].Value as Int64[];
                 //Int64[] UIThreadBlockedNameCRCs = input_row["UIThreadBlockedNameCRCs"].Value as Int64[];
                 Int64[] AllocatorByteSizeEntries = input_row["AllocatorByteSizeEntries"].Value as Int64[];
                 UInt64[] AllocatorByteSizeEntryNameCRCs = input_row["AllocatorByteSizeEntryNameCRCs"].Value as UInt64[];
@@ -174,10 +181,12 @@ namespace Chakra.Utils
                     SafeSet("lastScriptExecutionTimes", lastScriptExecutionTimes, output_row, pass);
                     SafeSet("isInScript", isInScript, output_row, pass);
                     SafeSet("isScriptActive", isScriptActive, output_row, pass);
-                    //SafeSet("UIThreadBlockedMicros",  UIThreadBlockedMicros                , output_row, pass); 
-                    //SafeSet("UIThreadBlockedNameCRCs",  UIThreadBlockedNameCRCs              , output_row, pass); 
-                    //SafeSet("AllocatorByteSizeEntries",  AllocatorByteSizeEntries             , output_row, pass); 
-                    //SafeSet("AllocatorByteSizeEntryNameCRCs",  AllocatorByteSizeEntryNameCRCs       , output_row, pass); 
+                    //SafeSet("UIThreadBlockedMicros",  UIThreadBlockedMicros                , output_row, pass);
+                    //SafeSet("UIThreadBlockedCpuUserTimeMicros",  UIThreadBlockedCpuUserTimeMicros, output_row, pass);
+                    //SafeSet("UIThreadBlockedCpuKernelTimeMicros",  UIThreadBlockedCpuKernelTimeMicros, output_row, pass);
+                    //SafeSet("UIThreadBlockedNameCRCs",  UIThreadBlockedNameCRCs              , output_row, pass);
+                    //SafeSet("AllocatorByteSizeEntries",  AllocatorByteSizeEntries             , output_row, pass);
+                    //SafeSet("AllocatorByteSizeEntryNameCRCs",  AllocatorByteSizeEntryNameCRCs       , output_row, pass);
                     SafeSet("GCStartProcessingElapsedMicros", GCStartProcessingElapsedMicros, output_row, pass);
                     SafeSet("GCEndProcessingElapsedMicros", GCEndProcessingElapsedMicros, output_row, pass);
                     SafeSet("GCBucketStatsProcessingElapsedMicros", GCBucketStatsProcessingElapsedMicros, output_row, pass);
@@ -214,7 +223,15 @@ namespace Chakra.Utils
             {
                 long idx = (currentPass * allocatorByteSizeEntryNameCRCs.Length) + i;
                 string columnName = DeCRC.GetStringForCRC(allocatorByteSizeEntryNameCRCs[i]);
-                outputRow[columnName].Set(allocatorByteSizeEntries[idx]);
+                try
+                {
+                    outputRow[columnName].Set(allocatorByteSizeEntries[idx]);
+                }
+                catch(Exception e)
+                {
+                    // OK, just swallow exceptions here.  We're infrequently getting some CRC values in the data stream 
+                    // that are unexpected, and it blows up processing, so we'll skip those errors
+                }
             }
         }
 

@@ -73,7 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RecyclerTelemetryNameValuePairsProcesor.cs" />
+    <Compile Include="RecyclerTelemetryUIThreadBlockedTimesProcesor.cs" />
     <Compile Include="RecyclerTelemetryGCPassProcessor.cs" />
     <Compile Include="RecyclerTelemetryEventProcessor.cs" />
     <Compile Include="ScriptContextTelemetryProcessor.cs" />

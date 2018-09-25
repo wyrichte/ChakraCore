@@ -81,6 +81,7 @@ recyclerTransmitEvents =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraInstanceID,
             chakraBuildCommit,
             data,
             runType,
@@ -89,6 +90,9 @@ recyclerTransmitEvents =
             recyclerLifeSpanMicros,
             microsSinceLastTransmit,
             isConcurrentEnabled,
+            isMemProtectMode,
+            isStressMode,
+            recyclerConfigFlags,
             passCount,
             passElapsedTimesMicros,
             passStartTimes,
@@ -96,6 +100,8 @@ recyclerTransmitEvents =
             isInScript,
             isScriptActive,
             UIThreadBlockedMicros,
+            UIThreadBlockedCpuUserTimeMicros,
+            UIThreadBlockedCpuKernelTimeMicros,
             UIThreadBlockedNameCRCs,
             AllocatorByteSizeEntries,
             AllocatorByteSizeEntryNameCRCs,
@@ -152,6 +158,7 @@ recyclerGCPassEvents =
       runType,
       discriminator1,
       discriminator2,
+      chakraInstanceID,
       recyclerID,
       transmitEventID,
       passNumber,
@@ -228,6 +235,7 @@ recyclerTransmitEventsForStructuredStream =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraInstanceID,
             chakraBuildCommit,
             data,
             runType,
@@ -236,6 +244,9 @@ recyclerTransmitEventsForStructuredStream =
             recyclerLifeSpanMicros,
             microsSinceLastTransmit,
             isConcurrentEnabled,
+            isMemProtectMode,
+            isStressMode,
+            recyclerConfigFlags,
             passCount,
             //passElapsedTimesMicros,
             //passStartTimes,
@@ -243,6 +254,8 @@ recyclerTransmitEventsForStructuredStream =
             //isInScript,
             //isScriptActive,
             //UIThreadBlockedMicros,
+            //UIThreadBlockedCpuUserTimeMicros,
+            //UIThreadBlockedCpuKernelTimeMicros,
             //UIThreadBlockedNameCRCs,
             //AllocatorByteSizeEntries,
             //AllocatorByteSizeEntryNameCRCs,
@@ -299,6 +312,7 @@ recyclerGCPassEventsForStructuredStream =
       runType,
       discriminator1,
       discriminator2,
+      chakraInstanceID,
       recyclerID,
       transmitEventID,
       passNumber,
@@ -365,7 +379,7 @@ recyclerGCPassEventsForStructuredStream =
 FROM recyclerGCPassEvents;
 
 
-recyclerNameValuePairs = 
+recyclerUIThreadBlockedTimes = 
   PROCESS recyclerTransmitEvents
     PRODUCE
            time,
@@ -376,17 +390,19 @@ recyclerNameValuePairs =
            runType,
            discriminator1,
            discriminator2,
+           chakraInstanceID,
            recyclerID,
            transmitEventID,
            passNumber,
            recyclerLifeSpanMicros,
            passCount,
            propName,
-           propValue,
-           propType
-    USING Chakra.Utils.RecyclerTelemetryNameValuePairsProcesor;
+           UIThreadBlockedMicros,
+           UIThreadBlockedCpuUserTimeMicros,
+           UIThreadBlockedCpuKernelTimeMicros
+    USING Chakra.Utils.RecyclerTelemetryUIThreadBlockedTimesProcesor;
 
-recyclerNameValuePairsForStructuredStream = 
+recyclerUIThreadBlockedTimesForStructuredStream = 
 SELECT
       @outputDate AS streamDate,
       time,
@@ -397,15 +413,17 @@ SELECT
       runType,
       discriminator1,
       discriminator2,
+      chakraInstanceID,
       recyclerID,
       transmitEventID,
       passNumber,
       recyclerLifeSpanMicros,
       passCount,
       propName,
-      propValue,
-      propType
-FROM recyclerNameValuePairs;
+      UIThreadBlockedMicros,
+      UIThreadBlockedCpuUserTimeMicros,
+      UIThreadBlockedCpuKernelTimeMicros
+FROM recyclerUIThreadBlockedTimes;
 
 
 #DECLARE recyclerTransmitEventsOutputPath string = string.Format("{0}/{1}/RecyclerTransmitEvents.ss", @outputRoot, @outputDate);
@@ -419,8 +437,8 @@ OUTPUT recyclerGCPassEventsForStructuredStream TO SSTREAM @recyclerGCPassEventsO
 CLUSTERED BY time, recyclerID, transmitEventID, passNumber
 WITH STREAMEXPIRY @streamExpiry;
 
-#DECLARE recyclerNameValuePairsOutputPath string = string.Format("{0}/{1}/RecyclerGCPassNameValuePairs.ss", @outputRoot, @outputDate);
+#DECLARE rrecyclerUIThreadBlockedTimesOutputPath string = string.Format("{0}/{1}/RecyclerGCPassUIThreadBlockedTimes.ss", @outputRoot, @outputDate);
 [Privacy.Asset.NonPersonal]
-OUTPUT recyclerNameValuePairsForStructuredStream TO SSTREAM @recyclerNameValuePairsOutputPath
+OUTPUT recyclerUIThreadBlockedTimesForStructuredStream TO SSTREAM @rrecyclerUIThreadBlockedTimesOutputPath
 CLUSTERED BY time, recyclerID, transmitEventID, passNumber
 WITH STREAMEXPIRY @streamExpiry;

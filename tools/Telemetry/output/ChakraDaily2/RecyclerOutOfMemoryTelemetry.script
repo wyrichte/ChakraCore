@@ -5,7 +5,7 @@
 //
 
 // DEFAULT Params - only used if the @@startDate is not specified
-#DECLARE startDate DateTime = DateTime.Now.AddDays(-2);
+#DECLARE startDate DateTime = DateTime.Parse(@"2018-07-19 01:00 -700");
 #DECLARE endDate DateTime = @startDate.AddHours(1);
 
 // if @@startDate@@ is set via a parameter, then it will be replaced to reflect the set value. If it starts with "@@", then param hasn't been set
@@ -32,8 +32,7 @@
 #ENDIF
 
 //#DECLARE outputRoot string = "/my/output/ChakraJavaScript/CookedChakraTelemetry/";
-#DECLARE defaultOutputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
-#DECLARE outputRoot string = @defaultOutputRoot;
+#DECLARE outputRoot string = "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/CookedChakraTelemetry/";
 
 #DECLARE outputDate string = @startDate.ToString("yyyy/MM/dd");
 
@@ -44,8 +43,6 @@
 #DECLARE retentionDays uint = 28;
 #DECLARE streamExpiry string = TimeSpan.FromDays(Math.Max(@startDate.AddDays(1 + Math.Min((uint)@retentionDays, 30)).Subtract(DateTime.UtcNow).TotalDays, 1.0)).ToString();
 // -------------------------------------------------------------------
-
-// For the NGP secondary tagging
 #DECLARE ResourceVersion string = IF("@@_wptResourceVersion@@".StartsWith("@@"), "vCurrent", "@@_wptResourceVersion@@");
 #DECLARE ModulePath string = string.Format("/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/{0}/WebPlatform.Public.module", @ResourceVersion);
 MODULE @ModulePath AS WptModule;
@@ -53,49 +50,77 @@ MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.B
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
 
-//
-//  Generate single file of last 28 days of data. This stream will be exported to Kusto, and lets us only keep last 28 days
-// of data, and easily react to schema changes
-//
-#DECLARE last28DaysPartitionStart string = @startDate.AddDays(-28).ToString("yyyy-MM-dd");
-#DECLARE last28DaysPartitionEnd string = @startDate.ToString("yyyy-MM-dd");
-
-last28Days_RecyclerTransmitEvents = 
-    SSTREAM SPARSE STREAMSET @outputRoot
-    PATTERN @"%Y/%m/%d/RecyclerTransmitEvents.ss" 
-    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
+#DECLARE outputPath string = string.Format("{0}/{1}/ChakraRecyclerOutOfMemoryEvents.ss", @outputRoot, @outputDate);
 
 
-last28Days_RecyclerGCPassEvents = 
-    SSTREAM SPARSE STREAMSET @outputRoot
-    PATTERN @"%Y/%m/%d/RecyclerGCPassEvents.ss" 
-    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
+rawEvents =
+    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEvents.view"
+    PARAMS
+    (
+        startDate = @startDate,
+        endDate = @endDate,
+        eventName = "Microsoft.Web.Platform.Chakra.RecyclerOutOfMemory"
+    );
 
-last28Days_RecyclerGCPassNameValuePairs = 
-    SSTREAM SPARSE STREAMSET @outputRoot
-    PATTERN @"%Y/%m/%d/RecyclerGCPassNameValuePairs.ss" 
-    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
+events = 
+    SELECT
+        time,
+        os,
+        osVer,
+        popSample,
+        appId,
+        appVer,
+        device_deviceClass,
 
-#DECLARE transmitOutputPath string = string.Format("{0}/Last28Days_RecyclerTransmitEvents.ss", @defaultOutputRoot);
+        binaryVersion,
+        binaryFlavor,
+        binaryArch,
+        discriminator1,
+        discriminator2,
+        chakraInstanceID,
+        chakraBuildCommit,
+        runType,
+
+        data
+    FROM
+        rawEvents;
+
+result1 =
+    PROCESS events
+    USING JsonObjectProcessor("data", 
+                              "recyclerID:recyclerID:string",
+                              "AllocationPolicyManagerLimit:AllocationPolicyManagerLimit:int64",
+                              "AllocationPolicyManagerUsage:AllocationPolicyManagerUsage:int64",
+                              "PinnedObjectCount:PinnedObjectCount:int64",
+                              "ClosedContextCount:ClosedContextCount:int64");
+
+result2 = 
+    SELECT 
+        time,
+        os,
+        osVer,
+        popSample,
+        appId,
+        appVer,
+        device_deviceClass,
+        binaryVersion,
+        binaryFlavor,
+        binaryArch,
+        chakraBuildCommit,
+        runType,
+        discriminator1,
+        discriminator2,
+        chakraInstanceID,
+        recyclerID,
+        AllocationPolicyManagerLimit,
+        AllocationPolicyManagerUsage,
+        PinnedObjectCount,
+        ClosedContextCount,
+        @startDate AS streamDate
+    FROM
+      result1;
+
 [Privacy.Asset.NonPersonal]
-OUTPUT last28Days_RecyclerTransmitEvents TO SSTREAM @transmitOutputPath
-CLUSTERED BY 
-    recyclerID,
-    transmitEventID
-WITH STREAMEXPIRY @streamExpiry;
-
-#DECLARE gcPassOutputPath string = string.Format("{0}/Last28Days_RecyclerGCPassEvents.ss", @defaultOutputRoot);
-[Privacy.Asset.NonPersonal]
-OUTPUT last28Days_RecyclerGCPassEvents TO SSTREAM @gcPassOutputPath
-CLUSTERED BY 
-    recyclerID,
-    transmitEventID
-WITH STREAMEXPIRY @streamExpiry;
-
-#DECLARE nameValuePairsOutputPath string = string.Format("{0}/Last28Days_RecyclerGCPassNameValuePairs.ss", @defaultOutputRoot);
-[Privacy.Asset.NonPersonal]
-OUTPUT last28Days_RecyclerGCPassNameValuePairs TO SSTREAM @nameValuePairsOutputPath
-CLUSTERED BY 
-    recyclerID,
-    transmitEventID
+OUTPUT result2
+TO SSTREAM @outputPath
 WITH STREAMEXPIRY @streamExpiry;

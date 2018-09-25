@@ -28,6 +28,7 @@ namespace Chakra.Utils
             public Int64 recyclerLifeSpanMicros;
             public Int64 microsSinceLastTransmit;
             public bool isConcurrentEnabled;
+            public UInt32 recyclerConfigFlags;
             public Int64 passCount;
             public Int64[] passElapsedTimesMicros;
             public string[] passStartTimes;
@@ -35,6 +36,8 @@ namespace Chakra.Utils
             public bool[] isInScript;
             public bool[] isScriptActive;
             public Int64[] UIThreadBlockedMicros;
+            public Int64[] UIThreadBlockedCpuUserTimeMicros;
+            public Int64[] UIThreadBlockedCpuKernelTimeMicros;
             public UInt64[] UIThreadBlockedNameCRCs;
             public Int64[] AllocatorByteSizeEntries;
             public UInt64[] AllocatorByteSizeEntryNameCRCs;
@@ -87,6 +90,7 @@ namespace Chakra.Utils
                 "runType",
                 "discriminator1",
                 "discriminator2",
+                "chakraInstanceID",
                 "data",
             };
 
@@ -111,6 +115,9 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("recyclerLifeSpanMicros", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("microsSinceLastTransmit", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("isConcurrentEnabled", ColumnDataType.Boolean));
+            output_schema.Add(new ColumnInfo("isMemProtectMode", ColumnDataType.BooleanQ));
+            output_schema.Add(new ColumnInfo("isStressMode", ColumnDataType.BooleanQ));
+            output_schema.Add(new ColumnInfo("recyclerConfigFlags", ColumnDataType.UInt));
             output_schema.Add(new ColumnInfo("passCount", ColumnDataType.UInt));
             output_schema.Add(new ColumnInfo("passElapsedTimesMicros", typeof(Int64[])));
             output_schema.Add(new ColumnInfo("passStartTimes", typeof(string[])));
@@ -118,6 +125,8 @@ namespace Chakra.Utils
             output_schema.Add(new ColumnInfo("isInScript", typeof(bool[])));
             output_schema.Add(new ColumnInfo("isScriptActive", typeof(bool[])));
             output_schema.Add(new ColumnInfo("UIThreadBlockedMicros", typeof(Int64[])));
+            output_schema.Add(new ColumnInfo("UIThreadBlockedCpuUserTimeMicros", typeof(Int64[])));
+            output_schema.Add(new ColumnInfo("UIThreadBlockedCpuKernelTimeMicros", typeof(Int64[])));
             output_schema.Add(new ColumnInfo("UIThreadBlockedNameCRCs", typeof(UInt64[])));
             output_schema.Add(new ColumnInfo("AllocatorByteSizeEntries", typeof(Int64[])));
             output_schema.Add(new ColumnInfo("AllocatorByteSizeEntryNameCRCs", typeof(UInt64[])));
@@ -194,7 +203,26 @@ namespace Chakra.Utils
                 output_row["transmitEventID"].Set(Guid.NewGuid());
                 output_row["recyclerLifeSpanMicros"].Set(parsed.recyclerLifeSpanMicros);
                 output_row["microsSinceLastTransmit"].Set(parsed.microsSinceLastTransmit);
-                output_row["isConcurrentEnabled"].Set(parsed.isConcurrentEnabled);
+                output_row["recyclerConfigFlags"].Set(parsed.recyclerConfigFlags);
+
+                // account for older versions that didn't have recyclerConfigFlags
+                if (parsed.recyclerConfigFlags > 0)
+                {
+                    RecyclerFlagsTableSummary flags = (RecyclerFlagsTableSummary)parsed.recyclerConfigFlags;
+                    bool isConcurrentEnabled = (flags & RecyclerFlagsTableSummary.IsConcurrentEnabled) == RecyclerFlagsTableSummary.IsConcurrentEnabled;
+                    bool isMemProtectMode = (flags & RecyclerFlagsTableSummary.IsMemProtectMode) == RecyclerFlagsTableSummary.IsMemProtectMode;
+                    bool isStressMode = (flags & RecyclerFlagsTableSummary.RecyclerStress & RecyclerFlagsTableSummary.RecyclerPartialStress & RecyclerFlagsTableSummary.RecyclerBackgroundStress & RecyclerFlagsTableSummary.RecyclerConcurrentStress & RecyclerFlagsTableSummary.RecyclerConcurrentRepeatStress) > 0;
+                    output_row["isConcurrentEnabled"].Set(isConcurrentEnabled);
+                    output_row["isMemProtectMode"].Set(isMemProtectMode);
+                    output_row["isStressMode"].Set(isStressMode);
+                }
+                else
+                {
+                    output_row["isConcurrentEnabled"].Set(parsed.isConcurrentEnabled);
+                    output_row["isMemProtectMode"].Set((bool?)null);
+                    output_row["isStressMode"].Set((bool?)null);
+                }
+
                 output_row["passCount"].Set(parsed.passCount);
                 output_row["passElapsedTimesMicros"].Set(parsed.passElapsedTimesMicros);
                 output_row["passStartTimes"].Set(parsed.passStartTimes);
@@ -202,6 +230,8 @@ namespace Chakra.Utils
                 output_row["isInScript"].Set(parsed.isInScript);
                 output_row["isScriptActive"].Set(parsed.isScriptActive);
                 output_row["UIThreadBlockedMicros"].Set(parsed.UIThreadBlockedMicros);
+                output_row["UIThreadBlockedCpuUserTimeMicros"].Set(parsed.UIThreadBlockedCpuUserTimeMicros);
+                output_row["UIThreadBlockedCpuKernelTimeMicros"].Set(parsed.UIThreadBlockedCpuUserTimeMicros);
                 output_row["UIThreadBlockedNameCRCs"].Set(parsed.UIThreadBlockedNameCRCs);
                 output_row["AllocatorByteSizeEntries"].Set(parsed.AllocatorByteSizeEntries);
                 output_row["AllocatorByteSizeEntryNameCRCs"].Set(parsed.AllocatorByteSizeEntryNameCRCs);
@@ -292,6 +322,22 @@ namespace Chakra.Utils
                 yield return output_row;
             }
         }
+
+        [Flags]
+        enum RecyclerFlagsTableSummary : UInt32
+        {
+            None = 0x0000,
+            IsMemProtectMode = 0x0001,
+            IsConcurrentEnabled = 0x0002,
+            EnableScanInteriorPointers = 0x0004,
+            EnableScanImplicitRoots = 0x0008,
+            DisableCollectOnAllocationHeuristics = 0x0016,
+            RecyclerStress = 0x0032,
+            RecyclerBackgroundStress = 0x0064,
+            RecyclerConcurrentStress = 0x0128,
+            RecyclerConcurrentRepeatStress = 0x0256,
+            RecyclerPartialStress = 0x0512,
+        };
 
     }
 }

@@ -5,7 +5,7 @@
 //
 
 // DEFAULT Params - only used if the @@startDate is not specified
-#DECLARE startDate DateTime = DateTime.Parse(@"2018-06-28");
+#DECLARE startDate DateTime = DateTime.Now.AddDays(-2);
 #DECLARE endDate DateTime = @startDate.AddHours(1);
 
 // if @@startDate@@ is set via a parameter, then it will be replaced to reflect the set value. If it starts with "@@", then param hasn't been set
@@ -53,45 +53,23 @@ MODULE @"/shares/asimov.prod.data/Public/Resources/Latest/Asimov/Api/v3/Asimov.B
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Resources/WebPlatform/vCurrent/Newtonsoft.Json.dll";
 REFERENCE @"/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/bin/Chakra.Utils.dll";
 
-rawEvents =
-    VIEW "/shares/asimov.prod.data/PublicPartner/Processed/ChakraJavaScript/views/ReadChakraEventsWithDomain.view"
-    PARAMS
-    (
-        startDate = @startDate,
-        endDate = @endDate,
-        eventName = "Microsoft.Web.Platform.Chakra.ScriptContextTelemetry",
-        includePrivateDomains = false
-    );
+//
+//  Generate single file of last 28 days of data. This stream will be exported to Kusto, and lets us only keep last 28 days
+// of data, and easily react to schema changes
+//
+#DECLARE last28DaysPartitionStart string = @startDate.AddDays(-28).ToString("yyyy-MM-dd");
+#DECLARE last28DaysPartitionEnd string = @startDate.ToString("yyyy-MM-dd");
 
-nameValuePairs = 
-    PROCESS rawEvents
-        PRODUCE
-            time,
-            activityID,
-            scriptContextID,
-            markupIsTopLevel,
-            markupDomainHash,
-            domain,
-            binaryVersion,
-            binaryFlavor,
-            binaryArch,
-            discriminator1,
-            discriminator2,
-            chakraInstanceID,
-            chakraBuildCommit,
-            runType,
-            scriptContextLifeSpanMicros,
-            recyclerID,
-            propName,
-            propValue,
-            propType
-        USING Chakra.Utils.ScriptContextTelemetryProcessor;
+last28Days_RecyclerOOMEvents = 
+    SSTREAM SPARSE STREAMSET @outputRoot
+    PATTERN @"%Y/%m/%d/ChakraRecyclerOutOfMemoryEvents.ss" 
+    RANGE __date=[@last28DaysPartitionStart, @last28DaysPartitionEnd];
 
-#DECLARE outputPath string = string.Format("{0}/{1}/ScriptContextCounters.ss", @outputRoot, @outputDate);
+
+#DECLARE outputPath string = string.Format("{0}/Last28Days_RecyclerOutOfMemoryEvents.ss", @defaultOutputRoot);
 [Privacy.Asset.NonPersonal]
-OUTPUT nameValuePairs TO SSTREAM @outputPath
+OUTPUT last28Days_RecyclerOOMEvents TO SSTREAM @outputPath
 CLUSTERED BY 
-    domain,
-    propName,
-    propType
+    recyclerID,
+    chakraInstanceID
 WITH STREAMEXPIRY @streamExpiry;

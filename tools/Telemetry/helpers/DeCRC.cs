@@ -602,6 +602,8 @@ RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, committedBytes)
 RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, usedBytes)
 RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, reservedBytes)
 RECYCLER_SIZE_SUBFIELD(recyclerWithBarrierPageAllocator_end, numberOfSegments)
+
+#endif
 ";
 
         private static IEnumerable<string> ParseRecyclerSizeEntries()

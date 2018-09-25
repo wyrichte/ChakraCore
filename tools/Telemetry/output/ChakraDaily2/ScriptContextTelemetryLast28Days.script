@@ -81,6 +81,7 @@ last28DaysFiltered =
             binaryArch,
             discriminator1,
             discriminator2,
+            chakraInstanceID,
             chakraBuildCommit,
             runType,
             scriptContextLifeSpanMicros,

@@ -15,7 +15,7 @@ using System.Linq;
 //
 namespace Chakra.Utils
 {
-    public class RecyclerTelemetryNameValuePairsProcesor : Processor
+    public class RecyclerTelemetryUIThreadBlockedTimesProcesor : Processor
     {
 
         string[] keepColumns = {
@@ -27,6 +27,7 @@ namespace Chakra.Utils
                 "runType",
                 "discriminator1",
                 "discriminator2",
+                "chakraInstanceID",
                 "recyclerID",
                 "transmitEventID",
                 "recyclerLifeSpanMicros",
@@ -50,8 +51,9 @@ namespace Chakra.Utils
             }
 
             output_schema.Add(new ColumnInfo("propName", ColumnDataType.String));
-            output_schema.Add(new ColumnInfo("propValue", ColumnDataType.Long));
-            output_schema.Add(new ColumnInfo("propType", ColumnDataType.String));
+            output_schema.Add(new ColumnInfo("UIThreadBlockedMicros", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("UIThreadBlockedCpuUserTimeMicros", ColumnDataType.Long));
+            output_schema.Add(new ColumnInfo("UIThreadBlockedCpuKernelTimeMicros", ColumnDataType.Long));
             output_schema.Add(new ColumnInfo("passNumber", ColumnDataType.UInt));
 
             return output_schema;
@@ -78,9 +80,14 @@ namespace Chakra.Utils
                 uint passCount = input_row["passCount"].UInt;
 
                 Int64[] UIThreadBlockedMicros = input_row["UIThreadBlockedMicros"].Value as Int64[];
+                Int64[] UIThreadBlockedCpuUserTimeMicros = input_row["UIThreadBlockedCpuUserTimeMicros"].Value as Int64[];
+                Int64[] UIThreadBlockedCpuKernelTimeMicros = input_row["UIThreadBlockedCpuKernelTimeMicros"].Value as Int64[];
                 UInt64[] UIThreadBlockedNameCRCs = input_row["UIThreadBlockedNameCRCs"].Value as UInt64[];
 
-
+                // ensure we support builds before CPU times were present
+                if (UIThreadBlockedCpuUserTimeMicros == null) { UIThreadBlockedCpuUserTimeMicros = new long[UIThreadBlockedMicros.Length]; }
+                if (UIThreadBlockedCpuKernelTimeMicros == null) { UIThreadBlockedCpuKernelTimeMicros = new long[UIThreadBlockedMicros.Length]; }
+                
                 uint currentPass = passCount;
                 for (int pass = 0; pass < passCount; pass++)
                 {
@@ -90,13 +97,13 @@ namespace Chakra.Utils
                     for (int i = 0; i<UIThreadBlockedNameCRCs.Length; i++)
                     {
                         int idx = (pass * UIThreadBlockedNameCRCs.Length) + i;
-                        long propVal = UIThreadBlockedMicros[idx];
-                        if (propVal > 0)
+                        if (UIThreadBlockedMicros[idx] > 0 || UIThreadBlockedCpuUserTimeMicros[idx] > 0 || UIThreadBlockedCpuKernelTimeMicros[idx] > 0)
                         {
                             string propName = DeCRC.GetStringForCRC(UIThreadBlockedNameCRCs[i]);
                             output_row["propName"].Set(propName);
-                            output_row["propValue"].Set(propVal);
-                            output_row["propType"].Set("UI-Thread-Blocked");
+                            output_row["UIThreadBlockedMicros"].Set(UIThreadBlockedMicros[idx]);
+                            output_row["UIThreadBlockedCpuUserTimeMicros"].Set(UIThreadBlockedCpuUserTimeMicros[idx]);
+                            output_row["UIThreadBlockedCpuKernelTimeMicros"].Set(UIThreadBlockedCpuKernelTimeMicros[idx]);
                             yield return output_row;
                         }
                     }
