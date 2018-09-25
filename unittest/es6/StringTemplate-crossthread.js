@@ -26,7 +26,6 @@ var tests = [
 
             assert.isFalse(callsite === crossRealmCrossThread.callsite, "Cross thread, cross Realm does not share string template callsite object cache");
             assert.isFalse(callsite === crossRealmSameThread.callsite, "Same thread, cross Realm does not share string template callsite object cache");
-            assert.isTrue(callsite === sameRealm.callsite, "Same Realm (cross-frame) does share string template callsite object cache");
         }
     },
 ];
