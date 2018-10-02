@@ -106,10 +106,6 @@ namespace Js
 #endif
             );
 
-        static bool Is(Var instance);
-        static CustomExternalObject* FromVar(Var instance);
-        static CustomExternalObject* UnsafeFromVar(Var instance);
-
         virtual void Finalize(bool isShutdown) override;
         virtual void Dispose(bool isShutdown) override;
 
@@ -180,4 +176,13 @@ namespace Js
     // we need to change lib\static\base\MockExernalObject.h accordingly
     C_ASSERT(sizeof(CustomExternalObject) == sizeof(MockExternalObject));
     AUTO_REGISTER_RECYCLER_OBJECT_DUMPER(CustomExternalObject, &RecyclableObject::DumpObjectFunction);
+
+    template <> inline bool VarIsImpl<CustomExternalObject>(RecyclableObject* instance)
+    {
+        if (!VarIs<ExternalObject>(instance))
+        {
+            return false;
+        }
+        return VarTo<ExternalObject>(instance)->IsCustomExternalObject();
+    }
 }

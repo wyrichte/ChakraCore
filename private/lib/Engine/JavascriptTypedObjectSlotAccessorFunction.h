@@ -12,7 +12,7 @@ namespace Js
     class JavascriptTypedObjectSlotAccessorFunction : public RuntimeFunction
     {
     private:
-        DEFINE_MARSHAL_OBJECT_TO_SCRIPT_CONTEXT(JavascriptTypedObjectSlotAccessorFunction); 
+        DEFINE_MARSHAL_OBJECT_TO_SCRIPT_CONTEXT(JavascriptTypedObjectSlotAccessorFunction);
     protected:
         DEFINE_VTABLE_CTOR(JavascriptTypedObjectSlotAccessorFunction, RuntimeFunction);
     public:
@@ -22,14 +22,12 @@ namespace Js
         bool ValidateThisInstance(Var thisObject);
         bool InstanceOf(Var thisObj);
 
-        static JavascriptTypedObjectSlotAccessorFunction* FromVar(Var instance);
-        static JavascriptTypedObjectSlotAccessorFunction* UnsafeFromVar(Var instance);
-        static bool Is(Var instance);
-
         ScriptMethod GetFallBackTrampoline() const { return fallBackTrampoline; }
 
     private:
         int allowedTypeId;
         ScriptMethod fallBackTrampoline;
     };
+
+    template <> bool VarIsImpl<JavascriptTypedObjectSlotAccessorFunction>(RecyclableObject* object);
 };

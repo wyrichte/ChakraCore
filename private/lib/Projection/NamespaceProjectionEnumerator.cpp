@@ -7,19 +7,19 @@
 namespace Projection
 {
     NamespaceProjectionEnumerator::NamespaceProjectionEnumerator(NamespaceProjection *pNamespaceProjection, Var instance, IVarEnumerator *pDefaultPropertyEnumerator)
-        : refCount(0), firstMove(true), m_pNamespaceProjection(pNamespaceProjection, pNamespaceProjection->GetProjectionContext()->GetScriptContext()->GetRecycler()), 
+        : refCount(0), firstMove(true), m_pNamespaceProjection(pNamespaceProjection, pNamespaceProjection->GetProjectionContext()->GetScriptContext()->GetRecycler()),
         m_pDefaultPropertyEnumerator(pDefaultPropertyEnumerator)
-    {        
-        this->m_namespaceChildren = m_pNamespaceProjection->GetDirectChildren();        
+    {
+        this->m_namespaceChildren = m_pNamespaceProjection->GetDirectChildren();
         m_instance.Root(instance, m_pNamespaceProjection.GetRecycler());
-        
+
         m_pDefaultPropertyEnumerator->AddRef();
     }
 
     NamespaceProjectionEnumerator::~NamespaceProjectionEnumerator()
     {
         m_pDefaultPropertyEnumerator->Release();
-        m_instance.Unroot(m_pNamespaceProjection.GetRecycler());        
+        m_instance.Unroot(m_pNamespaceProjection.GetRecycler());
     }
 
     STDMETHODIMP NamespaceProjectionEnumerator::QueryInterface(REFIID riid, void **ppv)
@@ -28,28 +28,28 @@ namespace Projection
         {
             return E_POINTER;
         }
-        if (IsEqualGUID(riid, __uuidof(IVarEnumerator))) 
+        if (IsEqualGUID(riid, __uuidof(IVarEnumerator)))
         {
             *ppv = static_cast<IVarEnumerator*>(this);
         }
-        else if (IsEqualGUID(riid, IID_IUnknown)) 
+        else if (IsEqualGUID(riid, IID_IUnknown))
         {
             *ppv = static_cast<IVarEnumerator*>(this);
         }
-        else 
+        else
         {
             *ppv = NULL;
             return E_NOINTERFACE;
         }
 
         reinterpret_cast<IUnknown*>(*ppv)->AddRef();
-        
+
         return S_OK;
     }
 
-    STDMETHODIMP_(ULONG) NamespaceProjectionEnumerator::AddRef(void) 
-    { 
-        return InterlockedIncrement(&refCount); 
+    STDMETHODIMP_(ULONG) NamespaceProjectionEnumerator::AddRef(void)
+    {
+        return InterlockedIncrement(&refCount);
     }
 
     STDMETHODIMP_(ULONG) NamespaceProjectionEnumerator::Release(void)
@@ -87,7 +87,7 @@ namespace Projection
 
             *itemsAvailable = (m_namespaceChildren != nullptr);
         }
-        
+
         if (!m_namespaceChildren && m_pNamespaceProjection->GetIsExtensible())
         {
             HRESULT hr;
@@ -101,7 +101,7 @@ namespace Projection
                 {
                     hr = m_pDefaultPropertyEnumerator->GetCurrentName(&currentName);
                     IfFailedReturn(hr);
-                    szName = Js::JavascriptString::FromVar(currentName)->GetSz();
+                    szName = Js::VarTo<Js::JavascriptString>(currentName)->GetSz();
                 }
             } while (*itemsAvailable && (m_pNamespaceProjection->GetDirectChildren()->ContainsWhere([&](LPCWSTR name) {
                 return (wcscmp(name, szName) == 0);
@@ -109,11 +109,11 @@ namespace Projection
 
             return hr;
         }
-        
+
         return S_OK;
     }
 
-    STDMETHODIMP NamespaceProjectionEnumerator::GetCurrentName(__out Var* item) 
+    STDMETHODIMP NamespaceProjectionEnumerator::GetCurrentName(__out Var* item)
     {
         IfNullReturnError(item, E_POINTER);
         *item = nullptr;

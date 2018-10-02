@@ -21,17 +21,17 @@ namespace Projection
     Var ReleaseMethodThunk(Var method, Js::CallInfo callInfo, ...)
     {
 #if DBG
-        auto func = Js::JavascriptFunction::FromVar(method);
+        auto func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptFunction>(method);
         auto scriptContext = function->GetScriptContext();
 
         AssertMsg(args.Info.Count > 0, "Should always have implicit 'this'");
-        Assert(scriptContext->GetThreadContext()->IsScriptActive());   
-        
+        Assert(scriptContext->GetThreadContext()->IsScriptActive());
+
         if(args.Info.Count < 2)
         {
             // If no object provided to release, then return.
@@ -88,18 +88,18 @@ namespace Projection
     Var GetWeakWinRTPropertyThunk(Var method, Js::CallInfo callInfo, ...)
     {
 #if DBG
-        auto func = Js::JavascriptFunction::FromVar(method);
+        auto func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto scriptContext = function->GetScriptContext();
         auto projectionContext = (ProjectionContext *)function->GetSignature();
 
         AssertMsg(args.Info.Count > 0, "Should always have implicit 'this'");
-        Assert(scriptContext->GetThreadContext()->IsScriptActive());   
-        
+        Assert(scriptContext->GetThreadContext()->IsScriptActive());
+
         if(args.Info.Count < 3)
         {
             // If not both parameters passed : object from which to get the weak property and propertyName
@@ -122,18 +122,18 @@ namespace Projection
     Var SetWeakWinRTPropertyThunk(Var method, Js::CallInfo callInfo, ...)
     {
 #if DBG
-        auto func = Js::JavascriptFunction::FromVar(method);
+        auto func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto scriptContext = function->GetScriptContext();
         auto projectionContext = (ProjectionContext *)function->GetSignature();
 
         AssertMsg(args.Info.Count > 0, "Should always have implicit 'this'");
-        Assert(scriptContext->GetThreadContext()->IsScriptActive());   
-        
+        Assert(scriptContext->GetThreadContext()->IsScriptActive());
+
         if(args.Info.Count < 4)
         {
             // If not all three parameters passed : object from which to set the weak property, propertyName and actual property value
@@ -148,7 +148,7 @@ namespace Projection
         LPCWSTR propertyName = propertyNameString->GetSz();
         const Js::PropertyRecord *propertyNameRecord = nullptr;
         scriptContext->GetOrAddPropertyRecord(propertyName, Js::JavascriptString::GetBufferLength(propertyName), &propertyNameRecord);
-        
+
         // Set the value
         projectionContext->GetProjectionWriter()->SetWeakWinRTProperty(instance, propertyNameRecord, args[3]);
 
@@ -156,7 +156,7 @@ namespace Projection
     }
 
     ProjectionContext::ProjectionContext(ScriptSite* scriptSite, ThreadContext *threadContext):
-        m_namespaces(nullptr), 
+        m_namespaces(nullptr),
         metadata(nullptr),
         typeDefs(nullptr),
         m_pProjectionHost(nullptr),
@@ -174,7 +174,7 @@ namespace Projection
     {
         Assert(scriptSite != nullptr);
         scriptSite->AddRef();
-        
+
         // Having this flag in projectionContext, will help us disable this feature easily.
         supportsWeakDelegate = true;
 
@@ -230,8 +230,8 @@ namespace Projection
         typeDefs = nullptr;
         builder = nullptr;
     }
-    
-    ScriptEngine * ProjectionContext::GetScriptEngine() const 
+
+    ScriptEngine * ProjectionContext::GetScriptEngine() const
     {
         return scriptSite->GetScriptEngine();
     }
@@ -350,7 +350,7 @@ namespace Projection
             *ppAssembly = Anew(projectionAllocator, Metadata::Assembly, pMetaDataImport, this, projectionAllocator, isVersioned);
             metadata->Add(assemblyGuid, *ppAssembly);
 
-            TRACE_METADATA(_u("Metadata loaded for assembly %s\n"), assemblyName); 
+            TRACE_METADATA(_u("Metadata loaded for assembly %s\n"), assemblyName);
         }
         else
         {
@@ -359,7 +359,7 @@ namespace Projection
 
         return hr;
     }
-    
+
     HRESULT ProjectionContext::GetExprFromConcreteTypeName(HSTRING concreteTypeName, RtEXPR *expr)
     {
         Assert(concreteTypeName != NULL);
@@ -405,7 +405,7 @@ namespace Projection
                 CoTaskMemFree(typeNameParts);
                 return hr;
             }
-            
+
             // Release all read HSTRINGs
             while (readParts != 0)
             {
@@ -429,7 +429,7 @@ namespace Projection
         return hr;
     }
 
- 
+
     HRESULT ProjectionContext::GetTypeFromTypeNameParts(__in DWORD typeNamePartsCount, __in_ecount(typeNamePartsCount) HSTRING *typeNameParts, __in RtTYPE *type, DWORD *readParts)
     {
         Assert(threadContext->IsScriptActive());
@@ -635,8 +635,8 @@ namespace Projection
         return S_OK;
     }
 
-    DWORD ProjectionContext::GetTargetVersion() const 
-    { 
+    DWORD ProjectionContext::GetTargetVersion() const
+    {
         Assert(scriptContext->GetConfig()->GetProjectionConfig());
 
         return scriptContext->GetConfig()->GetProjectionConfig()->GetTargetVersion();
@@ -653,7 +653,7 @@ namespace Projection
             // override
             isExtensible = TRUE;
         }
-        
+
         TRACE_METADATA(_u("ProjectionContext::ReserveNamespace(): %s: isExtensible = %d %s\n"), name, isExtensible, AreProjectionPrototypesConfigurable() == TRUE ? _u("(DESIGN MODE)") : _u(""));
 
         // TODO - make sure we don't begin or end with a _u('.')
@@ -664,7 +664,7 @@ namespace Projection
 
         Var parentNamespaceObject = scriptContext->GetGlobalObject();
 
-        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false) 
+        BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
         {
             // Parse the name to ensure that all parent namespaces have been created
             // TODO: use StringBuilder.
@@ -709,9 +709,9 @@ namespace Projection
     HRESULT ProjectionContext::ResolveTypeName(MetadataStringId typeId, LPCWSTR typeName, Metadata::TypeDefProperties ** typeDef)
     {
         Assert(typeId != MetadataStringIdNil);
-        Assert(typeName == nullptr || IdOfString(typeName) == typeId);        
+        Assert(typeName == nullptr || IdOfString(typeName) == typeId);
         Assert(threadContext->IsScriptActive());
-        
+
         if (typeDefs == nullptr)
         {
             typeDefs = Anew(projectionAllocator, TYPEDEFPROPERTIESMAP, projectionAllocator);
@@ -728,7 +728,7 @@ namespace Projection
 
             return S_OK;
         }
-        
+
         LPCWSTR typeDefName = typeName ? typeName : StringOfId(typeId);
 
         HRESULT hr = S_OK;
@@ -742,7 +742,7 @@ namespace Projection
         DWORD typeDefToken = mdTokenNil;
 
         if (metadata)
-        {         
+        {
             int mapCount = metadata->Count();
 
             for (int i = 0; i < mapCount && !found; i++)
@@ -755,10 +755,10 @@ namespace Projection
                     found = true;
                     break;
                 }
-                
+
             }
         }
-        
+
         if (!found)
         {
             BOOL isVersioned;
@@ -784,17 +784,17 @@ namespace Projection
             IfFailedReturn(hr);
         }
 
-        
+
         *typeDef = const_cast<Metadata::TypeDefProperties *>(assembly->GetTypeDefProperties(typeDefToken));
         typeDefs->Add(typeId, *typeDef);
-        
+
         return S_OK;
     }
 
     // Info:        Get the projection string id for a given string.
     // Parameter:   sz - the string
     // Return:      The id of the string
-    MetadataStringId ProjectionContext::IdOfString(LPCWSTR sz) 
+    MetadataStringId ProjectionContext::IdOfString(LPCWSTR sz)
     {
         return Projection::IdOfString(scriptContext, sz);
     }
@@ -838,7 +838,7 @@ namespace Projection
         {
             hr = m_pProjectionHost->GetTypeMetaDataInformation(typeName, metaDataInformation, typeDefToken, isVersioned);
 
-            TRACE_METADATA(_u("GetTypeMetadataInformation(\"%s\"), result: %d\n"), typeName, *typeDefToken);            
+            TRACE_METADATA(_u("GetTypeMetadataInformation(\"%s\"), result: %d\n"), typeName, *typeDefToken);
         }
         END_LEAVE_SCRIPT(scriptContext);
 
@@ -894,7 +894,7 @@ namespace Projection
         return hr;
     }
 
-    Js::JavascriptWinRTFunction * 
+    Js::JavascriptWinRTFunction *
     ProjectionContext::CreateWinRTFunction(Js::JavascriptMethod entryPoint, PropertyId nameId, Var signature, bool fConstructor)
     {
         Recycler * recycler = this->scriptContext->GetRecycler();
@@ -932,7 +932,7 @@ namespace Projection
 STDMETHODIMP ScriptEngine::SetProjectionHost(IActiveScriptProjectionHost * host, BOOL isConfigurable, DWORD targetVersion, IDelegateWrapper* delegateWrapper)
 {
     IfNullReturnError(host, E_POINTER);
-    
+
     HRESULT hr = EnsureProjection();
     IfFailedReturn(hr);
 

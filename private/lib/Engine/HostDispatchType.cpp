@@ -5,9 +5,10 @@
 ********************************************************/
 #include "EnginePch.h"
 #include "hostdispatchenumerator.h"
+#include "Library/ModuleRoot.h"
 
 Js::RecyclableObject * HostDispatch::GetPrototypeSpecial()
-{    
+{
     Var result = nullptr;
     Js::Var values[2];
     Js::CallInfo info(2);
@@ -17,8 +18,8 @@ Js::RecyclableObject * HostDispatch::GetPrototypeSpecial()
 
     if (InvokeBuiltInOperationRemotely(Js::JavascriptObject::EntryInfo::GetPrototypeOf.GetOriginalEntryPoint(), args, &result))
     {
-        return Js::RecyclableObject::FromVar(result);
-    }   
+        return Js::VarTo<Js::RecyclableObject>(result);
+    }
     return GetType()->GetPrototype();
 }
 
@@ -57,7 +58,7 @@ Js::RecyclableObject* HostDispatch::GetModuleRootCallerObject()
         {
             // We're not in the global module. Use the current ModuleRoot.
             Js::HostObjectBase * hostObject = globalObject->GetHostObject();
-            Js::RecyclableObject *instance = Js::RecyclableObject::FromVar(hostObject->GetModuleRoot(moduleID));
+            Js::RecyclableObject *instance = Js::VarTo<Js::RecyclableObject>(hostObject->GetModuleRoot(moduleID));
             return instance;
         }
     }
@@ -87,7 +88,7 @@ BOOL HostDispatch::GetPropertyReferenceFromRootObject(Var originalInstance, Prop
     *wasGetAttempted = FALSE;
 
     Js::ScriptContext * scriptContext = this->GetScriptContext();
-    Js::GlobalObject * globalObj = scriptContext->GetGlobalObject(); 
+    Js::GlobalObject * globalObj = scriptContext->GetGlobalObject();
 
     // IE9+ mode, or we're in the global module.
     if (globalObj->HasOwnProperty(propertyId))
@@ -101,7 +102,7 @@ BOOL HostDispatch::GetPropertyReferenceFromRootObject(Var originalInstance, Prop
 
 
 Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
-{    
+{
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     BOOL result, wasGetAttempted = FALSE;
     if(IsGlobalDispatch()  && scriptContext->CanOptimizeGlobalLookup())
@@ -122,7 +123,7 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, Prop
 
     // Reject implicit call
     if (threadContext->IsDisableImplicitCall())
-    {        
+    {
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return Js::PropertyQueryFlags::Property_Found;
@@ -148,11 +149,11 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyQuery(Var originalInstance, Js::
 
 Js::PropertyQueryFlags HostDispatch::GetPropertyReferenceQuery(Js::Var originalInstance,PropertyId propertyId, Js::Var* value, Js::PropertyValueInfo* info,
     Js::ScriptContext* requestContext)
-{    
+{
     Js::ScriptContext * scriptContext = GetScriptContext();
     BOOL result, wasGetAttempted = FALSE;
     if(IsGlobalDispatch() && scriptContext->CanOptimizeGlobalLookup())
-    {            
+    {
         if (this->GetPropertyReferenceFromRootObject(originalInstance, propertyId, value, requestContext, &wasGetAttempted))
         {
             *value = Js::CrossSite::MarshalVar(requestContext, *value);
@@ -163,12 +164,12 @@ Js::PropertyQueryFlags HostDispatch::GetPropertyReferenceQuery(Js::Var originalI
         {
             return Js::PropertyQueryFlags::Property_NotFound;
         }
-    }    
+    }
     ThreadContext * threadContext = scriptContext->GetThreadContext();
 
     // Reject implicit call
     if (threadContext->IsDisableImplicitCall())
-    {        
+    {
         *value = requestContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return Js::PropertyQueryFlags::Property_Found;
@@ -211,7 +212,7 @@ BOOL HostDispatch::SetPropertyCore(const char16* propertyName, Js::Var value, Js
 }
 
 BOOL HostDispatch::SetAccessors(PropertyId propertyId, Var getter, Var setter, Js::PropertyOperationFlags flags)
-{    
+{
     Js::ScriptContext* scriptContext = GetScriptContext();
     if (getter)
     {
@@ -225,7 +226,7 @@ BOOL HostDispatch::SetAccessors(PropertyId propertyId, Var getter, Var setter, J
 }
 
 BOOL HostDispatch::GetAccessors(PropertyId propertyId, Var* getter, Var* setter, Js::ScriptContext * requestContext)
-{    
+{
     BOOL result = this->GetAccessors(requestContext->GetPropertyName(propertyId)->GetBuffer(), getter, setter, requestContext);
     if (result)
     {
@@ -263,7 +264,7 @@ Js::DescriptorFlags HostDispatch::GetSetter(Js::JavascriptString* propertyNameSt
 
 Js::DescriptorFlags HostDispatch::GetSetterCore(const char16* propertyName, Var* setterValue, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext)
 {
-    // TODO: what to do with requestScriptContext?    
+    // TODO: what to do with requestScriptContext?
     Js::Var getter;
     Js::PropertyValueInfo::SetNoCache(info, this);
     // in HostDispatch case, we can only have setter here (can't have the case of having property but not setter)
@@ -299,7 +300,7 @@ Js::DescriptorFlags HostDispatch::GetItemSetter(uint32 index, Js::Var* setterVal
 }
 
 BOOL HostDispatch::InitProperty(PropertyId propertyId, Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info)
-{   
+{
     // TODO: Populate info
     value = Js::CrossSite::MarshalVar(GetScriptContext(), value);
     // Reject implicit call
@@ -316,7 +317,7 @@ BOOL HostDispatch::InitProperty(PropertyId propertyId, Var value, Js::PropertyOp
 BOOL HostDispatch::DeleteProperty(PropertyId propertyId, Js::PropertyOperationFlags flags)
 {
     if (GetScriptContext()->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         GetScriptContext()->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return TRUE;
     }
@@ -341,17 +342,17 @@ BOOL HostDispatch::DeleteProperty(Js::JavascriptString *propertyNameString, Js::
 }
 
 BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptContext * requestContext)
-{    
+{
     BOOL result = this->GetDefaultValue(hint, value);
     if (result)
     {
         *value = Js::CrossSite::MarshalVar(requestContext, *value);
 
-        // If GetDefaultValue returned us another HostDispatch (the case with "Shell.Application".namespace), 
+        // If GetDefaultValue returned us another HostDispatch (the case with "Shell.Application".namespace),
         // JavascriptConversion::ToString will Assert that value we return should have been a primitive (not a HostDispatch).
         // We detect this here, and return false so JavascriptConversion::ToPrimitive can throw an error instead of Asserting.
         // For more info see BLUE: 147013.
-        if (HostDispatch::Is(*value))
+        if (Js::VarIs<HostDispatch>(*value))
         {
             return false;
         }
@@ -360,12 +361,12 @@ BOOL HostDispatch::ToPrimitive(Js::JavascriptHint hint, Var* value, Js::ScriptCo
 }
 
 BOOL HostDispatch::GetEnumerator(Js::JavascriptStaticEnumerator * enumerator, Js::EnumeratorFlags flags, Js::ScriptContext* requestContext, Js::EnumeratorCache * enumeratorCache)
-{    
+{
     if (!this->CanSupportIDispatchEx())
     {
         enumerator->Clear(flags, requestContext);
         return FALSE;
-    }    
+    }
     HostDispatch * currentHostDispatch;
     if (GetScriptContext() != requestContext)
     {
@@ -388,7 +389,7 @@ BOOL HostDispatch::StrictEquals(__in Var other, __out BOOL* value, Js::ScriptCon
     }
 
     HostDispatch *right;
-    Js::TypeId rightType = Js::JavascriptOperators::GetTypeId(other);    
+    Js::TypeId rightType = Js::JavascriptOperators::GetTypeId(other);
 
     if (rightType == Js::TypeIds_GlobalObject)
     {
@@ -424,9 +425,9 @@ BOOL HostDispatch::Equals(__in Var other, __out BOOL* value, Js::ScriptContext *
         *value = TRUE;
         return TRUE;
     }
-       
+
     Js::TypeId otherType = Js::JavascriptOperators::GetTypeId(other);
-    
+
     switch (otherType)
     {
     case Js::TypeIds_Undefined:
@@ -435,7 +436,7 @@ BOOL HostDispatch::Equals(__in Var other, __out BOOL* value, Js::ScriptContext *
         return TRUE;
 
     case Js::TypeIds_HostDispatch:
-        {            
+        {
             HostDispatch* right = (HostDispatch*)other;
             return HostDispatch::EqualsHelper(this, right, value, FALSE);
         }
@@ -459,14 +460,14 @@ BOOL HostDispatch::Equals(__in Var other, __out BOOL* value, Js::ScriptContext *
     case Js::TypeIds_ActivationObject:
     case Js::TypeIds_VariantDate:
         {
-            // == on a variant always returns false.  Putting this in a 
+            // == on a variant always returns false.  Putting this in a
             // switch in each .Equals to prevent a perf hit by adding an
             // if/branch to JavascriptOperators::Equal_Full
             *value = FALSE;
             break;
         }
     default:
-        {          
+        {
             Var  aLeft;
 
             if (Js::DynamicType::Is(otherType))
@@ -492,15 +493,15 @@ BOOL HostDispatch::Equals(__in Var other, __out BOOL* value, Js::ScriptContext *
 // Have to override this, otherwise we get 'function'.
 Var HostDispatch::GetTypeOfString(Js::ScriptContext * requestContext)
 {
-    // the dispatch object can be a wrapped Jscript object. 
-    // Cally GetTypeOfString() on the remote object would return a string object created on the other context. 
+    // the dispatch object can be a wrapped Jscript object.
+    // Cally GetTypeOfString() on the remote object would return a string object created on the other context.
     // Marshalling the remote string via a bstr wold be unnecessary expensive.
-    // TypeOf() returns 'object' for all objects, except functions. Use the remote type ID to build the string here. 
+    // TypeOf() returns 'object' for all objects, except functions. Use the remote type ID to build the string here.
     // Note that we need to check if it is the old engine representation of a function, in which case we need to return function
     Js::TypeId remoteTypeId;
     IUnknown* punkOldEngine = NULL;
     if (requestContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         requestContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return requestContext->GetLibrary()->GetObjectTypeDisplayString();
     }
@@ -524,7 +525,7 @@ Var HostDispatch::GetTypeOfString(Js::ScriptContext * requestContext)
 BOOL HostDispatch::HasInstance(Js::Var instance, Js::ScriptContext* scriptContext, Js::IsInstInlineCache* inlineCache)
 {
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -536,7 +537,7 @@ BOOL HostDispatch::HasInstance(Js::Var instance, Js::ScriptContext* scriptContex
     {
         return __super::HasInstance(instance, scriptContext); // Throw TypeError
     }
-    
+
     HostVariant* hostVariant = GetHostVariant();
 
         // Make sure the object on the other side is a JavascriptDispatch object
@@ -546,7 +547,7 @@ BOOL HostDispatch::HasInstance(Js::Var instance, Js::ScriptContext* scriptContex
     {
         VARIANT varInstance;
         VariantInit(&varInstance);
-            
+
         EXCEPINFO ei;
         memset(&ei, 0, sizeof(ei));
 
@@ -606,7 +607,7 @@ BOOL HostDispatch::IsWritable(PropertyId propertyId)
 {
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -632,7 +633,7 @@ BOOL HostDispatch::IsEnumerable(PropertyId propertyId)
 {
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -661,7 +662,7 @@ BOOL HostDispatch::IsConfigurable(PropertyId propertyId)
 {
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -692,7 +693,7 @@ BOOL HostDispatch::Seal()
     values[1] = this;
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -709,7 +710,7 @@ BOOL HostDispatch::Freeze()
     values[1] = this;
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -732,7 +733,7 @@ BOOL HostDispatch::IsSealed()
 {
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -748,14 +749,14 @@ BOOL HostDispatch::IsSealed()
         return FALSE;
     }
 
-    return Js::JavascriptBoolean::FromVar(result)->GetValue();
+    return Js::VarTo<Js::JavascriptBoolean>(result)->GetValue();
 }
 
 BOOL HostDispatch::IsFrozen()
 {
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -771,14 +772,14 @@ BOOL HostDispatch::IsFrozen()
         return FALSE;
     }
 
-    return Js::JavascriptBoolean::FromVar(result)->GetValue();
+    return Js::VarTo<Js::JavascriptBoolean>(result)->GetValue();
 }
 
 BOOL HostDispatch::IsExtensible()
 {
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return FALSE;
     }
@@ -794,7 +795,7 @@ BOOL HostDispatch::IsExtensible()
         return FALSE;
     }
 
-    return Js::JavascriptBoolean::FromVar(result)->GetValue();
+    return Js::VarTo<Js::JavascriptBoolean>(result)->GetValue();
 }
 
 __inline BOOL HostDispatch::IsGlobalDispatch()

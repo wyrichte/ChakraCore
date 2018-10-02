@@ -234,16 +234,16 @@ private:
     static void IterateArray(Js::JavascriptArray* arr, Fn callback)
     {
         Assert(arr);
-        Assert(!Js::JavascriptNativeIntArray::Is(arr) && !Js::JavascriptNativeFloatArray::Is(arr));
+        Assert(!Js::VarIs<Js::JavascriptNativeIntArray>(arr) && !Js::VarIs<Js::JavascriptNativeFloatArray>(arr));
 
         uint32 index = Js::JavascriptArray::InvalidIndex;
         uint32 dataIndex = Js::JavascriptArray::InvalidIndex;
         uint32 descriptorIndex = Js::JavascriptArray::InvalidIndex;
         Js::ES5Array* es5Arr = NULL;
 
-        if (Js::ES5Array::Is(arr))
+        if (Js::VarIs<Js::ES5Array>(arr))
         {
-            es5Arr = Js::ES5Array::FromVar(arr);
+            es5Arr = Js::VarTo<Js::ES5Array>(arr);
         }
 
         while (true)
@@ -345,8 +345,8 @@ private:
     bool IsRecyclableObject(ULONG flags) const { return ! IsScopeSlotArray(flags) && !IsBoundFunctionArgs(flags); }
     bool IsSiteClosed(ULONG flags) const { return (flags & PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED) != 0; }
     bool IsJavascriptString(Js::RecyclableObject* obj);
-    bool IsJavascriptString(Js::Var obj) { Assert(Js::RecyclableObject::Is(obj)); return IsJavascriptString(Js::RecyclableObject::FromVar(obj)); }
-    bool IsBoundFunction(Js::Var obj) { return Js::RecyclableObject::Is(obj) && Js::JavascriptFunction::Is(obj) && (Js::JavascriptFunction::FromVar(obj))->IsBoundFunction(); }
+    bool IsJavascriptString(Js::Var obj) { Assert(Js::VarIs<Js::RecyclableObject>(obj)); return IsJavascriptString(Js::VarTo<Js::RecyclableObject>(obj)); }
+    bool IsBoundFunction(Js::Var obj) { return Js::VarIs<Js::RecyclableObject>(obj) && Js::VarIs<Js::JavascriptFunction>(obj) && (Js::VarTo<Js::JavascriptFunction>(obj))->IsBoundFunction(); }
     bool IsBoundFunctionArgs(ULONG flags) const { return (flags & PROFILER_HEAP_OBJECT_INTERNAL_FLAGS_BOUND_FUNCTION_ARGUMENT_LIST) != 0; }
 
     ProfilerHeapObject* CreateElement(void* obj, size_t size, ULONG flags, UINT numberOfElements = 0);
@@ -377,7 +377,7 @@ private:
     UINT GetWeakSetCollectionCount(Js::JavascriptWeakSet* weakSet);
 
     // Can't report the string value if it isn't available, eg. unfinalized concat string
-    bool IsReportableJavascriptString(Js::RecyclableObject *obj) { return IsJavascriptString(obj) && Js::JavascriptString::FromVar(obj)->UnsafeGetBuffer() != NULL; }
+    bool IsReportableJavascriptString(Js::RecyclableObject *obj) { return IsJavascriptString(obj) && Js::VarTo<Js::JavascriptString>(obj)->UnsafeGetBuffer() != NULL; }
     void FillInternalProperty(Js::RecyclableObject* property, ProfilerHeapObjectOptionalInfo* optionalInfo);
     void FillNameProperties(Js::RecyclableObject* obj, ProfilerHeapObjectOptionalInfo* optionalInfo);
     void FillIndexProperties(Js::RecyclableObject* obj, ProfilerHeapObjectOptionalInfo* optionalInfo);

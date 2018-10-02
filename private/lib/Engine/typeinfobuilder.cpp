@@ -90,9 +90,9 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
     LPCOLESTR *paramNames;
     ELEMDESC *elemDesc;
     FUNCDESC funcdesc;
-    
-    Assert(Js::JavascriptFunction::Is(javascriptObject));
-    Js::JavascriptFunction* javascriptFunction = Js::JavascriptFunction::FromVar(javascriptObject);
+
+    Assert(Js::VarIs<Js::JavascriptFunction>(javascriptObject));
+    Js::JavascriptFunction* javascriptFunction = Js::VarTo<Js::JavascriptFunction>(javascriptObject);
     Js::ScriptContext* scriptContext = javascriptFunction->GetScriptContext();
     int paramCount = Js::JavascriptConversion::ToInt32(Js::JavascriptOperators::OP_GetProperty(javascriptObject, Js::PropertyIds::length, scriptContext), scriptContext);
 
@@ -136,7 +136,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
         paramNames = (LPCOLESTR *)_alloca(allocSize);
 
         memset(paramNames, 0, allocSize);
-        paramNames[0] = functionName;        
+        paramNames[0] = functionName;
         if (paramCount > 0)
         {
             // The parameter list in AST is not available after bytecode generator
@@ -149,7 +149,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
 
                 bool isLibraryCode = false;
 
-                if (sourceInfo && !sourceInfo->GetIsLibraryCode()) 
+                if (sourceInfo && !sourceInfo->GetIsLibraryCode())
                 {
                     isLibraryCode = true;
                 }
@@ -159,7 +159,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
                     Js::ParseableFunctionInfo* pFuncBody = NULL;
 
                     // If the function is defer deserialized, need to deserialize it here
-                    // If it's defer parse, that's fine since we still have the source info so 
+                    // If it's defer parse, that's fine since we still have the source info so
                     // we can use it directly without parsing the whole function
                     // We could probably optimize the defer deserialize case later
                     if (pFuncInfo->IsDeferredDeserializeFunction())
@@ -209,7 +209,7 @@ HRESULT TypeInfoBuilder::AddFunction(Js::Var javascriptObject,
             hr = m_pcti->SetFuncAndParamNames(m_cvarFunc, (LPOLESTR *)paramNames, paramCount);
             // if there is ambiguous name error returned from oleaut32, it means that we have case insensitive name
             // collision and tlb does not like it. To avoid failing the call all together and desotry c# dynamic functionality,
-            // we can just ignore the case insensitive duplicated name as if it doesn't exist. It will cause missing property 
+            // we can just ignore the case insensitive duplicated name as if it doesn't exist. It will cause missing property
             // in generated type library but it's better than not generating it as well.
             if (hr == 0x8002802c)
             {
@@ -248,7 +248,7 @@ HRESULT TypeInfoBuilder::AddVar(__in LPCOLESTR pszName, MEMBERID id)
     {
         // if there is ambiguous name error returned from oleaut32, it means that we have case insensitive name
         // collision and tlb does not like it. To avoid failing the call all together and desotry c# dynamic functionality,
-        // we can just ignore the case insensitive duplicated name as if it doesn't exist. It will cause missing property 
+        // we can just ignore the case insensitive duplicated name as if it doesn't exist. It will cause missing property
         // in generated type library but it's better than not generating it as well.
         if (hr == 0x8002802c)
         {
@@ -278,7 +278,7 @@ HRESULT TypeInfoBuilder::AddItemToTypeInfo(Js::Var javascriptObject,
 
     // we don't really have function body etc. for trampoline anyhow, let's treat them as properties.
     if (Js::JavascriptOperators::GetTypeId(javascriptObject) == Js::TypeIds_Function &&
-        !(Js::JavascriptObject::FromVar(javascriptObject))->IsExternal())
+        !(Js::VarTo<Js::DynamicObject>(javascriptObject))->IsExternal())
     {
         hr = AddFunction(javascriptObject, pszName, id);
     }
@@ -305,7 +305,7 @@ Js::Var  TypeInfoBuilder::GetPropertyNoThrow(Js::DynamicObject* dynamicObject, J
     }
     return prop;
 }
-    
+
 HRESULT TypeInfoBuilder::AddJavascriptObject(Js::DynamicObject* dynamicObject)
 {
     HRESULT hr = NOERROR;
@@ -317,7 +317,7 @@ HRESULT TypeInfoBuilder::AddJavascriptObject(Js::DynamicObject* dynamicObject)
 
     Js::ScriptContext* scriptContext = dynamicObject->GetScriptContext();
     Js::ForInObjectEnumerator forinEnumerator(dynamicObject, scriptContext);
-   
+
     while (true)
     {
         Js::PropertyId propId = Js::Constants::NoProperty;
@@ -326,7 +326,7 @@ HRESULT TypeInfoBuilder::AddJavascriptObject(Js::DynamicObject* dynamicObject)
         {
             break;
         }
-        Js::JavascriptString *propertyName = Js::JavascriptString::FromVar(propertyIndex);
+        Js::JavascriptString *propertyName = Js::VarTo<Js::JavascriptString>(propertyIndex);
         Js::PropertyRecord const * propRecord;
         if (propId == Js::Constants::NoProperty)
         {

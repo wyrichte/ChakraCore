@@ -14,7 +14,7 @@
 namespace Projection
 {
     InspectableObjectTypeOperations::InspectableObjectTypeOperations(
-        ProjectionContext *projectionContext, 
+        ProjectionContext *projectionContext,
         SpecialProjection * specialization)
         : ProjectionTypeOperations(), specialization(specialization)
     {
@@ -24,7 +24,7 @@ namespace Projection
     }
 
     HRESULT InspectableObjectTypeOperations::Create(
-        __in ProjectionContext *projectionContext, 
+        __in ProjectionContext *projectionContext,
         __in SpecialProjection * specialization,
         __out InspectableObjectTypeOperations** newInstance)
     {
@@ -36,12 +36,12 @@ namespace Projection
         *newInstance = pInspectableObjectTypeOperations;
         return S_OK;
     }
-    
+
     HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::HasOwnProperty(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -68,7 +68,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *propertyPresent) 
+        /* [out] */ BOOL *propertyPresent)
     {
         IfNullReturnError(value, E_INVALIDARG);
         *value = nullptr;
@@ -95,7 +95,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *propertyPresent) 
+        /* [out] */ BOOL *propertyPresent)
     {
         IfNullReturnError(value, E_INVALIDARG);
         *value = nullptr;
@@ -122,7 +122,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [in] */ Var value,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -147,7 +147,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -170,7 +170,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *itemPresent) 
+        /* [out] */ BOOL *itemPresent)
     {
         IfNullReturnError(value, E_INVALIDARG);
         *value = nullptr;
@@ -193,7 +193,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [in] */ Var value,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -213,7 +213,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ Var index,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -234,7 +234,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ BOOL enumNonEnumerable,
         /* [in] */ BOOL enumSymbols,
-        /* [out] */ IVarEnumerator **enumerator) 
+        /* [out] */ IVarEnumerator **enumerator)
     {
         IfNullReturnError(enumerator, E_INVALIDARG);
         *enumerator = nullptr;
@@ -273,7 +273,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -302,7 +302,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -332,7 +332,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -346,7 +346,7 @@ namespace Projection
                 *result = FALSE;
                 return hr;
             }
-            
+
             // otherwise search the default property store
         }
         else if (HasMapOrMapViewSpecialization())
@@ -365,7 +365,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         if (HasVectorOrVectorViewArrayLikeProjection())
         {
@@ -373,7 +373,7 @@ namespace Projection
             BOOL fHasOwnProperty = FALSE;
             HRESULT hr = VectorArray::HasOwnProperty(specialization, instance, propertyId, &fHasOwnProperty);
             ReturnHrIfNotEBOUNDS();
-            
+
             // otherwise search the default property store
         }
         else if (HasMapOrMapViewSpecialization())
@@ -391,7 +391,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         if (HasVectorOrVectorViewArrayLikeProjection())
         {
@@ -399,7 +399,7 @@ namespace Projection
             BOOL fHasOwnProperty = FALSE;
             HRESULT hr = VectorArray::HasOwnProperty(specialization, instance, propertyId, &fHasOwnProperty);
             ReturnHrIfNotEBOUNDS();
-            
+
             // otherwise search the default property store
         }
         else if (HasMapOrMapViewSpecialization())
@@ -417,7 +417,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         if (HasVectorOrVectorViewArrayLikeProjection())
         {
@@ -425,7 +425,7 @@ namespace Projection
             BOOL fHasOwnProperty = FALSE;
             HRESULT hr = VectorArray::HasOwnProperty(specialization, instance, propertyId, &fHasOwnProperty);
             ReturnHrIfNotEBOUNDS();
-            
+
             // otherwise search the default property store
         }
         else if (HasMapOrMapViewSpecialization())
@@ -463,7 +463,7 @@ namespace Projection
         else if (HasMapOrMapViewSpecialization())
         {
             return MapWithStringKey::GetAccessors(specialization, propertyId, result);
-        }            
+        }
         // otherwise search the default property store
         ReturnDefaultTypeOperationsMethodResult(GetAccessors,scriptDirect, instance, propertyId, getter, setter, result);
     }
@@ -473,7 +473,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [in] */ Var getter,
-        /* [in] */ Var setter) 
+        /* [in] */ Var setter)
     {
         if (HasVectorOrVectorViewArrayLikeProjection())
         {
@@ -483,13 +483,13 @@ namespace Projection
         else if (HasMapOrMapViewSpecialization())
         {
             return MapWithStringKey::SetAccessors(specialization, propertyId);
-        }            
-            
+        }
+
         // otherwise search the default property store
         ReturnDefaultTypeOperationsMethodResult(SetAccessors, scriptDirect, instance, propertyId, getter, setter);
     }
 
-    HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::GetSetter( 
+    HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::GetSetter(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
@@ -522,16 +522,16 @@ namespace Projection
 
             *flags = (hasOwnProperty == TRUE) ? DescriptorFlags_Writable : DescriptorFlags_None;
             return hr;
-        }       
-    
+        }
+
         ReturnDefaultTypeOperationsMethodResult(GetSetter, scriptDirect, instance, propertyId, setter, flags);
     }
 
-    HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::Equals( 
+    HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::Equals(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ Var other,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -548,11 +548,11 @@ namespace Projection
         return __super::Equals(scriptDirect, instance, other, result);
     }
 
-    HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::StrictEquals( 
+    HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::StrictEquals(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ Var other,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -573,7 +573,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ REFIID riid,
-        /* [out] */ void **ppvObj) 
+        /* [out] */ void **ppvObj)
     {
         IfNullReturnError(ppvObj, E_INVALIDARG);
         *ppvObj = nullptr;
@@ -589,13 +589,13 @@ namespace Projection
         {
             return E_POINTER;
         }
-        
+
         return unknown->QueryInterface(riid, ppvObj);
     }
 
     HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::GetHeapObjectInfo(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-        /* [in] */ Var instance, 
+        /* [in] */ Var instance,
         /* [in] */ ProfilerHeapObjectInfoFlags flags,
         /* [out] */ HostProfilerHeapObject** result,
         /* [out] */ HeapObjectInfoReturnResult* returnResult)
@@ -605,8 +605,8 @@ namespace Projection
         IfNullReturnError(returnResult, E_INVALIDARG);
         *returnResult = HeapObjectInfoReturnResult_NoResult;
 
-        Assert(ProjectionObjectInstance::Is(instance));
-        
+        Assert(Js::VarIs<ProjectionObjectInstance>(instance));
+
         // We dont need to fill in info about size, flags and objectId because that will be taken care of by common method
         if (flags == ProfilerHeapObjectInfoFull)
         {
@@ -618,7 +618,7 @@ namespace Projection
 
     HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::HasOwnItem(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-        /* [in] */ Var instance, 
+        /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [out] */ BOOL* result)
     {
@@ -632,7 +632,7 @@ namespace Projection
         else if (HasMapOrMapViewSpecialization())
         {
             return MapWithStringKey::HasOwnItem(specialization, instance, index, result);
-        }   
+        }
 
         ReturnDefaultTypeOperationsMethodResult(HasOwnItem, scriptDirect, instance, index, result);
     }
@@ -640,7 +640,7 @@ namespace Projection
     HRESULT STDMETHODCALLTYPE InspectableObjectTypeOperations::GetItemSetter(
             /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
             /* [in] */ Var instance,
-            /* [in] */ Var index, 
+            /* [in] */ Var index,
             /* [out] */ Var* setter,
             /* [out] */ ::DescriptorFlags* flags)
     {
@@ -666,8 +666,8 @@ namespace Projection
 
             *flags = (hasOwnProperty == TRUE) ? DescriptorFlags_Writable : DescriptorFlags_None;
             return hr;
-        }       
-    
+        }
+
         ReturnDefaultTypeOperationsMethodResult(GetItemSetter, scriptDirect, instance, index, setter, flags);
     }
 
@@ -677,7 +677,7 @@ namespace Projection
             /* [in] */ PropertyId propertyId,
             /* [in] */ Var value,
             /* [in] */ PropertyAttributes attributes,
-            /* [in] */ SideEffects effects, 
+            /* [in] */ SideEffects effects,
             /* [out]*/ BOOL* result)
     {
         IfNullReturnError(result, E_INVALIDARG);
@@ -694,8 +694,8 @@ namespace Projection
         else if (HasMapOrMapViewSpecialization())
         {
             return MapWithStringKey::SetProperty(specialization, instance, propertyId, value, result);
-        }   
+        }
 
-        ReturnDefaultTypeOperationsMethodResult(SetPropertyWithAttributes, scriptDirect, instance, propertyId, value, attributes, effects, result);    
+        ReturnDefaultTypeOperationsMethodResult(SetPropertyWithAttributes, scriptDirect, instance, propertyId, value, attributes, effects, result);
     }
 }

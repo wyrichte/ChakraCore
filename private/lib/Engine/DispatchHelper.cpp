@@ -137,7 +137,7 @@ void DispatchHelper::MarshalJsVarToDispatchVariant(Js::Var var,VARIANT *pVar)
     //
 
     JavascriptDispatch*   jsdisp;
-    Js::DynamicObject  *obj = Js::DynamicObject::FromVar(var);
+    Js::DynamicObject  *obj = Js::VarTo<Js::DynamicObject>(var);
     jsdisp = JavascriptDispatch::Create<false>(obj);
     AssertMsg(jsdisp->GetObject() == var, "Bad dispatch map entry");
     pVar->vt = VT_DISPATCH;
@@ -209,7 +209,7 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
                 // Pass Boolean as BOOL
                 //
                 pVar->vt = VT_BOOL;
-                pVar->boolVal = Js::JavascriptBoolean::FromVar(var)->GetValue() ? VARIANT_TRUE : VARIANT_FALSE;
+                pVar->boolVal = Js::VarTo<Js::JavascriptBoolean>(var)->GetValue() ? VARIANT_TRUE : VARIANT_FALSE;
                 break;
             }
 
@@ -228,14 +228,14 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
             case Js::TypeIds_Int64Number:
             {
                 pVar->vt = VT_R8;
-                pVar->dblVal = static_cast<double>(Js::JavascriptInt64Number::FromVar(var)->GetValue());
+                pVar->dblVal = static_cast<double>(Js::VarTo<Js::JavascriptInt64Number>(var)->GetValue());
                 break;
             }
 
             case Js::TypeIds_UInt64Number:
             {
                 pVar->vt = VT_R8;
-                pVar->dblVal = static_cast<double>(Js::JavascriptUInt64Number::FromVar(var)->GetValue());
+                pVar->dblVal = static_cast<double>(Js::VarTo<Js::JavascriptUInt64Number>(var)->GetValue());
                 break;
             }
 
@@ -251,7 +251,7 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
 
             case Js::TypeIds_String:
             {
-                Js::JavascriptString *str = Js::JavascriptString::FromVar(var);
+                Js::JavascriptString *str = Js::VarTo<Js::JavascriptString>(var);
                 if (str == str->GetLibrary()->GetNullString())
                 {
                     pVar->bstrVal = NULL;
@@ -319,7 +319,7 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
 
             case Js::TypeIds_Symbol:
             {
-                Js::JavascriptSymbol* sym = Js::JavascriptSymbol::FromVar(var);
+                Js::JavascriptSymbol* sym = Js::VarTo<Js::JavascriptSymbol>(var);
                 Js::JavascriptString* str = Js::JavascriptSymbol::ToString(sym->GetValue(), sym->GetScriptContext());
 
                 if (str == str->GetLibrary()->GetNullString())
@@ -342,13 +342,13 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
             case Js::TypeIds_VariantDate:
             {
                 pVar->vt = VT_DATE;
-                pVar->dblVal = Js::JavascriptVariantDate::FromVar(var)->GetValue();
+                pVar->dblVal = Js::VarTo<Js::JavascriptVariantDate>(var)->GetValue();
                 break;
             }
 
             case Js::TypeIds_HostDispatch:
             {
-                Js::RecyclableObject  *obj = Js::RecyclableObject::FromVar(var);
+                Js::RecyclableObject  *obj = Js::VarTo<Js::RecyclableObject>(var);
                 HostDispatch *pExternal = static_cast<HostDispatch*>(obj);
                 IDispatch* dispatch = pExternal->GetDispatch();
                 if (dispatch != NULL)
@@ -377,7 +377,7 @@ HRESULT DispatchHelper::MarshalJsVarToVariant(Js::Var var,VARIANT *pVar)
             case Js::TypeIds_HostObject:
             default:
             {
-                Js::RecyclableObject* jsInstance = Js::RecyclableObject::FromVar(var);
+                Js::RecyclableObject* jsInstance = Js::VarTo<Js::RecyclableObject>(var);
                 if (jsInstance->IsExternal())
                 {
                     MarshalJsVarToDispatchVariant(var, pVar);

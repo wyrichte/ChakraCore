@@ -19,15 +19,12 @@ namespace Js
         SetFunctionNameId(Js::TaggedInt::ToVarUnchecked(nameId));
     }
 
-
-    bool JavascriptTypedObjectSlotAccessorFunction::Is(Var instance)
+    template <> bool VarIsImpl<JavascriptTypedObjectSlotAccessorFunction>(RecyclableObject* object)
     {
-        if (VirtualTableInfo<Js::JavascriptTypedObjectSlotAccessorFunction>::HasVirtualTable(instance) ||
-            VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(instance))
-        {
-            return true;
-        }
-        return false;
+        bool result = VirtualTableInfo<Js::JavascriptTypedObjectSlotAccessorFunction>::HasVirtualTable(object) ||
+            VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(object);
+        Assert(!result || ((Js::VarTo<Js::JavascriptFunction>(object)->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0));
+        return result;
     }
 
     bool JavascriptTypedObjectSlotAccessorFunction::ValidateThisInstance(Js::Var thisObj)
@@ -50,16 +47,16 @@ namespace Js
             return true;
         }
 
-        if (!RecyclableObject::Is(thisObj))
+        if (!VarIs<RecyclableObject>(thisObj))
         {
             return false;
         }
 
-        Type* type = RecyclableObject::FromVar(thisObj)->GetType();
+        Type* type = VarTo<RecyclableObject>(thisObj)->GetType();
         if (ExternalTypeWithInheritedTypeIds::Is(type))
         {
             void* extension;
-            // When we are in this code path, we know that the object is a DOM CEO and they are trying to use FTL. 
+            // When we are in this code path, we know that the object is a DOM CEO and they are trying to use FTL.
             // FTL is only setup for object instance, but for prototypes (document.__proto__) they are using the same type, though
             // the object is not an instance with CBase associated. This is using the internal information about DOM's type system
             // but it is probably not worthy to do another interface/vtable call back to DOM just to call CBaseToVar which is basically
@@ -74,20 +71,6 @@ namespace Js
             return ((Js::ExternalTypeWithInheritedTypeIds*)type)->InstanceOf((TypeId)allowedTypeId);
         }
         return false;
-    }
-
-    JavascriptTypedObjectSlotAccessorFunction* JavascriptTypedObjectSlotAccessorFunction::FromVar(Var instance)
-    {
-        AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(instance));
-        AssertOrFailFast((Js::JavascriptFunction::FromVar(instance)->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
-        return static_cast<JavascriptTypedObjectSlotAccessorFunction*>(instance);
-    }
-
-    JavascriptTypedObjectSlotAccessorFunction* JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(Var instance)
-    {
-        Assert(Js::JavascriptTypedObjectSlotAccessorFunction::Is(instance));
-        Assert((Js::JavascriptFunction::FromVar(instance)->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
-        return static_cast<JavascriptTypedObjectSlotAccessorFunction*>(instance);
     }
 }
 #endif

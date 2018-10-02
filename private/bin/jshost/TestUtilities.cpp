@@ -168,14 +168,14 @@ Var TestUtilities::VectorIntToVar(Var function, CallInfo callInfo, Var* args)
         if (pInspectableAnimal == nullptr) { return nullObject; }
 
         HRESULT hr = pInspectableAnimal->QueryInterface(__uuidof(Animals::IGetVector), (LPVOID *)&pAnimal);
-        if (FAILED(hr)) { return nullObject; } 
+        if (FAILED(hr)) { return nullObject; }
 
         hr = pAnimal->GetVector(&pVector);
-        if (FAILED(hr)) { return nullObject; } 
+        if (FAILED(hr)) { return nullObject; }
 
         hr = scriptDirect->InspectableUnknownToVar(pVector, &vector);
-        if (FAILED(hr)) { return nullObject; } 
-        
+        if (FAILED(hr)) { return nullObject; }
+
         return vector;
     }
 
@@ -215,7 +215,7 @@ Var TestUtilities::GetRestrictedStringFromError(Var function, CallInfo callInfo,
         if (FAILED(hr)) { return undefinedObject; }
         return errorString;
     }
-    
+
     return undefinedObject;
 }
 
@@ -252,7 +252,7 @@ Var TestUtilities::GetCapabilitySidFromError(Var function, CallInfo callInfo, Va
         if (FAILED(hr)) { return undefinedObject; }
         return capabilityString;
     }
-    
+
     return undefinedObject;
 }
 
@@ -294,12 +294,12 @@ Var TestUtilities::GetMemoryFootprintOfRC(Var function, CallInfo callInfo, Var* 
         if (FAILED(hr)) { return undefinedObject; }
         return gcPressureVar;
     }
-    
+
     return undefinedObject;
 }
 
 Var TestUtilities::GetSystemStringFromHr(Var function, CallInfo callInfo, Var* args)
-{    
+{
     Var dynamo = args[0];
     IActiveScriptDirect * scriptDirect = NULL;
     if (FAILED(JScript9Interface::JsVarToScriptDirect(dynamo, &scriptDirect)))
@@ -459,7 +459,7 @@ Var TestUtilities::UpdateSimpleClassAndReturnAsVarByAlternateInterface(Var funct
 
     DevTests::SimpleTestNamespace::IEmptyInterface * spEmpty = nullptr;
     hr = spSimple->QueryInterface(__uuidof(DevTests::SimpleTestNamespace::IEmptyInterface), (void**)&spEmpty);
-    
+
     if (FAILED(hr))
     {
         return nullObject;
@@ -486,7 +486,7 @@ Var TestUtilities::VarToDispExTest(Var function, CallInfo callInfo, Var* args)
     }
 
     AutoReleasePtr<IActiveScriptDirect> autoReleaseScriptDirect(scriptDirect);
-    
+
     Var nullObject;
     if (FAILED(scriptDirect->GetNull(&nullObject)))
     {
@@ -578,7 +578,7 @@ Var TestUtilities::QueryPerformanceFrequency(Var function, CallInfo callInfo, Va
     ::QueryPerformanceFrequency(&count);
     Var var;
     scriptDirect->Int64ToVar(count.QuadPart, &var);
-    return var;   
+    return var;
 }
 
 Var TestUtilities::DoNotSupportWeakDelegate(Var function, CallInfo callInfo, Var* args)
@@ -720,7 +720,7 @@ void TestUtilities::Initialize(IActiveScriptDirect* activeScriptDirect, DelayLoa
     // id = scriptContext->GetOrAddPropertyId(_u("VectorIntToVar"), (UINT32)wcslen(_u("VectorIntToVar")));
     // hr = scriptContext->GetActiveScriptDirect()->BuildDOMDirectFunction(nullptr, TestUtilities::VectorIntToVar, id, -1, 0, &func);
     // if (FAILED(hr)) { return; }
-    // function = Js::JavascriptFunction::FromVar(func);
+    // function = Js::VarTo<Js::JavascriptFunction>(func);
     // Js::JavascriptOperators::InitProperty(function, Js::PropertyIds::length, Js::TaggedInt::ToVarUnchecked(0));
     // Js::JavascriptOperators::InitProperty(testUtilitiesObject, id, function);
 

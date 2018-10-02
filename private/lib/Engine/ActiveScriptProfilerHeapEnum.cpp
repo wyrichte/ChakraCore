@@ -228,11 +228,11 @@ PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(Js::Rec
 #if DBG
     ValidateTypeMap();
 #endif
-    if (JsrtExternalObject::Is(obj))
+    if (Js::VarIs<JsrtExternalObject>(obj))
     {
         return GetTypeNameId(HeapObjectType_JsrtExternalObject);
     }
-    if (! Js::ExternalObject::Is(obj))
+    if (! Js::VarIs<Js::ExternalObject>(obj))
     {
         if (Projection::IsWinRTConstructorFunction(obj))
         {
@@ -244,11 +244,11 @@ PROFILER_HEAP_OBJECT_NAME_ID ActiveScriptProfilerHeapEnum::GetTypeNameId(Js::Rec
         Assert(externalTypeId != HeapObjectType_Invalid);
         return GetTypeNameId(externalTypeId);
     }
-    if (! Js::CustomExternalObject::Is(obj))
+    if (! Js::VarIs<Js::CustomExternalObject>(obj))
     {
         return GetTypeNameId(HeapObjectType_HostObject);
     }
-    else if (IsWinRTType(Js::CustomExternalObject::FromVar(obj)))
+    else if (IsWinRTType(Js::VarTo<Js::CustomExternalObject>(obj)))
     {
         return GetTypeNameId(HeapObjectType_WinRT);
     }
@@ -643,7 +643,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
     }
     else if (! IsSiteClosed(flags))
     {
-        element = CreateObjectElement(Js::RecyclableObject::FromVar(obj)->GetThisObjectOrUnWrap(), size);
+        element = CreateObjectElement(Js::VarTo<Js::RecyclableObject>(obj)->GetThisObjectOrUnWrap(), size);
     }
     else
     {
@@ -840,13 +840,13 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
             {
                 if (Projection::NamespaceProjection::Is(obj))
                 {
-                    auto namespaceProjection = (Projection::NamespaceProjection *)(Js::CustomExternalObject::FromVar(obj)->GetTypeOperations());
+                    auto namespaceProjection = (Projection::NamespaceProjection *)(Js::VarTo<Js::CustomExternalObject>(obj)->GetTypeOperations());
                     extObj->typeNameId = GetPropertyId(namespaceProjection->GetFullName());
                     extObj->flags = PROFILER_HEAP_OBJECT_FLAGS_WINRT_NAMESPACE;
                 }
                 else
                 {
-                    extObj->typeNameId = Js::CustomExternalObject::FromVar(obj)->GetTypeNameId();
+                    extObj->typeNameId = Js::VarTo<Js::CustomExternalObject>(obj)->GetTypeNameId();
                 }
             }
         }
@@ -863,7 +863,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
         profObj->jsInfo.optionalInfoCount += extObj->optionalInfoCount;
         if (typeNameId == GetTypeNameId(HeapObjectType_DOM))
         {
-            profObj->jsInfo.typeNameId = Js::CustomExternalObject::FromVar((Js::Var)obj)->GetTypeNameId();
+            profObj->jsInfo.typeNameId = Js::VarTo<Js::CustomExternalObject>((Js::Var)obj)->GetTypeNameId();
         }
         else if (extObj->typeNameId != 0 && extObj->typeNameId != PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE)
         {
@@ -900,33 +900,33 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
             offsetof(ProfilerHeapObjectOptionalInfo, indexPropertyList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(indexPropertyCount);
     }
 
-    if (Js::JavascriptMap::Is(obj))
+    if (Js::VarIs<Js::JavascriptMap>(obj))
     {
-        collectionCount = GetMapCollectionCount(Js::JavascriptMap::FromVar(obj));
+        collectionCount = GetMapCollectionCount(Js::VarTo<Js::JavascriptMap>(obj));
         collectionAllocSize = collectionCount == 0 ? 0 :
             offsetof(ProfilerHeapObjectOptionalInfo, mapCollectionList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(collectionCount);
     }
-    else if (Js::JavascriptSet::Is(obj))
+    else if (Js::VarIs<Js::JavascriptSet>(obj))
     {
-        collectionCount = GetSetCollectionCount(Js::JavascriptSet::FromVar(obj));
+        collectionCount = GetSetCollectionCount(Js::VarTo<Js::JavascriptSet>(obj));
         collectionAllocSize = collectionCount == 0 ? 0 :
             offsetof(ProfilerHeapObjectOptionalInfo, setCollectionList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(collectionCount);
     }
-    else if (Js::JavascriptWeakMap::Is(obj))
+    else if (Js::VarIs<Js::JavascriptWeakMap>(obj))
     {
-        collectionCount = GetWeakMapCollectionCount(Js::JavascriptWeakMap::FromVar(obj));
+        collectionCount = GetWeakMapCollectionCount(Js::VarTo<Js::JavascriptWeakMap>(obj));
         collectionAllocSize = collectionCount == 0 ? 0 :
             offsetof(ProfilerHeapObjectOptionalInfo, weakMapCollectionList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(collectionCount);
     }
-    else if (Js::JavascriptWeakSet::Is(obj))
+    else if (Js::VarIs<Js::JavascriptWeakSet>(obj))
     {
-        collectionCount = GetWeakSetCollectionCount(Js::JavascriptWeakSet::FromVar(obj));
+        collectionCount = GetWeakSetCollectionCount(Js::VarTo<Js::JavascriptWeakSet>(obj));
         collectionAllocSize = collectionCount == 0 ? 0 :
             offsetof(ProfilerHeapObjectOptionalInfo, setCollectionList.elements) + sizeof(PROFILER_HEAP_OBJECT_RELATIONSHIP)*(collectionCount);
     }
-    else if (CONFIG_FLAG(EnableFunctionSourceReportForHeapEnum) && Js::JavascriptFunction::Is(obj))
+    else if (CONFIG_FLAG(EnableFunctionSourceReportForHeapEnum) && Js::VarIs<Js::JavascriptFunction>(obj))
     {
-        Js::FunctionInfo* funcInfo = Js::JavascriptFunction::FromVar(obj)->GetFunctionInfo();
+        Js::FunctionInfo* funcInfo = Js::VarTo<Js::JavascriptFunction>(obj)->GetFunctionInfo();
         Assert(funcInfo);
         if (funcInfo->HasParseableInfo())
         {
@@ -947,7 +947,7 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
             }
         }
     }
-    else if (Js::DataView::Is(obj))
+    else if (Js::VarIs<Js::DataView>(obj))
     {
         relationshipCount = _countof(c_dataViewRelationshipNames);
     }
@@ -1035,24 +1035,24 @@ ActiveScriptProfilerHeapEnum::ProfilerHeapObject* ActiveScriptProfilerHeapEnum::
 
     if (collectionAllocSize > 0)
     {
-        if (Js::JavascriptMap::Is(obj))
+        if (Js::VarIs<Js::JavascriptMap>(obj))
         {
-            FillMapCollectionList(Js::JavascriptMap::FromVar(obj), optionalInfoNext);
+            FillMapCollectionList(Js::VarTo<Js::JavascriptMap>(obj), optionalInfoNext);
             Assert(optionalInfoNext->mapCollectionList.count == collectionCount);
         }
-        else if (Js::JavascriptSet::Is(obj))
+        else if (Js::VarIs<Js::JavascriptSet>(obj))
         {
-            FillSetCollectionList(Js::JavascriptSet::FromVar(obj), optionalInfoNext);
+            FillSetCollectionList(Js::VarTo<Js::JavascriptSet>(obj), optionalInfoNext);
             Assert(optionalInfoNext->setCollectionList.count == collectionCount);
         }
-        else if (Js::JavascriptWeakMap::Is(obj))
+        else if (Js::VarIs<Js::JavascriptWeakMap>(obj))
         {
-            FillWeakMapCollectionList(Js::JavascriptWeakMap::FromVar(obj), optionalInfoNext);
+            FillWeakMapCollectionList(Js::VarTo<Js::JavascriptWeakMap>(obj), optionalInfoNext);
             Assert(optionalInfoNext->weakMapCollectionList.count == collectionCount);
         }
-        else if (Js::JavascriptWeakSet::Is(obj))
+        else if (Js::VarIs<Js::JavascriptWeakSet>(obj))
         {
-            FillWeakSetCollectionList(Js::JavascriptWeakSet::FromVar(obj), optionalInfoNext);
+            FillWeakSetCollectionList(Js::VarTo<Js::JavascriptWeakSet>(obj), optionalInfoNext);
             Assert(optionalInfoNext->setCollectionList.count == collectionCount);
         }
 
@@ -1103,7 +1103,7 @@ HostProfilerHeapObject* ActiveScriptProfilerHeapEnum::CreateExternalObjectElemen
 
 HRESULT ActiveScriptProfilerHeapEnum::GetHeapObjectInfo(Var instance, HostProfilerHeapObject** heapObjOut, HeapObjectInfoReturnResult& returnResult)
 {
-    Js::CustomExternalObject* obj = Js::CustomExternalObject::FromVar(instance);
+    Js::CustomExternalObject* obj = Js::VarTo<Js::CustomExternalObject>(instance);
     Js::ScriptContext* scriptContext = obj->GetScriptContext();
     HRESULT hr = E_NOTIMPL;
 
@@ -1129,13 +1129,13 @@ UINT ActiveScriptProfilerHeapEnum::GetObjectSize(void* obj, size_t size)
     {
         if (IsJavascriptString(obj))
         {
-            return UInt32Math::Add(size, Recycler::GetAlignedSize(Js::JavascriptString::FromVar(obj)->GetAllocatedByteCount()));
+            return UInt32Math::Add(size, Recycler::GetAlignedSize(Js::VarTo<Js::JavascriptString>(obj)->GetAllocatedByteCount()));
         }
-        if (Js::ArrayBuffer::Is(obj))
+        if (Js::VarIs<Js::ArrayBuffer>(obj))
         {
-            return UInt32Math::Add(size, Js::ArrayBuffer::FromVar(obj)->GetByteLength(), Js::Throw::OutOfMemory);
+            return UInt32Math::Add(size, Js::VarTo<Js::ArrayBuffer>(obj)->GetByteLength(), Js::Throw::OutOfMemory);
         }
-        if (Js::JavascriptArray::Is(obj))
+        if (Js::JavascriptArray::IsNonES5Array(obj))
         {
             // TODO: Calculate more accurate size information for arrays based on number of elements and overhead of each element.
             //       Small arrays (<= 16 elements) already have this overhead figured into their heap-allocated size.
@@ -1196,9 +1196,9 @@ UINT ActiveScriptProfilerHeapEnum::GetNamePropertyCount(Js::RecyclableObject* ob
         namePropertyCount += GetNamePropertySlotCount(obj, relationshipId);
     }
 
-    if (!LegacyBehavior() && Js::RootObjectBase::Is(obj))
+    if (!LegacyBehavior() && Js::VarIs<Js::RootObjectBase>(obj))
     {
-        Js::RootObjectBase::FromVar(obj)->MapLetConstGlobals([scriptContext,&namePropertyCount](const Js::PropertyRecord*, Var value, bool) {
+        Js::VarTo<Js::RootObjectBase>(obj)->MapLetConstGlobals([scriptContext,&namePropertyCount](const Js::PropertyRecord*, Var value, bool) {
             if (!scriptContext->IsUndeclBlockVar(value))
             {
                 namePropertyCount += 1;
@@ -1217,7 +1217,7 @@ Js::ArrayObject* ActiveScriptProfilerHeapEnum::GetIndexPropertyArray(Js::Recycla
     }
     if (Js::DynamicType::Is(obj->GetTypeId()))
     {
-        Js::DynamicObject* dynamicObj = Js::DynamicObject::FromVar(obj);
+        Js::DynamicObject* dynamicObj = Js::VarTo<Js::DynamicObject>(obj);
         return dynamicObj->GetObjectArray();
     }
     return NULL;
@@ -1239,19 +1239,19 @@ UINT ActiveScriptProfilerHeapEnum::GetIndexPropertyCount(Js::RecyclableObject* o
                 break;
 
             case Js::TypeIds_NativeIntArray:
-                IterateNativeArray(Js::JavascriptNativeIntArray::FromVar(arr), [&elementCount](int32 element, uint32 index) {
+                IterateNativeArray(Js::VarTo<Js::JavascriptNativeIntArray>(arr), [&elementCount](int32 element, uint32 index) {
                     ++elementCount;
                 });
                 break;
 
             case Js::TypeIds_CopyOnAccessNativeIntArray:
-                IterateNativeArray(Js::JavascriptCopyOnAccessNativeIntArray::FromVar(arr), [&elementCount](int32 element, uint32 index) {
+                IterateNativeArray(Js::VarTo<Js::JavascriptCopyOnAccessNativeIntArray>(arr), [&elementCount](int32 element, uint32 index) {
                     ++elementCount;
                 });
                 break;
 
             case Js::TypeIds_NativeFloatArray:
-                IterateNativeArray(Js::JavascriptNativeFloatArray::FromVar(arr), [&elementCount](double element, uint32 index) {
+                IterateNativeArray(Js::VarTo<Js::JavascriptNativeFloatArray>(arr), [&elementCount](double element, uint32 index) {
                     ++elementCount;
                 });
                 break;
@@ -1268,9 +1268,9 @@ UINT ActiveScriptProfilerHeapEnum::GetIndexPropertyCount(Js::RecyclableObject* o
 
 LPCWSTR ActiveScriptProfilerHeapEnum::GetFunctionName(Js::RecyclableObject* obj)
 {
-    if (Js::JavascriptFunction::Is(obj))
+    if (Js::VarIs<Js::JavascriptFunction>(obj))
     {
-        Js::JavascriptFunction* javascriptFunction = Js::JavascriptFunction::FromVar(obj);
+        Js::JavascriptFunction* javascriptFunction = Js::VarTo<Js::JavascriptFunction>(obj);
         if (javascriptFunction->GetFunctionInfo()->IsDeferredDeserializeFunction())
         {
             Js::DeferDeserializeFunctionInfo* deferDeserializeFunctionInfo = javascriptFunction->GetDeferDeserializeFunctionInfo();
@@ -1294,18 +1294,18 @@ uint16 ActiveScriptProfilerHeapEnum::GetScopeCount(Js::RecyclableObject* obj)
         return args->GetFrameObject() ? 1 : 0;
     }
 
-    if (! Js::ScriptFunction::Is(obj))
+    if (! Js::VarIs<Js::ScriptFunction>(obj))
     {
         return 0;
     }
 
-    if (Js::AsmJsScriptFunction::Is(obj))
+    if (Js::VarIs<Js::AsmJsScriptFunction>(obj))
     {
         // AsmJs function doesn't have ScopeSlots in framedisplay scopes instead it have custom AsmJsModuleMemory pointer
         return 0;
     }
 
-    Js::ScriptFunction* fcn = Js::ScriptFunction::FromVar(obj);
+    Js::ScriptFunction* fcn = Js::VarTo<Js::ScriptFunction>(obj);
     Js::FrameDisplay* environment = fcn->GetEnvironment();
     return (! environment) ? 0 : environment->GetLength();
 }
@@ -1354,9 +1354,9 @@ void ActiveScriptProfilerHeapEnum::FillNameProperties(Js::RecyclableObject* obj,
         }
     }
 
-    if (!LegacyBehavior() && Js::RootObjectBase::Is(obj))
+    if (!LegacyBehavior() && Js::VarIs<Js::RootObjectBase>(obj))
     {
-        Js::RootObjectBase::FromVar(obj)->MapLetConstGlobals([&](const Js::PropertyRecord* propertyRecord, Var value, bool isConst)
+        Js::VarTo<Js::RootObjectBase>(obj)->MapLetConstGlobals([&](const Js::PropertyRecord* propertyRecord, Var value, bool isConst)
         {
             if (!scriptContext->IsUndeclBlockVar(value))
             {
@@ -1393,21 +1393,21 @@ void ActiveScriptProfilerHeapEnum::FillIndexProperties(Js::RecyclableObject* obj
             break;
 
         case Js::TypeIds_NativeIntArray:
-            IterateNativeArray(Js::JavascriptNativeIntArray::FromVar(arr), [this, &elementCount, &indexPropertyList](int32 elementValue, uint32 index) {
+            IterateNativeArray(Js::VarTo<Js::JavascriptNativeIntArray>(arr), [this, &elementCount, &indexPropertyList](int32 elementValue, uint32 index) {
                 indexPropertyList.elements[elementCount].relationshipId = (PROFILER_HEAP_OBJECT_NAME_ID)index;
                 FillNumberProperty(elementValue, indexPropertyList.elements[elementCount++]);
             });
             break;
 
         case Js::TypeIds_CopyOnAccessNativeIntArray:
-            IterateNativeArray(Js::JavascriptCopyOnAccessNativeIntArray::FromVar(arr), [this, &elementCount, &indexPropertyList](int32 elementValue, uint32 index) {
+            IterateNativeArray(Js::VarTo<Js::JavascriptCopyOnAccessNativeIntArray>(arr), [this, &elementCount, &indexPropertyList](int32 elementValue, uint32 index) {
                 indexPropertyList.elements[elementCount].relationshipId = (PROFILER_HEAP_OBJECT_NAME_ID)index;
                 FillNumberProperty(elementValue, indexPropertyList.elements[elementCount++]);
             });
             break;
 
         case Js::TypeIds_NativeFloatArray:
-            IterateNativeArray(Js::JavascriptNativeFloatArray::FromVar(arr), [this, &elementCount, &indexPropertyList](double elementValue, uint32 index) {
+            IterateNativeArray(Js::VarTo<Js::JavascriptNativeFloatArray>(arr), [this, &elementCount, &indexPropertyList](double elementValue, uint32 index) {
                 indexPropertyList.elements[elementCount].relationshipId = (PROFILER_HEAP_OBJECT_NAME_ID)index;
                 FillNumberProperty(elementValue, indexPropertyList.elements[elementCount++]);
             });
@@ -1429,15 +1429,15 @@ void ActiveScriptProfilerHeapEnum::FillProperty(Js::ScriptContext *scriptContext
         AssertMsg(FALSE, "Property value should never be NULL");
         Js::Throw::InternalError();
     }
-    if (scriptContext->GetRecycler()->IsValidObject(property) && Js::RecyclableObject::Is(property))
+    if (scriptContext->GetRecycler()->IsValidObject(property) && Js::VarIs<Js::RecyclableObject>(property))
     {
         SetRelationshipInfo(element, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         element.objectId = (DWORD_PTR)property;
         return;
     }
-    if (Js::JavascriptString::Is(property))
+    if (Js::VarIs<Js::JavascriptString>(property))
     {
-        FillStringProperty(Js::JavascriptString::FromVar(property)->GetString(), element);
+        FillStringProperty(Js::VarTo<Js::JavascriptString>(property)->GetString(), element);
         return;
     }
     if(Js::TaggedInt::Is(property))
@@ -1503,8 +1503,8 @@ void ActiveScriptProfilerHeapEnum::FillScopes(Js::RecyclableObject* obj, Profile
         return;
     }
 
-    Assert(Js::ScriptFunction::Is(obj));
-    Js::ScriptFunction* fcn = Js::ScriptFunction::FromVar(obj);
+    Assert(Js::VarIs<Js::ScriptFunction>(obj));
+    Js::ScriptFunction* fcn = Js::VarTo<Js::ScriptFunction>(obj);
     Js::FrameDisplay* environment = fcn->GetEnvironment();
     Assert(environment);
     uint16 scopeCount = environment->GetLength();
@@ -1575,7 +1575,7 @@ void ActiveScriptProfilerHeapEnum::Visit(void* obj, ULONG flags, UINT numberOfEl
     flags |= (! heapObject.SetMemoryProfilerHasEnumerated() ? PROFILER_HEAP_OBJECT_FLAGS_NEW_OBJECT : 0);
     if (IsRecyclableObject(flags))
     {
-        Js::RecyclableObject * object= Js::RecyclableObject::FromVar(heapObject.GetObjectAddress());
+        Js::RecyclableObject * object= Js::VarTo<Js::RecyclableObject>(heapObject.GetObjectAddress());
         flags |= object->GetScriptContext()->IsClosed() ? PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED : 0;
         if (IsJavascriptString(object))
         {
@@ -1584,7 +1584,7 @@ void ActiveScriptProfilerHeapEnum::Visit(void* obj, ULONG flags, UINT numberOfEl
 #ifdef HEAP_ENUMERATION_VALIDATION
         if ((Js::DynamicType::Is(object->GetTypeId())))
         {
-            Js::DynamicObject::FromVar(object)->SetHeapEnumValidationCookie(this->enumerationCount);
+            Js::VarTo<Js::DynamicObject>(object)->SetHeapEnumValidationCookie(this->enumerationCount);
         }
 #endif
     }
@@ -1781,8 +1781,8 @@ void ActiveScriptProfilerHeapEnum::FillWeakSetCollectionList(Js::JavascriptWeakS
 void ActiveScriptProfilerHeapEnum::FillRelationships(Js::RecyclableObject* obj, ProfilerHeapObjectOptionalInfo* optionalInfo)
 {
     AssertMsg(
-        (Js::JavascriptFunction::Is(obj) && Js::JavascriptFunction::FromVar(obj)) ||
-        (Js::DataView::Is(obj) && Js::DataView::FromVar(obj)),
+        (Js::VarIs<Js::JavascriptFunction>(obj) && Js::VarTo<Js::JavascriptFunction>(obj)) ||
+        (Js::VarIs<Js::DataView>(obj) && Js::VarTo<Js::DataView>(obj)),
         "Currently we are only doing this for functions and DataViews.");
 
     optionalInfo->infoType = PROFILER_HEAP_OBJECT_OPTIONAL_INFO_RELATIONSHIPS;
@@ -1790,12 +1790,12 @@ void ActiveScriptProfilerHeapEnum::FillRelationships(Js::RecyclableObject* obj, 
 
     UINT relationshipCount = 0;
 
-    if (Js::JavascriptFunction::Is(obj))
+    if (Js::VarIs<Js::JavascriptFunction>(obj))
     {
-        Js::JavascriptFunction* function = Js::JavascriptFunction::FromVar(obj);
+        Js::JavascriptFunction* function = Js::VarTo<Js::JavascriptFunction>(obj);
         Assert(function);
 
-        Js::FunctionInfo* functionInfo = Js::JavascriptFunction::FromVar(obj)->GetFunctionInfo();
+        Js::FunctionInfo* functionInfo = Js::VarTo<Js::JavascriptFunction>(obj)->GetFunctionInfo();
         Assert(functionInfo);
 
         AssertMsg(functionInfo->HasParseableInfo() || functionInfo->IsDeferredDeserializeFunction(),
@@ -1830,9 +1830,9 @@ void ActiveScriptProfilerHeapEnum::FillRelationships(Js::RecyclableObject* obj, 
         FillNumberRelationship(relationships.elements[relationshipCount++], propId++, columnNumber);
         Assert(propId == GetEnginePropertyCount() + _countof(c_functionRelationshipNames));
     }
-    else if (Js::DataView::Is(obj))
+    else if (Js::VarIs<Js::DataView>(obj))
     {
-        Js::DataView* dataView = Js::DataView::FromVar(obj);
+        Js::DataView* dataView = Js::VarTo<Js::DataView>(obj);
         uint propId = GetEnginePropertyCount() + _countof(c_functionRelationshipNames);
 
         // Order of relationships needs to match c_dataViewRelationshipNames
@@ -1904,24 +1904,24 @@ USHORT ActiveScriptProfilerHeapEnum::GetInternalPropertyCount(Js::RecyclableObje
     USHORT count = 0;
 
     if (obj->GetProxiedObjectForHeapEnum() ||
-        Js::JavascriptStringObject::Is(obj) ||
+        Js::VarIs<Js::JavascriptStringObject>(obj) ||
         IsReportableJavascriptString(obj) ||
-        Js::TypedArrayBase::Is(obj) ||
-        Js::JavascriptSymbol::Is(obj))
+        Js::VarIs<Js::TypedArrayBase>(obj) ||
+        Js::VarIs<Js::JavascriptSymbol>(obj))
     {
         count += 1;
     }
     else if (
-        (Js::JavascriptArrayIterator::Is(obj) && Js::JavascriptArrayIterator::FromVar(obj)->GetIteratorObjectForHeapEnum() != nullptr) ||
-        (Js::JavascriptMapIterator::Is(obj) && Js::JavascriptMapIterator::FromVar(obj)->GetMapForHeapEnum() != nullptr) ||
-        (Js::JavascriptSetIterator::Is(obj) && Js::JavascriptSetIterator::FromVar(obj)->GetSetForHeapEnum() != nullptr) ||
-        (Js::JavascriptStringIterator::Is(obj) && Js::JavascriptStringIterator::FromVar(obj)->GetStringForHeapEnum() != nullptr))
+        (Js::VarIs<Js::JavascriptArrayIterator>(obj) && Js::VarTo<Js::JavascriptArrayIterator>(obj)->GetIteratorObjectForHeapEnum() != nullptr) ||
+        (Js::VarIs<Js::JavascriptMapIterator>(obj) && Js::VarTo<Js::JavascriptMapIterator>(obj)->GetMapForHeapEnum() != nullptr) ||
+        (Js::VarIs<Js::JavascriptSetIterator>(obj) && Js::VarTo<Js::JavascriptSetIterator>(obj)->GetSetForHeapEnum() != nullptr) ||
+        (Js::VarIs<Js::JavascriptStringIterator>(obj) && Js::VarTo<Js::JavascriptStringIterator>(obj)->GetStringForHeapEnum() != nullptr))
     {
         count += 1;
     }
-    else if (Js::GlobalObject::Is(obj))
+    else if (Js::VarIs<Js::GlobalObject>(obj))
     {
-        Js::GlobalObject *globalObject = Js::GlobalObject::FromVar(obj);
+        Js::GlobalObject *globalObject = Js::VarTo<Js::GlobalObject>(obj);
         count += 1;  // regexconstructor; it can hold the last match regexp.
         if(globalObject->GetSecureDirectHostObject() != NULL)
         {
@@ -1930,7 +1930,7 @@ USHORT ActiveScriptProfilerHeapEnum::GetInternalPropertyCount(Js::RecyclableObje
     }
     else if (IsBoundFunction(obj))
     {
-        Js::BoundFunction* boundFunction = (Js::BoundFunction*)Js::JavascriptFunction::FromVar(obj);
+        Js::BoundFunction* boundFunction = (Js::BoundFunction*)Js::VarTo<Js::JavascriptFunction>(obj);
         count += 1;
         if (boundFunction->GetBoundThis() != NULL)
         {
@@ -1941,7 +1941,7 @@ USHORT ActiveScriptProfilerHeapEnum::GetInternalPropertyCount(Js::RecyclableObje
             count += 1;
         }
     }
-    else if (Js::JavascriptProxy::Is(obj))
+    else if (Js::VarIs<Js::JavascriptProxy>(obj))
     {
         count += 2; // target & handler
     }
@@ -1961,14 +1961,14 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
         return;
     }
 
-    if (Js::JavascriptStringObject::Is(obj))
+    if (Js::VarIs<Js::JavascriptStringObject>(obj))
     {
         // JavascriptStringObjects simply wrap JavascriptString objects so we report inner JavascriptString as an internal property.
         // It's possible we could just return the underlying string buffer (wrapped by JavascriptString) but we would not then be able to
         // tell when two JavascriptStringObjects wrap the same JavascriptString since we don't have the heap address for the JavascriptString - we only get the string value.
         // Also, concat strings which alias other JavascriptStrings have their buffer set to NULL so we would need to do some special-casing.
 
-        Js::JavascriptString* jsString = Js::JavascriptStringObject::FromVar(obj)->Unwrap();
+        Js::JavascriptString* jsString = Js::VarTo<Js::JavascriptStringObject>(obj)->Unwrap();
         RecyclerHeapObjectInfo heapObject;
 
         // If the underlying JavascriptString is found in the heap, stick it into an internal property and we'll Visit it later.
@@ -1986,14 +1986,14 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
             optionalInfo->internalProperty.stringValue = jsString->UnsafeGetBuffer();
         }
     }
-    else if (Js::TypedArrayBase::Is(obj))
+    else if (Js::VarIs<Js::TypedArrayBase>(obj))
     {
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
-        optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)Js::TypedArrayBase::FromVar(obj)->GetArrayBuffer();
+        optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)Js::VarTo<Js::TypedArrayBase>(obj)->GetArrayBuffer();
     }
-    else if (Js::GlobalObject::Is(obj))
+    else if (Js::VarIs<Js::GlobalObject>(obj))
     {
-        Js::GlobalObject *globalObject = Js::GlobalObject::FromVar(obj);
+        Js::GlobalObject *globalObject = Js::VarTo<Js::GlobalObject>(obj);
         optionalInfo->infoType = PROFILER_HEAP_OBJECT_OPTIONAL_INFO_INTERNAL_PROPERTY;
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)globalObject->GetLibrary()->GetRegExpConstructor();
@@ -2008,7 +2008,7 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
     }
     else if (IsBoundFunction(obj))
     {
-        Js::BoundFunction* boundFunction = (Js::BoundFunction*)Js::JavascriptFunction::FromVar(obj);
+        Js::BoundFunction* boundFunction = (Js::BoundFunction*)Js::VarTo<Js::JavascriptFunction>(obj);
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)boundFunction->GetTargetFunction();
 
@@ -2030,7 +2030,7 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
     }
     else if (IsReportableJavascriptString(obj))
     {
-        Js::JavascriptString* jsString = Js::JavascriptString::FromVar(obj);
+        Js::JavascriptString* jsString = Js::VarTo<Js::JavascriptString>(obj);
         if ((this->m_enumFlags & PROFILER_HEAP_ENUM_FLAGS_SUBSTRINGS) && jsString->IsSubstring())
         {
             SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_SUBSTRING);
@@ -2049,14 +2049,14 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
             optionalInfo->internalProperty.stringValue = jsString->GetString();
         }
     }
-    else if (Js::JavascriptSymbol::Is(obj))
+    else if (Js::VarIs<Js::JavascriptSymbol>(obj))
     {
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_STRING);
-        optionalInfo->internalProperty.stringValue = Js::JavascriptSymbol::FromVar(obj)->GetValue()->GetBuffer();
+        optionalInfo->internalProperty.stringValue = Js::VarTo<Js::JavascriptSymbol>(obj)->GetValue()->GetBuffer();
     }
-    else if (Js::JavascriptProxy::Is(obj))
+    else if (Js::VarIs<Js::JavascriptProxy>(obj))
     {
-        Js::JavascriptProxy* proxy = Js::JavascriptProxy::FromVar(obj);
+        Js::JavascriptProxy* proxy = Js::VarTo<Js::JavascriptProxy>(obj);
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)proxy->GetTarget();
 
@@ -2065,36 +2065,36 @@ void ActiveScriptProfilerHeapEnum::FillInternalProperty(Js::RecyclableObject* ob
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)proxy->GetHandler();
     }
-    else if (Js::JavascriptArrayIterator::Is(obj))
+    else if (Js::VarIs<Js::JavascriptArrayIterator>(obj))
     {
-        Js::JavascriptArrayIterator* arrayIterator = Js::JavascriptArrayIterator::FromVar(obj);
+        Js::JavascriptArrayIterator* arrayIterator = Js::VarTo<Js::JavascriptArrayIterator>(obj);
 
         AssertMsg(arrayIterator->GetIteratorObjectForHeapEnum() != nullptr, "GetInternalPropertyCount() should have returned 0 if this is null");
 
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)arrayIterator->GetIteratorObjectForHeapEnum();
     }
-    else if (Js::JavascriptMapIterator::Is(obj))
+    else if (Js::VarIs<Js::JavascriptMapIterator>(obj))
     {
-        Js::JavascriptMapIterator* mapIterator = Js::JavascriptMapIterator::FromVar(obj);
+        Js::JavascriptMapIterator* mapIterator = Js::VarTo<Js::JavascriptMapIterator>(obj);
 
         AssertMsg(mapIterator->GetMapForHeapEnum() != nullptr, "GetInternalPropertyCount() should have returned 0 if this is null");
 
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)mapIterator->GetMapForHeapEnum();
     }
-    else if (Js::JavascriptSetIterator::Is(obj))
+    else if (Js::VarIs<Js::JavascriptSetIterator>(obj))
     {
-        Js::JavascriptSetIterator* setIterator = Js::JavascriptSetIterator::FromVar(obj);
+        Js::JavascriptSetIterator* setIterator = Js::VarTo<Js::JavascriptSetIterator>(obj);
 
         AssertMsg(setIterator->GetSetForHeapEnum() != nullptr, "GetInternalPropertyCount() should have returned 0 if this is null");
 
         SetRelationshipInfo(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT);
         optionalInfo->internalProperty.objectId = (PROFILER_HEAP_OBJECT_ID)setIterator->GetSetForHeapEnum();
     }
-    else if (Js::JavascriptStringIterator::Is(obj))
+    else if (Js::VarIs<Js::JavascriptStringIterator>(obj))
     {
-        Js::JavascriptStringIterator* stringIterator = Js::JavascriptStringIterator::FromVar(obj);
+        Js::JavascriptStringIterator* stringIterator = Js::VarTo<Js::JavascriptStringIterator>(obj);
 
         AssertMsg(stringIterator->GetStringForHeapEnum() != nullptr, "GetInternalPropertyCount() should have returned 0 if this is null");
 
@@ -2112,7 +2112,7 @@ void ActiveScriptProfilerHeapEnum::VisitRelationshipList(PROFILER_HEAP_OBJECT_RE
 
         if (IsRelationshipInfoType(relationship, PROFILER_PROPERTY_TYPE_HEAP_OBJECT))
         {
-            if(Js::GlobalObject::Is((Js::Var)relationship.objectId))
+            if(Js::VarIs<Js::GlobalObject>((Js::Var)relationship.objectId))
             {
                 flag = PROFILER_HEAP_OBJECT_FLAGS_IS_ROOT;
             }
@@ -2147,7 +2147,7 @@ void ActiveScriptProfilerHeapEnum::VisitDependencies(T* obj, USHORT optionalInfo
                 if (IsRelationshipInfoType(optionalInfo->internalProperty, PROFILER_PROPERTY_TYPE_HEAP_OBJECT))
                 {
                     ULONG internalPropertyFlags = GetInternalPropertyFlags(&optionalInfo->internalProperty);
-                    UINT numberOfElements = IsBoundFunctionArgs(internalPropertyFlags) ? ((Js::BoundFunction*)Js::JavascriptFunction::FromVar((Var)obj->objectId))->GetArgsCountForHeapEnum() : 0;
+                    UINT numberOfElements = IsBoundFunctionArgs(internalPropertyFlags) ? ((Js::BoundFunction*)Js::VarTo<Js::JavascriptFunction>((Var)obj->objectId))->GetArgsCountForHeapEnum() : 0;
                     Visit((void*)optionalInfo->internalProperty.objectId, internalPropertyFlags, numberOfElements);
                 }
                 break;
@@ -2253,7 +2253,7 @@ void ActiveScriptProfilerHeapEnum::EnsureRecyclableObjectsAreVisitedCallback(con
     {
         if (Js::DynamicType::Is(((Js::RecyclableObject*)heapObject.GetObjectAddress())->GetTypeId()))
         {
-            Js::DynamicObject *obj = Js::DynamicObject::FromVar(heapObject.GetObjectAddress());
+            Js::DynamicObject *obj = Js::VarTo<Js::DynamicObject>(heapObject.GetObjectAddress());
             if (obj->GetHeapEnumValidationCookie() != _this->enumerationCount)
             {
                 if  (obj->GetHeapEnumValidationCookie() == HEAP_ENUMERATION_LIBRARY_OBJECT_COOKIE)
@@ -2476,7 +2476,7 @@ void ActiveScriptProfilerHeapEnum::CloseHeapEnum()
 
 bool ActiveScriptProfilerHeapEnum::IsJavascriptString(Js::RecyclableObject* obj)
 {
-    return !Js::JavascriptStringObject::Is(obj) && Js::JavascriptString::Is(obj);
+    return !Js::VarIs<Js::JavascriptStringObject>(obj) && Js::VarIs<Js::JavascriptString>(obj);
 }
 
 #ifdef HEAP_ENUMERATION_VALIDATION

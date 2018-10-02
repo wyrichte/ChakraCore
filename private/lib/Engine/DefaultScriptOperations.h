@@ -69,9 +69,9 @@ namespace Js
         }
 
         STDMETHODIMP MoveNext(/*[out]*/ BOOL* itemsAvailable, /*[out,optional]*/ ::PropertyAttributes* attributes)
-        { 
+        {
             *itemsAvailable = false;
-            return NOERROR; 
+            return NOERROR;
         }
 
         STDMETHODIMP GetCurrentName(/*[out]*/ Var* item)
@@ -341,7 +341,7 @@ namespace Js
 
         HRESULT STDMETHODCALLTYPE GetHeapObjectInfo(
             /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-            /* [in] */ Var instance, 
+            /* [in] */ Var instance,
             /* [in] */ ProfilerHeapObjectInfoFlags flags,
             /* [out] */ HostProfilerHeapObject** result,
             /* [out] */ HeapObjectInfoReturnResult* returnResult);
@@ -350,7 +350,7 @@ namespace Js
         static Js::ScriptContext * GetCurrentScriptContext(IActiveScriptDirect* scriptDirect);
 
         template <class Fn>
-        HRESULT DefaultOperationsWrapper(IActiveScriptDirect* scriptDirect, 
+        HRESULT DefaultOperationsWrapper(IActiveScriptDirect* scriptDirect,
             Var instance,
             Fn fn,
             HRESULT taggedIntErrorCode)
@@ -361,7 +361,7 @@ namespace Js
             {
                 return taggedIntErrorCode;
             }
-            RecyclableObject* objInstance = RecyclableObject::FromVar(instance);
+            RecyclableObject* objInstance = VarTo<RecyclableObject>(instance);
             Js::ScriptContext * scriptContext = GetCurrentScriptContext(scriptDirect);
             if (nullptr == scriptContext)
             {
@@ -379,7 +379,7 @@ namespace Js
             return hr;
         };
 
-       
+
     };
 }
 

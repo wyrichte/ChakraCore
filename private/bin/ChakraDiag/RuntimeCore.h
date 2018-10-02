@@ -160,6 +160,7 @@ namespace Js
     class CustomEnumerator;                 // Used by ExternalObject.h
     class Lowerer;                          // Used by JavascriptString.h
     class ActivationObject;                 // Used by ArgumentsObject.h
+    class BlockActivationObject;            // Used by JavascriptOperators.h
     class ES5ArgumentsObjectEnumerator;     // Used by ArgumentsObject.h
     class JavascriptStaticEnumerator;       // Used by RecyclableObject.h
     enum class EnumeratorFlags : byte;      // Used by RecyclableObject.h
@@ -379,6 +380,9 @@ namespace Wasm
 #include "ThreadContextTLSEntry.h"
 #include "evalmaprecord.h"
 #include "ScriptContextOptimizationOverrideInfo.h"
+#include "AuxArray.h"
+#include "rterror.h"
+#include "JavascriptOperators.h"
 #include "JavascriptError.h"
 #include "ScriptContextBase.h"
 #include "ScriptContextInfo.h"

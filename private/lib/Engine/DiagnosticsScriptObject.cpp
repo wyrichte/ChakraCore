@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
@@ -129,7 +129,7 @@ namespace Js
             Js::DynamicObject * object = scriptContext->GetLibrary()->CreateObject();
 
             // Populate object with fields functionName, url, documentId (IDebugDocumentText), line and column
-            // TODO : in future we could avoid this type transition by creating an object with a type which has these properties already defined, so that 
+            // TODO : in future we could avoid this type transition by creating an object with a type which has these properties already defined, so that
             // we could avoid the type transition.
 
             object->SetProperty(scriptObject->GetFunctionNameId(), nameVar, (Js::PropertyOperationFlags)PropertyDynamicTypeDefaults, nullptr/*PropertyValueInfo*/);
@@ -170,10 +170,10 @@ namespace Js
         RUNTIME_ARGUMENTS(args, callInfo);
 
         Var consoleScopeObj = function->GetLibrary()->GetUndefined();
-        if (diagnosticScriptContext->IsDiagnosticsScriptContext() && RecyclableObject::Is(args[0]))
+        if (diagnosticScriptContext->IsDiagnosticsScriptContext() && VarIs<RecyclableObject>(args[0]))
         {
             // Use args[0] as the this object
-            ScriptContext* targetScriptContext = RecyclableObject::FromVar(args[0])->GetScriptContext();
+            ScriptContext* targetScriptContext = VarTo<RecyclableObject>(args[0])->GetScriptContext();
             if (!targetScriptContext->IsClosed())
             {
                 DebugManager* debugManager = targetScriptContext->GetDebugContext()->GetProbeContainer()->GetDebugManager();
@@ -184,7 +184,7 @@ namespace Js
         return consoleScopeObj;
     }
 
-    // 
+    //
     // diagnosticsScriptObject.debugEval(sourceText, isNonUserCode, shouldRegisterDocument).
     // Parameters:
     //   sourceText: the text to eval.
@@ -224,7 +224,7 @@ namespace Js
         }
 
         // Execute in the context of "this" which is expected to be a (global) object from the engine debugEval need to run in.
-        if (!RecyclableObject::Is(args[0]))
+        if (!VarIs<RecyclableObject>(args[0]))
         {
             // Failed to deduct the global object.
             return function->GetLibrary()->GetUndefined();
@@ -235,7 +235,7 @@ namespace Js
         JavascriptLibrary* targetLibrary;
         ScriptContext* targetScriptContext;
 
-        RecyclableObject* thisObj = RecyclableObject::FromVar(args[0]);
+        RecyclableObject* thisObj = VarTo<RecyclableObject>(args[0]);
         Assert(thisObj->GetType());
         targetLibrary = thisObj->GetLibrary();
         targetScriptContext = targetLibrary->GetScriptContext();
@@ -251,12 +251,12 @@ namespace Js
             return function->GetLibrary()->GetUndefined();
         }
 
-        bool isLibraryCode = !!JavascriptBoolean::FromVar(isNonUserCodeArg)->GetValue();
+        bool isLibraryCode = !!VarTo<JavascriptBoolean>(isNonUserCodeArg)->GetValue();
 
         bool registerDocument = !isLibraryCode; // LibraryCode should not be registered
-        
+
         // Treating this has optional for not breaking existing use of debugEval
-        if (args.Info.Count > 3) 
+        if (args.Info.Count > 3)
         {
             if (!isLibraryCode) // shouldRegisterDocument is no-op if it is LibraryCode
             {
@@ -266,7 +266,7 @@ namespace Js
                     // Wrong value passed to shouldRegisterDocument argument.
                     return function->GetLibrary()->GetUndefined();
                 }
-                registerDocument = !!JavascriptBoolean::FromVar(shouldRegisterDocument)->GetValue();
+                registerDocument = !!VarTo<JavascriptBoolean>(shouldRegisterDocument)->GetValue();
             }
             --args.Info.Count; // Remove registerDocument argument
         }
@@ -283,7 +283,7 @@ namespace Js
         JavascriptExceptionObject* reThrownEx = nullptr;
         try
         {
-            OUTPUT_TRACE(Js::ConsoleScopePhase, _u("EntryDebugEval strictMode = %d, isLibraryCode = %d, source = '%s'\n"), isStrictMode, isLibraryCode, JavascriptString::FromVar(args[1])->GetSz());
+            OUTPUT_TRACE(Js::ConsoleScopePhase, _u("EntryDebugEval strictMode = %d, isLibraryCode = %d, source = '%s'\n"), isStrictMode, isLibraryCode, VarTo<JavascriptString>(args[1])->GetSz());
             Var value = GlobalObject::VEval(targetLibrary, environment, kmodGlobal, isStrictMode, /*isIndirect=*/ false, args, isLibraryCode, registerDocument, fscrConsoleScopeEval, debugEvalScriptContext);
             value = CrossSite::MarshalVar(debugEvalScriptContext, value);  // MarshalVar if needed.
             Assert(!CrossSite::NeedMarshalVar(value, debugEvalScriptContext));
@@ -298,14 +298,14 @@ namespace Js
 
         AssertMsg(reThrownEx, "How come we don't have an exception object here?");
         Var rethrownObject = reThrownEx->GetThrownObject(targetScriptContext);
-        if (rethrownObject && RecyclableObject::Is(rethrownObject) && CrossSite::NeedMarshalVar(rethrownObject, debugEvalScriptContext))
+        if (rethrownObject && VarIs<RecyclableObject>(rethrownObject) && CrossSite::NeedMarshalVar(rethrownObject, debugEvalScriptContext))
         {
             // DebugEval runs in diagnostics context with different CMDID_SCRIPTSITE_SID then user page
-            if (JavascriptError::Is(rethrownObject))
+            if (VarIs<JavascriptError>(rethrownObject))
             {
                 // Exception (JavaScript error) thrown from user page will fail the ScriptSite::CheckCrossDomainScriptContext check resulting in a Permission Denied error message
                 // Create a new error, copy basic stuff (line no. and message) and throw that instead
-                JavascriptError* jsErrorObject = JavascriptError::FromVar(rethrownObject);
+                JavascriptError* jsErrorObject = VarTo<JavascriptError>(rethrownObject);
                 JavascriptError* jsNewErrorObject = jsErrorObject->CloneErrorMsgAndNumber(debugEvalScriptContext->GetLibrary());
                 AssertMsg(jsNewErrorObject != nullptr, "Error shouldn't have been null");
                 reThrownEx->ReplaceThrownObject(jsNewErrorObject);
@@ -360,12 +360,12 @@ namespace Js
                         if (interpreterFrame)
                         {
                             frm = Anew(diagArena, DiagInterpreterStackFrame, interpreterFrame);
-                            
+
                         }
                         else if (func->IsScriptFunction())
                         {
                             frm = Anew(diagArena, DiagNativeStackFrame,
-                                ScriptFunction::FromVar(walker.GetCurrentFunction()), walker.GetByteCodeOffset(), walker.GetCurrentArgv(), walker.GetCurrentCodeAddr());
+                                VarTo<ScriptFunction>(walker.GetCurrentFunction()), walker.GetByteCodeOffset(), walker.GetCurrentArgv(), walker.GetCurrentCodeAddr());
                         }
                     }
                 }
@@ -386,7 +386,7 @@ namespace Js
             // Use LocalsWalker to populate frame display with variables.
             if (frm)
             {
-                LocalsWalker* localsWalker = Anew(diagArena, Js::LocalsWalker, frm, 
+                LocalsWalker* localsWalker = Anew(diagArena, Js::LocalsWalker, frm,
                     Js::FrameWalkerFlags::FW_EnumWithScopeAlso | Js::FrameWalkerFlags::FW_AllowLexicalThis | Js::FrameWalkerFlags::FW_AllowSuperReference | Js::FrameWalkerFlags::FW_DontAddGlobalsDirectly);
                 activeScopeObject = localsWalker->CreateAndPopulateActivationObject(targetScriptContext, [](Js::ResolvedObject& resolveObject){});
             }
@@ -404,24 +404,24 @@ namespace Js
         RUNTIME_ARGUMENTS(args, callInfo);
 
         if (args.Info.Count < 4
-            || !RecyclableObject::Is(args[1])
-            || !JavascriptString::Is(args[2])
-            || !JavascriptString::Is(args[3]))
+            || !VarIs<RecyclableObject>(args[1])
+            || !VarIs<JavascriptString>(args[2])
+            || !VarIs<JavascriptString>(args[3]))
         {
             return function->GetLibrary()->GetUndefined();
         }
 
         // args[1]: target global object
-        RecyclableObject* targetObj = RecyclableObject::FromVar(args[1]);
+        RecyclableObject* targetObj = VarTo<RecyclableObject>(args[1]);
         ScriptContext* targetScriptContext = targetObj->GetScriptContext();
         IActiveScriptDirect* pActiveScriptDirect = targetScriptContext->GetActiveScriptDirect();
 
         // args[2]: longDocumentId
         IDebugDocumentText* debugDocumentText = reinterpret_cast<IDebugDocumentText*>(
-            _wcstoui64(JavascriptString::FromVar(args[2])->GetSz(), nullptr, 10));
+            _wcstoui64(VarTo<JavascriptString>(args[2])->GetSz(), nullptr, 10));
 
         // args[3]: newSource
-        JavascriptString* newSource = JavascriptString::FromVar(args[3]);
+        JavascriptString* newSource = VarTo<JavascriptString>(args[3]);
 
         // Result object
         RecyclableObject* ret = scriptContext->GetLibrary()->CreateObject();

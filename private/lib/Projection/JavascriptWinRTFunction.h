@@ -33,18 +33,15 @@ namespace Js
         inline Var GetSignature() { return signature; }
         inline void ChangeSignature(Var replacement) { signature = replacement; }
         inline WinRTFunctionInfo * GetWinRTFunctionInfo() { return static_cast<WinRTFunctionInfo*>(this->GetFunctionInfo()); }
-        inline static JavascriptWinRTFunction * FromVar(Var var)
-        {
-#if DBG
-            auto function = JavascriptFunction::FromVar(var);
-            Assert(function->IsWinRTFunction());
-#endif
-            return static_cast<JavascriptWinRTFunction*>(var);
-        }
 
     private:
         Var signature;
     };
+
+    template <> inline bool VarIsImpl<JavascriptWinRTFunction>(RecyclableObject* object)
+    {
+        return VarIs<JavascriptFunction>(object) && UnsafeVarTo<JavascriptFunction>(object)->IsWinRTFunction();
+    }
 
     class JavascriptWinRTConstructorFunction : public JavascriptWinRTFunction
     {
@@ -69,19 +66,11 @@ namespace Js
         }
 
         Var GetTypeInformation() { return typeInformation; }
-
-        inline static bool Is(Var var)
-        {
-            return Js::JavascriptFunction::Is(var) && Js::JavascriptFunction::FromVar(var)->IsWinRTFunction()
-                && Js::JavascriptWinRTFunction::FromVar(var)->IsConstructorFunction();
-        }
-
-        inline static JavascriptWinRTConstructorFunction * FromVar(Var var)
-        {
-#if DBG
-            Assert(Js::JavascriptWinRTConstructorFunction::Is(var));
-#endif
-            return static_cast<JavascriptWinRTConstructorFunction*>(var);
-        }
     };
+
+    template <> inline bool VarIsImpl<JavascriptWinRTConstructorFunction>(RecyclableObject* object)
+    {
+        return Js::VarIs<Js::JavascriptFunction>(object) && Js::VarTo<Js::JavascriptFunction>(object)->IsWinRTFunction()
+            && Js::VarTo<Js::JavascriptWinRTFunction>(object)->IsConstructorFunction();
+    }
 }

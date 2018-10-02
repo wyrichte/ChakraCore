@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
@@ -36,7 +36,7 @@ Js::FunctionInfo DebugObject::EntryInfo::GetTypeInfo(FORCE_NO_WRITE_BARRIER_TAG(
 Js::FunctionInfo DebugObject::EntryInfo::ParseFunction(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryParseFunction));
 Js::FunctionInfo DebugObject::EntryInfo::SetAutoProxyName(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntrySetAutoProxyName));
 Js::FunctionInfo DebugObject::EntryInfo::DisableAutoProxy(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryDisableAutoProxy));
-Js::FunctionInfo DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateDebugFuncExecutorInDisposeObject)); 
+Js::FunctionInfo DebugObject::EntryInfo::CreateDebugFuncExecutorInDisposeObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryCreateDebugFuncExecutorInDisposeObject));
 Js::FunctionInfo DebugObject::EntryInfo::DetachAndFreeObject(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::DetachAndFreeObject));
 Js::FunctionInfo DebugObject::EntryInfo::IsAsmJSModule(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryIsAsmJSModule));
 Js::FunctionInfo DebugObject::EntryInfo::Enable(FORCE_NO_WRITE_BARRIER_TAG(DebugObject::EntryEnable));
@@ -63,8 +63,8 @@ allocationCount(allocationCount)
 {
 }
 
-void DebugDisposableObject::Dispose(bool isShutdown) 
-{ 
+void DebugDisposableObject::Dispose(bool isShutdown)
+{
     ThreadContext* threadContext = ThreadContext::GetContextForCurrentThread();
 
     if (!isShutdown && threadContext)
@@ -85,7 +85,7 @@ void DebugDisposableObject::Dispose(bool isShutdown)
                 for (uint i = 0; i < allocationCount; i++)
                 {
                     volatile byte* bytes = nullptr;
-            
+
                     if (allocateLeaf)
                     {
                         bytes = RecyclerNewArrayLeaf(recycler, byte, bytesToAllocateOnDispose);
@@ -105,7 +105,7 @@ void DebugDisposableObject::Dispose(bool isShutdown)
     }
 }
 
-DebugFuncExecutorInDisposeObject::DebugFuncExecutorInDisposeObject(Js::DynamicType* type, 
+DebugFuncExecutorInDisposeObject::DebugFuncExecutorInDisposeObject(Js::DynamicType* type,
     Js::JavascriptFunction * functionToCall, Js::Var* args, ushort numberOfArgs) :
 DynamicObject(type),
 functionToCall(functionToCall),
@@ -148,7 +148,7 @@ void DebugFuncExecutorInDisposeObject::Dispose(bool isShutdown)
 
             Var result = nullptr;
             ScriptSite::CallRootFunction(functionToCall, jsArguments, nullptr, &result);
-            
+
         }
 
         // unpin the functionCall and args that we pinned in this object's constructor
@@ -203,7 +203,7 @@ Js::FunctionBody * DebugObject::GetCallerFunctionBody(Js::ScriptContext *scriptC
 Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
-    ARGUMENTS(args, callInfo);    
+    ARGUMENTS(args, callInfo);
 
     int cookie = 0;
 
@@ -211,7 +211,7 @@ Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* funct
 
     // for fault injection self testing
     // command: 'jshost -FaultInjection:1 -FaultInjectionType:6 xx.js' will show OOM
-    // xx.js: 
+    // xx.js:
     //  Debug.faultInjectionCookie = 12345;
     //  WScript.Echo(Debug.faultInjectionCookie);
     INJECT_FAULT(Js::FaultInjection::Global.FaultInjectionSelfTest, []()->bool{
@@ -224,7 +224,7 @@ Js::Var DebugObject::EntryGetterFaultInjectionCookie(Js::RecyclableObject* funct
 
     cookie = Js::FaultInjection::Global.FaultInjectionCookie;
 
-#endif 
+#endif
 
     return Js::TaggedInt::ToVarUnchecked(cookie);
 }
@@ -240,11 +240,11 @@ Js::Var DebugObject::EntrySetterFaultInjectionCookie(Js::RecyclableObject* funct
     {
 #ifdef FAULT_INJECTION // no action for free test build because faultinjection is not enabled in fretest build
         Js::FaultInjection::Global.FaultInjectionCookie = Js::JavascriptConversion::ToInt32(args[1], scriptContext);
-#endif 
+#endif
         return args[1];
     }
 
-    return scriptContext->GetLibrary()->GetUndefined();    
+    return scriptContext->GetLibrary()->GetUndefined();
 }
 #endif //ENABLE_DEBUG_CONFIG_OPTIONS
 
@@ -367,7 +367,7 @@ Js::Var DebugObject::WriteHelper(Js::RecyclableObject* function, Js::Arguments a
 Js::Var DebugObject::EntryGetWorkingSet(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
-    Assert(!(callInfo.Flags & CallFlags_New)); 
+    Assert(!(callInfo.Flags & CallFlags_New));
 
     HANDLE hProcess = GetCurrentProcess();
     Js::JavascriptLibrary* library = function->GetLibrary();
@@ -391,14 +391,14 @@ Js::Var DebugObject::EntryGetWorkingSet(Js::RecyclableObject* function, Js::Call
     result->SetProperty(maxWorkingSetId, Js::JavascriptNumber::New((double)memoryCounter.PeakWorkingSetSize, scriptContext), Js::PropertyOperation_None, NULL);
     result->SetProperty(pageFaultId, Js::JavascriptNumber::New((double)memoryCounter.PageFaultCount, scriptContext), Js::PropertyOperation_None , NULL);
     result->SetProperty(privateUsageId, Js::JavascriptNumber::New((double)memoryCounter.PrivateUsage, scriptContext),Js::PropertyOperation_None , NULL);
-    
+
     return result;
 }
 
 Js::Var DebugObject::EntrySourceDebugBreak(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
-    Assert(!(callInfo.Flags & CallFlags_New)); 
+    Assert(!(callInfo.Flags & CallFlags_New));
 
     BEGIN_LEAVE_SCRIPT(function->GetScriptContext())
     {
@@ -424,7 +424,7 @@ __declspec(noinline) Js::Var InvokeFunc(Js::JavascriptFunction* function, Js::Ar
 Js::Var DebugObject::EntryInvokeFunction(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
-    Assert(!(callInfo.Flags & CallFlags_New)); 
+    Assert(!(callInfo.Flags & CallFlags_New));
     ARGUMENTS(args, callInfo);
     Js::Var result = function->GetScriptContext()->GetLibrary()->GetUndefined();
 
@@ -432,7 +432,7 @@ Js::Var DebugObject::EntryInvokeFunction(Js::RecyclableObject* function, Js::Cal
     {
         if(args.Info.Count >= 2)
         {
-            Js::JavascriptFunction* invokeFunction = Js::JavascriptFunction::FromVar(args[1]);
+            Js::JavascriptFunction* invokeFunction = Js::VarTo<Js::JavascriptFunction>(args[1]);
             for (uint i=0; i<args.Info.Count-2; ++i)
             {
                 args.Values[i] = args.Values[i+2];
@@ -507,12 +507,12 @@ Js::Var DebugObject::EntryGetLineOfPosition(Js::RecyclableObject* function, Js::
 
     Js::ScriptContext* scriptContext = function->GetScriptContext();
 
-    if (args.Info.Count != 2 || !Js::JavascriptFunction::Is(args[1]))
+    if (args.Info.Count != 2 || !Js::VarIs<Js::JavascriptFunction>(args[1]))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
 
-    Js::JavascriptFunction* javascriptFunction = Js::JavascriptFunction::FromVar(args[1]);
+    Js::JavascriptFunction* javascriptFunction = Js::VarTo<Js::JavascriptFunction>(args[1]);
 
     AutoCOMPtr<IDebugDocumentContext> pDocumentContext = NULL;
     scriptContext->GetDocumentContext(javascriptFunction->GetFunctionBody(), &pDocumentContext);
@@ -574,12 +574,12 @@ Js::Var DebugObject::EntryGetPositionOfLine(Js::RecyclableObject* function, Js::
 
     Js::ScriptContext* scriptContext = function->GetScriptContext();
 
-    if (args.Info.Count != 3 || !Js::JavascriptFunction::Is(args[1]) || !Js::JavascriptNumber::Is(args[2]))
+    if (args.Info.Count != 3 || !Js::VarIs<Js::JavascriptFunction>(args[1]) || !Js::JavascriptNumber::Is(args[2]))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
 
-    Js::JavascriptFunction* javascriptFunction = Js::JavascriptFunction::FromVar(args[1]);
+    Js::JavascriptFunction* javascriptFunction = Js::VarTo<Js::JavascriptFunction>(args[1]);
 
     IDebugDocumentContext *pDocumentContext = NULL;
     scriptContext->GetDocumentContext(javascriptFunction->GetFunctionBody(), &pDocumentContext);
@@ -635,7 +635,7 @@ Js::Var DebugObject::EntryIsInJit(Js::RecyclableObject* function, Js::CallInfo c
 Js::Var DebugObject::EntryGetHostInfo(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
-    Assert(!(callInfo.Flags & CallFlags_New)); 
+    Assert(!(callInfo.Flags & CallFlags_New));
     Js::JavascriptLibrary* library = function->GetLibrary();
     Js::ScriptContext* scriptContext = function->GetScriptContext();
     scriptContext->GetRecycler()->CollectNow<CollectNowForceInThread>();
@@ -662,7 +662,7 @@ Js::Var DebugObject::EntryGetHostInfo(Js::RecyclableObject* function, Js::CallIn
 Js::Var DebugObject::EntryGetMemoryInfo(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
-    Assert(!(callInfo.Flags & CallFlags_New)); 
+    Assert(!(callInfo.Flags & CallFlags_New));
     Js::ScriptContext* scriptContext = function->GetScriptContext();
     scriptContext->GetRecycler()->CollectNow<CollectNowForceInThread>();
 
@@ -683,9 +683,9 @@ Js::Var DebugObject::EntryGetTypeHandlerName(Js::RecyclableObject* function, Js:
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
 
-    if (Js::JavascriptOperators::IsObject(args[1]) && Js::RecyclableObject::FromVar(args[1])->GetTypeId() != TypeIds_HostDispatch)
+    if (Js::JavascriptOperators::IsObject(args[1]) && Js::VarTo<Js::RecyclableObject>(args[1])->GetTypeId() != TypeIds_HostDispatch)
     {
-        Js::DynamicObject* obj = Js::DynamicObject::FromVar(args[1]);
+        Js::DynamicObject* obj = Js::VarTo<Js::DynamicObject>(args[1]);
         char16 name[256];
         size_t size;
         if (mbstowcs_s(&size, name, obj->GetDynamicType()->GetTypeHandler()->GetCppName(), _TRUNCATE) != 0)
@@ -701,7 +701,7 @@ Js::Var DebugObject::EntryGetTypeHandlerName(Js::RecyclableObject* function, Js:
     }
 }
 
-Js::Var DebugObject::EntryGetArrayType(Js::RecyclableObject* function, Js::CallInfo callInfo, ...) 
+Js::Var DebugObject::EntryGetArrayType(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
     Assert(!(callInfo.Flags & CallFlags_New));
@@ -718,7 +718,7 @@ Js::Var DebugObject::EntryGetArrayType(Js::RecyclableObject* function, Js::CallI
     {
         Js::TypeId typeIdOfObject = Js::JavascriptOperators::GetTypeId(args[1]);
         if (typeIdOfObject == TypeIds_HostDispatch) {
-            if (Js::RecyclableObject::FromVar(args[1])->GetRemoteTypeId(&typeIdOfObject) == FALSE)
+            if (Js::VarTo<Js::RecyclableObject>(args[1])->GetRemoteTypeId(&typeIdOfObject) == FALSE)
                 return scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("Notarray"));
         }
 
@@ -774,7 +774,7 @@ IASDDebugObjectHelper* DebugObject::EnsureDebugObjectHelper(Js::ScriptContext* s
 }
 
 //  createTypedObject(typeId, className, extension #, useDefaultTypedOperations)
-Js::Var DebugObject::EntryCreateTypedObject(Js::RecyclableObject* function, Js::CallInfo callInfo, ...) 
+Js::Var DebugObject::EntryCreateTypedObject(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
     Assert(!(callInfo.Flags & CallFlags_New));
@@ -790,12 +790,12 @@ Js::Var DebugObject::EntryCreateTypedObject(Js::RecyclableObject* function, Js::
     {
         return scriptContext->GetLibrary()->GetUndefined();
     }
-    if (!Js::TaggedInt::Is(args[1]) || !Js::JavascriptString::Is(args[2]) || !Js::TaggedInt::Is(args[3]))
+    if (!Js::TaggedInt::Is(args[1]) || !Js::VarIs<Js::JavascriptString>(args[2]) || !Js::TaggedInt::Is(args[3]))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
     JavascriptTypeId typeId = (JavascriptTypeId)(Js::TaggedInt::ToInt32(args[1]));
-    Js::JavascriptString* className = Js::JavascriptString::FromVar(args[2]);
+    Js::JavascriptString* className = Js::VarTo<Js::JavascriptString>(args[2]);
     int extensionSize = Js::TaggedInt::ToInt32(args[3]);
     bool useDefaultTypeOperations =false;
     if (args.Info.Count > 4)
@@ -839,20 +839,20 @@ Js::Var DebugObject::EntryCreateProjectionArrayBuffer(Js::RecyclableObject* func
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
-    
+
     if (scriptContext->IsClosed())
     {
         return scriptContext->GetLibrary()->GetUndefined();
     }
 
     uint32 length = Js::TaggedInt::ToUInt32(args[1]);
-    
+
     return scriptContext->GetLibrary()->CreateProjectionArraybuffer(length);
 }
 
 //  Initiate the EmitStackTraceEvent call
 //  emitStackTraceEvent(operationId, maxFrameCount), both params are optional
-Js::Var DebugObject::EntryEmitStackTraceEvent(Js::RecyclableObject* function, Js::CallInfo callInfo, ...) 
+Js::Var DebugObject::EntryEmitStackTraceEvent(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
     Assert(!(callInfo.Flags & CallFlags_New));
@@ -900,7 +900,7 @@ Js::Var DebugObject::EntryEmitStackTraceEvent(Js::RecyclableObject* function, Js
 
 // arguments
 //   addFTLProperty(obj, propertyName, index, initValue);
-Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::CallInfo callInfo, ...) 
+Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
 {
     PROBE_STACK(function->GetScriptContext(), Js::Constants::MinStackDefault);
     Assert(!(callInfo.Flags & CallFlags_New));
@@ -912,7 +912,7 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
-    Js::RecyclableObject* obj = Js::RecyclableObject::FromVar(args[1]);
+    Js::RecyclableObject* obj = Js::VarTo<Js::RecyclableObject>(args[1]);
     if (Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(obj)))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
@@ -920,7 +920,7 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
 
     Js::Var propertyName = args[2];
 
-    if (!Js::JavascriptString::Is(propertyName))
+    if (!Js::VarIs<Js::JavascriptString>(propertyName))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
@@ -950,7 +950,7 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
     Js::PropertyId propertyId;
     Js::Var getter = scriptContext->GetLibrary()->GetUndefined();
     Js::Var setter = scriptContext->GetLibrary()->GetUndefined();
-    Js::JavascriptString* propertyString = Js::JavascriptString::FromVar(propertyName);
+    Js::JavascriptString* propertyString = Js::VarTo<Js::JavascriptString>(propertyName);
     propertyId = scriptContext->GetOrAddPropertyIdTracked(propertyString->GetSz(), propertyString->GetLength());
     HRESULT hr;
 
@@ -976,11 +976,11 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
     Js::RecyclableObject* protoObj = Js::JavascriptOperators::GetPrototype(obj);
     if (!Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(protoObj)))
     {
-        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(protoObj), propertyId, getter, setter, Js::PropertyOperation_None);
+        Js::JavascriptOperators::SetAccessors(Js::VarTo<Js::DynamicObject>(protoObj), propertyId, getter, setter, Js::PropertyOperation_None);
     }
     else
     {
-        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(obj), propertyId, getter, setter, Js::PropertyOperation_None);
+        Js::JavascriptOperators::SetAccessors(Js::VarTo<Js::DynamicObject>(obj), propertyId, getter, setter, Js::PropertyOperation_None);
     }
     Js::Var outArgs[2];
     outArgs[0] = obj;
@@ -992,7 +992,7 @@ Js::Var DebugObject::EntryAddFTLProperty(Js::RecyclableObject* function, Js::Cal
 
     BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
     {
-        Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+        Js::JavascriptFunction::CallFunction<true>(Js::VarTo<Js::JavascriptFunction>(setter), (Js::VarTo<Js::JavascriptFunction>(setter))->GetEntryPoint(), jsArguments);
     }
     END_SAFE_REENTRANT_CALL
 
@@ -1022,7 +1022,7 @@ Js::Var DebugObject::EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js:
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
-    Js::RecyclableObject* obj = Js::RecyclableObject::FromVar(args[1]);
+    Js::RecyclableObject* obj = Js::VarTo<Js::RecyclableObject>(args[1]);
     if (Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(obj)))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
@@ -1030,7 +1030,7 @@ Js::Var DebugObject::EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js:
 
     Js::Var propertyName = args[2];
 
-    if (!Js::JavascriptString::Is(propertyName))
+    if (!Js::VarIs<Js::JavascriptString>(propertyName))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
@@ -1050,7 +1050,7 @@ Js::Var DebugObject::EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js:
     Js::PropertyId propertyId;
     Js::Var getter = scriptContext->GetLibrary()->GetUndefined();
     Js::Var setter = scriptContext->GetLibrary()->GetUndefined();
-    Js::JavascriptString* propertyString = Js::JavascriptString::FromVar(propertyName);
+    Js::JavascriptString* propertyString = Js::VarTo<Js::JavascriptString>(propertyName);
     propertyId = scriptContext->GetOrAddPropertyIdTracked(propertyString->GetSz(), propertyString->GetLength());
     HRESULT hr;
 
@@ -1078,11 +1078,11 @@ Js::Var DebugObject::EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js:
     Js::RecyclableObject* protoObj = Js::JavascriptOperators::GetPrototype(obj);
     if (!Js::StaticType::Is(Js::JavascriptOperators::GetTypeId(protoObj)))
     {
-        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(protoObj), propertyId, getter, setter, Js::PropertyOperation_None);
+        Js::JavascriptOperators::SetAccessors(Js::VarTo<Js::DynamicObject>(protoObj), propertyId, getter, setter, Js::PropertyOperation_None);
     }
     else
     {
-        Js::JavascriptOperators::SetAccessors(Js::DynamicObject::FromVar(obj), propertyId, getter, setter, Js::PropertyOperation_None);
+        Js::JavascriptOperators::SetAccessors(Js::VarTo<Js::DynamicObject>(obj), propertyId, getter, setter, Js::PropertyOperation_None);
     }
     Js::Var outArgs[2];
     outArgs[0] = obj;
@@ -1093,7 +1093,7 @@ Js::Var DebugObject::EntryAddLazyFTLProperty(Js::RecyclableObject* function, Js:
 
     BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
     {
-        Js::JavascriptFunction::CallFunction<true>(Js::JavascriptFunction::FromVar(setter), (Js::JavascriptFunction::FromVar(setter))->GetEntryPoint(), jsArguments);
+        Js::JavascriptFunction::CallFunction<true>(Js::VarTo<Js::JavascriptFunction>(setter), (Js::VarTo<Js::JavascriptFunction>(setter))->GetEntryPoint(), jsArguments);
     }
     END_SAFE_REENTRANT_CALL
 
@@ -1141,7 +1141,7 @@ Js::Var DebugObject::EntryGetTypeInfo(Js::RecyclableObject* function, Js::CallIn
     {
         return function;
     }
-    AutoCOMPtr<IDispatchEx> dispPtr = (IDispatchEx*)JavascriptDispatch::Create<true>(Js::DynamicObject::FromVar(obj));
+    AutoCOMPtr<IDispatchEx> dispPtr = (IDispatchEx*)JavascriptDispatch::Create<true>(Js::VarTo<Js::DynamicObject>(obj));
     if (dispPtr != nullptr)
     {
         AutoCOMPtr<ITypeInfo> typeInfo;
@@ -1190,8 +1190,8 @@ Js::Var DebugObject::EntryParseFunction(Js::RecyclableObject* function, Js::Call
         hr = scriptEngine->ParseInternal((LPWSTR)sourceString, &resultFunc, LoadScriptFlag_isFunction);
         if (hr == NO_ERROR)
         {
-            Assert(Js::ScriptFunction::Is(resultFunc));
-            Js::ScriptFunction::FromVar(resultFunc)->GetFunctionInfo()->SetIsActiveScript();
+            Assert(Js::VarIs<Js::ScriptFunction>(resultFunc));
+            Js::VarTo<Js::ScriptFunction>(resultFunc)->GetFunctionInfo()->SetIsActiveScript();
         }
     }
     END_LEAVE_SCRIPT(scriptContext);
@@ -1221,7 +1221,7 @@ Js::Var DebugObject::EntryEnable(Js::RecyclableObject* function, Js::CallInfo ca
         Js::PropertyId nameId = scriptContext->GetOrAddPropertyIdTracked(_u("TestDeferredConstructor"));
         Var resultFunc;
         BEGIN_LEAVE_SCRIPT(scriptContext)
-        {            
+        {
             hr = scriptContext->GetActiveScriptDirect()->CreateDeferredConstructor(
                 &DummyScriptMethod,
                 nameId,
@@ -1235,7 +1235,7 @@ Js::Var DebugObject::EntryEnable(Js::RecyclableObject* function, Js::CallInfo ca
 
         if (SUCCEEDED(hr))
         {
-            Js::RecyclableObject::FromVar(args.Values[0])->SetProperty(
+            Js::VarTo<Js::RecyclableObject>(args.Values[0])->SetProperty(
                 scriptContext->GetLibrary()->CreateStringFromCppLiteral(_u("TestDeferredConstructor")),
                 resultFunc,
                 Js::PropertyOperationFlags::PropertyOperation_None,
@@ -1260,9 +1260,9 @@ Js::Var DebugObject::EntryIsAsmJSModule(Js::RecyclableObject* function, Js::Call
     }
 #ifdef ASMJS_PLAT
     Var asmFuncVar = args[1] ;
-    if (Js::ScriptFunction::Is(asmFuncVar))
+    if (Js::VarIs<Js::ScriptFunction>(asmFuncVar))
     {
-        Js::JavascriptFunction* asmFunction = Js::JavascriptFunction::FromVar(asmFuncVar);
+        Js::JavascriptFunction* asmFunction = Js::VarTo<Js::JavascriptFunction>(asmFuncVar);
         Js::FunctionBody* asmFunctionBody = asmFunction->GetFunctionBody();
         bool isASMJS = asmFunctionBody->IsAsmJSModule();
         if (isASMJS)
@@ -1275,7 +1275,7 @@ Js::Var DebugObject::EntryIsAsmJSModule(Js::RecyclableObject* function, Js::Call
 }
 
 Js::Var DebugObject::EntrySetAutoProxyName(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
-{    
+{
     ARGUMENTS(args, callInfo);
     Js::ScriptContext* scriptContext = function->GetScriptContext();
 
@@ -1294,7 +1294,7 @@ Js::Var DebugObject::EntrySetAutoProxyName(Js::RecyclableObject* function, Js::C
 }
 
 Js::Var DebugObject::EntryDisableAutoProxy(Js::RecyclableObject* function, Js::CallInfo callInfo, ...)
-{    
+{
     ARGUMENTS(args, callInfo);
     Js::ScriptContext* scriptContext = function->GetScriptContext();
     scriptContext->GetThreadContext()->SetAutoProxyName(nullptr);
@@ -1363,7 +1363,7 @@ Js::Var DebugObject::EntryCreateDebugDisposableObject(Js::RecyclableObject* func
 
     if (args.Info.Count >= 2)
     {
-        Js::DynamicObject* parameterObject = Js::DynamicObject::FromVar(args[1]);
+        Js::DynamicObject* parameterObject = Js::VarTo<Js::DynamicObject>(args[1]);
         Js::Var value = NULL;
 
         if (Js::JavascriptOperators::GetProperty(parameterObject, collectOnDisposePropertyRecord->GetPropertyId(), &value, scriptContext))
@@ -1392,7 +1392,7 @@ Js::Var DebugObject::EntryCreateDebugDisposableObject(Js::RecyclableObject* func
         }
     }
 
-    Js::Var disposableObject = RecyclerNewFinalizedPlus(threadContext->GetRecycler(), disposableObjectSize + sizeof(DebugDisposableObject), DebugDisposableObject, 
+    Js::Var disposableObject = RecyclerNewFinalizedPlus(threadContext->GetRecycler(), disposableObjectSize + sizeof(DebugDisposableObject), DebugDisposableObject,
         scriptContext->GetLibrary()->GetDebugDisposableObjectType(), scriptContext,
         collectOnDispose, bytesToAllocateOnDispose, allocateLeaf, allocationCount);
     return disposableObject;
@@ -1406,7 +1406,7 @@ Js::Var DebugObject::EntryCreateDebugFuncExecutorInDisposeObject(Js::RecyclableO
     ARGUMENTS(args, callInfo);
 
     Js::ScriptContext* scriptContext = function->GetScriptContext();
-    
+
     if (args.Info.Count < 2)
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
@@ -1418,7 +1418,7 @@ Js::Var DebugObject::EntryCreateDebugFuncExecutorInDisposeObject(Js::RecyclableO
     // Process only if we have valid function
     if (Js::JavascriptOperators::GetTypeId(args[1]) == TypeIds_Function)
     {
-        functionToCall = Js::JavascriptFunction::FromVar(args[1]);
+        functionToCall = Js::VarTo<Js::JavascriptFunction>(args[1]);
         jsArguments = RecyclerNewArray(scriptContext->GetRecycler(), Var, args.Info.Count - 1);
 
         // Set args[0] = this
@@ -1440,7 +1440,7 @@ Js::Var DebugObject::EntryCreateDebugFuncExecutorInDisposeObject(Js::RecyclableO
 
         return disposableObject;
     }
-    
+
     Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_Invalid);
 }
 
@@ -1470,7 +1470,7 @@ Js::Var DebugObject::DetachAndFreeObject(Js::RecyclableObject* function, Js::Cal
     TypedArrayBufferAllocationType outAllocationType;
     HRESULT hr;
 
-    BEGIN_LEAVE_SCRIPT(scriptContext) 
+    BEGIN_LEAVE_SCRIPT(scriptContext)
     {
         hr = scriptEngine->DetachTypedArrayBuffer(args.Values[1], &outBuffer, &outBufferLength, &outAllocationType, nullptr, nullptr);
     }
@@ -1510,7 +1510,7 @@ Js::Var DebugObject::DumpHeap(Js::RecyclableObject* function, Js::CallInfo callI
     }
 
     int argc = args.Info.Count;
-    
+
     double arg1 = (argc <= 1 ? 0.0 : Js::JavascriptConversion::ToNumber(args[1], scriptContext));
     bool printBaselineComparison = false;
     if (arg1 != HeapDumperObjectToDumpFlag::HeapDumperDumpNew
@@ -1554,13 +1554,13 @@ HRESULT HeapDumper::IndentBuffer::Append(LPCWSTR appendStr, UINT& prevIndent)
 {
     UINT appendLen = wcslen(appendStr);
     if ((maxIndent - currIndent) < appendLen)
-    {        
+    {
         Output::Print(_u("*** Error: maxindent exceeded ***\n"));
         return E_FAIL;
     }
     wcscat_s(buffer, maxIndent, appendStr);
     prevIndent = currIndent;
-    currIndent += appendLen; 
+    currIndent += appendLen;
     return S_OK;
 }
 
@@ -1685,7 +1685,7 @@ HRESULT HeapDumper::DumpProperty(PROFILER_HEAP_OBJECT_RELATIONSHIP& elem)
         }
         case PROFILER_PROPERTY_TYPE_SUBSTRING:
         {
-            if (this->dumpArgs.enumFlags & PROFILER_HEAP_ENUM_FLAGS_SUBSTRINGS) 
+            if (this->dumpArgs.enumFlags & PROFILER_HEAP_ENUM_FLAGS_SUBSTRINGS)
             {
                 BSTR bstrStringValue = SysAllocStringLen(elem.subString->value, elem.subString->length);
                 if (bstrStringValue == NULL)
@@ -1695,7 +1695,7 @@ HRESULT HeapDumper::DumpProperty(PROFILER_HEAP_OBJECT_RELATIONSHIP& elem)
                 Output::Print(_u(" value: %.200s\n"), GetStringValue(bstrStringValue));
                 SysFreeString(bstrStringValue);
             }
-            else 
+            else
             {
                 Assert("HeapEnum property type is substring but PROFILER_HEAP_ENUM_FLAGS_SUBSTRINGS enum flag is not set");
             }
@@ -2073,7 +2073,7 @@ Js::Var HeapDumper::DumpHeap()
 
     Js::PropertyId typePid = scriptContext->GetOrAddPropertyIdTracked(_u("type"), wcslen(_u("type")));
     Js::PropertyId sizePid = scriptContext->GetOrAddPropertyIdTracked(_u("size"), wcslen(_u("size")));
-    Js::PropertyId newPid = scriptContext->GetOrAddPropertyIdTracked(_u("new"), wcslen(_u("new")));    
+    Js::PropertyId newPid = scriptContext->GetOrAddPropertyIdTracked(_u("new"), wcslen(_u("new")));
     Js::PropertyId objectIdPid = scriptContext->GetOrAddPropertyIdTracked(_u("id"), wcslen(_u("id")));
     Js::PropertyId objectPid = scriptContext->GetOrAddPropertyIdTracked(_u("object"), wcslen(_u("object")));
 
@@ -2090,7 +2090,7 @@ Js::Var HeapDumper::DumpHeap()
 
     const size_t snapshotChunkSize = 1000;
     PROFILER_HEAP_OBJECT* snapshotChunk[snapshotChunkSize];
-    
+
     numSnapshotElements = 0;
     pSnapshot = (PROFILER_HEAP_OBJECT**)malloc(sizeof(PROFILER_HEAP_OBJECT*));
     if (! pSnapshot)
@@ -2098,7 +2098,7 @@ Js::Var HeapDumper::DumpHeap()
         OutputDump(scriptContext, _u("[error : DumpHeap failed on malloc]\n"));
         goto Error;
     }
-    
+
     do {
         ULONG numFetched;
         hr = pEnum->Next(snapshotChunkSize, snapshotChunk, &numFetched);
@@ -2134,10 +2134,10 @@ Js::Var HeapDumper::DumpHeap()
     }
     if (dumpArgs.printHeapEnum)
     {
-        Output::Print(_u("\n\n===========>Starting Heap Dump for %s<===============\n"), 
+        Output::Print(_u("\n\n===========>Starting Heap Dump for %s<===============\n"),
             dumpArgs.objectToDump ? _u("specific object") :
-            dumpArgs.dumpType==HeapDumperDumpNew ? _u("new objects only") : 
-            dumpArgs.dumpType==HeapDumperDumpOld ? _u("old objects only") : 
+            dumpArgs.dumpType==HeapDumperDumpNew ? _u("new objects only") :
+            dumpArgs.dumpType==HeapDumperDumpOld ? _u("old objects only") :
             _u("all objects"));
     }
     ULONG elemCount = 0;
@@ -2160,14 +2160,14 @@ Js::Var HeapDumper::DumpHeap()
         }
         else if (dumpArgs.dumpRootsOnly && (obj.flags & PROFILER_HEAP_OBJECT_FLAGS_IS_ROOT) == 0)
         {
-            continue;            
+            continue;
         }
         if (dumpArgs.returnArray)
         {
             Js::DynamicObject* element = library->CreateObject();
 
-            Js::PropertyId rootPid = scriptContext->GetOrAddPropertyIdTracked(_u("root"), wcslen(_u("root")));            
-            Js::PropertyId externalAddressPid = scriptContext->GetOrAddPropertyIdTracked(_u("externalAddress"), wcslen(_u("externalAddress")));            
+            Js::PropertyId rootPid = scriptContext->GetOrAddPropertyIdTracked(_u("root"), wcslen(_u("root")));
+            Js::PropertyId externalAddressPid = scriptContext->GetOrAddPropertyIdTracked(_u("externalAddress"), wcslen(_u("externalAddress")));
             Js::PropertyId winrtInstancePid = scriptContext->GetOrAddPropertyIdTracked(_u("winrtInstance"), wcslen(_u("winrtInstance")));
             Js::PropertyId winrtRuntimeClassPid = scriptContext->GetOrAddPropertyIdTracked(_u("winrtRuntimeClass"), wcslen(_u("winrtRuntimeClass")));
             Js::PropertyId winrtDelegatePid = scriptContext->GetOrAddPropertyIdTracked(_u("winrtDelegate"), wcslen(_u("winrtDelegate")));
@@ -2176,7 +2176,7 @@ Js::Var HeapDumper::DumpHeap()
             if (obj.typeNameId != PROFILER_HEAP_OBJECT_NAME_ID_UNAVAILABLE)
             {
                 LPCWSTR typeName = GetNameFromId(obj.typeNameId);
-                element->SetProperty(typePid, library->CreateStringObject(Js::JavascriptString::NewCopySz(typeName, scriptContext)), Js::PropertyOperation_None, NULL);  
+                element->SetProperty(typePid, library->CreateStringObject(Js::JavascriptString::NewCopySz(typeName, scriptContext)), Js::PropertyOperation_None, NULL);
             }
             element->SetProperty(sizePid, Js::JavascriptNumber::New((double)obj.size, scriptContext), Js::PropertyOperation_None, NULL);
             element->SetProperty(newPid, isNewObject ? library->GetTrue() : library->GetFalse(), Js::PropertyOperation_None, NULL);
@@ -2288,11 +2288,11 @@ bool HeapDumper::HasArg(Js::Var args[], int argc, int i)
 
 HeapDumper::~HeapDumper()
 {
-    if (pSnapshot) 
-    { 
+    if (pSnapshot)
+    {
         pEnum->FreeObjectAndOptionalInfo(numSnapshotElements, pSnapshot);
-        free(pSnapshot); 
-        pSnapshot = NULL; 
+        free(pSnapshot);
+        pSnapshot = NULL;
     }
     if (pPropertyIdMap)
     {
@@ -2310,17 +2310,17 @@ Js::Var DebugObject::EntryGetProfileDataObject(Js::RecyclableObject* function, J
     Assert(!(callInfo.Flags & CallFlags_New));
     Js::ScriptContext* scriptContext = function->GetScriptContext();
 
-    if(args.Info.Count != 2 || !Js::JavascriptFunction::Is(args[1]))
+    if(args.Info.Count != 2 || !Js::VarIs<Js::JavascriptFunction>(args[1]))
     {
         Js::JavascriptError::ThrowError(scriptContext, JSERR_FunctionArgument_Invalid);
     }
 
-    Js::JavascriptFunction *func = Js::JavascriptFunction::FromVar(args[1]);
+    Js::JavascriptFunction *func = Js::VarTo<Js::JavascriptFunction>(args[1]);
     //To be safe; check if it is deserialized. This is a Debug object anyways
     func->GetFunctionProxy()->EnsureDeserialized();
     Js::FunctionBody *funcBody = func->GetFunctionBody();
 
-    return RecyclerNew(scriptContext->GetRecycler(), Js::ProfileDataObject, 
+    return RecyclerNew(scriptContext->GetRecycler(), Js::ProfileDataObject,
         scriptContext->GetLibrary()->GetObjectType(), funcBody);
 
 }
@@ -2332,7 +2332,7 @@ HTYPE IASDDebugObjectHelper::EnsureType(JavascriptTypeId typeId, Js::PropertyId 
 {
     ScriptSite* scriptSite = ScriptSite::FromScriptDirect(scriptDirect);
     Js::ScriptContext* scriptContext = scriptSite->GetScriptSiteContext();
-    if (nullptr == externalTypeMap) 
+    if (nullptr == externalTypeMap)
     {
         Recycler* recycler = scriptContext->GetRecycler();
         externalTypeMap = RecyclerNew(recycler, ExternalTypeMap, recycler, 32);
@@ -2345,7 +2345,7 @@ HTYPE IASDDebugObjectHelper::EnsureType(JavascriptTypeId typeId, Js::PropertyId 
     }
     HRESULT hr = NOERROR;
     AutoCOMPtr<ITypeOperations> defaultTypeOperations = nullptr;
-    if (useDefaultTypeOperations) 
+    if (useDefaultTypeOperations)
     {
         hr = scriptDirect->GetDefaultTypeOperations(&defaultTypeOperations);
     }
@@ -2365,4 +2365,4 @@ HTYPE IASDDebugObjectHelper::EnsureType(JavascriptTypeId typeId, Js::PropertyId 
     return returnType;
 }
 
-#endif 
+#endif

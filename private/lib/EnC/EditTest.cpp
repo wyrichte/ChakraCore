@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 #include "EnCPch.h"
 #ifdef EDIT_AND_CONTINUE
@@ -165,7 +165,7 @@ namespace Js
                 parentObj->SetProperty(childrenPropertyId, children, PropertyOperationFlags::PropertyOperation_Force, nullptr);
             }
 
-            Assert(JavascriptArray::Is(children));
+            Assert(JavascriptArray::IsNonES5Array(children));
             JavascriptArray::Push(scriptContext, children, obj);
         }
 

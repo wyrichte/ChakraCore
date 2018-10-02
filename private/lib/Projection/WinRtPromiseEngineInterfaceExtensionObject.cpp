@@ -15,7 +15,7 @@
 
 #pragma warning(push)
 #pragma warning(disable:4309) // truncation of constant value
-#pragma warning(disable:4838) // conversion from 'int' to 'const char' requires a narrowing conversion	
+#pragma warning(disable:4838) // conversion from 'int' to 'const char' requires a narrowing conversion
 #if TARGET_64
 #include "InJavascript\Promise.js.bc.64b.h"
 #else
@@ -164,9 +164,9 @@ namespace Projection
         Js::ScriptContext* scriptContext = function->GetScriptContext();
         AssertMsg(argCount > 0, "Should always have implicit 'this'");
 
-        if (callInfo.Count >= 2 && Js::JavascriptFunction::Is(args.Values[1]))
+        if (callInfo.Count >= 2 && Js::VarIs<Js::JavascriptFunction>(args.Values[1]))
         {
-            Js::JavascriptFunction* taskVar = Js::JavascriptFunction::FromVar(args.Values[1]);
+            Js::JavascriptFunction* taskVar = Js::VarTo<Js::JavascriptFunction>(args.Values[1]);
             scriptContext->GetLibrary()->EnqueueTask(taskVar);
         }
 

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
@@ -74,9 +74,9 @@ HRESULT __stdcall GenerateValidPointersMapHeader(LPCWSTR vpmFullPath)
 HRESULT __stdcall GetRestrictedString(Var error, BSTR * string)
 {
     *string = nullptr;
-    if (Js::JavascriptErrorDebug::Is(error))
+    if (Js::VarIs<Js::JavascriptErrorDebug>(error))
     {
-        *string = Js::JavascriptErrorDebug::FromVar(error)->GetRestrictedErrorString();
+        *string = Js::VarTo<Js::JavascriptErrorDebug>(error)->GetRestrictedErrorString();
     }
     return S_OK;
 }
@@ -84,9 +84,9 @@ HRESULT __stdcall GetRestrictedString(Var error, BSTR * string)
 HRESULT __stdcall GetCapability(Var error, BSTR * string)
 {
     *string = nullptr;
-    if (Js::JavascriptErrorDebug::Is(error))
+    if (Js::VarIs<Js::JavascriptErrorDebug>(error))
     {
-        *string = Js::JavascriptErrorDebug::FromVar(error)->GetCapabilitySid();
+        *string = Js::VarTo<Js::JavascriptErrorDebug>(error)->GetCapabilitySid();
     }
     return S_OK;
 }
@@ -95,11 +95,11 @@ LPWSTR __stdcall GetSystemStringFromHr(HRESULT hr)
 {
     LPWSTR returnStr = NULL;
 
-    DWORD_PTR pArgs[] = { (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), 
+    DWORD_PTR pArgs[] = { (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""),
         (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u(""), (DWORD_PTR)_u("") };
 
-    if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | 
-        FORMAT_MESSAGE_ARGUMENT_ARRAY | 
+    if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM |
+        FORMAT_MESSAGE_ARGUMENT_ARRAY |
         FORMAT_MESSAGE_ALLOCATE_BUFFER,
         NULL,
         hr,
@@ -113,7 +113,7 @@ LPWSTR __stdcall GetSystemStringFromHr(HRESULT hr)
     return nullptr;
 }
 
-BOOL __stdcall GetMemoryFootprintOfRC(IActiveScriptDirect * scriptDirect, LPCWSTR fullTypeName, INT32 * gcPressure) 
+BOOL __stdcall GetMemoryFootprintOfRC(IActiveScriptDirect * scriptDirect, LPCWSTR fullTypeName, INT32 * gcPressure)
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
     Projection::ProjectionContext * projectionContext = scriptEngine->GetProjectionContext();
@@ -128,33 +128,33 @@ BOOL __stdcall GetMemoryFootprintOfRC(IActiveScriptDirect * scriptDirect, LPCWST
     return result;
 }
 
-void __stdcall DoNotSupportWeakDelegate(IActiveScriptDirect * scriptDirect) 
+void __stdcall DoNotSupportWeakDelegate(IActiveScriptDirect * scriptDirect)
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
     Projection::ProjectionContext * projectionContext = scriptEngine->GetProjectionContext();
     projectionContext->DoNotSupportWeakDelegate();
 }
 
-HRESULT __stdcall StartScriptProfiling(IActiveScriptDirect * scriptDirect, IActiveScriptProfilerCallback *profilerObject, DWORD eventMask, DWORD context) 
+HRESULT __stdcall StartScriptProfiling(IActiveScriptDirect * scriptDirect, IActiveScriptProfilerCallback *profilerObject, DWORD eventMask, DWORD context)
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
     return scriptEngine->StartScriptProfiling(profilerObject, eventMask, context);
 }
 
-HRESULT __stdcall StopScriptProfiling(IActiveScriptDirect * scriptDirect) 
+HRESULT __stdcall StopScriptProfiling(IActiveScriptDirect * scriptDirect)
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
     return scriptEngine->StopProfiling(S_OK);
 }
 
-void __stdcall DisplayMemStats() 
+void __stdcall DisplayMemStats()
 {
     ThreadContext * threadContext = ThreadContext::GetContextForCurrentThread();
     if (!threadContext)
     {
         return;
     }
-    Recycler * recycler = threadContext->GetRecycler();  
+    Recycler * recycler = threadContext->GetRecycler();
     // Recycler might not have initialized, check if it is null
     if (recycler)
     {
@@ -164,7 +164,7 @@ void __stdcall DisplayMemStats()
 
 void __stdcall GetContentOfSharedArrayBuffer(Var instance, void** content)
 {
-    *content = Js::SharedArrayBuffer::FromVar(instance)->GetSharedContents();
+    *content = Js::VarTo<Js::SharedArrayBuffer>(instance)->GetSharedContents();
 }
 
 void __stdcall CreateSharedArrayBufferFromContent(IActiveScriptDirect * scriptDirect, void* content, Var* instance)
@@ -194,7 +194,7 @@ void __stdcall ResetTimeZoneFactoryObjects()
 }
 #endif
 
-BOOL __stdcall SupportsWeakDelegate(IActiveScriptDirect * scriptDirect) 
+BOOL __stdcall SupportsWeakDelegate(IActiveScriptDirect * scriptDirect)
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
     Projection::ProjectionContext * projectionContext = scriptEngine->GetProjectionContext();
@@ -296,7 +296,7 @@ class TestScriptEngine : public ScriptEngine
 public:
     TestScriptEngine (REFIID riidLanguage, LPCOLESTR pszLanguageName) :
         ScriptEngine(riidLanguage, pszLanguageName), m_engineSpecificStorage(NULL)
-        { 
+        {
         }
 
 protected:
@@ -333,7 +333,7 @@ HRESULT __stdcall NotifyOnScriptStateChanged(NotifyOnScriptStateChangedCallBackF
     return S_OK;
 }
 
-HRESULT __stdcall ClearAllProjectionCaches(IActiveScriptDirect * scriptDirect) 
+HRESULT __stdcall ClearAllProjectionCaches(IActiveScriptDirect * scriptDirect)
 {
     auto scriptEngine = (ScriptEngine*)scriptDirect;
     scriptEngine->ResetProjectionContext();

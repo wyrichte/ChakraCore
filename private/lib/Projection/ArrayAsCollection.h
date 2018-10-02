@@ -19,7 +19,7 @@ namespace Projection
 
         static bool IsArrayInstance(Var objectVar)
         {
-            return Js::JavascriptArray::Is(objectVar) || Js::ES5Array::Is(objectVar);
+            return Js::JavascriptArray::IsNonES5Array(objectVar) || Js::VarIs<Js::ES5Array>(objectVar);
         }
 
         static HRESULT GetAt(__in ProjectionContext *projectionContext, __in Js::JavascriptArray *pArray, __in unsigned index, __out Var *returnValue);

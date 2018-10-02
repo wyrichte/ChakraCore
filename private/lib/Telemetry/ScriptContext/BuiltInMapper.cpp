@@ -60,9 +60,9 @@ namespace Js
     {
         BuiltInFacet f = BuiltInFacet::_None;
 
-        if (JavascriptFunction::Is(constructorFunction))
+        if (VarIs<JavascriptFunction>(constructorFunction))
         {
-            JavascriptFunction* function = JavascriptFunction::FromVar(constructorFunction);
+            JavascriptFunction* function = VarTo<JavascriptFunction>(constructorFunction);
 
             ESBuiltInTypeNameId esbiTypeNameId = GetESBuiltInTypeNameId_ByPointer(function);
 
@@ -101,9 +101,9 @@ namespace Js
     {
         JavascriptLibrary* lib = this->scriptContext->GetLibrary();
 #define TYPENAME(ctor,name) TYPENAME_##ctor(name)
-#define TYPENAME_0(name) 
+#define TYPENAME_0(name)
 #define TYPENAME_1(name)   if( constructorFunction == lib->Get## name ##Constructor() ) return ESBuiltInTypeNameId::##name;
-#define TYPENAME_MAP(typeId,name) 
+#define TYPENAME_MAP(typeId,name)
 #include "ESBuiltInsTypeNames.h"
 #undef TYPENAME_MAP
 #undef TYPENAME_1
@@ -212,7 +212,7 @@ namespace Js
         // Method 1 has the advantage of working to detect polyfills, but is slow as string comparisons, even when using a Trie, require lots of steps, repeatedly.
         // Method 2 only detects usage of implemented and non-overrriden built-ins, but is a lot faster.
 
-        JavascriptFunction* instanceAsFunction = JavascriptFunction::FromVar(instance);
+        JavascriptFunction* instanceAsFunction = VarTo<JavascriptFunction>(instance);
 
         isConstructorProperty = true;
 

@@ -14,7 +14,7 @@ namespace Projection
     // Name:        ArrayProjection
     // Info:        Constructor for ArrayProjection
     // Parameters:  elementType - type of elements of the array
-    // Return:      A new ArrayProjection  
+    // Return:      A new ArrayProjection
     ArrayProjection::ArrayProjection(ProjectionContext* projectionContext, RtCONCRETETYPE elementType) :
         ProjectionTypeOperations(),
         elementType(elementType),
@@ -39,7 +39,7 @@ namespace Projection
         {
             return FALSE;
         }
-        
+
         Js::ExternalType * externalType = (Js::ExternalType *)externalObject->GetType();
         ProjectionTypeOperations* projectionTypeOperations = NULL;
         if (SUCCEEDED(externalType->GetTypeOperations()->QueryInterface(IID_IProjectionTypeOperations, (void**)&projectionTypeOperations)))
@@ -54,7 +54,7 @@ namespace Projection
 
     HRESULT ArrayProjection::EnsureProjection(
         __in RtCONCRETETYPE elementType,
-        __in ProjectionContext* projectionContext, 
+        __in ProjectionContext* projectionContext,
         __out ArrayProjection** ppNewInstance)
     {
         IfNullReturnError(ppNewInstance, E_INVALIDARG);
@@ -85,7 +85,7 @@ namespace Projection
     HRESULT ArrayProjection::Initialize()
     {
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
-        LPCWSTR pszElementTypeName = StringOfId(scriptContext, elementType->fullTypeNameId);            
+        LPCWSTR pszElementTypeName = StringOfId(scriptContext, elementType->fullTypeNameId);
 
         size_t lenElementTypeName = wcslen(pszElementTypeName) + wcslen(_u("Array")) + 1;
         WCHAR *pszArrayName = new WCHAR[lenElementTypeName ];
@@ -107,8 +107,8 @@ namespace Projection
 
 
     HRESULT ArrayProjection::CreateArrayProjectionObject(
-            __in RtCONCRETETYPE elementType, 
-            __in ProjectionContext* projectionContext, 
+            __in RtCONCRETETYPE elementType,
+            __in ProjectionContext* projectionContext,
             __in_xcount(length * elementType->storageSize) byte* pArrayBlockPointer,
             __in uint length,
             __in uint32 readArrayLength,
@@ -190,7 +190,7 @@ namespace Projection
                     // Duplicate the arrayblock and use that instead.
                     arrayBuffer = scriptContext->GetLibrary()->CreateProjectionArraybuffer(sizeOfBlock);
                     byte *pDuplicateArrayBlock = (byte *)arrayBuffer->GetBuffer();
-                    
+
                     if (sizeOfBlock != 0 && pDuplicateArrayBlock == nullptr)
                     {
                         return E_OUTOFMEMORY;
@@ -206,7 +206,7 @@ namespace Projection
                             Output::Flush();
                         }
 #endif
-                    
+
                         // directly copy the buffer - no addref, strings copy involved
                         memcpy_s(pDuplicateArrayBlock, sizeOfBlock, pArrayBlockPointer, readArrayLength * elementSize);
                         if (length > readArrayLength)
@@ -218,7 +218,7 @@ namespace Projection
                                 Output::Flush();
                             }
 #endif
-                            memset(pDuplicateArrayBlock + (readArrayLength * elementSize), 0, (length - readArrayLength) * elementSize); 
+                            memset(pDuplicateArrayBlock + (readArrayLength * elementSize), 0, (length - readArrayLength) * elementSize);
                         }
                     }
                     else
@@ -314,7 +314,7 @@ namespace Projection
                 {
                     // directly copy the buffer - no addref, strings copy involved
                     memcpy_s(pDuplicateArrayBlock, sizeOfBlock, pArrayBlockPointer, readArrayLength * elementSize);
-                    memset(pDuplicateArrayBlock + (readArrayLength * elementSize), 0, (length - readArrayLength) * elementSize); 
+                    memset(pDuplicateArrayBlock + (readArrayLength * elementSize), 0, (length - readArrayLength) * elementSize);
                 }
                 else
                 {
@@ -339,7 +339,7 @@ namespace Projection
                             Output::Flush();
                         }
 #endif
-                        memset(pDuplicateArrayBlock + (readArrayLength * elementSize), 0, (length - readArrayLength) * elementSize); 
+                        memset(pDuplicateArrayBlock + (readArrayLength * elementSize), 0, (length - readArrayLength) * elementSize);
                     }
                 }
             }
@@ -387,7 +387,7 @@ namespace Projection
         hr = ArrayObjectInstance::Create(hTypeRef, pArrayProjection->getItemAtId, elementType, pArrayBlockPointer, length, projectionContext, &pArrayObjectInstance);
         IfFailedReturn(hr);
         JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_TYPEDARRAY_OBJECT(pArrayObjectInstance, StringOfId(scriptContext, pArrayObjectInstance->GetTypeNameId())));
-       
+
         // Create the length value and set it
         Var varLength = Js::JavascriptNumber::ToVar(length, scriptContext);
         pArrayObjectInstance->SetPropertyWithAttributes(Js::PropertyIds::length, varLength, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
@@ -473,7 +473,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -492,7 +492,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *propertyPresent) 
+        /* [out] */ BOOL *propertyPresent)
     {
         IfNullReturnError(value, E_INVALIDARG);
         *value = nullptr;
@@ -513,7 +513,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *propertyPresent) 
+        /* [out] */ BOOL *propertyPresent)
     {
         IfNullReturnError(value, E_INVALIDARG);
         *value = nullptr;
@@ -534,7 +534,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [in] */ Var value,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -552,7 +552,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -570,7 +570,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *itemPresent) 
+        /* [out] */ BOOL *itemPresent)
     {
         IfNullReturnError(value, E_INVALIDARG);
         *value = nullptr;
@@ -585,7 +585,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [in] */ Var value,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -597,7 +597,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ Var index,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -610,7 +610,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ BOOL enumNonEnumerable,
         /* [in] */ BOOL enumSymbols,
-        /* [out] */ IVarEnumerator **enumerator) 
+        /* [out] */ IVarEnumerator **enumerator)
     {
         IfNullReturnError(enumerator, E_INVALIDARG);
         *enumerator = nullptr;
@@ -621,8 +621,8 @@ namespace Projection
 
         // Create the ArrayProjectionEnumerator
         BEGIN_JS_RUNTIME_CALL_EX_PROJECTION_TYPE_OP(projectionContext->GetScriptContext())
-        {  
-            ArrayProjectionEnumerator *pArrayProjectionEnumerator = HeapNew(ArrayProjectionEnumerator, this, instance, pDefaultOperatationEnumerator); 
+        {
+            ArrayProjectionEnumerator *pArrayProjectionEnumerator = HeapNew(ArrayProjectionEnumerator, this, instance, pDefaultOperatationEnumerator);
             hr = pArrayProjectionEnumerator->QueryInterface(__uuidof(IVarEnumerator), (void**)enumerator);
             Assert(SUCCEEDED(hr));
         }
@@ -635,7 +635,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -654,7 +654,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
@@ -673,14 +673,14 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
         *result = FALSE;
 
         uint32 index = 0;
         if (projectionContext->GetScriptContext()->IsNumericPropertyId(propertyId, &index))
-        { 
+        {
             // Non configurable
             return S_OK;
         }
@@ -692,7 +692,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         uint32 index = 0;
         if (projectionContext->GetScriptContext()->IsNumericPropertyId(propertyId, &index))
@@ -708,7 +708,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         uint32 index = 0;
         if (projectionContext->GetScriptContext()->IsNumericPropertyId(propertyId, &index))
@@ -724,7 +724,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         uint32 index = 0;
         if (projectionContext->GetScriptContext()->IsNumericPropertyId(propertyId, &index))
@@ -766,7 +766,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [in] */ Var getter,
-        /* [in] */ Var setter) 
+        /* [in] */ Var setter)
     {
         uint32 index = 0;
         if (projectionContext->GetScriptContext()->IsNumericPropertyId(propertyId, &index))
@@ -777,7 +777,7 @@ namespace Projection
         return __super::SetAccessors(scriptDirect, instance, propertyId, getter, setter);
     }
 
-    HRESULT STDMETHODCALLTYPE ArrayProjection::GetSetter( 
+    HRESULT STDMETHODCALLTYPE ArrayProjection::GetSetter(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
@@ -805,7 +805,7 @@ namespace Projection
 
     HRESULT STDMETHODCALLTYPE ArrayProjection::GetHeapObjectInfo(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-        /* [in] */ Var instance, 
+        /* [in] */ Var instance,
         /* [in] */ ProfilerHeapObjectInfoFlags flags,
         /* [out] */ HostProfilerHeapObject** result,
         /* [out] */ HeapObjectInfoReturnResult* returnResult)
@@ -814,7 +814,7 @@ namespace Projection
         *result = nullptr;
         IfNullReturnError(returnResult, E_INVALIDARG);
         *returnResult = HeapObjectInfoReturnResult_NoResult;
-		
+
         // We need to report the information about internal indices
         if (flags == ProfilerHeapObjectInfoFull)
         {
@@ -826,7 +826,7 @@ namespace Projection
 
     HRESULT STDMETHODCALLTYPE ArrayProjection::HasOwnItem(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-        /* [in] */ Var instance, 
+        /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [out] */ BOOL* result)
     {
@@ -839,7 +839,7 @@ namespace Projection
     HRESULT STDMETHODCALLTYPE ArrayProjection::GetItemSetter(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
-        /* [in] */ Var index, 
+        /* [in] */ Var index,
         /* [out] */ Var* setter,
         /* [out] */ ::DescriptorFlags* flags)
     {
@@ -862,7 +862,7 @@ namespace Projection
             /* [in] */ PropertyId propertyId,
             /* [in] */ Var value,
             /* [in] */ PropertyAttributes attributes,
-            /* [in] */ SideEffects effects, 
+            /* [in] */ SideEffects effects,
             /* [out]*/ BOOL* result)
     {
         IfNullReturnError(result, E_INVALIDARG);
@@ -878,7 +878,7 @@ namespace Projection
     }
 
 
-    ArrayObjectInstance::ArrayObjectInstance(FinalizableTypedArrayContents *finalizableTypedArrayContents, HTYPE hTypeRef, MetadataStringId getItemAtId) 
+    ArrayObjectInstance::ArrayObjectInstance(FinalizableTypedArrayContents *finalizableTypedArrayContents, HTYPE hTypeRef, MetadataStringId getItemAtId)
         : Js::CustomExternalObject((Js::CustomExternalType *)hTypeRef),
         getItemAtId(getItemAtId),
         finalizableTypedArrayContents(finalizableTypedArrayContents)
@@ -889,10 +889,10 @@ namespace Projection
     HRESULT ArrayObjectInstance::Create(
         __in HTYPE hTypeRef,
         __in MetadataStringId getItemAtId,
-        __in RtCONCRETETYPE elementType, 
-        __in byte *pArrayBlockPointer, 
+        __in RtCONCRETETYPE elementType,
+        __in byte *pArrayBlockPointer,
         __in uint length,
-        __in ProjectionContext *projectionContext, 
+        __in ProjectionContext *projectionContext,
         __out ArrayObjectInstance** ppNewArrayInstance)
     {
         IfNullReturnError(projectionContext, E_INVALIDARG);
@@ -900,7 +900,7 @@ namespace Projection
         *ppNewArrayInstance = nullptr;
 
         Recycler* recycler = projectionContext->GetScriptContext()->GetRecycler();
-        
+
 #if DBG_DUMP
         FinalizableTypedArrayContents *finalizableTypedArrayContents = RecyclerNewFinalized(recycler, FinalizableTypedArrayContents, recycler, projectionContext->GetThreadContext()->GetWinRTStringLibrary(), elementType, length, pArrayBlockPointer, releaseBufferUsingCoTaskMemFree, (ProjectionMemoryInformation*) projectionContext->GetThreadContext()->GetProjectionContextMemoryInformation());
 #else
@@ -913,11 +913,11 @@ namespace Projection
     }
 
     HRESULT ArrayObjectInstance::GetItemAt(
-        __in ProjectionContext *projectionContext, 
-        __in uint32 index, 
-        __out Var *value, 
+        __in ProjectionContext *projectionContext,
+        __in uint32 index,
+        __out Var *value,
         __out BOOL *result,
-        bool fIndexByVar, 
+        bool fIndexByVar,
         Var indexVar)
     {
         IfNullReturnError(value, E_INVALIDARG);
@@ -936,13 +936,13 @@ namespace Projection
         END_JS_RUNTIME_CALL(scriptContext);
         return hr;
     }
-    
+
     HRESULT ArrayObjectInstance::SetItemAt(
-        __in ProjectionContext *projectionContext, 
-        __in uint32 index, 
-        __in Var value, 
+        __in ProjectionContext *projectionContext,
+        __in uint32 index,
+        __in Var value,
         __out BOOL *result,
-        bool fIndexByVar, 
+        bool fIndexByVar,
         Var indexVar)
     {
         IfNullReturnError(result, E_INVALIDARG);
@@ -961,13 +961,13 @@ namespace Projection
     }
 
     HRESULT ArrayObjectInstance::GetItemAt(
-        __in_xcount(length * elementType->storageSize) byte *pArrayBlockPointer, 
-        __in uint length, 
-        __in ProjectionContext *projectionContext, 
+        __in_xcount(length * elementType->storageSize) byte *pArrayBlockPointer,
+        __in uint length,
+        __in ProjectionContext *projectionContext,
         __in RtCONCRETETYPE elementType,
-        __in uint32 index, 
+        __in uint32 index,
         __in MetadataStringId getItemAtId,
-        __out Var *value, 
+        __out Var *value,
         __out BOOL *result)
     {
         IfNullReturnError(result, E_INVALIDARG);
@@ -990,14 +990,14 @@ namespace Projection
         *result = TRUE;
         return S_OK;
     }
-    
+
     HRESULT ArrayObjectInstance::SetItemAt(
-        __in_xcount(length * elementType->storageSize) byte *pArrayBlockPointer, 
-        __in uint length, 
-        __in ProjectionContext *projectionContext, 
+        __in_xcount(length * elementType->storageSize) byte *pArrayBlockPointer,
+        __in uint length,
+        __in ProjectionContext *projectionContext,
         __in RtCONCRETETYPE elementType,
-        __in uint32 index, 
-        __in Var value, 
+        __in uint32 index,
+        __in Var value,
         __in bool fReleaseExistingItem,
         __out BOOL *result)
     {
@@ -1021,7 +1021,7 @@ namespace Projection
         *result = TRUE;
         return S_OK;
     }
-    
+
     HRESULT ArrayObjectInstance::GetFullHeapObjectInfo(HostProfilerHeapObject** result, HeapObjectInfoReturnResult* returnResult)
     {
         Assert(this->finalizableTypedArrayContents != nullptr);
@@ -1057,7 +1057,7 @@ namespace Projection
 
     BOOL ArrayProjection::NeedConversion(RtCONCRETETYPE elementType, Js::Var typedArray)
     {
-        Assert(Js::TypedArrayBase::Is(typedArray));
+        Assert(Js::VarIs<Js::TypedArrayBase>(typedArray));
         Assert(BasicType::Is(elementType));
         if (!BasicType::Is(elementType))
         {
@@ -1126,13 +1126,13 @@ namespace Projection
             return _u("Float32Array");
         if (createTypedArrayFunc == Js::Float64Array::Create)
             return _u("Float64Array");
-        
+
         Js::Throw::FatalProjectionError();
     }
 
     LPCWSTR ArrayProjection::TypedArrayName(Js::Var typedArray)
     {
-        Assert(Js::TypedArrayBase::Is(typedArray));
+        Assert(Js::VarIs<Js::TypedArrayBase>(typedArray));
         switch (Js::JavascriptOperators::GetTypeId(typedArray))
         {
         case Js::TypeIds_Int8Array:

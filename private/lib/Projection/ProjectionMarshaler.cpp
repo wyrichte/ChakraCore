@@ -60,11 +60,11 @@ namespace Projection
     //              instance - the object instance
     ProjectionObjectInstance * GetProjectionObjectInstanceFromVar(Js::ScriptContext * scriptContext, Var instance)
     {
-        if(!ProjectionObjectInstance::Is(instance))
+        if(!Js::VarIs<ProjectionObjectInstance>(instance))
         {
             // For example, a protoype method or property is called directly
             // var x = Animals.Dino.prototype.Height
-            Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch); 
+            Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch);
 
         }
         return (ProjectionObjectInstance*)instance;
@@ -75,7 +75,7 @@ namespace Projection
     // Parameters:  instance - the object instance
     ProjectionObjectInstance * GetProjectionObjectInstanceFromVarNoThrow(Var instance)
     {
-        if(ProjectionObjectInstance::Is(instance))
+        if(Js::VarIs<ProjectionObjectInstance>(instance))
         {
             return (ProjectionObjectInstance*)instance;
         }
@@ -99,7 +99,7 @@ namespace Projection
         {
             if ((expectedTypeId != MetadataStringIdNil) && (ceo->GetTypeNameId() != expectedTypeId))
             {
-                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NeedWinRTType, StringOfId(scriptContext, expectedTypeId)); 
+                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NeedWinRTType, StringOfId(scriptContext, expectedTypeId));
             }
         }
 
@@ -112,9 +112,9 @@ namespace Projection
             // Should only have a methodName if we are verifing 'this'
             if (methodNameId != MetadataStringIdNil)
             {
-                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NeedInspectableObject, StringOfId(scriptContext, methodNameId)); 
+                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NeedInspectableObject, StringOfId(scriptContext, methodNameId));
             }
-            Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch); 
+            Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch);
         }
 
         if (thisObject->GetUnknown() == nullptr)
@@ -201,19 +201,19 @@ namespace Projection
                 stringBuilder->Append(_u(' '));
                 stringBuilder->Append(qualifyingName->GetBuffer(), qualifyingName->GetLength());
                 size_t methodNameOffset = 0;
-                if (rtmethod->methodKind == MethodKind_Getter) 
+                if (rtmethod->methodKind == MethodKind_Getter)
                 {
                     methodNameOffset = wcslen(_u("get_"));
                     Assert(wcslen(methodName->GetBuffer()) > methodNameOffset);
                 }
-                if (rtmethod->methodKind == MethodKind_Setter) 
+                if (rtmethod->methodKind == MethodKind_Setter)
                 {
                     methodNameOffset = wcslen(_u("put_"));
                     Assert(wcslen(methodName->GetBuffer()) > methodNameOffset);
                 }
 
-                // methodType is set at runtime, while methodKind is set at parse time. 
-                // we don't have an easy way to have the methodType information at parse time. 
+                // methodType is set at runtime, while methodKind is set at parse time.
+                // we don't have an easy way to have the methodType information at parse time.
                 if (methodType == DeprecatedInvocation_Method ||
                     methodType == DeprecatedInvocation_Event)
                 {
@@ -228,7 +228,7 @@ namespace Projection
                 TRACE_METADATA(_u("Deprecated attribute message:%s\n"), methodStr);
                 Var scriptFunc;
                 BEGIN_LEAVE_SCRIPT(scriptContext)
-                {            
+                {
                     HRESULT hr = scriptDirect->Parse(methodStr, &scriptFunc);
                     if (SUCCEEDED(hr))
                     {
@@ -283,17 +283,17 @@ namespace Projection
         }
 
         ProjectionMethodInvoker invoker(rtmethod, projectionContext);
-        if (thisInfo->GetSpecialization() != nullptr && 
+        if (thisInfo->GetSpecialization() != nullptr &&
             thisInfo->GetSpecialization()->specializationType == specPromiseSpecialization &&
             (0 == wcscmp(StringOfId(scriptContext, rtmethod->nameId), _u("put_Completed"))))
         {
             // When the containing interface is derived from IAsyncInfo, the delegate created from the interface is treated as "async", and we support
-            // priority delegate that host can prioritize the work items as needed. We need to set this out at method invocation time such that we 
+            // priority delegate that host can prioritize the work items as needed. We need to set this out at method invocation time such that we
             // have the information in parameter marshalling time.
             invoker.SetIsInAsyncInterface();
         }
 
-        if (thisInfo->GetSpecialization() != nullptr && 
+        if (thisInfo->GetSpecialization() != nullptr &&
             thisInfo->GetSpecialization()->specializationType == specPromiseSpecialization &&
             (0 == wcscmp(StringOfId(scriptContext, rtmethod->nameId), _u("put_Progress"))))
         {
@@ -365,7 +365,7 @@ namespace Projection
             }
             break;
         case thisUnknownEventHandling:
-        case thisUnknown: 
+        case thisUnknown:
             {
                 IUnknown *unknown = nullptr;
 #ifdef ENABLE_JS_ETW
@@ -404,7 +404,7 @@ namespace Projection
         switch (thisInfo->thisType)
         {
         case thisUnknownEventHandling:
-        case thisUnknown: 
+        case thisUnknown:
 #ifdef ENABLE_JS_ETW
             if (EventEnabledJSCRIPT_PROJECTION_METHODCALL_STOP())
             {
@@ -429,7 +429,7 @@ namespace Projection
             break;
         default:
             Js::Throw::FatalProjectionError();
-        }        
+        }
 
         return result;
     }
@@ -438,9 +438,9 @@ namespace Projection
     Var DynamicCall(Signature * signature, Var method, Js::Arguments & args, Js::CallInfo & callInfo)
     {
         Assert(callInfo.Count > 0);
-        Assert(Js::JavascriptWinRTFunction::FromVar(method)->GetScriptContext()->GetThreadContext()->IsScriptActive());
+        Assert(Js::VarTo<Js::JavascriptWinRTFunction>(method)->GetScriptContext()->GetThreadContext()->IsScriptActive());
         Var result = NULL;
-        VerifyDeprecatedAttributeOnce(signature->method, signature->projectionContext->GetScriptContext(), 
+        VerifyDeprecatedAttributeOnce(signature->method, signature->projectionContext->GetScriptContext(),
             (callInfo.Flags & CallFlags_New) ? DeprecatedInvocation_Class : DeprecatedInvocation_Method);
         result = InvokeMethodByThisInfo(signature->thisInfo, signature->method, signature->boundsToUndefined, args[0], args, signature->projectionContext);
         return result;
@@ -453,13 +453,13 @@ namespace Projection
     {
         Var result;
 #if DBG
-        auto func = Js::JavascriptFunction::FromVar(method);
+        auto func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
         ProjectionModel::AllowHeavyOperation allow;
 #endif
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Signature * signature = reinterpret_cast<Signature*>(function->GetSignature());
         result = DynamicCall(signature, method, args, callInfo);
         return result;
@@ -467,7 +467,7 @@ namespace Projection
 
     bool ThisInfo::IsArray()
     {
-        return (specialization != nullptr && (specialization->specializationType == specVectorSpecialization || specialization->specializationType == specVectorViewSpecialization)); 
+        return (specialization != nullptr && (specialization->specializationType == specVectorSpecialization || specialization->specializationType == specVectorViewSpecialization));
     }
 
 
@@ -479,12 +479,12 @@ namespace Projection
         fReleaseOutResources(false), outHstrings(nullptr), outUnknowns(nullptr), fReleaseDelegateOutResources(false), delegateOutHstrings(nullptr), delegateOutUnknowns(nullptr),
         delegateOutMemory(nullptr), delegateOutArrayContents(nullptr), fInAsyncInterface(false)
     {
-        allocatorObject = projectionContext->GetScriptContext()->GetTemporaryAllocator(_u("ProjectionMarshaler")); 
+        allocatorObject = projectionContext->GetScriptContext()->GetTemporaryAllocator(_u("ProjectionMarshaler"));
         alloc = allocatorObject->GetAllocator();
 
         // Save a unknownsReleaser for this instance of projection marshaler
 #if DBG
-        unknownsReleaser = 
+        unknownsReleaser =
 #endif
             projectionContext->GetProjectionWriter()->GetUnknownsReleaser();
     }
@@ -498,7 +498,7 @@ namespace Projection
         });
 
         auto winRtStringLibrary = projectionContext->GetThreadContext()->GetWinRTStringLibrary();
-        
+
         hstrings->Iterate([&](HSTRING hs) {
             winRtStringLibrary->WindowsDeleteString(hs);
         });
@@ -525,11 +525,11 @@ namespace Projection
 
         // BEGIN_LEAVE_SCRIPT would probe stack for Js::Constants::MinStackCallout and if it isnt available it would throw stack exception.
         // We dont want destructor throwing exception since it could have been called while unwinding stack after exception and would result in process terminate if not handled.
-        // So we check for Js::Constants::MinStackCallout + 0xF0 
+        // So we check for Js::Constants::MinStackCallout + 0xF0
         // The additional bytes are rounded off to upperlimit of the stack bytes that would be used during Leave_Script but before the probe stack
-        if ((addrefs->IsEmpty() 
+        if ((addrefs->IsEmpty()
             && (!fReleaseOutResources || outUnknowns->IsEmpty())
-            && (!fReleaseDelegateOutResources || delegateOutUnknowns->IsEmpty())) 
+            && (!fReleaseDelegateOutResources || delegateOutUnknowns->IsEmpty()))
             || scriptContext->GetThreadContext()->IsStackAvailableNoThrow(Js::Constants::MinStackCallout + 0xF0))
         {
             if (!addrefs->IsEmpty())
@@ -581,7 +581,7 @@ namespace Projection
 #if DBG
                 unknownsReleaser,
 #endif
-                (fReleaseDelegateOutResources) ? delegateOutUnknowns->AppendListToCurrentList(addrefs) : addrefs, 
+                (fReleaseDelegateOutResources) ? delegateOutUnknowns->AppendListToCurrentList(addrefs) : addrefs,
                 (fReleaseOutResources) ? outUnknowns : nullptr,
                 alloc);
         }
@@ -593,8 +593,8 @@ namespace Projection
     }
 
     void ProjectionMarshaler::TransferOwnershipOfDelegateOutTypes()
-    { 
-        fReleaseDelegateOutResources = false; 
+    {
+        fReleaseDelegateOutResources = false;
         delegateOutArrayContents->Iterate([&](FinalizableTypedArrayContents * contents) {
             contents->typedArrayBuffer = nullptr;
         });
@@ -718,13 +718,13 @@ namespace Projection
             {
                 if (memSize<sizeof(char16))
                     Js::Throw::FatalProjectionError();
-                LPCWSTR asString = (Js::JavascriptConversion::ToString(arg, scriptContext))->GetSz(); 
+                LPCWSTR asString = (Js::JavascriptConversion::ToString(arg, scriptContext))->GetSz();
                 if(asString != NULL && ::wcslen(asString) == 1)
                 {
                     *(char16*)mem = asString[0];
                     return mem + sizeof(char16);
                 }
-                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_NeedWinRTChar); 
+                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_NeedWinRTChar);
             }
         case ELEMENT_TYPE_BOOLEAN:
             return WriteInBoolean(arg, mem, memSize);
@@ -796,7 +796,7 @@ namespace Projection
 
         if (Js::JavascriptOperators::GetTypeId(varInput) == Js::TypeIds_BooleanObject)
         {
-            *(bool*)mem = Js::JavascriptBooleanObject::FromVar(varInput)->GetValue() ? true: false;
+            *(bool*)mem = Js::VarTo<Js::JavascriptBooleanObject>(varInput)->GetValue() ? true: false;
         }
         else
         {
@@ -838,9 +838,9 @@ namespace Projection
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
         // The types T are not allowed as IReference<T> if it is HSTRING, interface, runtimeclass, delegates or object
-        if (type->typeCode == tcInterfaceType 
-            || type->typeCode == tcClassType 
-            || type->typeCode == tcDelegateType 
+        if (type->typeCode == tcInterfaceType
+            || type->typeCode == tcClassType
+            || type->typeCode == tcDelegateType
             || (basicType != nullptr && (basicType->typeCor == ELEMENT_TYPE_OBJECT || basicType->typeCor == ELEMENT_TYPE_STRING)))
         {
             Assert(0);
@@ -865,7 +865,7 @@ namespace Projection
 
         // Marshal Value into the type
         ProjectionMarshaler marshal(CalleeTransfersOwnership, projectionContext, false);
-        marshal.WriteInType(varInput, type, typeStorage, type->storageSize, true); 
+        marshal.WriteInType(varInput, type, typeStorage, type->storageSize, true);
 
         // Create the propertyValue
         IInspectable *propertyValue = nullptr;
@@ -1003,7 +1003,7 @@ namespace Projection
                 break;
 
                 // Js Array
-            case Js::TypeIds_Array:     
+            case Js::TypeIds_Array:
             case Js::TypeIds_NativeIntArray:
             case Js::TypeIds_NativeFloatArray:
             case Js::TypeIds_ES5Array:
@@ -1053,7 +1053,7 @@ namespace Projection
 
             default:
                 {
-                    if (Js::TypedArrayBase::Is(varInput))
+                    if (Js::VarIs<Js::TypedArrayBase>(varInput))
                     {
                         hr = GetBuiltinTypedArrayAsPropertyValue(varInput, &propertyValue);
                     }
@@ -1073,7 +1073,7 @@ namespace Projection
                         }
                         else
                         {
-                            // Either inspectable or unsupported type. 
+                            // Either inspectable or unsupported type.
                             // The GetUnknownOfVar extension would throw for unsupported type.
                             // GetUnknownOfVarExtension should addRef the interface, even if it is the default
                             GetUnknownOfVarExtension(scriptContext, varInput, __uuidof(IInspectable), (LPVOID *)&propertyValue, nullptr, true);
@@ -1092,8 +1092,8 @@ namespace Projection
 
     HRESULT ProjectionMarshaler::GetNonArrayTypeAsPropertyValue(
         __in size_t arraySize,
-        __in_bcount(arraySize) byte * typeBuffer, 
-        __in RtCONCRETETYPE type, 
+        __in_bcount(arraySize) byte * typeBuffer,
+        __in RtCONCRETETYPE type,
         __out IInspectable **propertyValue)
     {
         Assert(CanMarshalType(type));
@@ -1190,8 +1190,8 @@ namespace Projection
 
     HRESULT ProjectionMarshaler::GetNonArrayTypeAsPropertyValue(
         __in size_t arraySize,
-        __in_bcount(arraySize) byte * typeBuffer, 
-        __in CorElementType type, 
+        __in_bcount(arraySize) byte * typeBuffer,
+        __in CorElementType type,
         __out IInspectable **propertyValue)
     {
 #ifdef ENABLE_JS_ETW
@@ -1340,7 +1340,7 @@ namespace Projection
             break;
         }
         AssertMsg(typedArrayElementType != ELEMENT_TYPE_END, "invalid base type for typed array");
-        Js::TypedArrayBase* typedArrayBase = Js::TypedArrayBase::FromVar(varValue);
+        Js::TypedArrayBase* typedArrayBase = Js::VarTo<Js::TypedArrayBase>(varValue);
         byte* byteBuffer = typedArrayBase->GetByteBuffer();
         uint32 length = typedArrayBase->GetLength();
         hr = GetTypedArrayAsPropertyValue(length * Metadata::Assembly::GetBasicTypeSize(typedArrayElementType), byteBuffer, typedArrayElementType, propertyValue);
@@ -1348,9 +1348,9 @@ namespace Projection
     }
 
     HRESULT ProjectionMarshaler::GetTypedArrayAsPropertyValue(
-        __in size_t arraySize, 
-        __in_bcount(arraySize) byte * typedArrayBuffer, 
-        __in RtCONCRETETYPE type, 
+        __in size_t arraySize,
+        __in_bcount(arraySize) byte * typedArrayBuffer,
+        __in RtCONCRETETYPE type,
         __out IInspectable **propertyValue)
     {
         Assert(CanMarshalType(type));
@@ -1398,7 +1398,7 @@ namespace Projection
         case tcInterfaceType:
         case tcClassType:
             BEGIN_LEAVE_SCRIPT(scriptContext)
-            {            
+            {
                 hr = propertyValueFactory->CreateInspectableArray(length, (IInspectable **)typedArrayBuffer, propertyValue);
             }
             END_LEAVE_SCRIPT(scriptContext)
@@ -1453,9 +1453,9 @@ namespace Projection
     }
 
     HRESULT ProjectionMarshaler::GetTypedArrayAsPropertyValue(
-        __in size_t arraySize, 
-        __in_bcount(arraySize) byte * typedArrayBuffer, 
-        __in CorElementType type, 
+        __in size_t arraySize,
+        __in_bcount(arraySize) byte * typedArrayBuffer,
+        __in CorElementType type,
         __out IInspectable **propertyValue)
     {
 #ifdef ENABLE_JS_ETW
@@ -1558,13 +1558,13 @@ namespace Projection
         size_t sizeOfBytesRead = sizeof(GUID);
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
-        if (!Js::DynamicObject::Is(varInput))
+        if (!Js::DynamicObject::IsBaseDynamicObject(varInput))
         {
             baseValue = varInput;
         }
         else
         {
-            Js::DynamicObject* varSource = Js::DynamicObject::FromVar(varInput);
+            Js::DynamicObject* varSource = Js::VarTo<Js::DynamicObject>(varInput);
             baseValue = Js::JavascriptConversion::ToPrimitive<Js::JavascriptHint::HintString>(varSource, scriptContext);
         }
 
@@ -1607,7 +1607,7 @@ namespace Projection
     // Returns:     a pointer to the byte right after this write
     byte * ProjectionMarshaler::WriteInDate(Var varInput, __in_bcount(memSize) byte * mem, __in size_t memSize)
     {
-        size_t sizeOfDateTime = sizeof(Windows::Foundation::DateTime); 
+        size_t sizeOfDateTime = sizeof(Windows::Foundation::DateTime);
 
         if (memSize < sizeOfDateTime)
         {
@@ -1684,7 +1684,7 @@ namespace Projection
     // Returns:     a pointer to the byte right after this write
     byte * ProjectionMarshaler::WriteInTimeSpan(Var varInput, __in_bcount(memSize) byte * mem, __in size_t memSize)
     {
-        size_t sizeOfTimeSpan = sizeof(Windows::Foundation::TimeSpan); 
+        size_t sizeOfTimeSpan = sizeof(Windows::Foundation::TimeSpan);
 
         if (memSize < sizeOfTimeSpan)
         {
@@ -1698,7 +1698,7 @@ namespace Projection
             Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NeedNumber);
         }
         INT64 ticks;
-        HRESULT hr = NumberToWinRTTimeSpanV6(span, &ticks);       
+        HRESULT hr = NumberToWinRTTimeSpanV6(span, &ticks);
         if (FAILED(hr))
         {
             // If conversion failed, double value is outside the range of WinRT TimeSpan
@@ -1724,7 +1724,7 @@ namespace Projection
         {
             Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NeedObject);
         }
-        Js::RecyclableObject * structObject = Js::RecyclableObject::FromVar(varInput);
+        Js::RecyclableObject * structObject = Js::VarTo<Js::RecyclableObject>(varInput);
         if (nullptr == structObject)
         {
             Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_NeedObject);
@@ -1752,7 +1752,7 @@ namespace Projection
 
             // we are reading only LPVOID from the mem so update only that
             Assert(constructor->structType->sizeOnStack == sizeof(LPVOID));
-            bytesReadFromMem = (int)constructor->structType->sizeOnStack; 
+            bytesReadFromMem = (int)constructor->structType->sizeOnStack;
         }
 #endif
         ImmutableList<RtABIFIELDPROPERTY> * properties = constructor->structType->fields;
@@ -1764,7 +1764,7 @@ namespace Projection
         while(properties)
         {
             RtABIFIELDPROPERTY prop = properties->First();
-            PropertyId id = prop->identifier; 
+            PropertyId id = prop->identifier;
             Var fieldObject = nullptr;
 
             if (!Js::JavascriptOperators::GetProperty(structObject, id, &fieldObject, scriptContext))
@@ -1785,9 +1785,9 @@ namespace Projection
             remainingStorage -= prop->type->storageSize;
             properties = properties->GetTail();
         }
-        Assert(remainingStorage<constructor->structType->storageSize); // remainingStorage > 0 when per-struct alignment rounded up        
+        Assert(remainingStorage<constructor->structType->storageSize); // remainingStorage > 0 when per-struct alignment rounded up
         return mem + bytesReadFromMem;
-    }  
+    }
 
     byte * ProjectionMarshaler::WriteDelegateConstructorTypeInParameter(Var varInput, RtDELEGATECONSTRUCTOR constructor, __in_bcount(memSize) byte * mem,__in size_t memSize)
     {
@@ -1800,12 +1800,12 @@ namespace Projection
 
         // Validate that we're provided with a JavaScript function for callback
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
-        if (!Js::JavascriptFunction::Is(varInput))
+        if (!Js::VarIs<Js::JavascriptFunction>(varInput))
         {
             Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_NeedFunction);
         }
 
-        Js::JavascriptFunction * delegateFunction = Js::JavascriptFunction::FromVar(varInput);
+        Js::JavascriptFunction * delegateFunction = Js::VarTo<Js::JavascriptFunction>(varInput);
         if(Js::JavascriptOperators::GetTypeId(delegateFunction) != Js::TypeIds_Function)
         {
             Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_FunctionArgument_NeedFunction);
@@ -1815,7 +1815,7 @@ namespace Projection
         RtRUNTIMEINTERFACECONSTRUCTOR invokeInterface = RuntimeInterfaceConstructor::From(constructor->invokeInterface);
         if (delegateFunction->IsWinRTFunction())
         {
-            Js::JavascriptWinRTFunction * externalFunction = Js::JavascriptWinRTFunction::FromVar(delegateFunction);
+            Js::JavascriptWinRTFunction * externalFunction = Js::VarTo<Js::JavascriptWinRTFunction>(delegateFunction);
             if (externalFunction->GetFunctionInfo()->GetOriginalEntryPoint() != reinterpret_cast<Js::JavascriptMethod>(MethodSignatureThunk))
             {
                 // This WinRT function does not have entry point MethodSignatureThunk, and cannot be a delegate
@@ -1950,7 +1950,7 @@ namespace Projection
                 // Place the Iterable ptr into the target buffer
                 IUnknown *pUnknown = pIIterable->GetUnknown();
                 return WriteInUnknown(pUnknown, mem, memSize);
-            } 
+            }
             else if (constructor->iid->piid==IID_IIterator1)
             {
                 ArrayAsIterator *pIIterator = NULL;
@@ -1960,7 +1960,7 @@ namespace Projection
                 // Place the IIterator ptr into the target buffer
                 IUnknown *pUnknown = pIIterator->GetUnknown();
                 return WriteInUnknown(pUnknown, mem, memSize);
-            } 
+            }
             else if (constructor->iid->piid==IID_IVectorView1 || constructor->iid->piid==IID_IVector1)
             {
                 ArrayAsVector *pIVector = nullptr;
@@ -2003,11 +2003,11 @@ namespace Projection
         {
         case functionDelegateConstructor:
             return WriteDelegateConstructorTypeInParameter(varInput, DelegateConstructor::From(function), mem, memSize);
-        case functionStructConstructor: 
+        case functionStructConstructor:
             return WriteStructConstructorTypeInParameter(varInput, StructConstructor::From(function), structsByValue, mem, memSize, false);
         case functionInterfaceConstructor:
             return WriteRuntimeInterfaceConstructor(varInput, RuntimeInterfaceConstructor::From(function), mem, memSize);
-        case functionRuntimeClassConstructor: 
+        case functionRuntimeClassConstructor:
             return WriteRuntimeClassConstructor(varInput, RuntimeClassConstructor::From(function), mem, memSize);
         }
         Js::Throw::FatalProjectionError();
@@ -2024,9 +2024,9 @@ namespace Projection
     {
         switch(expr->type)
         {
-        case exprFunction: 
+        case exprFunction:
             return WriteFunctionTypeInParameter(varInput, Function::From(expr), mem, memSize, structsByValue);
-        case exprEnum: 
+        case exprEnum:
             return WriteInCorElementType(varInput, Enum::From(expr)->baseTypeCode, mem, memSize);
         }
         Js::Throw::FatalProjectionError();
@@ -2075,12 +2075,12 @@ namespace Projection
         }
 #endif
 
-        // Validate that we're provided with an array 
+        // Validate that we're provided with an array
         Js::TypeId typeId = Js::JavascriptOperators::GetTypeId(arg);
         BOOL isNullArray = (typeId == Js::TypeIds_Null || typeId == Js::TypeIds_Undefined);
         BOOL isArray = ArrayAsCollection::IsArrayInstance(arg);
-        BOOL isArrayProjection = ArrayProjection::Is(arg); 
-        BOOL isTypedArray = Js::TypedArrayBase::Is(arg);
+        BOOL isArrayProjection = ArrayProjection::Is(arg);
+        BOOL isTypedArray = Js::VarIs<Js::TypedArrayBase>(arg);
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
         if (!isNullArray && !isArray && !isArrayProjection && !isTypedArray)
@@ -2093,10 +2093,10 @@ namespace Projection
         if (isArray)
         {
             arrayLength = ArrayAsCollection::GetLength(static_cast<Js::JavascriptArray *>(arg));
-        } 
+        }
         else if (isTypedArray)
         {
-            arrayLength = Js::TypedArrayBase::FromVar(arg)->GetLength();
+            arrayLength = Js::VarTo<Js::TypedArrayBase>(arg)->GetLength();
         }
         else if (isArrayProjection)
         {
@@ -2158,7 +2158,7 @@ namespace Projection
 
         // Copy elements in all cases except when making a call of type PassArray or FillArray that has arrayProjection as in param
         // since we are going to pass the internal buffer itself in that case
-        bool copyElements = true; 
+        bool copyElements = true;
         if (resourceCleanup == CalleeTransfersOwnership)
         {
             Assert(!isByRef);
@@ -2182,7 +2182,7 @@ namespace Projection
                 if (ArrayProjection::SupportTypedArray(elementType) &&
                     !ArrayProjection::NeedConversion(elementType, arg))
                 {
-                    Js::TypedArrayBase* typedArrayBase = Js::TypedArrayBase::FromVar(arg);
+                    Js::TypedArrayBase* typedArrayBase = Js::VarTo<Js::TypedArrayBase>(arg);
                     *(byte **)arrayPointer = typedArrayBase->GetByteBuffer();
                     copyElements = false;
                 }
@@ -2300,8 +2300,8 @@ namespace Projection
                 }
             }
         }
-        // In case of retain ownership (delegates) we already have a buffer in which we need to copy the elements (FillArray Pattern) except for 
-        // ReceiveArray (isByRef) scenario where we need to CoTaskMemAlloc, 
+        // In case of retain ownership (delegates) we already have a buffer in which we need to copy the elements (FillArray Pattern) except for
+        // ReceiveArray (isByRef) scenario where we need to CoTaskMemAlloc,
         // For PassArray scenario this code path would never hit as it would inonly parameter and hence write to the memory would never be called.
         else if (isByRef)
         {
@@ -2333,9 +2333,9 @@ namespace Projection
 
         if (copyElements)
         {
-            // The elements are copied to buffer and buffer would be owner of those contents - that is whenever the buffer is deallocated, 
+            // The elements are copied to buffer and buffer would be owner of those contents - that is whenever the buffer is deallocated,
             // the elements should be released, we shouldnt be holding onto the references. So the Write needs to happen with CalleeRetainsOwnership
-            ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false); 
+            ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
 
 #if DBG_DUMP
             if (Js::Configuration::Global.flags.TraceWin8Allocations)
@@ -2389,12 +2389,12 @@ namespace Projection
 
         switch(type->typeCode)
         {
-        case tcBasicType: 
+        case tcBasicType:
             {
                 RtBASICTYPE basicType = BasicType::From(type);
                 return WriteInBasicType(arg, basicType, mem, memSize);
             }
-        case tcSystemGuidType: 
+        case tcSystemGuidType:
             return WriteInGuid(arg, structsByValue, mem, memSize);
         case tcWindowsFoundationDateTimeType:
             return WriteInDate(arg, mem, memSize);
@@ -2405,10 +2405,10 @@ namespace Projection
         case tcWindowsFoundationHResultType:
             return WriteInCorElementType(arg, ELEMENT_TYPE_I4, mem, memSize);
         case tcInterfaceType:
-        case tcDelegateType: 
-        case tcEnumType: 
-        case tcClassType: 
-        case tcStructType: 
+        case tcDelegateType:
+        case tcEnumType:
+        case tcClassType:
+        case tcStructType:
             {
                 RtTYPEDEFINITIONTYPE typeDefinitionType = TypeDefinitionType::From(type);
                 return WriteTypeNameTypeInParameter(arg, typeDefinitionType->typeId, typeDefinitionType->typeDef->id, typeDefinitionType->genericParameters, mem, memSize, structsByValue);
@@ -2430,7 +2430,7 @@ namespace Projection
 
                 WriteInType(arg, concrete, *(byte**)mem, concrete->storageSize, true);
                 return mem + sizeof(LPVOID);
-                
+
             }
         case tcArrayType:
             {
@@ -2493,10 +2493,10 @@ namespace Projection
     }
 
     void ProjectionMarshaler::RecordTypeToUndo(
-        fnTypeRecordString stringRecorder, 
-        fnTypeRecordUnknown unknownsRecorder, 
-        RtCONCRETETYPE concrete, 
-        __in_bcount(memSize) byte * mem, 
+        fnTypeRecordString stringRecorder,
+        fnTypeRecordUnknown unknownsRecorder,
+        RtCONCRETETYPE concrete,
+        __in_bcount(memSize) byte * mem,
         __in size_t memSize)
     {
         Assert(mem != nullptr);
@@ -2545,10 +2545,10 @@ namespace Projection
     }
 
     void ProjectionMarshaler::RecordStructTypeToUndo(
-        fnTypeRecordString stringRecorder, 
-        fnTypeRecordUnknown unknownsRecorder, 
-        RtSTRUCTTYPE structType, 
-        __in_bcount(memSize) byte * mem, 
+        fnTypeRecordString stringRecorder,
+        fnTypeRecordUnknown unknownsRecorder,
+        RtSTRUCTTYPE structType,
+        __in_bcount(memSize) byte * mem,
         __in size_t memSize)
     {
         ImmutableList<RtABIFIELDPROPERTY> * properties = structType->fields;
@@ -2585,8 +2585,8 @@ namespace Projection
                 // ReceiveArray Pattern
                 byte * countStorage = AnewArrayZ(alloc,byte,sizeof(uint));
                 byte * arrayStorage = AnewArrayZ(alloc,byte,sizeof(LPVOID));
-                byte * next = WriteInPointer(countStorage, mem, memSize);    
-                return WriteInPointer(arrayStorage, next, memSize-sizeof(uint));    
+                byte * next = WriteInPointer(countStorage, mem, memSize);
+                return WriteInPointer(arrayStorage, next, memSize-sizeof(uint));
             }
             else
             {
@@ -2605,7 +2605,7 @@ namespace Projection
             byte * storage = AnewArrayZ(alloc, byte, size);
 
             RecordTypeToUndo(&ProjectionMarshaler::RecordOutString, &ProjectionMarshaler::RecordOutUnknown, concrete, storage, size);
-            
+
             return WriteInPointer(storage, mem, memSize);
         }
         Assert(isMissingType);
@@ -2653,7 +2653,7 @@ namespace Projection
     //              hasLength - whether the array has an associated length_is
     //              lengthValue - the length_is value
     // Returns:     false if an out pointer was invalid, true otherwise
-    bool ProjectionMarshaler::InitializeDelegateOutArrayType(RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,  
+    bool ProjectionMarshaler::InitializeDelegateOutArrayType(RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,
         __in_bcount(memSize2) byte * mem2, __in size_t memSize2, bool isFillArray, bool hasLength, uint32 lengthValue)
     {
         // If the type should be hidden, return the proper error
@@ -2770,7 +2770,7 @@ namespace Projection
         if (FAILED(hr) || !inspectable)
         {
             Assert(false);
-            Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_ActionNotSupported);       
+            Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_ActionNotSupported);
         }
 #endif
         return TryReadInspectable(unknown, interfacePtr, methodNameId, allowIdentity, allowExtensions, allowEmptyRuntimeClassName, constructorArguments);
@@ -2902,16 +2902,16 @@ namespace Projection
     }
 
     Var ProjectionMarshaler::ReadPropertyValueVarFromRuntimeClassName(
-        AutoHSTRING &runtimeClassHString, 
+        AutoHSTRING &runtimeClassHString,
         __in IUnknown *unknown,
-        __in Windows::Foundation::IPropertyValue *propertyValue, 
+        __in Windows::Foundation::IPropertyValue *propertyValue,
         bool allowIdentity,
         bool allowExtensions,
         MetadataStringId methodNameId)
     {
         Assert(propertyValue != nullptr);
 
-        // I believe looking for get_Type and switching on it is more performant compared to 
+        // I believe looking for get_Type and switching on it is more performant compared to
         // looking for IReference and <T> combination, parsing the T to be type and then calling get_Value
         // But we can time it later
 
@@ -2927,7 +2927,7 @@ namespace Projection
             // If the string doesnt start with IReferenceArray`1 either then we dont support this type, throw error
             if (sIReferenceArray == nullptr || sIReferenceArray != runtimeClassString)
             {
-                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_RTCInvalidRTCPropertyValueOut, runtimeClassString);    
+                Js::JavascriptError::ThrowTypeError(scriptContext, JSERR_RTCInvalidRTCPropertyValueOut, runtimeClassString);
             }
         }
 
@@ -3111,7 +3111,7 @@ namespace Projection
                 }
                 END_LEAVE_SCRIPT(scriptContext)
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
-                result = ReadOutWindowsFoundationDateTimeType((byte *)&dateTime, sizeof(dateTime));                
+                result = ReadOutWindowsFoundationDateTimeType((byte *)&dateTime, sizeof(dateTime));
             }
             break;
 
@@ -3124,7 +3124,7 @@ namespace Projection
                 }
                 END_LEAVE_SCRIPT(scriptContext)
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
-                result = ReadOutWindowsFoundationTimeSpanType((byte *)&timeSpan, sizeof(timeSpan));                
+                result = ReadOutWindowsFoundationTimeSpanType((byte *)&timeSpan, sizeof(timeSpan));
             }
             break;
 
@@ -3137,7 +3137,7 @@ namespace Projection
                 }
                 END_LEAVE_SCRIPT(scriptContext)
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
-                result = ReadOutSystemGuidType(true, (byte *)&guidFromPropertyValue, sizeof(guidFromPropertyValue));                
+                result = ReadOutSystemGuidType(true, (byte *)&guidFromPropertyValue, sizeof(guidFromPropertyValue));
             }
             break;
 
@@ -3160,10 +3160,10 @@ namespace Projection
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
                     projectionContext->GetProjectionBuilder()->GetByteBasicType(),
-                    projectionContext, 
-                    arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext,
+                    arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3182,11 +3182,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetInt16BasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetInt16BasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3205,11 +3205,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetUint16BasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetUint16BasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3228,11 +3228,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetInt32BasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetInt32BasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3251,11 +3251,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetUint32BasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetUint32BasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3274,11 +3274,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetInt64BasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetInt64BasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3297,11 +3297,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetUint64BasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetUint64BasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3320,11 +3320,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetFloatBasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetFloatBasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3343,11 +3343,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetDoubleBasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetDoubleBasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3366,11 +3366,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetChar16BasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetChar16BasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3389,11 +3389,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetBoolBasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetBoolBasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3412,11 +3412,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetStringBasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetStringBasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3435,11 +3435,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    ConcreteType::From(projectionContext->GetProjectionBuilder()->GetWindowsFoundationDateTimeType()), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    ConcreteType::From(projectionContext->GetProjectionBuilder()->GetWindowsFoundationDateTimeType()),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3458,11 +3458,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    ConcreteType::From(projectionContext->GetProjectionBuilder()->GetWindowsFoundationTimeSpanType()), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    ConcreteType::From(projectionContext->GetProjectionBuilder()->GetWindowsFoundationTimeSpanType()),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3481,11 +3481,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    ConcreteType::From(projectionContext->GetProjectionBuilder()->GetSystemGuidType()), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    ConcreteType::From(projectionContext->GetProjectionBuilder()->GetSystemGuidType()),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3504,11 +3504,11 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 hr = ArrayProjection::CreateArrayProjectionObject(
-                    projectionContext->GetProjectionBuilder()->GetObjectBasicType(), 
-                    projectionContext, 
-                    (byte *)arrayFromPropertyValue, 
-                    length, 
-                    true, 
+                    projectionContext->GetProjectionBuilder()->GetObjectBasicType(),
+                    projectionContext,
+                    (byte *)arrayFromPropertyValue,
+                    length,
+                    true,
                     &result);
 
                 IfFailedMapAndThrowHr(scriptContext, hr);
@@ -3523,7 +3523,7 @@ namespace Projection
 
         default:
             {
-                // Since we cant read this var directly and ReadVarFromRuntimeClassName would take care reading the var as well as recording the unknown for undo, 
+                // Since we cant read this var directly and ReadVarFromRuntimeClassName would take care reading the var as well as recording the unknown for undo,
                 // we need to revert our earlier recorded undo action
                 Var resultToReturn = ReadVarFromRuntimeClassName(runtimeClassHString, unknown, propertyValue, allowIdentity, allowExtensions, false, methodNameId);
                 JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_STOP(runtimeClassString));
@@ -3539,11 +3539,11 @@ namespace Projection
             projectionContext->TypeInstanceCreated(propertyValue);
         }
 
-        if (!allowExtensions && Js::DynamicObject::Is(result))
+        if (!allowExtensions && Js::DynamicObject::IsBaseDynamicObject(result))
         {
             if (!this->projectionContext->AreProjectionPrototypesConfigurable())
             {
-                Js::DynamicObject * resultObject = Js::DynamicObject::FromVar(result);
+                Js::DynamicObject * resultObject = Js::VarTo<Js::DynamicObject>(result);
                 BOOL succeeded = resultObject->PreventExtensions();
                 Js::VerifyCatastrophic(succeeded);
             }
@@ -3623,7 +3623,7 @@ namespace Projection
                         return result;
                     }
 
-                case functionRuntimeClassConstructor: 
+                case functionRuntimeClassConstructor:
                     {
                         Var result = ReadRuntimeClassConstructorOutParameterFromUnknown(RuntimeClassConstructor::From(function), unknown, allowIdentity, allowExtensions, constructorArguments);
                         JS_ETW(EventWriteJSCRIPT_PROJECTION_VARFROMGRCN_STOP(runtimeClassString));
@@ -3705,7 +3705,7 @@ namespace Projection
 
                 if (allowIdentity)
                 {
-                    return jsFunc;                
+                    return jsFunc;
                 }
                 else
                 {
@@ -3753,7 +3753,7 @@ namespace Projection
             return function;
         }
 
-        return scriptContext->GetLibrary()->GetNull();        
+        return scriptContext->GetLibrary()->GetNull();
     }
 
     // Info:        Read as an interface (or possibly runtime class)
@@ -3806,7 +3806,7 @@ namespace Projection
             return ReadInterfaceConstructorOutParameterFromUnknown(constructor, unknown, allowIdentity, allowExtensions, constructorArguments);
         }
 
-        return scriptContext->GetLibrary()->GetNull();        
+        return scriptContext->GetLibrary()->GetNull();
     }
 
     // Info:        Read IUnknown as an interface
@@ -3842,13 +3842,13 @@ namespace Projection
         {
             result =  projectionWriter->CreateNewTypeInstance(
                 constructor->typeId,
-                StringOfId(constructor->typeId), 
+                StringOfId(constructor->typeId),
                 constructor->iid,
-                constructor->specialization, 
-                constructor->prototype, 
-                constructor->properties, 
-                constructor->signature, 
-                constructor->hasEventHandlers, 
+                constructor->specialization,
+                constructor->prototype,
+                constructor->properties,
+                constructor->signature,
+                constructor->hasEventHandlers,
                 DefaultGCPressure,
                 unknown,
                 allowIdentity,
@@ -3879,7 +3879,7 @@ namespace Projection
             return ReadRuntimeClassConstructorOutParameterFromUnknown(constructor, unknown, allowIdentity, allowExtensions);
         }
 
-        return scriptContext->GetLibrary()->GetNull();      
+        return scriptContext->GetLibrary()->GetNull();
     }
 
     Var ProjectionMarshaler::ReadEmptyRuntimeClassNameUnknown(IUnknown *unknown, bool allowIdentity, bool allowExtensions, ConstructorArguments* constructorArguments)
@@ -3891,9 +3891,9 @@ namespace Projection
         if (!allowIdentity || !projectionWriter->TryGetTypedInstanceFromCache(unknown, &result))
         {
             result = projectionWriter->CreateNewTypeInstance(
-                projectionContext->IdOfString(_u("")), 
+                projectionContext->IdOfString(_u("")),
                 _u(""),
-                nullptr, 
+                nullptr,
                 nullptr,
                 nullptr,
                 nullptr,
@@ -3917,7 +3917,7 @@ namespace Projection
     Var ProjectionMarshaler::ReadRuntimeClassConstructorOutParameterFromUnknown(RtRUNTIMECLASSCONSTRUCTOR constructor, IUnknown * unknown, bool allowIdentity, bool allowExtensions, ConstructorArguments* constructorArguments)
     {
         Assert (unknown != nullptr);
-        
+
 #if DBG
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         BEGIN_LEAVE_SCRIPT(scriptContext)
@@ -3957,13 +3957,13 @@ namespace Projection
             }
             result = projectionWriter->CreateNewTypeInstance(
                 constructor->typeId,
-                StringOfId(constructor->typeDef->id), 
+                StringOfId(constructor->typeDef->id),
                 defaultInterfaceIID,
-                constructor->specialization, 
-                constructor->prototype, 
-                constructor->properties, 
-                constructor->signature, 
-                constructor->hasEventHandlers, 
+                constructor->specialization,
+                constructor->prototype,
+                constructor->properties,
+                constructor->signature,
+                constructor->hasEventHandlers,
                 constructor->gcPressure,
                 unknown,
                 allowIdentity,
@@ -3984,7 +3984,7 @@ namespace Projection
     Var ProjectionMarshaler::ReadStructConstructorOut(RtSTRUCTCONSTRUCTOR constructor, bool structsByValue, __in_bcount(memSize) byte * mem,__in size_t memSize, MetadataStringId methodNameId, bool allowExtensions)
     {
         // From ABIPRojectionProvider.cpp(426) GetStructProjection -------------------------------------------------------------------------------------------------------------
-        // BUGBUG (yongqu): create with the prototype of the struct. 
+        // BUGBUG (yongqu): create with the prototype of the struct.
         ProjectionWriter * projectionWriter = projectionContext->GetProjectionWriter();
 
         HRESULT hr = S_OK;
@@ -4019,13 +4019,13 @@ namespace Projection
         }
 #endif
 
-        Js::DynamicObject * newInstance = Js::DynamicObject::FromVar(object);
+        Js::DynamicObject * newInstance = Js::VarTo<Js::DynamicObject>(object);
         ImmutableList<RtABIFIELDPROPERTY> * properties = constructor->structType->fields;
         size_t remainingStorage = constructor->structType->storageSize;
         while(properties)
         {
             RtABIFIELDPROPERTY prop = properties->First();
-            PropertyId id = prop->identifier; 
+            PropertyId id = prop->identifier;
             byte * fieldMem = storage+prop->fieldOffset;
             Var fieldValue = ReadOutType(nullptr, prop->type, true, fieldMem, remainingStorage, methodNameId);
             remainingStorage -= prop->type->storageSize;
@@ -4033,7 +4033,7 @@ namespace Projection
             properties = properties->GetTail();
         }
 
-        Assert(remainingStorage<constructor->structType->storageSize); // remainingStorage > 0 when per-struct alignment rounded up  
+        Assert(remainingStorage<constructor->structType->storageSize); // remainingStorage > 0 when per-struct alignment rounded up
 
         if (!allowExtensions && !this->projectionContext->AreProjectionPrototypesConfigurable())
         {
@@ -4081,7 +4081,7 @@ namespace Projection
     {
         switch(expr->type)
         {
-        case exprFunction: 
+        case exprFunction:
             return ReadTypeFunctionOut(definitelyNotRuntimeClass, Function::From(expr), structsByValue, mem, memSize, methodNameId, allowIdentity, allowExtensions, constructorArguments);
         case exprEnum:
             return ReadOutBasicType(Enum::From(expr)->baseTypeCode, mem, memSize, methodNameId, allowIdentity, allowExtensions);
@@ -4134,7 +4134,7 @@ namespace Projection
         Js::JavascriptError::ThrowTypeError(projectionContext->GetScriptContext(), JSERR_UnknownType, StringOfId(typeNameId));
     }
 
-    // Info:        Read as type definition 
+    // Info:        Read as type definition
     // Parameters:  type - the model type definition
     //              structsByValue - if struct is passed by value
     //              mem - pointer to the target memory
@@ -4146,7 +4146,7 @@ namespace Projection
         bool definitelyNotRuntimeClass = false;
         definitelyNotRuntimeClass |= type->typeCode==tcStructType;
         definitelyNotRuntimeClass |= type->typeCode==tcEnumType;
-        definitelyNotRuntimeClass |= type->typeCode==tcDelegateType;        
+        definitelyNotRuntimeClass |= type->typeCode==tcDelegateType;
         return ReadTypeNameOutParameter(definitelyNotRuntimeClass, type->typeId, type->typeDef->id, type->genericParameters, structsByValue, mem, memSize, methodNameId, allowIdentity, allowExtensions, constructorArguments);
     }
 
@@ -4161,7 +4161,7 @@ namespace Projection
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         switch(typeCor)
         {
-        case ELEMENT_TYPE_CHAR: 
+        case ELEMENT_TYPE_CHAR:
             AnalysisAssert(memSize >= sizeof(char16));
             return Js::JavascriptString::NewCopyBuffer((char16*)mem, 1, scriptContext);
         case ELEMENT_TYPE_BOOLEAN:
@@ -4210,7 +4210,7 @@ namespace Projection
     {
         UINT32 length = 0;
         HSTRING hs = *(HSTRING*)mem;
-        LPCWSTR sz = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(hs, &length); 
+        LPCWSTR sz = projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsGetStringRawBuffer(hs, &length);
         return Js::JavascriptString::NewCopyBuffer(sz, length, projectionContext->GetScriptContext()); // NOTE: We could make a new basic type for HSTRINGs and avoid this copy.
     }
 
@@ -4220,7 +4220,7 @@ namespace Projection
     // Returns:     The result var
     Var ProjectionMarshaler::ReadOutWindowsFoundationDateTimeType(__in_bcount(memSize) byte * mem, __in size_t memSize)
     {
-        size_t sizeOfDateTime = sizeof(Windows::Foundation::DateTime); 
+        size_t sizeOfDateTime = sizeof(Windows::Foundation::DateTime);
 
         if (memSize < sizeOfDateTime)
         {
@@ -4240,7 +4240,7 @@ namespace Projection
     // Returns:     The result var
     Var ProjectionMarshaler::ReadOutWindowsFoundationTimeSpanType(__in_bcount(memSize) byte * mem, __in size_t memSize)
     {
-        size_t sizeOfTimeSpan = sizeof(Windows::Foundation::TimeSpan); 
+        size_t sizeOfTimeSpan = sizeof(Windows::Foundation::TimeSpan);
 
         if (memSize < sizeOfTimeSpan)
         {
@@ -4251,12 +4251,12 @@ namespace Projection
         double span;
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
-        IfFailedMapAndThrowHr(scriptContext, WinRTTimeSpanToNumberV6(rtSpan, &span));        
+        IfFailedMapAndThrowHr(scriptContext, WinRTTimeSpanToNumberV6(rtSpan, &span));
 
         return Js::JavascriptNumber::ToVarNoCheck(span, scriptContext);
     }
 
-    // Info:        Read as a system guid      
+    // Info:        Read as a system guid
     // Parameters:  structsByValue - if struct is by value
     //              mem - pointer to the target memory
     //              memSize - the size of mem in bytes
@@ -4287,7 +4287,7 @@ namespace Projection
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
         HRESULT hr = GUIDParser::TryGUIDToString((GUID*)storage, guidString, sizeOfGuid);
         IfFailedMapAndThrowHr(scriptContext, hr);
-        return Js::JavascriptString::NewCopyBuffer(guidString, sizeOfGuid-1, scriptContext); 
+        return Js::JavascriptString::NewCopyBuffer(guidString, sizeOfGuid-1, scriptContext);
     }
 
     // Info:        Read as an out array
@@ -4298,7 +4298,7 @@ namespace Projection
     //              mem2 - pointer to the target memory for the array contents
     //              memSize2 - the size of mem in bytes
     // Returns:     The result var
-    Var ProjectionMarshaler::ReadOutArrayType(Var inOutArgument, RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,  
+    Var ProjectionMarshaler::ReadOutArrayType(Var inOutArgument, RtARRAYTYPE arrayType, __in_bcount(memSize1) byte * mem1, __in size_t memSize1,
         __in_bcount(memSize2) byte * mem2, __in size_t memSize2, MetadataStringId methodNameId, bool isByRef, bool isOut, bool allowExtensions,
         bool hasLength, uint32 lengthValue)
     {
@@ -4314,7 +4314,7 @@ namespace Projection
             Output::Flush();
         }
 #endif
-        TRACE_METADATA(_u("ReadOutArrayType(): Reading Array for: %s,  Array Pattern: %s, Considering length attribute: %s\n"), 
+        TRACE_METADATA(_u("ReadOutArrayType(): Reading Array for: %s,  Array Pattern: %s, Considering length attribute: %s\n"),
             (resourceCleanup == CalleeTransfersOwnership) ? _u("Method Call") : _u("Delegate Invoke"), isByRef ? _u("ReceiveArray") : isOut ? _u("FillArray") : _u("PassArray"), hasLength ? _u("true") : _u("false"));
 
         if (memSize1 < sizeof(uint) || memSize2 < sizeof(LPVOID))
@@ -4337,7 +4337,7 @@ namespace Projection
             Output::Flush();
         }
 #endif
-        TRACE_METADATA(_u("ReadOutArrayType(): Read Array of type: %s (#%d), Array Length: %u, Read array Length: %u\n"), 
+        TRACE_METADATA(_u("ReadOutArrayType(): Read Array of type: %s (#%d), Array Length: %u, Read array Length: %u\n"),
             StringOfId(arrayType->elementType->fullTypeNameId), arrayType->elementType->fullTypeNameId, elementCount, readArrayLength);
 
         if (hasLength && readArrayLength > elementCount)
@@ -4359,7 +4359,7 @@ namespace Projection
             Assert(resourceCleanup == CalleeTransfersOwnership); // We can update the values only in method call scenario and not in delegate scenario.
 
             // In case the passed in object was js Array then we need to reflect the values into the array
-            // But if the passed in object was null object then we dont need the update. 
+            // But if the passed in object was null object then we dont need the update.
             // If the object was arrayprojection then we had already passed in internal buffer so the updates would already be reflecting
             // unless we had to create duplicate buffer because the types of fillarray differed
 #if DBG_DUMP
@@ -4373,7 +4373,7 @@ namespace Projection
                     Output::Flush();
                 }
             }
-            else 
+            else
 #endif
                 if (ArrayAsCollection::IsArrayInstance(inOutArgument))
                 {
@@ -4421,7 +4421,7 @@ namespace Projection
                     }
                 }
 #if DBG_DUMP
-                else if (Js::TypedArrayBase::Is(inOutArgument))
+                else if (Js::VarIs<Js::TypedArrayBase>(inOutArgument))
                 {
                     if (Js::Configuration::Global.flags.TraceWin8Allocations)
                     {
@@ -4485,7 +4485,7 @@ namespace Projection
         {
             if (!this->projectionContext->AreProjectionPrototypesConfigurable())
             {
-                Js::DynamicObject * resultObject = Js::DynamicObject::FromVar(result);
+                Js::DynamicObject * resultObject = Js::VarTo<Js::DynamicObject>(result);
                 BOOL succeeded = resultObject->PreventExtensions();
                 Js::VerifyCatastrophic(succeeded);
             }
@@ -4498,7 +4498,7 @@ namespace Projection
         return result;
     }
 
-    // Info:        Read as out type 
+    // Info:        Read as out type
     // Parameters:  inOutArgument - the in\out arg is present
     //              type - the out type to read
     //              mem - pointer to the target memory
@@ -4524,7 +4524,7 @@ namespace Projection
         else if (TypeDefinitionType::Is(type))
         {
             result = ReadTypeDefinitionTypeOutParameter(TypeDefinitionType::From(type), structsByValue, mem, memSize, methodNameId, allowIdentity, allowExtensions, constructorArguments);
-        } 
+        }
         else if(ByRefType::Is(type))
         {
             RtBYREFTYPE byRefType = ByRefType::From(type);
@@ -4539,20 +4539,20 @@ namespace Projection
             {
                 result = ReadOutType(inOutArgument, concrete, true, *(byte**)mem,concrete->storageSize, methodNameId, allowIdentity, allowExtensions, constructorArguments);
             }
-        } 
+        }
         else if (BasicType::Is(type))
         {
             RtBASICTYPE basicType = BasicType::From(type);
             result = ReadOutBasicType(basicType->typeCor, mem, memSize, methodNameId, allowIdentity, allowExtensions);
-        } 
+        }
         else if (SystemGuidType::Is(type))
         {
             result = ReadOutSystemGuidType(structsByValue, mem, memSize);
-        } 
+        }
         else if (WindowsFoundationDateTimeType::Is(type))
         {
             result = ReadOutWindowsFoundationDateTimeType(mem, memSize);
-        } 
+        }
         else if (WindowsFoundationTimeSpanType::Is(type))
         {
             return ReadOutWindowsFoundationTimeSpanType(mem, memSize);

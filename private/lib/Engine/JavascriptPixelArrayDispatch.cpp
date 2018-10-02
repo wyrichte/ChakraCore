@@ -37,14 +37,14 @@ HRESULT JavascriptPixelArrayDispatch::get_length(__out ULONG* plLength)
     Assert(scriptObject->GetTypeId() == Js::TypeIds_Uint8ClampedArray);
 
     // GetByteLength returns the array length in bytes (elements * element_size)
-    *plLength = Js::Uint8ClampedArray::FromVar(scriptObject)->GetByteLength();
+    *plLength = Js::VarTo<Js::Uint8ClampedArray>(scriptObject)->GetByteLength();
 
     return S_OK;
 }
 
 /*virtual*/
 HRESULT JavascriptPixelArrayDispatch::GetBufferPointer(
-    __deref_out_bcount(*pBufferLength) BYTE **ppBuffer, 
+    __deref_out_bcount(*pBufferLength) BYTE **ppBuffer,
     __out ULONG *pBufferLength
     )
 {
@@ -60,15 +60,15 @@ HRESULT JavascriptPixelArrayDispatch::GetBufferPointer(
     {
         hr = E_UNEXPECTED;
         goto Error;
-    } 
+    }
 
-    if (scriptObject == NULL) 
+    if (scriptObject == NULL)
     {
         AssertMsg(scriptSite->IsClosed(), "ScriptContext not closed but script object is NULL");
         hr = E_ACCESSDENIED;
         goto Error;
     }
-    
+
     ScriptEngine* engine = scriptSite->GetScriptEngine();
     if (engine == NULL)
     {

@@ -110,7 +110,7 @@ namespace Js
 
         IfNullReturnError(pCanApply, E_POINTER);
         *pCanApply = m_canApply ? TRUE : FALSE;
-        
+
         return hr;
     }
 
@@ -220,7 +220,7 @@ namespace Js
     {
         // TODO: we are assuming its function because for now we are enumerating only on functions
         // In future if the RecyclerNewEnumClass is used of Recyclable objects or Dynamic object, we would need a check if it is function
-        Assert(JavascriptFunction::Is(address));
+        Assert(VarIs<JavascriptFunction>(address));
         JavascriptFunction* function = (JavascriptFunction*)address;
 
         if (!function->IsScriptFunction())
@@ -266,7 +266,7 @@ namespace Js
             {
                 ((ScriptDebugDocument*)diff->OldTree().GetUtf8SourceInfo()->GetDebugDocument())->QueryDocumentText(&result->oldDebugDocumentText);
             }
-            
+
             if (diff->NewTree().GetUtf8SourceInfo()->HasDebugDocument())
             {
                 ScriptDebugDocument* newTreeScriptDebugDocument = (ScriptDebugDocument*)diff->NewTree().GetUtf8SourceInfo()->GetDebugDocument();
@@ -312,7 +312,7 @@ namespace Js
         {
             return diff->NewTree().HasError();
         });
-                
+
         m_canApply = !hasError;
 
     Error:
@@ -485,7 +485,7 @@ namespace Js
             const SRCINFO* srcInfo = utf8SourceInfo->GetSrcInfo();
             SourceContextInfo* sourceContextInfo = srcInfo->sourceContextInfo;
             ULONG grfscr = utf8SourceInfo->GetParseFlags();
-            
+
             // avoid defer parse
             grfscr &= ~(fscrCanDeferFncParse | fscrWillDeferFncParse);
             grfscr |= fscrNoAsmJs;
@@ -528,7 +528,7 @@ namespace Js
         uint sourceIndex = scriptContext->SaveSourceNoCopy(m_utf8SourceInfo, m_utf8SourceInfo->GetCchLength(), m_utf8SourceInfo->GetIsCesu8());
         HRESULT hrCodeGen;
         CompileScriptException se;
-        {            
+        {
             ULONG grfscr = this->m_utf8SourceInfo->GetByteCodeGenerationFlags();
             hrCodeGen = ::GenerateByteCode(m_parseTree, grfscr, scriptContext, root, sourceIndex, /*forceNoNative*/false, &m_parser, &se);
         }
@@ -701,7 +701,7 @@ namespace Js
                     }
                 });
             }
-            else 
+            else
             {
                 OUTPUT_TRACE(Phase::ENCPhase, _u("=== Parse error ===\n"));
             }
@@ -800,7 +800,7 @@ namespace Js
                 Assert(functionDeclarationNode->parent);
                 // Nested function are not added to global
                 // var funcVar = func() will also not add to global
-                if (functionDeclarationNode->parent->nop == knopProg) 
+                if (functionDeclarationNode->parent->nop == knopProg)
                 {
                     if (functionDeclarationNode->AsParseNodeFnc()->pid != nullptr) // Anonymous functions are not added to global
                     {
@@ -880,7 +880,7 @@ namespace Js
         {
             HRESULT hr = S_OK;
             ScriptEngine* scriptEngine = this->GetScriptEdit()->GetScriptEngine();
-            
+
             AutoCOMPtr<CScriptBody> scriptBody;
             scriptBody.Attach(HeapNew(CScriptBody, m_diff->NewRoot(), scriptEngine, newUtf8SourceInfo));
 
@@ -923,14 +923,14 @@ namespace Js
         // Change these functionObject to use new functionBody
         m_functionList.Map([&](int, JavascriptFunction* function)
         {
-            ScriptFunction* scriptFunction = ScriptFunction::FromVar(function);
+            ScriptFunction* scriptFunction = VarTo<ScriptFunction>(function);
             FunctionEntryPointInfo* newEntryPointInfo = newBody->GetDefaultFunctionEntryPointInfo();
             scriptFunction->UpdateThunkEntryPoint(newEntryPointInfo, newBody->GetDirectEntryPoint(newEntryPointInfo));
             function->SetFunctionInfo(newBody->GetFunctionInfo());
 
-            if (ScriptFunctionWithInlineCache::Is(function))
+            if (VarIs<ScriptFunctionWithInlineCache>(function))
             {
-                ScriptFunctionWithInlineCache::FromVar(function)->ClearInlineCacheOnFunctionObject();
+                VarTo<ScriptFunctionWithInlineCache>(function)->ClearInlineCacheOnFunctionObject();
             }
         });
     }
@@ -961,7 +961,7 @@ namespace Js
                 PropertyRecord const * propertyRecord;
                 scriptContext->GetOrAddPropertyRecord(functionNode->AsParseNodeFnc()->pid->Psz(), functionNode->AsParseNodeFnc()->pid->Cch(), &propertyRecord);
                 PropertyId newFunctionPropertyId = propertyRecord->GetPropertyId();
-                if (!globalObject->HasProperty(newFunctionPropertyId)) 
+                if (!globalObject->HasProperty(newFunctionPropertyId))
                 {
                     ScriptFunction* function = library->CreateScriptFunction(newBody);
                     globalObject->SetProperty(newFunctionPropertyId, function, PropertyOperation_None, /* PropertyValueInfo = */ NULL);

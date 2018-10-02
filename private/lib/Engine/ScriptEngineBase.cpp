@@ -195,10 +195,10 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::SetHostObject(
 #endif
         ) )
         {
-            GetScriptSiteHolder()->SetupWindowHost(Js::RecyclableObject::FromVar(secureHostObject));
+            GetScriptSiteHolder()->SetupWindowHost(Js::VarTo<Js::RecyclableObject>(secureHostObject));
         }
 #endif
-        hr = scriptContext->GetGlobalObject()->SetDirectHostObject(Js::RecyclableObject::FromVar(hostObject), Js::RecyclableObject::FromVar(secureHostObject));
+        hr = scriptContext->GetGlobalObject()->SetDirectHostObject(Js::VarTo<Js::RecyclableObject>(hostObject), Js::VarTo<Js::RecyclableObject>(secureHostObject));
 
         if (SUCCEEDED(hr) && fSetupFastDOM)
         {
@@ -304,8 +304,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Parse(
     HRESULT result = scriptEngine->ParseInternal(scriptText, scriptFunc, LoadScriptFlag_Expression);
     if (result == NO_ERROR)
     {
-        Assert(Js::ScriptFunction::Is(*scriptFunc));
-        Js::ScriptFunction::FromVar(*scriptFunc)->GetFunctionInfo()->SetIsActiveScript();
+        Assert(Js::VarIs<Js::ScriptFunction>(*scriptFunc));
+        Js::VarTo<Js::ScriptFunction>(*scriptFunc)->GetFunctionInfo()->SetIsActiveScript();
     }
     return result;
 }
@@ -343,7 +343,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Execute(
     jsArguments.Info.Count = callInfo.Count;
     jsArguments.Info.Flags = (Js::CallFlags)callInfo.Flags;
     jsArguments.Values = (Js::Var*)arguments;
-    Js::RecyclableObject* jsObj = Js::RecyclableObject::FromVar(instance);
+    Js::RecyclableObject* jsObj = Js::VarTo<Js::RecyclableObject>(instance);
     Js::Var returnVar = localScriptContext->GetLibrary()->GetUndefined();
 
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
@@ -550,7 +550,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateConstructor(
     {
         return E_INVALIDARG;
     }
-    if (prototype != nullptr && !Js::RecyclableObject::Is(prototype))
+    if (prototype != nullptr && !Js::VarIs<Js::RecyclableObject>(prototype))
     {
         return E_INVALIDARG;
     }
@@ -560,7 +560,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateConstructor(
     }
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
-        *instance = library->CreateExternalConstructor((Js::ExternalMethod)entryPoint, nameId, prototype == nullptr ? nullptr : Js::RecyclableObject::FromVar(prototype));
+        *instance = library->CreateExternalConstructor((Js::ExternalMethod)entryPoint, nameId, prototype == nullptr ? nullptr : Js::VarTo<Js::RecyclableObject>(prototype));
 
         if ( bindReference )
         {
@@ -666,10 +666,10 @@ HRESULT ScriptEngineBase::GetOPrototypeInformationForTypeCreation(
     {
         *objPrototype = library->GetObjectPrototype();
     }
-    else if (Js::RecyclableObject::Is(varPrototype))
+    else if (Js::VarIs<Js::RecyclableObject>(varPrototype))
     {
         varPrototype = Js::CrossSite::MarshalVar(scriptContext, varPrototype);
-        *objPrototype = Js::RecyclableObject::FromVar(varPrototype);
+        *objPrototype = Js::VarTo<Js::RecyclableObject>(varPrototype);
     }
     else
     {
@@ -901,7 +901,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedObjectFromScript(
 #ifdef ENABLE_JS_ETW
         if (EventEnabledJSCRIPT_RECYCLER_ALLOCATE_DOM_OBJECT())
         {
-            Assert(!IsWinRTType(Js::CustomExternalObject::FromVar(object)));
+            Assert(!IsWinRTType(Js::VarTo<Js::CustomExternalObject>(object)));
             Js::TypeId typeId = Js::JavascriptOperators::GetTypeId(object);
             EventWriteJSCRIPT_RECYCLER_ALLOCATE_DOM_OBJECT(object, typeId);
         }
@@ -1154,13 +1154,13 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToSYSTEMTIME(
         return hr;
     }
 
-    if(!Js::JavascriptDate::Is(instance))
+    if(!Js::VarIs<Js::JavascriptDate>(instance))
     {
         return E_INVALIDARG;
     }
 
     AUTO_NO_EXCEPTION_REGION;
-    Js::JavascriptDate* date = Js::JavascriptDate::FromVar(instance);
+    Js::JavascriptDate* date = Js::VarTo<Js::JavascriptDate>(instance);
     DateTime::YMD ymdDate;
     Js::DateImplementation::GetYmdFromTv(date->GetTime(), &ymdDate);
     ymdDate.ToSystemTime(result);
@@ -1408,7 +1408,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ExtensionToVar(
         return hr;
     }
     *instance = (Var)((char*)buffer - sizeof(Js::ExternalObject));
-    if (Js::ExternalObject::Is(*instance) || Js::CustomExternalObject::Is(instance))
+    if (Js::VarIs<Js::ExternalObject>(*instance) || Js::VarIs<Js::CustomExternalObject>(*instance))
     {
         return S_OK;
     }
@@ -1433,7 +1433,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToExtension(
         return hr;
     }
 
-    if (!Js::ExternalObject::Is(instance))
+    if (!Js::VarIs<Js::ExternalObject>(instance))
     {
         return E_INVALIDARG;
     }
@@ -1501,7 +1501,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::VarToDispEx(
         }
         return pDispatch->QueryInterface(__uuidof(IDispatchEx), (void**)pdispex);
     }
-    Js::RecyclableObject* jsInstance = Js::RecyclableObject::FromVar(instance);
+    Js::RecyclableObject* jsInstance = Js::VarTo<Js::RecyclableObject>(instance);
 
     JavascriptDispatch* jsDispatch = nullptr;
     // Collection will be disabled in VarDispEx because it could be called from projection reentrance as ASTA allows
@@ -1747,14 +1747,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ReinitializeObject(__in Var instance
     {
         return hr;
     }
-    if (!Js::ExternalObject::Is(instance) || (type == nullptr))
+    if (!Js::VarIs<Js::ExternalObject>(instance) || (type == nullptr))
     {
         return E_INVALIDARG;
     }
 
     Js::ExternalType* externalType = (Js::ExternalType*)type;
 
-    Js::ExternalObject* externalObject = Js::ExternalObject::FromVar(instance);
+    Js::ExternalObject* externalObject = Js::VarTo<Js::ExternalObject>(instance);
     if (!externalObject->IsExternal())
     {
         return E_INVALIDARG;
@@ -1868,14 +1868,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::ChangeTypeFromVar(
     }
     VariantInit(outVariant);
 
-    if (!Js::DynamicObject::Is(instance))
+    if (!Js::DynamicObject::IsBaseDynamicObject(instance))
     {
         // let MarhshalJsVarToVariant handles the type checking.
         varValue = instance;
     }
     else
     {
-        Js::DynamicObject* varSource = Js::DynamicObject::FromVar(instance);
+        Js::DynamicObject* varSource = Js::VarTo<Js::DynamicObject>(instance);
         if (vtNew == VT_BSTR)
         {
             hr = GetScriptSiteHolder()->ExternalToPrimitive<Js::JavascriptHint::HintString>(varSource, &varValue);
@@ -2057,7 +2057,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetScriptType(
 
     case Js::TypeIds_Proxy:
     {
-        Js::JavascriptProxy* proxy = Js::JavascriptProxy::FromVar(instance);
+        Js::JavascriptProxy* proxy = Js::VarTo<Js::JavascriptProxy>(instance);
         return GetScriptType(proxy->GetTarget(), scriptType);
     }
 
@@ -2537,8 +2537,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapHas(Var mapInstance, Var key,
     {
         return hr;
     }
-    
-    if (!Js::JavascriptWeakMap::Is(mapInstance) || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext)
+
+    if (!Js::VarIs<Js::JavascriptWeakMap>(mapInstance) || Js::VarTo<Js::JavascriptWeakMap>(mapInstance)->GetScriptContext() != scriptContext)
     {
         return E_INVALIDARG;
     }
@@ -2547,9 +2547,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapHas(Var mapInstance, Var key,
     {
         BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
         {
-            Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+            Js::JavascriptWeakMap *map = Js::VarTo<Js::JavascriptWeakMap>(mapInstance);
             Var key1 = Js::CrossSite::MarshalVar(scriptContext, key);
-            *has = map->Has(Js::DynamicObject::FromVar(key1));
+            *has = map->Has(Js::VarTo<Js::DynamicObject>(key1));
         }
         END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
     }
@@ -2571,8 +2571,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapSet(Var mapInstance, Var key,
         return hr;
     }
 
-    if (!Js::JavascriptWeakMap::Is(mapInstance)
-        || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext
+    if (!Js::VarIs<Js::JavascriptWeakMap>(mapInstance)
+        || Js::VarTo<Js::JavascriptWeakMap>(mapInstance)->GetScriptContext() != scriptContext
         || !Js::JavascriptOperators::IsObject(key)
         || Js::JavascriptOperators::GetTypeId(key) == TypeIds_HostDispatch)
     {
@@ -2581,9 +2581,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapSet(Var mapInstance, Var key,
 
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
     {
-        Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+        Js::JavascriptWeakMap *map = Js::VarTo<Js::JavascriptWeakMap>(mapInstance);
         Var key1 = Js::CrossSite::MarshalVar(scriptContext, key);
-        map->Set(Js::DynamicObject::FromVar(key1), Js::CrossSite::MarshalVar(scriptContext, value));
+        map->Set(Js::VarTo<Js::DynamicObject>(key1), Js::CrossSite::MarshalVar(scriptContext, value));
     }
     END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
 
@@ -2607,7 +2607,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapGet(Var mapInstance, Var key,
         return hr;
     }
 
-    if (!Js::JavascriptWeakMap::Is(mapInstance) || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext)
+    if (!Js::VarIs<Js::JavascriptWeakMap>(mapInstance) || Js::VarTo<Js::JavascriptWeakMap>(mapInstance)->GetScriptContext() != scriptContext)
     {
         return E_INVALIDARG;
     }
@@ -2616,9 +2616,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapGet(Var mapInstance, Var key,
     {
         BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
         {
-            Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+            Js::JavascriptWeakMap *map = Js::VarTo<Js::JavascriptWeakMap>(mapInstance);
             Var value1 = nullptr;
-            *found = map->Get(Js::DynamicObject::FromVar(key), &value1);
+            *found = map->Get(Js::VarTo<Js::DynamicObject>(key), &value1);
             if (*found)
             {
                 *value = Js::CrossSite::MarshalVar(scriptContext, value1);
@@ -2644,7 +2644,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapDelete(Var mapInstance, Var k
         return hr;
     }
 
-    if (!Js::JavascriptWeakMap::Is(mapInstance) || Js::JavascriptWeakMap::FromVar(mapInstance)->GetScriptContext() != scriptContext)
+    if (!Js::VarIs<Js::JavascriptWeakMap>(mapInstance) || Js::VarTo<Js::JavascriptWeakMap>(mapInstance)->GetScriptContext() != scriptContext)
     {
         return E_INVALIDARG;
     }
@@ -2653,9 +2653,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::WeakMapDelete(Var mapInstance, Var k
     {
         BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
         {
-            Js::JavascriptWeakMap *map = Js::JavascriptWeakMap::FromVar(mapInstance);
+            Js::JavascriptWeakMap *map = Js::VarTo<Js::JavascriptWeakMap>(mapInstance);
             Var key1 = Js::CrossSite::MarshalVar(scriptContext, key);
-            *result = map->Delete(Js::DynamicObject::FromVar(key1));
+            *result = map->Delete(Js::VarTo<Js::DynamicObject>(key1));
         }
         END_JS_RUNTIME_CALL_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
     }
@@ -2835,13 +2835,13 @@ void GetArrayTypeAndElementSize(__in Var instance, __out_opt TypedArrayType* typ
     case Js::TypeIds_ArrayBuffer:
         arrayType = (TypedArrayType)-1;
         tmpElementSize = -1;
-        tmpBuffer = Js::ArrayBuffer::FromVar(instance);
+        tmpBuffer = Js::VarTo<Js::ArrayBuffer>(instance);
         isTypedArray = false;
         break;
     case Js::TypeIds_DataView:
         arrayType = (TypedArrayType)-1;
         tmpElementSize = -1;
-        dView = Js::DataView::FromVar(instance);
+        dView = Js::VarTo<Js::DataView>(instance);
         tmpBuffer = dView->GetArrayBuffer()->GetAsArrayBuffer();
         isTypedArray = false;
         break;
@@ -2862,7 +2862,7 @@ void GetArrayTypeAndElementSize(__in Var instance, __out_opt TypedArrayType* typ
     }
     if (buffer)
     {
-        *buffer = isTypedArray ? Js::TypedArrayBase::FromVar(instance)->GetArrayBuffer()->GetAsArrayBuffer() : tmpBuffer;
+        *buffer = isTypedArray ? Js::VarTo<Js::TypedArrayBase>(instance)->GetArrayBuffer()->GetAsArrayBuffer() : tmpBuffer;
     }
 }
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedArrayBuffer(
@@ -2893,9 +2893,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedArrayBuffer(
     }
 #if ENABLE_DEBUG_CONFIG_OPTIONS
     // unwrap the autoproxy'ed proxy to make the call go through.
-    if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag) && Js::JavascriptProxy::Is(instance))
+    if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag) && Js::VarIs<Js::JavascriptProxy>(instance))
     {
-        instance = Js::JavascriptProxy::FromVar(instance)->GetTarget();
+        instance = Js::VarTo<Js::JavascriptProxy>(instance)->GetTarget();
     }
 #endif
     BEGIN_JS_RUNTIME_CALL_EX_AND_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(scriptContext, false)
@@ -2946,9 +2946,9 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::DetachTypedArrayBuffer(
 
 #if ENABLE_DEBUG_CONFIG_OPTIONS
     // unwrap the autoproxy'ed proxy to make the call go through.
-    if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag) && Js::JavascriptProxy::Is(instance))
+    if (Js::Configuration::Global.flags.IsEnabled(Js::autoProxyFlag) && Js::VarIs<Js::JavascriptProxy>(instance))
     {
-        instance = Js::JavascriptProxy::FromVar(instance)->GetTarget();
+        instance = Js::VarTo<Js::JavascriptProxy>(instance)->GetTarget();
     }
 #endif
     Js::ArrayBuffer* arrayBufferInstance = nullptr;
@@ -3066,7 +3066,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::RegexTest(
     {
         return hr;
     }
-    if(!Js::JavascriptRegExp::Is(regex))
+    if(!Js::VarIs<Js::JavascriptRegExp>(regex))
     {
         return E_INVALIDARG;
     }
@@ -3079,8 +3079,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::RegexTest(
 
         *matched =
             mustMatchEntireInput ?
-            Js::RegexHelper::RegexTest_NonScript<true>(scriptContext, Js::JavascriptRegExp::FromVar(regex), input, inputLength) :
-            Js::RegexHelper::RegexTest_NonScript<false>(scriptContext, Js::JavascriptRegExp::FromVar(regex), input, inputLength);
+            Js::RegexHelper::RegexTest_NonScript<true>(scriptContext, Js::VarTo<Js::JavascriptRegExp>(regex), input, inputLength) :
+            Js::RegexHelper::RegexTest_NonScript<false>(scriptContext, Js::VarTo<Js::JavascriptRegExp>(regex), input, inputLength);
     }
     END_JS_RUNTIME_CALL(scriptContext)
     END_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
@@ -3163,7 +3163,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     for (uint i = 0; i < cTransferableVars; i++)
     {
         Js::TypeId typeId = Js::JavascriptOperators::GetTypeId(transferableVars[i]);
-        if(typeId != TypeIds_ArrayBuffer && !Js::CustomExternalObject::Is(transferableVars[i]))
+        if(typeId != TypeIds_ArrayBuffer && !Js::VarIs<Js::CustomExternalObject>(transferableVars[i]))
         {
             AssertMsg(false, "These should have been filtered out by the host.");
             return E_SCA_TRANSFERABLE_UNSUPPORTED;
@@ -3180,7 +3180,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::Serialize(
     {
         return E_OUTOFMEMORY;
     }
-    
+
     Js::JavascriptExceptionObject *caughtExceptionObject = nullptr;
     AutoCallerPointer callerPointer(GetScriptSiteHolder(), serviceProvider);
 

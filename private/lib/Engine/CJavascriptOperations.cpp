@@ -289,8 +289,8 @@ HRESULT STDMETHODCALLTYPE CJavascriptOperations::QueryObjectInterface(__in IActi
     {
         return E_INVALIDARG;
     }
-    
-    Js::RecyclableObject* object = Js::RecyclableObject::FromVar(instance);
+
+    Js::RecyclableObject* object = Js::VarTo<Js::RecyclableObject>(instance);
 
     HRESULT hr =  object->QueryObjectInterface(riid, ppvObj);
 

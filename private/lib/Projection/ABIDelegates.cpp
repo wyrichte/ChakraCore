@@ -22,9 +22,9 @@ namespace Projection
 #endif
         ), callback(NULL), signature(NULL), eventInfo(nullptr), eventProjectionHandler(nullptr),
         prioritizedDelegate(nullptr)
-    { 
+    {
         // Make sure DLL is not unloaded until this object is destroyed. When the DLL is unloaded
-        // we will clean up the ThreadContext which will empty a lot of memory which this object 
+        // we will clean up the ThreadContext which will empty a lot of memory which this object
         // might try to use causing potential memory corruption or access violations.
         DLLAddRef();
     }
@@ -51,13 +51,13 @@ namespace Projection
         Assert(Js::Configuration::Global.flags.FailFastIfDisconnectedDelegate);
         ULONG_PTR ExceptionInformation[2];
         ExceptionInformation[0] = (ULONG_PTR)m_typeName;
-        ExceptionInformation[1] = (ULONG_PTR)StringOfId(scriptContext, eventInfo->nameId); 
+        ExceptionInformation[1] = (ULONG_PTR)StringOfId(scriptContext, eventInfo->nameId);
         RaiseException((DWORD)SCRIPT_E_DISCONNECTED_DELEGATE, EXCEPTION_NONCONTINUABLE, 2, (ULONG_PTR*)ExceptionInformation);
     }
 
     // Name: Create
     // Info: Creates an initialized Delegate object
-    // Parameters:  
+    // Parameters:
     //              projectionContext - projection Context object
     //              delegateTypeName - type string of the delegate
     //              signature - delegate signature info
@@ -112,16 +112,16 @@ namespace Projection
                 {
                     Assert(eventDelegate != nullptr);
 
-                    // This will be the object gives out to external. 
-                    // The last release on the wrapped delegate will release everything. 
+                    // This will be the object gives out to external.
+                    // The last release on the wrapped delegate will release everything.
                     if (eventDelegate != originalDelegate)
                     {
                         delegateObject->prioritizedDelegate = eventDelegate;
                     }
 
                     // RegisterEventItem either returned the original delegate or must now hold a reference to
-                    // the original delegate.  If it is returned it comes back with a reference so release it.  
-                    // Otherwise GetUnknown() now returns the prioritized delegate so the original reference for 
+                    // the original delegate.  If it is returned it comes back with a reference so release it.
+                    // Otherwise GetUnknown() now returns the prioritized delegate so the original reference for
                     // Create will not be released, so release it here.  Releasing prioritized delegate will release
                     // the original delegate.
                     originalDelegate->Release();
@@ -138,7 +138,7 @@ namespace Projection
 
 #if DBG
             {
-                const bool verifyShouldWrap = isInAsyncInterface && 
+                const bool verifyShouldWrap = isInAsyncInterface &&
                     (eventInfo == nullptr) &&
                     (wcscmp(signature->parameters->callPattern, _u("+Interface+Int32")) == 0) &&
                     (wcscmp(StringOfId(projectionContext->GetScriptContext(), signature->nameId), _u("invoke")) == 0);
@@ -163,15 +163,15 @@ namespace Projection
             {
                 Assert(prioritizedDelegate != nullptr);
 
-                // This will be the object gives out to external. 
-                // The last release on the wrapped delegate will release everything. 
+                // This will be the object gives out to external.
+                // The last release on the wrapped delegate will release everything.
                 if (prioritizedDelegate != originalDelegate)
                 {
                     delegateObject->prioritizedDelegate = prioritizedDelegate;
                 }
 
-                // RegisterPriorityItem always AddRef's the original delegate, even if they do not 
-                // return a new prioritized delegate. Either way we need to Release that refcount 
+                // RegisterPriorityItem always AddRef's the original delegate, even if they do not
+                // return a new prioritized delegate. Either way we need to Release that refcount
                 // to avoid leaking the object.
                 originalDelegate->Release();
             }
@@ -251,7 +251,7 @@ namespace Projection
 #endif
 
         Assert(eventInfo != nullptr);
-        
+
         int jsParamsCount = jsCallbackParams.Count();
         Assert(jsParamsCount >= 1);
 
@@ -263,7 +263,7 @@ namespace Projection
             // it isnt object create new empty object
             evObject = scriptContext->GetLibrary()->CreateObject();
         }
-        
+
         // Create detail array and target
         Var targetVar = NULL;
         Js::JavascriptArray *detailArray;
@@ -321,9 +321,9 @@ namespace Projection
 #pragma warning(disable: 4731)
 #pragma warning(disable: 26000)
     // Name:        Invoke
-    // Info:        Delegate Invoke implementation. Calls a JavaScript callback function.  
+    // Info:        Delegate Invoke implementation. Calls a JavaScript callback function.
     // Return:      HRESULT
-    CUnknownMethodImpl_ArgT_Prolog(Delegate, Invoke, this->paramsCount, this->sizeOfCallStack, 
+    CUnknownMethodImpl_ArgT_Prolog(Delegate, Invoke, this->paramsCount, this->sizeOfCallStack,
         Var outVar = nullptr;
         , JSPUBLICERR_CantExecute
     )
@@ -360,13 +360,13 @@ namespace Projection
 #if DBG
         ProjectionModel::AllowHeavyOperation allow;
 #endif
-        // All the out resources need to be released and out memory needs to be initialized to 0, 
+        // All the out resources need to be released and out memory needs to be initialized to 0,
         // if marshaling fails before we transfer ownership to the caller
         marshal.SetReleaseDelegateOutResources();
 
         // ARM only: allocate parameter locations array and initialize it.
         DefineAndInitParameterLocations(signature->GetParameters()->allParameters->Count());
-        
+
         bool noErrorOnInitialize = true;
 
         // Initialize out parameters
@@ -387,15 +387,15 @@ namespace Projection
                     bool hasInLength = false;
                     uint32 lengthForArray = 0;
                     RtARRAYTYPE arrayType = isByRef ? ArrayType::From(ByRefType::From(type)->pointedTo) : ArrayType::From(type);
-                    if (isByRef) 
-                    { 
-                        lengthPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex, stackBytesRead, false, false); 
-                        arrayPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackBytesRead + sizeof(LPVOID), false, false); 
-                    } 
-                    else 
+                    if (isByRef)
                     {
-                        lengthPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex, stackBytesRead, false, false); 
-                        arrayPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackBytesRead + sizeof(LPVOID), false, false); 
+                        lengthPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex, stackBytesRead, false, false);
+                        arrayPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackBytesRead + sizeof(LPVOID), false, false);
+                    }
+                    else
+                    {
+                        lengthPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex, stackBytesRead, false, false);
+                        arrayPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackBytesRead + sizeof(LPVOID), false, false);
                         if (parameter->IsArrayParameterWithLengthAttribute())
                         {
                             // FillArray with length attribute. We need to only care about in as out values are not yet in effect
@@ -409,7 +409,7 @@ namespace Projection
                                 lengthForArray = (unsigned __int32)Js::JavascriptConversion::ToInt32(lengthVar, scriptContext);
                             }
                         }
-                    } 
+                    }
                     noError = marshal.InitializeDelegateOutArrayType(arrayType, lengthPointer, sizeof(uint), arrayPointer, sizeof(LPVOID), !isByRef, hasInLength, lengthForArray);
                 }
                 else {
@@ -440,8 +440,8 @@ namespace Projection
                 {
                     Assert(!ByRefType::Is(type));
                     RtARRAYTYPE arrayType = ArrayType::From(type);
-                    byte * lengthPointer = GetNextInParameterAddress(false, false); 
-                    byte * arrayPointer = GetNextInParamAddressFromIndexAndOffset(1, sizeof(LPVOID), false, false); 
+                    byte * lengthPointer = GetNextInParameterAddress(false, false);
+                    byte * arrayPointer = GetNextInParamAddressFromIndexAndOffset(1, sizeof(LPVOID), false, false);
                     bool hasInLength = false;
                     uint32 lengthForArray = 0;
                     if (parameter->IsArrayParameterWithLengthAttribute())
@@ -463,7 +463,7 @@ namespace Projection
                         evVar = marshal.ReadOutArrayType(nullptr, arrayType, lengthPointer, sizeof(uint),  arrayPointer, sizeof(LPVOID), signature->nameId, false, parameter->isOut, true, hasInLength, lengthForArray);
                     }
                     jsCallbackParams.Add(var);
-                } 
+                }
                 else
                 {
                     byte * paramPointer = GetNextInParameterAddressFromParamType(type);
@@ -538,9 +538,9 @@ namespace Projection
         if (SUCCEEDED(hr))
         {
             bool outIsNullUndefined = false;
-            if (Js::RecyclableObject::Is(outVar))
+            if (Js::VarIs<Js::RecyclableObject>(outVar))
             {
-                Js::TypeId outTypeId = Js::RecyclableObject::FromVar(outVar)->GetTypeId();
+                Js::TypeId outTypeId = Js::VarTo<Js::RecyclableObject>(outVar)->GetTypeId();
                 outIsNullUndefined = (outTypeId == Js::TypeIds_Null || outTypeId == Js::TypeIds_Undefined);
             }
 
@@ -551,21 +551,21 @@ namespace Projection
             auto writeOut = [&](bool isArray, bool isByRef, int paramIndex, size_t stackOffset, int parameterLocationIndex, RtABIPARAMETER parameter, Var var) {
                 DefineParameterLocationAsGetArrayItem(parameterLocations, parameterLocationIndex);
                 RtTYPE type = parameter->type;
-                if (isArray) 
-                { 
+                if (isArray)
+                {
                     byte * lengthPointer;
                     byte * arrayPointer;
                     RtARRAYTYPE arrayType = isByRef ? ArrayType::From(ByRefType::From(type)->pointedTo) : ArrayType::From(type);
-                    if (isByRef) 
-                    { 
-                        lengthPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex, stackOffset, false, false); 
-                        arrayPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackOffset + sizeof(LPVOID), false, false); 
-                    } 
-                    else 
+                    if (isByRef)
                     {
-                        lengthPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex, stackOffset, false, false); 
-                        arrayPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackOffset + sizeof(LPVOID), false, false); 
-                    } 
+                        lengthPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex, stackOffset, false, false);
+                        arrayPointer = GetOutParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackOffset + sizeof(LPVOID), false, false);
+                    }
+                    else
+                    {
+                        lengthPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex, stackOffset, false, false);
+                        arrayPointer = GetInParameterAddressFromParamIndexAndOffset(paramIndex + 1, stackOffset + sizeof(LPVOID), false, false);
+                    }
 
                     bool hasLength = false;
                     uint32 lengthForArray = 0;
@@ -604,13 +604,13 @@ namespace Projection
                         lengthForArray = (unsigned __int32)Js::JavascriptConversion::ToInt32(lengthVar, scriptContext);
                     }
                     marshal.WriteInArrayTypeIndividual(var, arrayType, isByRef, lengthPointer, arrayPointer, true, hasLength, lengthForArray);
-                } 
-                else 
-                { 
+                }
+                else
+                {
                     RtCONCRETETYPE paramType = isByRef ? ConcreteType::From(ByRefType::From(type)->pointedTo) : ConcreteType::From(type);
                     byte * parameterPointer = GetOutParameterAddressFromParamType(paramIndex, stackOffset);
                     marshal.WriteInType(var, paramType, parameterPointer, paramType->sizeOnStack, true);
-                } 
+                }
             };
 
             paramIndex = 0;
@@ -642,10 +642,10 @@ namespace Projection
                             writeOut(isArray, isByRef, paramIndex, stackBytesRead, parameterLocationIndex, parameter, paramVar);
                         }
                     }
-                } 
+                }
                 UpdateParameterReadByModelParameter(parameter);
             });
-        
+
             // Now that all out parameters have been successfully marshaled. Transfer ownership of them to the caller,
             // so the ProjectionMarshaler will not release them.
             marshal.TransferOwnershipOfDelegateOutTypes();
@@ -746,18 +746,18 @@ namespace Projection
         this->GetHeapEnum()->FillHeapObjectInternalUnnamedJSVarProperty(optionalInfo, GetCallback());
     }
 
-    // Info:        This thunk is used if while projecting back the delegate object is not suppose to retain the identity. 
+    // Info:        This thunk is used if while projecting back the delegate object is not suppose to retain the identity.
     //              The job of this thunk is to forward the call to the underlying function
     // Parameters:  standard thunk parameters
     Var DelegateForwarderThunk(Var method, Js::CallInfo callInfo, ...)
     {
 #if DBG
-        Js::JavascriptFunction* func = Js::JavascriptFunction::FromVar(method);
+        Js::JavascriptFunction* func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Js::JavascriptFunction *signature = reinterpret_cast<Js::JavascriptFunction *>(function->GetSignature());
         Assert(signature != NULL);
         BEGIN_SAFE_REENTRANT_CALL(signature->GetScriptContext()->GetThreadContext())

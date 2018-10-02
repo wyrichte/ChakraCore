@@ -65,12 +65,12 @@ namespace Projection
         return eventCount;
     }
 
-    uint EventHandlingProjectionObjectInstance::GetEventAndEventHandlerCount() 
+    uint EventHandlingProjectionObjectInstance::GetEventAndEventHandlerCount()
     {
         return Projection::GetEventAndEventHandlerCount(eventProjectionHandler);
     }
 
-    uint RuntimeClassThis::GetEventAndEventHandlerCount() 
+    uint RuntimeClassThis::GetEventAndEventHandlerCount()
     {
         if (!CanHoldEventCookies())
         {
@@ -126,11 +126,11 @@ namespace Projection
         return Projection::PopulateProfilerEventInfo(heapEnum, eventProjectionHandler, eventList);
     }
 
-    void RuntimeClassThis::PopulateProfilerEventInfo(ActiveScriptProfilerHeapEnum* heapEnum, PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST *eventList) 
-    { 
+    void RuntimeClassThis::PopulateProfilerEventInfo(ActiveScriptProfilerHeapEnum* heapEnum, PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST *eventList)
+    {
         if (!CanHoldEventCookies())
         {
-            eventList->count = 0; 
+            eventList->count = 0;
             return;
         }
         return Projection::PopulateProfilerEventInfo(heapEnum, &eventProjectionHandler, eventList);
@@ -173,7 +173,7 @@ namespace Projection
         typedef HRESULT (STDMETHODCALLTYPE *AddEventType)(IInspectable* thisPtr, IUnknown *eventPtr, __int64 *eventCookie);
         AddEventType pfnAddEventListener = (AddEventType)(*((LPVOID**)inspectable))[addMethod->vtableIndex+6];
         VerifyDeprecatedAttributeOnce(addMethod, scriptContext, DeprecatedInvocation_Event);
-        
+
         HRESULT hr = S_OK;
         __int64 eventCookie;
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
@@ -203,8 +203,8 @@ namespace Projection
     //              weakDelegate - ptr to the weakReference of the delegate
     //              pDelegate - ptr to the strong reference of the delegate
     // Returns:     on success event cookie corresponding to the event handler that is added
-    __int64 AddEventHandler(RtEVENT eventInfo, IInspectable *inspectable, Js::JavascriptFunction *jsEventFunction, 
-        LPCWSTR methodName, ProjectionContext *projectionContext, bool isDefaultInterface, 
+    __int64 AddEventHandler(RtEVENT eventInfo, IInspectable *inspectable, Js::JavascriptFunction *jsEventFunction,
+        LPCWSTR methodName, ProjectionContext *projectionContext, bool isDefaultInterface,
         AutoCOMPtr<CExternalWeakReferenceImpl> &weakDelegate, AutoCOMPtr<IUnknown> &pDelegate)
     {
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
@@ -313,7 +313,7 @@ namespace Projection
 
         HRESULT hr = S_OK;
         VerifyDeprecatedAttributeOnce(removeMethod, scriptContext, DeprecatedInvocation_Event);
-        
+
         BEGIN_LEAVE_SCRIPT(scriptContext)
         {
             hr = RemoveEventHandlerCore(removeMethod, inspectable, registration, fReleaseInspectableOnSuccess, isDefaultInterface, scriptContext);
@@ -336,7 +336,7 @@ namespace Projection
         HRESULT hr = unknown->QueryInterface(removeOn->iid->instantiated, (LPVOID *)&inspectable);
         Assert(SUCCEEDED(hr));
         IfFailedReturn(hr);
-        
+
         VerifyDeprecatedAttributeOnce(removeOn, scriptContext, DeprecatedInvocation_Event);
         return RemoveEventHandlerCore(removeOn, inspectable, registration, true, false, scriptContext);
     }
@@ -357,7 +357,7 @@ namespace Projection
                     }
                     iterEvents.RemoveCurrent();
                 }
-    
+
                 eventList = nullptr;
             }
         };
@@ -440,7 +440,7 @@ namespace Projection
         }
         Js::Throw::FatalProjectionError();
     }
-    
+
     // Info:        Adds the eventProjectionHandler * to the delegate so we could track these delegates connection through JSProxy for the winrt object
     // Parameters:  thisInfo - this Info
     //              thisInstance - instance on which the event Handlers are present
@@ -451,7 +451,7 @@ namespace Projection
         Assert(thisInfo->CanHoldEventCookies());
         if (thisInfo->thisType == thisUnknownEventHandling)
         {
-            Assert(ProjectionObjectInstance::Is(thisInstance));
+            Assert(Js::VarIs<ProjectionObjectInstance>(thisInstance));
             if (((EventHandlingProjectionObjectInstance *)thisInstance)->SupportsRefCountProbe())
             {
                 Assert(((EventHandlingProjectionObjectInstance *)thisInstance)->GetEventProjectionHandler() == eventProjectionHandler);
@@ -461,7 +461,7 @@ namespace Projection
             }
         }
     }
-    
+
     // Info:        Get the inspectable pointer for calling add or remove method for events
     // Parameters:  thisInfo - this info
     //              rtEventMethod - event method inforamtion from winmd
@@ -483,7 +483,7 @@ namespace Projection
                 {
                     FastPathPopulateRuntimeClassThis(runtimeClassThis, projectionContext);
                 }
-                
+
                 // This is a QI so we do not want to mark the callout for debug-stepping (via MarkerForExternalDebugStep).
                 Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
                 BEGIN_LEAVE_SCRIPT(scriptContext)
@@ -515,12 +515,12 @@ namespace Projection
     {
 
 #if DBG
-        Js::JavascriptFunction* func = Js::JavascriptFunction::FromVar(method);
+        Js::JavascriptFunction* func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
 
         EventsSignature * signature = reinterpret_cast<EventsSignature*>(function->GetSignature());
         ProjectionContext *projectionContext = signature->projectionContext;
@@ -534,7 +534,7 @@ namespace Projection
             Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, _u("addEventListener"));
         }
 
-        if (Js::RecyclableObject::Is(args[2]) && ((Js::RecyclableObject *)args[2])->GetTypeId() == Js::TypeIds_Function)
+        if (Js::VarIs<Js::RecyclableObject>(args[2]) && ((Js::RecyclableObject *)args[2])->GetTypeId() == Js::TypeIds_Function)
         {
             // Get the matching event info
             LPCWSTR eventName = Js::JavascriptConversion::ToString(args[1], scriptContext)->GetSz();
@@ -580,7 +580,7 @@ namespace Projection
                         IInspectable *inspectable = GetInspectableForAddOrRemoveEvent(thisInfo, rtmethod, args[0], projectionContext, &isDefaultInterface);
                         AutoCOMPtr<CExternalWeakReferenceImpl> weakDelegate;
                         AutoCOMPtr<IUnknown> pDelegate;
-                        __int64 eventCookie = AddEventHandler(eventInfo, inspectable, Js::JavascriptFunction::FromVar(args[2]), 
+                        __int64 eventCookie = AddEventHandler(eventInfo, inspectable, Js::VarTo<Js::JavascriptFunction>(args[2]),
                             _u("addEventListener"), projectionContext, isDefaultInterface, weakDelegate, pDelegate);
 
                         // Now, add the cookie to the list
@@ -608,12 +608,12 @@ namespace Projection
     Var RemoveEventListenerThunk(Var method, Js::CallInfo callInfo, ...)
     {
 #if DBG
-        Js::JavascriptFunction* func = Js::JavascriptFunction::FromVar(method);
+        Js::JavascriptFunction* func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
 
         EventsSignature * signature = reinterpret_cast<EventsSignature*>(function->GetSignature());
         ProjectionContext *projectionContext = signature->projectionContext;
@@ -627,7 +627,7 @@ namespace Projection
             Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, _u("removeEventListener"));
         }
 
-        if (Js::RecyclableObject::Is(args[2]) && ((Js::RecyclableObject *)args[2])->GetTypeId() == Js::TypeIds_Function)
+        if (Js::VarIs<Js::RecyclableObject>(args[2]) && ((Js::RecyclableObject *)args[2])->GetTypeId() == Js::TypeIds_Function)
         {
             // Get the matching event info
             LPCWSTR eventName = Js::JavascriptConversion::ToString(args[1], scriptContext)->GetSz();
@@ -691,12 +691,12 @@ namespace Projection
     {
 
 #if DBG
-        Js::JavascriptFunction* func = Js::JavascriptFunction::FromVar(method);
+        Js::JavascriptFunction* func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
 
         EventHandlerSignature * signature = reinterpret_cast<EventHandlerSignature*>(function->GetSignature());
         ProjectionContext *projectionContext = signature->projectionContext;
@@ -735,7 +735,7 @@ namespace Projection
         PropertyId nameId = signature->abiEvent->nameId;
         NamedEventRegistration * registration = GetExistingNamedEventRegistration(eventHandlers, nameId);
 
-        bool fSettingHandler = ((Js::RecyclableObject::Is(args[1])) && (((Js::RecyclableObject *)args[1])->GetTypeId() == Js::TypeIds_Function));
+        bool fSettingHandler = ((Js::VarIs<Js::RecyclableObject>(args[1])) && (((Js::RecyclableObject *)args[1])->GetTypeId() == Js::TypeIds_Function));
         bool fRemoveExistingHandler = ((registration != nullptr) && (registration->GetDelegate() != nullptr));
         bool isDefaultInterface = false;
         IInspectable *inspectable = (fRemoveExistingHandler || fSettingHandler) ? GetInspectableForAddOrRemoveEvent(thisInfo, addMethod, args[0], projectionContext, &isDefaultInterface) : nullptr;
@@ -753,7 +753,7 @@ namespace Projection
             Assert(inspectable != nullptr);
             AutoCOMPtr<CExternalWeakReferenceImpl> weakDelegate;
             AutoCOMPtr<IUnknown> pDelegate;
-            __int64 eventCookie = AddEventHandler(signature->abiEvent, inspectable, Js::JavascriptFunction::FromVar(args[1]),
+            __int64 eventCookie = AddEventHandler(signature->abiEvent, inspectable, Js::VarTo<Js::JavascriptFunction>(args[1]),
                 StringOfId(scriptContext, signature->eventPropertyNameId), projectionContext, isDefaultInterface, weakDelegate, pDelegate);
 
             if (registration != nullptr)
@@ -787,12 +787,12 @@ namespace Projection
     Var GetEventHandlerThunk(Var method, Js::CallInfo callInfo, ...)
     {
 #if DBG
-        Js::JavascriptFunction* func = Js::JavascriptFunction::FromVar(method);
+        Js::JavascriptFunction* func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         EventHandlerSignature * signature = reinterpret_cast<EventHandlerSignature*>(function->GetSignature());
         Js::ScriptContext *scriptContext = signature->projectionContext->GetScriptContext();
         Var result = scriptContext->GetLibrary()->GetNull();

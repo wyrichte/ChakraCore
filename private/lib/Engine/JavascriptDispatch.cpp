@@ -96,7 +96,7 @@ JavascriptDispatch* JavascriptDispatch::Create(Js::DynamicObject* scriptObject)
         }
 
         if (!scriptSite->IsClosed() && scriptContext->IsFastDOMEnabled() &&
-            (Js::JavascriptFunction::Is(scriptObject) || Js::ExternalObject::Is(scriptObject)))
+            (Js::VarIs<Js::JavascriptFunction>(scriptObject) || Js::VarIs<Js::ExternalObject>(scriptObject)))
         {
             scriptSite->AddToJavascriptDispatchList(&(jsdisp->linkList));
             Assert(Js::JavascriptOperators::GetTypeId(scriptObject) != Js::TypeIds_HostDispatch);
@@ -179,7 +179,7 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
     }
     else if (IID_IJsArray == riid)
     {
-        if (scriptObject != nullptr && Js::JavascriptArray::Is(scriptObject))
+        if (scriptObject != nullptr && Js::JavascriptArray::IsNonES5Array(scriptObject))
         {
             // Identity check for mshtml.dll.
             *ppvObj = nullptr;
@@ -189,7 +189,7 @@ HRESULT JavascriptDispatch::QueryInterface(REFIID riid, void **ppvObj)
     }
     else if (IID_IJsArguments == riid)
     {
-        if (scriptObject != nullptr && Js::ArgumentsObject::Is(scriptObject))
+        if (scriptObject != nullptr && Js::VarIs<Js::ArgumentsObject>(scriptObject))
         {
             // Identity check for mshtml.dll.
             *ppvObj = nullptr;
@@ -379,7 +379,7 @@ ULONG JavascriptDispatch::Release(void)
         StackBackTraceNode::Prepend(&NoCheckHeapAllocator::Instance, trackNode->refCountStackBackTraces,
             StackBackTrace::Capture(&NoCheckHeapAllocator::Instance, StackToSkip, StackTraceDepth));
     }
-#endif 
+#endif
     return currentCount;
 }
 
@@ -1102,9 +1102,9 @@ HRESULT JavascriptDispatch::InvokeEx(
         }
 #endif
         if (doPrintProfile && scriptSite->GetParentScriptSite() == nullptr &&
-            Js::JavascriptFunction::Is(this->scriptObject))
+            Js::VarIs<Js::JavascriptFunction>(this->scriptObject))
         {
-            Js::JavascriptFunction *func = Js::JavascriptFunction::FromVar(this->scriptObject);
+            Js::JavascriptFunction *func = Js::VarTo<Js::JavascriptFunction>(this->scriptObject);
             // We are profiling, so we can afford a check if the function is deserialized
             if ((wFlags & k_dispCallOrGet) && func->GetFunctionProxy()
                 && wcscmp(func->GetFunctionProxy()->EnsureDeserialized()->GetDisplayName(), _u("onload")) == 0)
@@ -1130,9 +1130,9 @@ HRESULT JavascriptDispatch::InvokeEx(
 #endif
                 }
 #endif
-            
+
             }
-            
+
         }
 #endif
         if (FAILED(hr) && !fExternalInvoke && hr != SCRIPT_E_REPORTED && hr != SCRIPT_E_RECORDED  && hr != SCRIPT_E_PROPAGATE && pei)
@@ -1392,11 +1392,11 @@ HRESULT JavascriptDispatch::InvokeOnMember(
         else
         {
             if (varMember == nullptr ||
-                !Js::RecyclableObject::Is(varMember))
+                !Js::VarIs<Js::RecyclableObject>(varMember))
             {
                 return JSERR_NeedFunction;
             }
-            Js::RecyclableObject *obj = Js::RecyclableObject::FromVar(varMember);
+            Js::RecyclableObject *obj = Js::VarTo<Js::RecyclableObject>(varMember);
             Js::Arguments arguments(0, nullptr);
             ScriptSite* targetScriptSite = nullptr;
             IfFailedReturn(GetTargetScriptSite(obj,&targetScriptSite));
@@ -1771,16 +1771,16 @@ public:
         : enumerator(scriptObject, scriptContext), currentIndex(nullptr)
     {
     }
-    void Clear() 
-    { 
+    void Clear()
+    {
         this->currentIndex = nullptr;
-        enumerator.Clear(); 
+        enumerator.Clear();
     }
     void Initialize(Js::RecyclableObject * scriptObject, Js::ScriptContext * scriptContext)
     {
         this->currentIndex = nullptr;
         enumerator.Initialize(scriptObject, scriptContext);
-    }    
+    }
     bool MoveNext()
     {
         Js::PropertyId propertyId;
@@ -1801,7 +1801,7 @@ Js::PropertyId JavascriptDispatch::GetEnumeratorCurrentPropertyId()
     Js::ScriptContext * scriptContext = this->GetScriptContext();
     if (stringIndex != nullptr)
     {
-        Js::JavascriptString* name = Js::JavascriptString::FromVar(stringIndex);
+        Js::JavascriptString* name = Js::VarTo<Js::JavascriptString>(stringIndex);
         Js::PropertyRecord const * propertyRecord = nullptr;
         scriptContext->GetOrAddPropertyRecord(name->GetString(), name->GetLength(), &propertyRecord);
         Js::PropertyId pid = propertyRecord->GetPropertyId();
@@ -2032,7 +2032,7 @@ void JavascriptDispatch::ResetToNULL()
 HRESULT JavascriptDispatch::ResetToScriptSite(ScriptSite* newScriptSite)
 {
     Assert(newScriptSite != scriptSite);
-    Assert(Js::ExternalObject::Is(this->scriptObject));
+    Assert(Js::VarIs<Js::ExternalObject>(this->scriptObject));
     Assert(scriptObject->IsExternal());
 
     HRESULT hr = NOERROR;
@@ -2123,7 +2123,7 @@ AutoActiveCallPointer::~AutoActiveCallPointer()
         // we don't need to zero out if the JavascriptDispatch is already released during the call.
         if (javascriptDispatch->scriptSite != nullptr && javascriptDispatch->scriptSite->IsClosed())
         {
-            if ((Js::JavascriptFunction::Is(javascriptDispatch->scriptObject) || Js::ExternalObject::Is(javascriptDispatch->scriptObject)))
+            if ((Js::VarIs<Js::JavascriptFunction>(javascriptDispatch->scriptObject) || Js::VarIs<Js::ExternalObject>(javascriptDispatch->scriptObject)))
             {
                 // if the scriptsite is closed during the call, we don't zero out
                 // the nested object right away; instead we'll zero it out at this time.
@@ -2195,7 +2195,7 @@ void JavascriptDispatch::CachePropertyId(Js::PropertyRecord const * propertyReco
     Assert(propertyRecord->GetPropertyId() != Js::Constants::NoProperty);
 
     // Trident can GetDispID first, then repeat create JavascriptDispatch/call/release sequence.
-    // this cause problem for nested element's fields. So for propertyIds that are created from 
+    // this cause problem for nested element's fields. So for propertyIds that are created from
     // CustomExternalObject, we'll keep them alive for the lifetime of CEO. type handler might not
     // hold reference to those property so we need to cache both javascriptdispatch and dispIDToPropertyString map.
     Js::CustomExternalObject * customExternalScriptObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(scriptObject);
@@ -2233,7 +2233,7 @@ JavascriptDispatch::LogAlloc()
     if (doTrack)
     {
         TrackNode * node = NoCheckHeapNewStruct(TrackNode);
-        node->javascriptDispatch = this;        
+        node->javascriptDispatch = this;
         node->stackBackTrace = StackBackTrace::Capture(&NoCheckHeapAllocator::Instance, StackToSkip, StackTraceDepth);
         node->hadShutdown = false;
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT)
@@ -2295,7 +2295,7 @@ JavascriptDispatch::LogFree(bool isShutdown)
 }
 #endif
 #if defined(CHECK_MEMORY_LEAK) || defined(LEAK_REPORT)
-void 
+void
 JavascriptDispatch::PrintJavascriptRefCountStackTraces()
 {
     AutoCriticalSection autocs(&s_cs);

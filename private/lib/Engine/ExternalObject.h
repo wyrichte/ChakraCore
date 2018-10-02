@@ -99,25 +99,6 @@ namespace Js
         bool IsCustomExternalObject() const { return this->GetTypeOperations() != nullptr ;}
         ITypeOperations * GetTypeOperations() const { return this->GetExternalType()->GetTypeOperations(); }
 
-        static bool Is(Var instance)
-        {
-            if (!Js::RecyclableObject::Is(instance))
-            {
-                return false;
-            }
-            if (!Js::RecyclableObject::FromVar(instance)->IsExternal())
-            {
-                return false;
-            }
-            return true;
-        }
-
-        static ExternalObject* FromVar(Var instance)  {
-            Assert(Is(instance));
-            ExternalObject* obj = static_cast<ExternalObject*>(instance);
-            return obj;
-        }
-
         virtual bool HasReadOnlyPropertiesInvisibleToTypeHandler() override { return true; }
 
         virtual PropertyQueryFlags HasPropertyQuery(PropertyId propertyId, _Inout_opt_ Js::PropertyValueInfo* info) override;
@@ -157,7 +138,7 @@ namespace Js
 
         virtual BOOL Equals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
         virtual BOOL StrictEquals(__in Var other, __out BOOL* value, ScriptContext * requestContext) override;
-        
+
         // Used only in JsVarToExtension where it may be during dispose and the type is not availible
         virtual BOOL IsExternalVirtual() const override { return TRUE; }
         virtual JavascriptString* GetClassName(ScriptContext * requestContext) override sealed;
@@ -174,4 +155,9 @@ namespace Js
         HRESULT Reinitialize(ExternalType* type, BOOL keepProperties);
     };
     AUTO_REGISTER_RECYCLER_OBJECT_DUMPER(ExternalObject, &RecyclableObject::DumpObjectFunction);
+
+    template <> inline bool VarIsImpl<ExternalObject>(RecyclableObject* object)
+    {
+        return object->IsExternal();
+    }
 }

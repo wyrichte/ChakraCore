@@ -7,10 +7,10 @@
 
 HostObject::HostObject(Js::ScriptContext * scriptContext, IDispatch* pDispatch, Js::DynamicType * type):
     Js::HostObjectBase(type), needToCheckOtherItem(FALSE)
-{    
-    this->hostDispatch = HostDispatch::Create(scriptContext, pDispatch);    
+{
+    this->hostDispatch = HostDispatch::Create(scriptContext, pDispatch);
     // Proactively allocate the DISPID cache.
-    dispIdCache = RecyclerNew(scriptContext->GetRecycler(), DispIdCacheDictionaryType, scriptContext->GetRecycler(), 8);       
+    dispIdCache = RecyclerNew(scriptContext->GetRecycler(), DispIdCacheDictionaryType, scriptContext->GetRecycler(), 8);
 }
 
 Js::ModuleRoot * HostObject::GetModuleRoot(
@@ -34,7 +34,7 @@ Var HostObject::GetNamespaceParent(
 
     // Do we have an object?
 
-    if (!Js::RecyclableObject::Is(childDispatch))
+    if (!Js::VarIs<Js::RecyclableObject>(childDispatch))
     {
         return nullptr;
     }
@@ -61,7 +61,7 @@ Var HostObject::GetNamespaceParent(
     /* REVIEW: Do we need to handle exception here? */
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
-        hr = pDisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pDispEx);        
+        hr = pDisp->QueryInterface(__uuidof(IDispatchEx), (void**)&pDispEx);
         if (SUCCEEDED(hr))
         {
             // Do we have a parent?
@@ -75,7 +75,7 @@ Var HostObject::GetNamespaceParent(
             if (SUCCEEDED(hr))
             {
                 // Is the parent an IDispatch?
-                
+
                 hr = pUnk->QueryInterface(__uuidof(IDispatch), (void**)&namespaceDispatch);
                 pUnk->Release();
             }
@@ -90,7 +90,7 @@ Var HostObject::GetNamespaceParent(
 
     // Yes to all of the above: make a proxy for the parent's IDispatch.
 
-    return HostDispatch::Create(scriptContext, namespaceDispatch);       
+    return HostDispatch::Create(scriptContext, namespaceDispatch);
 }
 
 BOOL HostObject::TryGetDispId(Js::PropertyId propertyId, DISPID *pDispId)

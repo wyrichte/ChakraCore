@@ -21,9 +21,9 @@ namespace Js
         m_date.SetTvUtc(es5date);
     }
 
-    bool JavascriptWinRTDate::Is(Var aValue)
+    template <> bool VarIsImpl<JavascriptWinRTDate>(RecyclableObject* object)
     {
-        return JavascriptOperators::GetTypeId(aValue) == TypeIds_WinRTDate;
+        return JavascriptOperators::GetTypeId(object) == TypeIds_WinRTDate;
     }
 
     INT64 JavascriptWinRTDate::GetTicks()

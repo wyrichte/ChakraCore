@@ -49,7 +49,6 @@ namespace Projection
         virtual uint GetEventAndEventHandlerCount() { return 0; }
         virtual void PopulateProfilerEventInfo(ActiveScriptProfilerHeapEnum* heapEnum, PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST *eventList) { eventList->count = 0; }
 
-        static BOOL Is(Var instance);
         BOOL IsEqual(__in ProjectionObjectInstance *other);
 
         virtual void Finalize(bool isShutdown) { }
@@ -212,3 +211,5 @@ namespace Projection
         bool isRooted;
     };
 }
+
+template <> bool Js::VarIsImpl<Projection::ProjectionObjectInstance>(Js::RecyclableObject* object);

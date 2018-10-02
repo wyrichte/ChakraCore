@@ -174,9 +174,9 @@ namespace Js
     {
         JavascriptString * rc = NULL;
 
-        if ( JavascriptString::Is(instance) )
+        if ( VarIs<JavascriptString>(instance) )
         {
-            rc = JavascriptString::FromVar(instance);
+            rc = VarTo<JavascriptString>(instance);
         }
         else
         {

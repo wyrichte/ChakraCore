@@ -45,7 +45,7 @@ namespace Projection
 
     Var ProjectionWriter::DelayedFunctionOfSignatureThunk(Var method, Js::CallInfo callInfo, ...)
     {
-        Js::JavascriptWinRTFunction* function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction* function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Js::ScriptContext* scriptContext = function->GetScriptContext();
         Js::JavascriptMethod newOriginalEntryPoint = nullptr;
         ARGUMENTS(args, callInfo);
@@ -56,7 +56,7 @@ namespace Projection
 #endif
             Assert(Js::JavascriptOperators::GetTypeId(function) == Js::TypeIds_Function);
             Assert(function->IsWinRTFunction());
-            auto continuation = reinterpret_cast<FunctionOfSignatureContinuation*>(function->GetSignature());            
+            auto continuation = reinterpret_cast<FunctionOfSignatureContinuation*>(function->GetSignature());
 
 #if DBG
             LPCWSTR name = continuation->projectionWriter->projectionContext->StringOfId(continuation->signature->nameId);
@@ -64,7 +64,7 @@ namespace Projection
 #endif
 
             auto value = continuation->projectionWriter->ContinueFunctionOfSignature(continuation->signature, continuation->thisInfo, function->IsConstructorFunction(), continuation->boundsToUndefined);
-            auto actualFunction = Js::JavascriptWinRTFunction::FromVar(value);
+            auto actualFunction = Js::VarTo<Js::JavascriptWinRTFunction>(value);
             Assert(!function->HasSharedType());
 
             // We need to change the entryPoint only if not crossSite, because if crosssite its going to be crosssite thunk and we dont want to change that
@@ -92,10 +92,10 @@ namespace Projection
     // Parameters:  standard thunk parameters
     Var UnresolvableNameConflictThunk(Var method, Js::CallInfo callInfo, ...)
     {
-        Js::JavascriptWinRTFunction* func = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction* func = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Js::ScriptContext* scriptContext = function->GetScriptContext();
 
         // There was an unresolvable name conflict between two properties
@@ -106,11 +106,11 @@ namespace Projection
     // Parameters:  standard thunk parameters
     Var ArraySetLengthThunk(Var method, Js::CallInfo callInfo, ...)
     {
-        Js::JavascriptWinRTFunction* func = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction* func = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Js::ScriptContext* scriptContext = function->GetScriptContext();
         ThunkSignature<SpecialProjection*> * signature = reinterpret_cast<ThunkSignature<SpecialProjection*>*>(function->GetSignature());
         SpecialProjection * specialization = signature->baggage;
@@ -123,11 +123,11 @@ namespace Projection
     // Parameters:  standard thunk parameters
     Var ArityGroupConflictThunk(Var method, Js::CallInfo callInfo, ...)
     {
-        Js::JavascriptWinRTFunction* func = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction* func = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Js::ScriptContext* scriptContext = function->GetScriptContext();
         // ThunkSignature<RtARITYGROUP> * signature = reinterpret_cast<ThunkSignature<RtARITYGROUP>*>(function->GetSignature());
 
@@ -140,11 +140,11 @@ namespace Projection
     // Parameters:  standard thunk parameters
     Var UnconstructableClassThunk(Var method, Js::CallInfo callInfo, ...)
     {
-        Js::JavascriptWinRTFunction* func = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction* func = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Js::ScriptContext* scriptContext = function->GetScriptContext();
         auto typeName = (LPCWSTR)function->GetSignature();
         // Attempt to construct an unconstructable runtime class
@@ -155,11 +155,11 @@ namespace Projection
     // Parameters:  standard thunk parameters
     Var OverloadMethodThunk(Var method, Js::CallInfo callInfo, ...)
     {
-        Js::JavascriptWinRTFunction* func = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction* func = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction * function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction * function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Js::ScriptContext* scriptContext = function->GetScriptContext();
         Var result = NULL;
         OverloadSignature* signature = (OverloadSignature*)function->GetSignature();
@@ -173,7 +173,7 @@ namespace Projection
             FunctionOverload* overload = constructors->Item(i);
             Js::JavascriptWinRTFunction* constructorFunc = overload->function;
             Assert(constructorFunc->IsWinRTFunction());
-            Js::JavascriptWinRTFunction * constructorFunction = Js::JavascriptWinRTFunction::FromVar(constructorFunc);
+            Js::JavascriptWinRTFunction * constructorFunction = Js::VarTo<Js::JavascriptWinRTFunction>(constructorFunc);
 
             size_t argumentCount = overload->arity;
 
@@ -237,7 +237,7 @@ namespace Projection
     //              value - value to set
     void ProjectionWriter::SetProperty(Js::DynamicObject * object, PropertyId id, Var value)
     {
-        if (id == lengthId && Js::JavascriptWinRTFunction::Is(object))
+        if (id == lengthId && Js::VarIs<Js::JavascriptFunction>(object))
         {
             auto wasSet = object->SetPropertyWithAttributes(id, value, PropertyNone, NULL, Js::PropertyOperation_None, Js::SideEffects_None);
             if (!wasSet)
@@ -326,11 +326,11 @@ namespace Projection
         {
             Assert(methodName != nullptr);
         }
-#endif 
+#endif
         auto parameters = signature->GetParameters();
 
         bool canCreateFunction = true;
-        
+
         auto canTypeBeResolved = [&](RtTYPE type){
             if (Type::IsMissing(type))
             {
@@ -412,7 +412,7 @@ namespace Projection
             return canTypeBeResolved(type);
         };
 
-        
+
 
         parameters->allParameters->IterateWhile(checkParameters);
 
@@ -449,7 +449,7 @@ namespace Projection
         case mstAbiMethodSignature:
             {
                 auto nameId = signature->nameId;
-                
+
 #if DBG
                 LPCWSTR name = projectionContext->StringOfId(nameId);
                 Assert(name);
@@ -594,10 +594,10 @@ namespace Projection
     //              perform the appropriate QI for IStringable.
     void ProjectionWriter::AddToString(__in ProjectionContext *projectionContext, __in Var prototype)
     {
-        Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();        
+        Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
         auto toStringId = projectionContext->toStringId;
-        Js::DynamicObject* prototypeObject = Js::DynamicObject::FromVar(prototype);
+        Js::DynamicObject* prototypeObject = Js::VarTo<Js::DynamicObject>(prototype);
 
         // If prototype object already includes the toString function (from metadata perhaps) do not add it again.
         if (prototypeObject->HasOwnProperty(toStringId))
@@ -682,7 +682,7 @@ namespace Projection
         typeInformation->SetPrototypeVar(prototypeVar);
 
         // Set constructor and prototype relationship
-        prototypeObject = Js::DynamicObject::FromVar(typeInformation->GetPrototypeVar());
+        prototypeObject = Js::VarTo<Js::DynamicObject>(typeInformation->GetPrototypeVar());
 
         if (specialization)
         {
@@ -705,7 +705,7 @@ namespace Projection
         {
             typeInformation->SetConstructorFunction(FunctionOfSignature(signature.GetValue(), properties, runtimeClassThisInfo, true));
         }
-        
+
         if (typeInformation->GetConstructorFunction() == nullptr)
         {
             typeInformation->SetConstructorFunction(UnconstructableClassThunkOfTypename(typeName, true));
@@ -714,7 +714,7 @@ namespace Projection
                 ApplyPropertiesObjectToJsObject(typeInformation->GetConstructorFunction(), properties, runtimeClassThisInfo);
             }
         }
-        Js::JavascriptWinRTConstructorFunction::FromVar(typeInformation->GetConstructorFunction())->SetTypeInformation(typeInformation);
+        Js::VarTo<Js::JavascriptWinRTConstructorFunction>(typeInformation->GetConstructorFunction())->SetTypeInformation(typeInformation);
         JS_ETW(EventWriteJSCRIPT_RECYCLER_ALLOCATE_WINRT_RUNTIMECLASS_OBJECT(typeInformation->GetConstructorFunction(), typeName));
 
         // Constructor of prototype
@@ -725,7 +725,7 @@ namespace Projection
         {
             // if design/unit test mode - allow projections to be configurable/writable
 #if DBG
-            auto wasSet = 
+            auto wasSet =
 #endif
             typeInformation->GetConstructorFunction()->SetPropertyWithAttributes(Js::PropertyIds::prototype, prototypeObject, PropertyBuiltInMethodDefaults, NULL);
 #if DBG
@@ -990,7 +990,7 @@ namespace Projection
                         result = Js::JavascriptWinRTFunction::CallAsConstructor(promiseMaker, /* overridingNewTarget = */nullptr, Js::Arguments(callInfo, args), projectionContext->GetScriptContext());
                     }
                     END_SAFE_REENTRANT_CALL
-                    resultObject = Js::DynamicObject::FromVar(result);
+                    resultObject = Js::VarTo<Js::DynamicObject>(result);
                     break;
                 }
             case specMapSpecialization:
@@ -1044,17 +1044,17 @@ namespace Projection
     //              hasEventHandlers - true if there are event handlers on the type
     // Returns:     The resulting instance
     Var ProjectionWriter::CreateNewTypeInstance(
-        __in MetadataStringId typeNameId, 
-        __in_z LPCWSTR typeName, 
-        __in RtIID defaultInterface, 
-        __in RtSPECIALIZATION specialization, 
-        __in RtEXPR prototype, 
-        __in RtPROPERTIESOBJECT properties, 
-        __in regex::Option<ProjectionModel::MethodSignature> signature, 
-        __in bool hasEventHandlers, 
-        __in INT32 gcPressure, 
-        __in IUnknown *unknown, 
-        __in bool allowIdentity, 
+        __in MetadataStringId typeNameId,
+        __in_z LPCWSTR typeName,
+        __in RtIID defaultInterface,
+        __in RtSPECIALIZATION specialization,
+        __in RtEXPR prototype,
+        __in RtPROPERTIESOBJECT properties,
+        __in regex::Option<ProjectionModel::MethodSignature> signature,
+        __in bool hasEventHandlers,
+        __in INT32 gcPressure,
+        __in IUnknown *unknown,
+        __in bool allowIdentity,
         __in bool allowExtensions,
         __in_opt ConstructorArguments* constructorArguments)
     {
@@ -1143,14 +1143,14 @@ namespace Projection
 
         ApplyPropertiesObjectToJsObject(object, _enum->properties, thisInfo);
 
-        Js::DynamicObject * dynamicObject = Js::DynamicObject::FromVar(object);
+        Js::DynamicObject * dynamicObject = Js::VarTo<Js::DynamicObject>(object);
         if (!this->projectionContext->AreProjectionPrototypesConfigurable())
         {
             BOOL succeeded = dynamicObject->PreventExtensions();
             Js::VerifyCatastrophic(succeeded);
         }
 
-        return object; 
+        return object;
     }
 
     // Info:        Convert a model function into a Javascript function
@@ -1248,7 +1248,7 @@ namespace Projection
                 auto functionVar = ExprToJsVar(prop->expr, thisInfo);
                 if (functionVar != nullptr)
                 {
-                    auto function = Js::JavascriptWinRTFunction::FromVar(functionVar);
+                    auto function = Js::VarTo<Js::JavascriptWinRTFunction>(functionVar);
                     SetProperty(dynamicObject, propertyId, function);
                     SetProperty(function, lengthId, Js::JavascriptNumber::ToVar(abiMethod->body->signature->inParameterCount, projectionContext->GetScriptContext()));
                 }
@@ -1260,7 +1260,7 @@ namespace Projection
                 auto functionVar = ExprToJsVar(prop->expr, thisInfo);
                 if (functionVar != nullptr)
                 {
-                    auto function = Js::JavascriptWinRTFunction::FromVar(functionVar);
+                    auto function = Js::VarTo<Js::JavascriptWinRTFunction>(functionVar);
                     auto length =
                         FunctionLengthProperty::From(
                         overload->overloadConstructor->properties->fields->WhereSingle([&](RtPROPERTY field) {
@@ -1329,7 +1329,7 @@ namespace Projection
     //              thisInfo - describes what kind of 'this'
     void ProjectionWriter::ApplyPropertiesObjectToJsObject(Var object, RtPROPERTIESOBJECT propertiesObject, ThisInfo * thisInfo)
     {
-        Js::DynamicObject * dynamicObject = Js::DynamicObject::FromVar(object);
+        Js::DynamicObject * dynamicObject = Js::VarTo<Js::DynamicObject>(object);
         propertiesObject->fields->Iterate([&](RtPROPERTY prop) {
 #if DBG
             LPCWSTR name = projectionContext->StringOfId(prop->identifier);
@@ -1763,7 +1763,7 @@ namespace Projection
         criticalSectionForUnknownsToMark = new CriticalSectionForUnknownImpl();
         IfNullMapAndThrowHr(scriptContext, criticalSectionForUnknownsToMark, E_OUTOFMEMORY);
 
-        recyclerData.Root(RecyclerNew(recycler, RecyclerData), recycler);        
+        recyclerData.Root(RecyclerNew(recycler, RecyclerData), recycler);
 
         recyclerData->namespaceThis = RecyclerNew(recycler, NamespaceThis);
 
@@ -1912,7 +1912,7 @@ namespace Projection
 
     HostProfilerHeapObject* CreateWinrtConstructorObjectElement(ActiveScriptProfilerHeapEnum* heapEnum, Js::RecyclableObject* obj)
     {
-        auto function = Js::JavascriptWinRTConstructorFunction::FromVar(obj);
+        auto function = Js::VarTo<Js::JavascriptWinRTConstructorFunction>(obj);
         auto scriptContext = function->GetScriptContext();
         auto typeInformation = (Projection::RuntimeClassTypeInformation *)function->GetTypeInformation();
         Assert(typeInformation != nullptr);
@@ -2134,7 +2134,7 @@ LReturn:
         }
         else
         {
-            Js::RecyclableObject *recyclablePropertyValue = Js::RecyclableObject::FromVar(propertyValue);
+            Js::RecyclableObject *recyclablePropertyValue = Js::VarTo<Js::RecyclableObject>(propertyValue);
             weakProperty = recycler->CreateWeakReferenceHandle<Js::RecyclableObject>(recyclablePropertyValue);
         }
         weakPropertyBag->Item(propertyRecord, weakProperty);

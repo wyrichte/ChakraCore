@@ -1293,12 +1293,12 @@ HRESULT ScriptSite::ExternalDoubleToVar(double d, Js::Var * result)
 
 HRESULT ScriptSite::ExternalToDate(Js::Var instance, double * result)
 {
-    if(!Js::JavascriptDate::Is(instance))
+    if(!Js::VarIs<Js::JavascriptDate>(instance))
     {
         return E_INVALIDARG;
     }
 
-    *result = Js::JavascriptDate::FromVar(instance)->GetTime();
+    *result = Js::VarTo<Js::JavascriptDate>(instance)->GetTime();
     return S_OK;
 }
 
@@ -1366,7 +1366,7 @@ HRESULT ScriptSite::Execute(__in Js::RecyclableObject *pScrObj, __in Js::Argumen
     if (functionScriptContext != this->GetScriptSiteContext())
     {
         BEGIN_TRANSLATE_OOM_TO_HRESULT
-        callableObj = Js::RecyclableObject::FromVar(Js::CrossSite::MarshalVar(this->GetScriptSiteContext(), pScrObj));
+        callableObj = Js::VarTo<Js::RecyclableObject>(Js::CrossSite::MarshalVar(this->GetScriptSiteContext(), pScrObj));
         END_TRANSLATE_OOM_TO_HRESULT(hr);
     }
     if (FAILED(hr))
@@ -1648,11 +1648,11 @@ HRESULT ScriptSite::EnqueuePromiseTask(__in Js::Var taskVar)
 
         // Try to load WScript.SetTimeout
         if (Js::JavascriptOperators::GetRootProperty(global, wscriptId, &wscript, scriptSiteContext) &&
-            Js::RecyclableObject::Is(wscript) &&
-            Js::JavascriptOperators::GetProperty(Js::RecyclableObject::FromVar(wscript), setTimeoutId, &setTimeout, scriptSiteContext) &&
+            Js::VarIs<Js::RecyclableObject>(wscript) &&
+            Js::JavascriptOperators::GetProperty(Js::VarTo<Js::RecyclableObject>(wscript), setTimeoutId, &setTimeout, scriptSiteContext) &&
             Js::JavascriptConversion::IsCallable(setTimeout))
         {
-            hostCallback = Js::JavascriptFunction::FromVar(setTimeout);
+            hostCallback = Js::VarTo<Js::JavascriptFunction>(setTimeout);
         }
         else
         {
@@ -1952,15 +1952,15 @@ ProfileOnLoadCallBack::EntryProfileOnLoadCallBack(Js::RecyclableObject* function
         {
             return false;
         }
-        hostDispatch = Js::RecyclableObject::FromVar(aValue);
+        hostDispatch = Js::VarTo<Js::RecyclableObject>(aValue);
 
         scriptContext->GetOrAddPropertyRecord(_u("readyState"), _countof(_u("readyState")) - 1, &propertyRecord);
         propertyId = propertyRecord->GetPropertyId();
         aValue = Js::JavascriptOperators::GetProperty(hostDispatch, propertyId, scriptContext);
         char16 const * readyState = _u("unknown");
-        if (Js::JavascriptString::Is(aValue))
+        if (Js::VarIs<Js::JavascriptString>(aValue))
         {
-            readyState = Js::JavascriptString::FromVar(aValue)->GetSz();
+            readyState = Js::VarTo<Js::JavascriptString>(aValue)->GetSz();
         }
 
         scriptSite->DumpSiteInfo(_u("onreadystatechange event: "), readyState);
@@ -2009,7 +2009,7 @@ ProfileOnLoadCallBack::AttachEvent(ScriptSite * scriptSite)
     {
         return false;
     }
-    hostDispatch = Js::RecyclableObject::FromVar(aValue);
+    hostDispatch = Js::VarTo<Js::RecyclableObject>(aValue);
     scriptContext->GetOrAddPropertyRecord(_u("attachEvent"), _countof(_u("attachEvent")) - 1, &propertyRecord);
     propertyId = propertyRecord->GetPropertyId();
     aValue = Js::JavascriptOperators::GetPropertyReference(hostDispatch, propertyId, scriptContext);
@@ -2024,7 +2024,7 @@ ProfileOnLoadCallBack::AttachEvent(ScriptSite * scriptSite)
     };
     Js::CallInfo info(Js::CallFlags_None, 3);
     Js::Arguments args(info, values);
-    Js::RecyclableObject * function = Js::RecyclableObject::FromVar(aValue);
+    Js::RecyclableObject * function = Js::VarTo<Js::RecyclableObject>(aValue);
 
     BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
     {

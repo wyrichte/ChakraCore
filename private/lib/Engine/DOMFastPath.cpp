@@ -86,11 +86,11 @@ Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::Recyclable
 {
     RUNTIME_ARGUMENTS(args, callInfo);
 
-    Js::DynamicObject * dynamicObject = Js::DynamicObject::FromVar(recyclableObject);
+    Js::DynamicObject * dynamicObject = Js::VarTo<Js::DynamicObject>(recyclableObject);
     Js::ScriptContext * targetScriptContext = dynamicObject->GetScriptContext();
     HostScriptContext* requestHostContext = ThreadContext::GetContextForCurrentThread()->GetPreviousHostScriptContext();
     Js::ScriptContext* requestContext = requestHostContext->GetScriptContext();
-    if (!Js::JavascriptFunction::Is(dynamicObject))
+    if (!Js::VarIs<Js::JavascriptFunction>(dynamicObject))
     {
         Js::JavascriptError::TryThrowTypeError(targetScriptContext, requestContext, JSERR_NeedFunction);
         return nullptr;
@@ -99,7 +99,7 @@ Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::Recyclable
     AssertOrFailFast(VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(recyclableObject));
     Assert(args.Info.Count > 0);
 
-    Js::JavascriptTypedObjectSlotAccessorFunction* simpleAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(dynamicObject);
+    Js::JavascriptTypedObjectSlotAccessorFunction* simpleAccessorFunction = Js::UnsafeVarTo<Js::JavascriptTypedObjectSlotAccessorFunction>(dynamicObject);
     Js::FunctionInfo* funcInfo = simpleAccessorFunction->GetFunctionInfo();
     Assert((funcInfo->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
     targetScriptContext->VerifyAliveWithHostContext(!dynamicObject->IsExternal(), requestHostContext);
@@ -125,7 +125,7 @@ Js::Var __cdecl DOMFastPathInfo::CrossSiteSimpleSlotAccessorThunk(Js::Recyclable
 bool DOMFastPathInfo::VerifyObjectSize(Js::RecyclableObject* obj, size_t objectSize)
 {
     Js::ScriptContext* scriptContext = obj->GetScriptContext();
-    Js::CustomExternalObject* customExternalObject = Js::CustomExternalObject::FromVar(obj);
+    Js::CustomExternalObject* customExternalObject = Js::VarTo<Js::CustomExternalObject>(obj);
     if (sizeof(Js::CustomExternalObject) + customExternalObject->additionalByteCount >= objectSize)
     {
         return true;
@@ -156,11 +156,11 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotGetter(Js::RecyclableObject
         }
     }
 
-    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
+    AssertOrFailFast(Js::VarIs<Js::JavascriptTypedObjectSlotAccessorFunction>(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::UnsafeVarTo<Js::JavascriptTypedObjectSlotAccessorFunction>(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
-    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+    Js::ExternalObject* obj = Js::VarTo<Js::ExternalObject>(args[0]);
 #if DBG_EXTRAFIELD
     Assert(DOMFastPathInfo::VerifyObjectSize(obj, sizeof(Js::ExternalObject) + (slotIndex + 1) * sizeof(PVOID)));
 #endif
@@ -208,7 +208,7 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotSetter(Js::RecyclableObject
         Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject);
     }
 
-    if (!Js::ExternalObject::Is(args[0]))
+    if (!Js::VarIs<Js::ExternalObject>(args[0]))
     {
         Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject, _u("DOM object"));
     }
@@ -217,11 +217,11 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleObjectSlotSetter(Js::RecyclableObject
         Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_Invalid);
     }
 
-    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
+    AssertOrFailFast(Js::VarIs<Js::JavascriptTypedObjectSlotAccessorFunction>(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::UnsafeVarTo<Js::JavascriptTypedObjectSlotAccessorFunction>(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
-    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+    Js::ExternalObject* obj = Js::VarTo<Js::ExternalObject>(args[0]);
 #if DBG_EXTRAFIELD
     Assert(DOMFastPathInfo::VerifyObjectSize(obj, sizeof(Js::ExternalObject) + (slotIndex + 1) * sizeof(PVOID)));
 #endif
@@ -277,11 +277,11 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotGetter(Js::RecyclableObject* 
         }
     }
 
-    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
+    AssertOrFailFast(Js::VarIs<Js::JavascriptTypedObjectSlotAccessorFunction>(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::UnsafeVarTo<Js::JavascriptTypedObjectSlotAccessorFunction>(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
-    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+    Js::ExternalObject* obj = Js::VarTo<Js::ExternalObject>(args[0]);
     Js::Type *type = obj->GetType();
     Assert(Js::CustomExternalType::Is(type));
     Js::CustomExternalType *externalType = static_cast<Js::CustomExternalType*>(type);
@@ -329,7 +329,7 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotSetter(Js::RecyclableObject* 
         Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject);
     }
 
-    if (!Js::ExternalObject::Is(args[0]))
+    if (!Js::VarIs<Js::ExternalObject>(args[0]))
     {
         Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_NeedObject, _u("DOM object"));
     }
@@ -338,11 +338,11 @@ Js::Var DOMFastPath<slotIndex>::EntrySimpleTypeSlotSetter(Js::RecyclableObject* 
         Js::JavascriptError::ThrowTypeError(function->GetScriptContext(), JSERR_FunctionArgument_Invalid);
     }
 
-    AssertOrFailFast(Js::JavascriptTypedObjectSlotAccessorFunction::Is(function));
-    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::JavascriptTypedObjectSlotAccessorFunction::UnsafeFromVar(function);
+    AssertOrFailFast(Js::VarIs<Js::JavascriptTypedObjectSlotAccessorFunction>(function));
+    Js::JavascriptTypedObjectSlotAccessorFunction* typedObjectSlotAccessorFunction = Js::UnsafeVarTo<Js::JavascriptTypedObjectSlotAccessorFunction>(function);
     typedObjectSlotAccessorFunction->ValidateThisInstance(args[0]);
 
-    Js::ExternalObject* obj = Js::ExternalObject::FromVar(args[0]);
+    Js::ExternalObject* obj = Js::VarTo<Js::ExternalObject>(args[0]);
     Js::Type *type = obj->GetType();
     Assert(Js::CustomExternalType::Is(type));
     Js::CustomExternalType *externalType = static_cast<Js::CustomExternalType*>(type);

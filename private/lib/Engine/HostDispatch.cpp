@@ -27,14 +27,14 @@
 extern "C" PVOID _ReturnAddress(VOID);
 #pragma intrinsic(_ReturnAddress)
 
-HostDispatch * 
+HostDispatch *
 HostDispatch::Create(Js::ScriptContext * scriptContext, IDispatch *pdisp, BOOL tryTracker /*=TRUE*/)
 {
     HRESULT hr;
     Assert(!scriptContext->GetThreadContext()->IsScriptActive());
     ITracker* tracker = NULL;
     HostVariant* hostVariant = NULL;
-    VARIANT* varDispatch = NULL;    
+    VARIANT* varDispatch = NULL;
 
     if (pdisp != NULL)
     {
@@ -78,34 +78,34 @@ HostDispatch::Create(Js::ScriptContext * scriptContext, IDispatch *pdisp, BOOL t
     ScriptSite* scriptSite = ScriptSite::FromScriptContext(scriptContext);
     return RecyclerNewFinalized(
         recycler,
-        HostDispatch,        
+        HostDispatch,
         hostVariant,
         scriptSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
 }
 
-HostDispatch* 
+HostDispatch*
 HostDispatch::Create(Js::ScriptContext * scriptContext, VARIANT* variant)
-{        
+{
     Recycler* recycler = scriptContext->GetRecycler();
     Assert(!scriptContext->GetThreadContext()->IsScriptActive());
-        
+
     HostVariant* hostVariant = RecyclerNewTrackedLeaf(recycler, HostVariant);
-    
+
     HRESULT hr = S_OK;
     hr = hostVariant->Initialize(variant);
 
     if (FAILED(hr))
     {
         Js::JavascriptError::ThrowError(scriptContext, hr /* TODO-ERROR: _u("NEED MESSAGE") */);
-    } 
+    }
 
     ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
     HostDispatch* hostDispatch = RecyclerNewFinalized(
         recycler,
-        HostDispatch,        
+        HostDispatch,
         hostVariant,
         scripSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
-        
+
     return hostDispatch;
 }
 
@@ -136,7 +136,7 @@ HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, ITracker 
     ScriptSite* scripSite = ScriptSite::FromScriptContext(scriptContext);
     return RecyclerNewFinalized(
         recycler,
-        HostDispatch,        
+        HostDispatch,
         hostVariant,
         scripSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
 }
@@ -149,7 +149,7 @@ HostDispatch * HostDispatch::Create(Js::ScriptContext * scriptContext, LPCOLESTR
 
     return RecyclerNewFinalized(
         recycler,
-        HostDispatch,        
+        HostDispatch,
         RecyclerNewTrackedLeaf(recycler, HostVariant, itemName),
         scripSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
 }
@@ -162,12 +162,12 @@ HostDispatch::HostDispatch(HostVariant* hostVariant, Js::StaticType * type) :
     AssertMsg(hostVariant, "Attempt to create HostDispatch without HostVariant");
     scriptSite = ScriptSite::FromScriptContext(type->GetScriptContext());
     RefCountedHostVariantAllocator* allocator = scriptSite->GetRefCountedHostVariantAllocator();
- 
+
     refCountedHostVariant = AllocatorNew(RefCountedHostVariantAllocator, allocator, RefCountedHostVariant, hostVariant);
 
     if (!scriptSite->IsClosed())
     {
-        InsertHeadList(&scriptSite->hostDispatchListHead, &linkList);    
+        InsertHeadList(&scriptSite->hostDispatchListHead, &linkList);
     }
     else
     {
@@ -185,7 +185,7 @@ HostDispatch::HostDispatch(RefCountedHostVariant* refCountedHostVariant, Js::Sta
     refCountedHostVariant->AddRef();
     if (!scriptSite->IsClosed())
     {
-        InsertHeadList(&scriptSite->hostDispatchListHead, &linkList);    
+        InsertHeadList(&scriptSite->hostDispatchListHead, &linkList);
     }
     else
     {
@@ -193,13 +193,9 @@ HostDispatch::HostDispatch(RefCountedHostVariant* refCountedHostVariant, Js::Sta
     }
 }
 
-BOOL HostDispatch::Is(Var instance)
+template <> bool Js::VarIsImpl<HostDispatch>(Js::RecyclableObject* object)
 {
-    if (Js::JavascriptOperators::GetTypeId(instance) == Js::TypeIds_HostDispatch)
-    {
-        return TRUE;
-    }
-    return FALSE;
+    return Js::JavascriptOperators::GetTypeId(object) == Js::TypeIds_HostDispatch;
 }
 
 VARIANT * HostDispatch::GetVariant() const
@@ -223,12 +219,12 @@ BOOL HostDispatch::CanSupportIDispatchEx() const
     return GetHostVariant() && GetHostVariant()->supportIDispatchEx;
 }
 
-IDispatch*& HostDispatch::FastGetDispatchNoRef(HostVariant* hostVariant) 
-{ 
-    return hostVariant->varDispatch.pdispVal; 
+IDispatch*& HostDispatch::FastGetDispatchNoRef(HostVariant* hostVariant)
+{
+    return hostVariant->varDispatch.pdispVal;
 }
 
-// 
+//
 // This method checks and makes sure that hostVariant is defined and doesn't point to a NULL dispVal
 //
 inline HRESULT HostDispatch::GetHostVariantWrapper(__out HostVariant** ppOut)
@@ -273,7 +269,7 @@ HRESULT HostDispatch::EnsureDispatch()
     {
         return E_UNEXPECTED;
     }
-    LPCOLESTR itemName = pHostVariant->varDispatch.bstrVal;   
+    LPCOLESTR itemName = pHostVariant->varDispatch.bstrVal;
 
     Js::ScriptContext* scriptContext = this->GetScriptContext();
     BEGIN_LEAVE_SCRIPT(scriptContext)
@@ -320,7 +316,7 @@ HRESULT HostDispatch::EnsureDispatch()
             }
         }
     }
-    END_LEAVE_SCRIPT(scriptContext);    
+    END_LEAVE_SCRIPT(scriptContext);
     return hr;
 }
 
@@ -386,9 +382,9 @@ HRESULT HostDispatch::CallInvokeExInternal(DISPID id, WORD wFlags, DISPPARAMS * 
     {
         ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
         LCID lcid = scriptEngine->GetInvokeVersion();
-        
+
         pDispEx->AddRef();
-            
+
         // The custom marshaler in dispex.dll has a bug that causes the DISPATCH_CONSTRUCT flag
         // to be lost. In IE10+ mode we use PrivateInvokeEx to work around that bug.
         if (wFlags & DISPATCH_CONSTRUCT)
@@ -409,7 +405,7 @@ HRESULT HostDispatch::CallInvokeExInternal(DISPID id, WORD wFlags, DISPPARAMS * 
         {
             hr = pDispEx->InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pdc);
         }
-            
+
         pDispEx->Release();
 
         this->scriptSite->ReleaseDispatchExCaller(pdc);
@@ -531,7 +527,7 @@ BOOL HostDispatch::GetDispIdForProperty(LPCWSTR psz, DISPID *pid)
 
     if (hostVariant->supportIDispatchEx)
     {
-        hr = this->GetDispID(psz, fdexNameCaseSensitive, pid);    
+        hr = this->GetDispID(psz, fdexNameCaseSensitive, pid);
     }
     else
     {
@@ -675,7 +671,7 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
     // Clear the excepinfo.
     memset(&ei, 0, sizeof(ei));
 
-    Js::ScriptContext * scriptContext = this->GetScriptContext();    
+    Js::ScriptContext * scriptContext = this->GetScriptContext();
 
     *pValue = scriptContext->GetLibrary()->GetUndefined();
 
@@ -685,7 +681,7 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
     {
         HandleDispatchError(hr, nullptr);
     }
-    
+
     if (pHostVariant->supportIDispatchEx)
     {
         VariantInit(&varValue);
@@ -699,11 +695,11 @@ BOOL HostDispatch::GetValueByDispId(DISPID id, Js::Var *pValue)
 
     // This is a special case where IE can return MEMBERNOTFOUND in Invoke
     // while GetDispID succeeded. With this check IE9 behaviors
-    // similar to FF/chrome. 
-    // There are apps depend on the IE8 specific behavior. Let's keep the behavior 
-    // consistent with other browers in IE9 mode, and preserve IE8 behavior in IE8 mode. 
+    // similar to FF/chrome.
+    // There are apps depend on the IE8 specific behavior. Let's keep the behavior
+    // consistent with other browers in IE9 mode, and preserve IE8 behavior in IE8 mode.
     // We already have the catch statement in different places where we don't throw,
-    // like  HostDispatch::Equals, add_helper etc. 
+    // like  HostDispatch::Equals, add_helper etc.
     if (hr == DISP_E_MEMBERNOTFOUND)
     {
         return FALSE;
@@ -746,7 +742,7 @@ void HostDispatch::GetReferenceByDispId(DISPID id, Js::Var *pValue, const char16
 
     HostVariant* pHostVariant = NULL;
     HRESULT hr = GetHostVariantWrapper(&pHostVariant);
-    if (FAILED(hr)) 
+    if (FAILED(hr))
     {
         HandleDispatchError(hr, nullptr);
     }
@@ -772,7 +768,7 @@ BOOL HostDispatch::GetPropertyReference(const char16 * psz, Js::Var *pValue)
     DISPID       id = DISPID_UNKNOWN;
     Js::ScriptContext* scriptContext = this->GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         *pValue = this->GetScriptContext()->GetLibrary()->GetUndefined();
         return TRUE;
@@ -1008,7 +1004,7 @@ BOOL HostDispatch::DeletePropertyByDispId(DISPID id)
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
         hr = pDispEx->DeleteMemberByDispID(id);
-        
+
         Assert(hr != DISP_E_EXCEPTION);
 
         if (hr == DISP_E_UNKNOWNNAME)
@@ -1026,7 +1022,7 @@ BOOL HostDispatch::DeletePropertyByDispId(DISPID id)
                 {
                     if(SUCCEEDED(pDispEx->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
                     {
-                        hr = NOERROR;  // we don't want to override the original error code if QI failed here. 
+                        hr = NOERROR;  // we don't want to override the original error code if QI failed here.
                         pProxy->Release();
                     }
                 }
@@ -1049,7 +1045,7 @@ BOOL HostDispatch::DeletePropertyByDispId(DISPID id)
 
 BOOL HostDispatch::DeleteProperty(const char16 * psz)
 {
-    IDispatchEx *pDispEx = nullptr;    
+    IDispatchEx *pDispEx = nullptr;
     HRESULT hr;
     if (FAILED(hr = EnsureDispatch()))
     {
@@ -1076,15 +1072,15 @@ BOOL HostDispatch::DeleteProperty(const char16 * psz)
     }
 
     Js::ScriptContext* scriptContext = this->GetScriptContext();
-    
+
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
         BSTR bstr = SysAllocString(psz);
         if (bstr != nullptr)
         {
             hr = pDispEx->DeleteMemberByName(bstr, fdexNameCaseSensitive | ((scriptEngine->GetInvokeVersion() & 0xF) << 28));
-            SysFreeString(bstr);            
-        }          
+            SysFreeString(bstr);
+        }
         else
         {
             hr = E_OUTOFMEMORY;
@@ -1111,7 +1107,7 @@ BOOL HostDispatch::DeleteProperty(const char16 * psz)
                 {
                     if(SUCCEEDED(pDispEx->QueryInterface(__uuidof(IJavascriptDispatchLocalProxy), (void**)&pProxy)) && pProxy)
                     {
-                        hr = NOERROR;  // we don't want to override the original error code if QI failed here. 
+                        hr = NOERROR;  // we don't want to override the original error code if QI failed here.
                         pProxy->Release();
                     }
                 }
@@ -1128,7 +1124,7 @@ BOOL HostDispatch::DeleteProperty(const char16 * psz)
     HandleDispatchError(hr, nullptr);
 }
 
-BOOL HostDispatch::ToString(Js::Var* value, Js::ScriptContext* scriptContext) 
+BOOL HostDispatch::ToString(Js::Var* value, Js::ScriptContext* scriptContext)
 {
     // Here we will call the actual ToString() method on the object
     // for dom objects we get different results when we call GetDefaultValue and ToString()
@@ -1136,7 +1132,7 @@ BOOL HostDispatch::ToString(Js::Var* value, Js::ScriptContext* scriptContext)
     Js::Var result = nullptr;
     if (GetPropertyReference(scriptContext->GetPropertyName(Js::PropertyIds::toString)->GetBuffer(), &result))
     {
-        Js::RecyclableObject* func = Js::RecyclableObject::FromVar(result);
+        Js::RecyclableObject* func = Js::VarTo<Js::RecyclableObject>(result);
         Js::Var values[1];
         Js::CallInfo info(Js::CallFlags_Value, 1);
         Js::Arguments args(info, values);
@@ -1190,7 +1186,7 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id)
     VARIANT *pvarDisplay = nullptr;
 
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         return scriptContext->GetLibrary()->GetNull();
     }
@@ -1284,8 +1280,8 @@ Js::Var HostDispatch::InvokeByDispId(Js::Arguments args, DISPID id)
         // strip out this pointer when just calling the dispid.
         // but not for cross context calls
         BOOL keepThis = FALSE;
-        
-        if (Js::DynamicObject::Is(thisArg) && ! hostVariant->IsIDispatch())
+
+        if (Js::DynamicObject::IsBaseDynamicObject(thisArg) && ! hostVariant->IsIDispatch())
         {
             keepThis = TRUE;
         }
@@ -1451,7 +1447,7 @@ HRESULT HostDispatch::InvokeMarshaled( DISPID id, WORD invokeFlags, DISPPARAMS *
     HRESULT hr = S_OK;
     HostVariant* pHostVariant = nullptr;
     IfFailedReturn(GetHostVariantWrapper(&pHostVariant));
-    
+
     if (pHostVariant->supportIDispatchEx)
     {
         ScriptEngine* scriptEngine = scriptSite->GetScriptEngine();
@@ -1481,7 +1477,7 @@ BOOL HostDispatch::GetDefaultValue(Js::JavascriptHint hint, Js::Var* value, BOOL
 
     // Reject implicit call
     if (threadContext->IsDisableImplicitCall())
-    {        
+    {
         *value = scriptContext->GetLibrary()->GetNull();
         threadContext->AddImplicitCallFlags(Js::ImplicitCall_External);
         return TRUE;
@@ -1563,7 +1559,7 @@ BOOL HostDispatch::IsInstanceOf(Js::Var prototypeProxy)
         HandleDispatchError(hr, nullptr);
     }
 
-    Js::RecyclableObject* func = Js::RecyclableObject::FromVar(prototypeProxy);
+    Js::RecyclableObject* func = Js::VarTo<Js::RecyclableObject>(prototypeProxy);
     Js::Var values[2];
     Js::CallInfo info(Js::CallFlags_Value, 2);
     Js::Arguments args(info, values);
@@ -1573,8 +1569,8 @@ BOOL HostDispatch::IsInstanceOf(Js::Var prototypeProxy)
     {
         return Js::JavascriptFunction::CallFunction<true>(func, func->GetEntryPoint(), args);
     });
-    Assert(Js::JavascriptBoolean::Is(res));
-    return Js::JavascriptBoolean::FromVar(res)->GetValue();
+    Assert(Js::VarIs<Js::JavascriptBoolean>(res));
+    return Js::VarTo<Js::JavascriptBoolean>(res)->GetValue();
 }
 
 __declspec(noreturn)
@@ -1587,11 +1583,11 @@ __declspec(noreturn)
 void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESULT hr, EXCEPINFO* exceptInfo)
 {
     Assert(!SUCCEEDED(hr));
-    
+
     if (DISP_E_EXCEPTION == hr)
     {
         Assert(!scriptContext->HasRecordedException());
-    
+
         Assert(exceptInfo != nullptr);
         if (nullptr != exceptInfo->pfnDeferredFillIn)
         {
@@ -1616,7 +1612,7 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
         }
         hr = exceptInfo->scode;
     }
-    
+
     // free other allocations
     if (nullptr != exceptInfo)
     {
@@ -1635,10 +1631,10 @@ void HostDispatch::HandleDispatchError(Js::ScriptContext * scriptContext, HRESUL
 
 HRESULT HostDispatch::QueryObjectInterface(REFIID riid, void** ppvObj)
 {
-    Js::ScriptContext* scriptContext = this->GetScriptContext();  
+    Js::ScriptContext* scriptContext = this->GetScriptContext();
     HRESULT hr;
     IfFailedReturn(EnsureDispatch());
-    Assert(!scriptContext->GetThreadContext()->IsScriptActive()); 
+    Assert(!scriptContext->GetThreadContext()->IsScriptActive());
 
     if (!ppvObj)
     {
@@ -1662,10 +1658,10 @@ HRESULT HostDispatch::QueryObjectInterface(REFIID riid, void** ppvObj)
 
 HRESULT HostDispatch::QueryObjectInterfaceInScript(REFIID riid, void** ppvObj)
 {
-    Js::ScriptContext* scriptContext = this->GetScriptContext();  
+    Js::ScriptContext* scriptContext = this->GetScriptContext();
     HRESULT hr;
     IfFailedReturn(EnsureDispatch());
-    Assert(scriptContext->GetThreadContext()->IsScriptActive()); 
+    Assert(scriptContext->GetThreadContext()->IsScriptActive());
 
     if (!ppvObj)
     {
@@ -1706,7 +1702,7 @@ BOOL HostDispatch::GetRemoteTypeId(Js::TypeId* typeId)
     }
     IJavascriptDispatchRemoteProxy* jscriptInfo = nullptr;
 
-    Js::ScriptContext* scriptContext = this->GetScriptContext();  
+    Js::ScriptContext* scriptContext = this->GetScriptContext();
     BEGIN_LEAVE_SCRIPT(scriptContext)
     {
         hr = dispatch->QueryInterface(IID_IJavascriptDispatchRemoteProxy, (void**)&jscriptInfo);
@@ -1753,7 +1749,7 @@ BOOL HostDispatch::InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoin
     HRESULT hr;
     Js::ScriptContext* scriptContext = GetScriptContext();
     if (scriptContext->GetThreadContext()->IsDisableImplicitCall())
-    {                
+    {
         scriptContext->GetThreadContext()->AddImplicitCallFlags(Js::ImplicitCall_External);
         *result = scriptContext->GetLibrary()->GetNull();
         return TRUE;
@@ -1776,7 +1772,7 @@ BOOL HostDispatch::InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoin
     {
         return FALSE;
     }
-    
+
     // Make sure the object on the other side is a JavascriptDispatch object
     IJavascriptDispatchRemoteProxy* dispatchProxy;
 
@@ -1806,7 +1802,7 @@ BOOL HostDispatch::InvokeBuiltInOperationRemotely(Js::JavascriptMethod entryPoin
         }
         END_LEAVE_SCRIPT(scriptContext)
     }
-    
+
     EXCEPINFO ei;
     memset(&ei, 0, sizeof(ei));
 
@@ -1911,7 +1907,7 @@ Var HostDispatch::CreateDispatchWrapper(Var object, Js::ScriptContext * sourceSc
     {
         hr = DispatchHelper::MarshalJsVarToVariantNoThrow(object, &vt, destScriptContext);
     }
-    
+
     if (SUCCEEDED(hr))
     {
         Var var;
@@ -1923,7 +1919,7 @@ Var HostDispatch::CreateDispatchWrapper(Var object, Js::ScriptContext * sourceSc
         {
             hr = DispatchHelper::MarshalVariantToJsVarNoThrowNoScript(&vt, &var, destScriptContext);
         }
-        
+
         if (SUCCEEDED(hr))
         {
             VariantClear(&vt);
@@ -1952,7 +1948,7 @@ void HostDispatch::Finalize(bool isShutdown)
     // refcount in finalize, and when the refcount goes down to 0, the tie is
     // cut (refCountedHostVariant->hostVariant set to NULL), and we let recycler
     // do the dispose.
-    refCountedHostVariant->Release();    
+    refCountedHostVariant->Release();
 }
 
 void HostDispatch::Dispose(bool isShutdown)
@@ -2014,7 +2010,7 @@ BOOL HostDispatch::EqualsHelper(HostDispatch *left, HostDispatch *right, BOOL *v
     IUnknown* unknownLeft = NULL, *unknownRight = NULL;
     IObjectIdentity* objectIdentity = NULL;
 
-    Js::ScriptContext* scriptContext = left->GetScriptContext();    
+    Js::ScriptContext* scriptContext = left->GetScriptContext();
     hr = left->QueryObjectInterfaceInScript(IID_IUnknown, (void **)&unknownLeft);
     if (SUCCEEDED(hr))
     {
@@ -2059,7 +2055,7 @@ BOOL HostDispatch::EqualsHelper(HostDispatch *left, HostDispatch *right, BOOL *v
 
 Js::RecyclableObject * HostDispatch::CloneToScriptContext(Js::ScriptContext* requestContext)
 {
-    HRESULT hr = EnsureDispatch();     
+    HRESULT hr = EnsureDispatch();
     if (FAILED(hr))
     {
         HandleDispatchError(hr, NULL);
@@ -2069,11 +2065,11 @@ Js::RecyclableObject * HostDispatch::CloneToScriptContext(Js::ScriptContext* req
     ScriptSite* requestSite = ScriptSite::FromScriptContext(requestContext);
     HostDispatch* newHostDispatch = RecyclerNewFinalized(
         recycler,
-        HostDispatch,        
+        HostDispatch,
         refCountedHostVariant,
         requestSite->GetActiveScriptExternalLibrary()->GetHostDispatchType());
-    
-    return newHostDispatch;    
+
+    return newHostDispatch;
 
 }
 

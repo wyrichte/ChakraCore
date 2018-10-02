@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "JsrtChakraPch.h"
@@ -65,12 +65,12 @@ STDAPI_(JsErrorCode) JsGetArrayLength(JsValueRef value, size_t *length)
         PARAM_NOT_NULL(length);
         *length = 0;
 
-        if (!Js::JavascriptArray::Is(value))
+        if (!Js::JavascriptArray::IsNonES5Array(value))
         {
             return JsErrorInvalidArgument;
         }
 
-        *length = Js::JavascriptArray::FromVar(value)->GetLength();
+        *length = Js::VarTo<Js::JavascriptArray>(value)->GetLength();
         return JsNoError;
     });
 }
@@ -87,7 +87,7 @@ STDAPI_(JsErrorCode) JsVariantToValue(VARIANT * variant, JsValueRef * value)
         *value = var;
 
         return JsNoError;
-    });    
+    });
 }
 
 STDAPI_(JsErrorCode) JsValueToVariant(JsValueRef object, VARIANT * variant)
@@ -115,7 +115,7 @@ STDAPI_(JsErrorCode) JsStartProfiling(IActiveScriptProfilerCallback *callback, P
         }
 
         return JsErrorAlreadyProfilingContext;
-    });    
+    });
 }
 
 STDAPI_(JsErrorCode) JsStopProfiling(HRESULT reason)
@@ -130,7 +130,7 @@ STDAPI_(JsErrorCode) JsStopProfiling(HRESULT reason)
         }
 
         return result;
-    });    
+    });
 }
 
 STDAPI_(JsErrorCode) JsEnumerateHeap(IActiveScriptProfilerHeapEnum **ppEnum)
@@ -168,7 +168,7 @@ STDAPI_(JsErrorCode) JsIsEnumeratingHeap(bool *isEnumeratingHeap)
     if (currentContext == nullptr)
     {
         return JsErrorNoCurrentContext;
-    }   
+    }
 
     *isEnumeratingHeap = currentContext->GetScriptContext()->GetRecycler()->IsHeapEnumInProgress();
     return JsNoError;
@@ -177,7 +177,7 @@ STDAPI_(JsErrorCode) JsIsEnumeratingHeap(bool *isEnumeratingHeap)
 STDAPI_(JsErrorCode) JsStartDebugging()
 {
     return ContextAPINoScriptWrapper_NoRecord(
-        [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {   
+        [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
 
             JsrtContextChakra* context = (JsrtContextChakra *)JsrtContext::GetCurrent();
 
@@ -219,7 +219,7 @@ STDAPI_(JsErrorCode) JsStartDebugging()
 STDAPI_(JsErrorCode) JsStopDebugging()
 {
     return ContextAPINoScriptWrapper_NoRecord(
-        [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {   
+        [&] (Js::ScriptContext * scriptContext) -> JsErrorCode {
             JsrtContextChakra * context = (JsrtContextChakra *)JsrtContext::GetCurrent();
 
             if (context->GetRuntime()->GetThreadContext()->IsInScript())
@@ -330,12 +330,12 @@ STDAPI_(JsErrorCode) JsObjectToInspectable(_In_ JsValueRef value, _Out_ IInspect
         }
 
         // JsValueRef should be a Custom External Object for it to be IInspectable
-        if (!Js::ExternalObject::Is(value))
+        if (!Js::VarIs<Js::ExternalObject>(value))
         {
             return JsErrorObjectNotInspectable;
         }
 
-        Js::ExternalObject* externalObject = Js::ExternalObject::FromVar(value);
+        Js::ExternalObject* externalObject = Js::VarTo<Js::ExternalObject>(value);
         if (!externalObject->IsCustomExternalObject())
         {
             return JsErrorObjectNotInspectable;

@@ -197,11 +197,11 @@ HRESULT DispatchExCaller::QueryService(REFGUID guidService, REFIID riid, void **
      //Note that if the caller does support QueryService
      //we do not delegate to the site even if the caller
      //does not support the service.
-    
+
     hr = QSCaller(guidService, riid, ppvObj);
     if (NULL != m_pspCaller)
         return hr;
-    else 
+    else
         return QSSite(guidService, riid, ppvObj);
 }
 
@@ -261,14 +261,14 @@ HRESULT DispatchExCaller::QSSite(REFGUID guidService, REFIID riid, void **ppvObj
 // these "leaked" exceptions are caught and translate to JSErr_UncaughtException. So now
 // we don't really need this flag any more as we can populate the exception between the boundaries between
 // DOM and JS engine.
-// However we need this for cross thread/cross process calls. 
-// In this code path, we are likely in a HostDispatch call to other engine or remote process call. We should 
+// However we need this for cross thread/cross process calls.
+// In this code path, we are likely in a HostDispatch call to other engine or remote process call. We should
 // record the exception here, and let the call return back to us later with SCRIPT_E_PROPAGATE error, and we'll
-// retrieve and throw the exception at that time. We shouldn't throw here as we are likely being called from 
-// different thread/different engine. 
+// retrieve and throw the exception at that time. We shouldn't throw here as we are likely being called from
+// different thread/different engine.
 HRESULT STDMETHODCALLTYPE DispatchExCaller::CanHandleException(
     /* [in] */ __RPC__in EXCEPINFO *pExcepInfo,
-    /* [in] */ __RPC__in VARIANT *pvar) 
+    /* [in] */ __RPC__in VARIANT *pvar)
 {
     HRESULT hr = NOERROR;
     if (NULL == pExcepInfo)
@@ -285,7 +285,7 @@ HRESULT STDMETHODCALLTYPE DispatchExCaller::CanHandleException(
     {
         if (pvar != NULL)
         {
-            // assuming this is the exception object, and we need to create hostdispatch wrapper around it. 
+            // assuming this is the exception object, and we need to create hostdispatch wrapper around it.
             Js::Var errorObject;
             hr = DispatchHelper::MarshalVariantToJsVar(pvar, &errorObject, scriptContext);
             if (SUCCEEDED(hr))
@@ -319,8 +319,8 @@ HRESULT STDMETHODCALLTYPE DispatchExCaller::CanHandleException(
 }
 
 
-// We need to put the functionBody in scriptenter, and retrieve the information here.It doesn't seems to be used in 
-// most cases though. 
+// We need to put the functionBody in scriptenter, and retrieve the information here.It doesn't seems to be used in
+// most cases though.
 HRESULT DispatchExCaller::GetCurrentSourceContext(DWORD_PTR* pdwContext, VARIANT_BOOL* pfExecutingGlobalCode)
 {
     HRESULT hr = NOERROR;
@@ -329,15 +329,15 @@ HRESULT DispatchExCaller::GetCurrentSourceContext(DWORD_PTR* pdwContext, VARIANT
     Js::JavascriptFunction* func = nullptr;
     if (walker.GetCaller(&func))
     {
-        if (Js::JavascriptFunction::Is(func))
+        if (Js::VarIs<Js::JavascriptFunction>(func))
         {
             Js::FunctionBody* functionBody = func->GetFunctionBody();
             // Return the primrary host context, should never return our own secondary host context
-            *pdwContext = functionBody->GetHostSourceContext();      
+            *pdwContext = functionBody->GetHostSourceContext();
             *pfExecutingGlobalCode = walker.IsCallerGlobalFunction()? VARIANT_TRUE: VARIANT_FALSE;
         }
     }
-    
+
     return hr;
 }
 

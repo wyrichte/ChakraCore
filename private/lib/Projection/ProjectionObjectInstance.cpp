@@ -6,8 +6,8 @@
 #include "IBufferProjection.h"
 #include "winrtobjectprobe.h"
 
-namespace Projection
-{
+using namespace Projection;
+
     EventHandlingProjectionObjectInstance::EventHandlingProjectionObjectInstance(ProjectionContext *projectionContext, HTYPE htype, IUnknown* nativeABI, IID defaultIID, bool supportsIdentity)
         : ProjectionObjectInstance(projectionContext, htype, nativeABI, defaultIID, supportsIdentity), eventProjectionHandler(nullptr), abiWeakReference(nullptr)
     {
@@ -66,7 +66,7 @@ namespace Projection
 
     void EventHandlingProjectionObjectInstance::Finalize(bool isShutdown)
     {
-        if (!isShutdown && scriptSite && !scriptSite->IsClosed() && supportsRefCountProbe) 
+        if (!isShutdown && scriptSite && !scriptSite->IsClosed() && supportsRefCountProbe)
         {
             DisconnectEventHandlers(true);
         }
@@ -109,7 +109,7 @@ namespace Projection
         }
     }
 
-    void EventHandlingProjectionObjectInstance::TrackRefCount(Recycler *recycler) 
+    void EventHandlingProjectionObjectInstance::TrackRefCount(Recycler *recycler)
     {
         Assert(projectionContext->SupportsWeakDelegate());
         Assert(supportsRefCountProbe);
@@ -144,14 +144,14 @@ namespace Projection
         }
     }
 
-    //We check the rooted state in mark (mark child when it's not externally rooted) and in 
-    //ResolveExternalReference (mark child when it's externally rooted). Our state changed 
+    //We check the rooted state in mark (mark child when it's not externally rooted) and in
+    //ResolveExternalReference (mark child when it's externally rooted). Our state changed
     //between mark & resolveexternalreference, leaving the eventhandlers not marked in both
     //code path, thus prematurally disconnect the delegates.
     //The change is to actually check if the projection object is rooted in both mark & externalrefcount
     //check time. We won't check in later code path if it's already marked to avoid calling
     //external code unnecessarily.
-    void EventHandlingProjectionObjectInstance::UpdateRootedState() 
+    void EventHandlingProjectionObjectInstance::UpdateRootedState()
     {
         Assert(supportsRefCountProbe);
 
@@ -189,12 +189,12 @@ namespace Projection
         return weakPropertyBag;
     }
 
-    ProjectionObjectInstance::ProjectionObjectInstance(ProjectionContext *projectionContext, HTYPE htype, IUnknown* nativeABI, IID defaultIID, bool supportsIdentity) 
-        : Js::CustomExternalObject((Js::CustomExternalType *)htype), 
+    ProjectionObjectInstance::ProjectionObjectInstance(ProjectionContext *projectionContext, HTYPE htype, IUnknown* nativeABI, IID defaultIID, bool supportsIdentity)
+        : Js::CustomExternalObject((Js::CustomExternalType *)htype),
         supportsIdentity(supportsIdentity),
-        projectionContext(projectionContext), 
-        scriptSite(projectionContext->GetScriptSite()), 
-        weakReference(nullptr), 
+        projectionContext(projectionContext),
+        scriptSite(projectionContext->GetScriptSite()),
+        weakReference(nullptr),
         unknown(nativeABI),
         defaultIID(defaultIID),
         weakPropertyBag(nullptr)
@@ -227,17 +227,17 @@ namespace Projection
     Var ProjectionObjectInstance::ToStringThunk(Var method, Js::CallInfo callInfo, ...)
     {
 #if DBG
-        auto func = Js::JavascriptFunction::FromVar(method);
+        auto func = Js::VarTo<Js::JavascriptFunction>(method);
         Assert(Js::JavascriptOperators::GetTypeId(func) == Js::TypeIds_Function);
         Assert(func->IsWinRTFunction());
 #endif
 
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptFunction>(method);
         auto scriptContext = function->GetScriptContext();
 
         AssertMsg(args.Info.Count > 0, "Should always have implicit 'this'");
-        Assert(scriptContext->GetThreadContext()->IsScriptActive());   
+        Assert(scriptContext->GetThreadContext()->IsScriptActive());
 
         ProjectionObjectInstance *instance = GetProjectionObjectInstanceFromVarNoThrow(args[0]);
 
@@ -292,7 +292,7 @@ namespace Projection
 
             IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
-            return Js::JavascriptString::NewCopyBuffer(rawString, length, scriptContext); 
+            return Js::JavascriptString::NewCopyBuffer(rawString, length, scriptContext);
         }
     }
 #endif // !defined(DISABLE_ISTRINGABLE_QI)
@@ -307,7 +307,7 @@ namespace Projection
         }
 
         ReleasePointer(scriptSite);
-            
+
         IUnknown *nativeABI = GetNativeABI();
 
 #ifndef DISABLE_ISTRINGABLE_QI
@@ -351,7 +351,7 @@ namespace Projection
         __in HTYPE htype,
         __in bool hasEventHandlers,
         __in IUnknown* nativeABI,
-        __in IID defaultIID, 
+        __in IID defaultIID,
         __in ProjectionContext *projectionContext,
         __out ProjectionObjectInstance** newInstance,
         __in bool supportsIdentity,
@@ -388,14 +388,14 @@ namespace Projection
         return hr;
     }
 
-    BOOL ProjectionObjectInstance::Is(Var instance)
+    template <> bool Js::VarIsImpl<ProjectionObjectInstance>(Js::RecyclableObject* object)
     {
-        Js::CustomExternalObject* externalObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(instance);
+        Js::CustomExternalObject* externalObject = Js::JavascriptOperators::TryFromVar<Js::CustomExternalObject>(object);
         if (!externalObject)
         {
             return FALSE;
         }
-        
+
         Js::ExternalType * externalType = (Js::ExternalType *)externalObject->GetType();
         ProjectionTypeOperations* projectionTypeOperations = NULL;
         if (SUCCEEDED(externalType->GetTypeOperations()->QueryInterface(IID_IProjectionTypeOperations, (void**)&projectionTypeOperations)))
@@ -433,14 +433,14 @@ namespace Projection
         return FALSE;
     }
 
-    // Info:        Get the interface from the native pointer. 
+    // Info:        Get the interface from the native pointer.
     // Parameters:  iidOfInterface - iid of the interface requested
     //              scriptContext - the script context
     //              isDefaultInterface - out parameter indicating whether the requested interface was the default interface
     //              addRefDefault - boolean indicating whether the default interface should be addRef'd before returning
     // Returns:     The IUnknown of the interface and a boolean indicating whether that interface was the default interface.
     //              If the interface was the default it will be returned with no additional ref-count, unless addRefDefault is true.
-    IUnknown * ProjectionObjectInstance::GetInterfaceOfNativeABI(const IID & iidOfInterface, Js::ScriptContext * scriptContext, bool * isDefaultInterface, bool addRefDefault) 
+    IUnknown * ProjectionObjectInstance::GetInterfaceOfNativeABI(const IID & iidOfInterface, Js::ScriptContext * scriptContext, bool * isDefaultInterface, bool addRefDefault)
     {
         bool isDefault = (defaultIID != GUID_NULL) && (iidOfInterface == defaultIID);
 
@@ -501,7 +501,7 @@ namespace Projection
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
         return pInterface;
     }
-    
+
     HRESULT ProjectionObjectInstance::GetFullHeapObjectInfo(HostProfilerHeapObject** result, HeapObjectInfoReturnResult* returnResult)
     {
         AssertMsg(returnResult != nullptr, "The return result must be supplied.");
@@ -553,9 +553,9 @@ namespace Projection
         HTYPE hType;
         RuntimeClassTypeInformation *typeInformation = NULL;
 #if DBG
-        bool foundTypeInfo = 
+        bool foundTypeInfo =
 #endif
-        this->projectionContext->GetProjectionWriter()->GetRuntimeClassTypeInformation(externalObjects[0]->typeNameId, &hType, &typeInformation); 
+        this->projectionContext->GetProjectionWriter()->GetRuntimeClassTypeInformation(externalObjects[0]->typeNameId, &hType, &typeInformation);
         Assert(foundTypeInfo);
         Assert(((Js::CustomExternalType *)hType)->GetNameId() == this->GetTypeNameId());
         externalObjects[0]->size = (UINT)Projection::GetApproximateSizeForGCPressure(typeInformation->GCPressure());
@@ -583,7 +583,7 @@ LReturn:
         {
             for (UINT i=0; i < externalObjectCount; i++)
             {
-                if (externalObjects[i]) 
+                if (externalObjects[i])
                 {
                     CoTaskMemFree(externalObjects[i]);
                 }
@@ -623,7 +623,7 @@ LReturn:
         Assert(obj != nullptr && obj->IsExternal() && ppArrayBuffer != nullptr);
         HRESULT hr = S_OK;
 
-        IfFailGo(Is(obj) ? S_OK : E_FAIL);
+        IfFailGo(Js::VarIs<ProjectionObjectInstance>(obj) ? S_OK : E_FAIL);
 
         Projection::ProjectionObjectInstance *prObj = static_cast<Projection::ProjectionObjectInstance *>(obj);
         OUTPUT_TRACE(Js::ProjectionMetadataPhase, _u("Projection Instance found; attempting to source ArrayBuffer from IBuffer\n"));
@@ -640,4 +640,4 @@ LReturn:
     Return:
          return hr;
     }
-}
+

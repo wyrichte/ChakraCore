@@ -82,7 +82,6 @@ public:
     virtual BOOL GetInternalProperty(Js::Var instance, Js::PropertyId internalPropertyId, Js::Var* value, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext) override;
     virtual BOOL SetInternalProperty(Js::PropertyId internalPropertyId, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info) override;
 
-    static BOOL Is(Var instance);
     virtual void Finalize(bool isShutdown) override;
     virtual void Dispose(bool isShutdown) override sealed;
 
@@ -173,3 +172,5 @@ private:
     BOOL SetPropertyCore(const char16* propertyName, Js::Var value, Js::PropertyOperationFlags flags, Js::PropertyValueInfo* info);
     Js::DescriptorFlags GetSetterCore(const char16* propertyName, Var* setterValue, Js::PropertyValueInfo* info, Js::ScriptContext* requestContext);
 };
+
+template <> bool Js::VarIsImpl<HostDispatch>(Js::RecyclableObject* object);

@@ -161,29 +161,6 @@ namespace Js
         this->finalizer = this->GetCustomExternalType()->GetFinalizer();
     }
 
-    bool CustomExternalObject::Is(Var instance)
-    {
-        if (!ExternalObject::Is(instance))
-        {
-            return false;
-        }
-        return ExternalObject::FromVar(instance)->IsCustomExternalObject();
-    }
-
-    CustomExternalObject* CustomExternalObject::FromVar(Var instance)
-    {
-        AssertOrFailFast(Is(instance));
-        CustomExternalObject* obj = static_cast<CustomExternalObject*>(instance);
-        return obj;
-    }
-
-    CustomExternalObject* CustomExternalObject::UnsafeFromVar(Var instance)
-    {
-        Assert(Is(instance));
-        CustomExternalObject* obj = static_cast<CustomExternalObject*>(instance);
-        return obj;
-    }
-
     void CustomExternalObject::Finalize(bool isShutdown)
     {
         if (!isShutdown && finalizer)

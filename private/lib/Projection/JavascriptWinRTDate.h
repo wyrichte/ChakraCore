@@ -27,13 +27,11 @@ namespace Js
 
     public:
         JavascriptWinRTDate(int64 dateValue, DynamicType* type);
-        static bool Is(Var aValue);
         static JavascriptWinRTDate* New(INT64 rtDate, ScriptContext* scriptContext);
 
         INT64 GetTicks();
         bool AreTicksValid();
-        
-        static JavascriptDate* FromVar(Var aValue);
-
     };
+
+    template <> bool VarIsImpl<JavascriptWinRTDate>(RecyclableObject* object);
 }

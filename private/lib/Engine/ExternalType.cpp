@@ -19,7 +19,7 @@ namespace Js
     }
 
     PropertyQueryFlags ExternalObject::GetPropertyQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
-    {        
+    {
         if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
         BOOL result = JavascriptConversion::PropertyQueryFlagsToBoolean((DynamicObject::GetPropertyQuery(originalInstance, propertyId, value, info, requestContext)));
@@ -31,7 +31,7 @@ namespace Js
     }
 
     PropertyQueryFlags ExternalObject::GetPropertyQuery(Var originalInstance, JavascriptString* propertyNameString, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
-    {        
+    {
         if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         BOOL result = JavascriptConversion::PropertyQueryFlagsToBoolean((DynamicObject::GetPropertyQuery(originalInstance, propertyNameString, value, info, requestContext)));
         if (result)
@@ -41,8 +41,8 @@ namespace Js
         return JavascriptConversion::BooleanToPropertyQueryFlags(result);
     }
 
-    PropertyQueryFlags ExternalObject::GetPropertyReferenceQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext) 
-    {        
+    PropertyQueryFlags ExternalObject::GetPropertyReferenceQuery(Var originalInstance, PropertyId propertyId, Var* value, PropertyValueInfo* info, ScriptContext* requestContext)
+    {
         if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
         PropertyQueryFlags result = DynamicObject::GetPropertyReferenceQuery(originalInstance, propertyId, value, info, requestContext);
@@ -53,8 +53,8 @@ namespace Js
         return result;
     }
 
-    BOOL ExternalObject::SetProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info) 
-    {        
+    BOOL ExternalObject::SetProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
+    {
         if (!this->VerifyObjectAlive()) return FALSE;
         value = Js::CrossSite::MarshalVar(GetScriptContext(), value);
         // We don't want fixed properties on external objects, either external properties or expando properties.
@@ -63,8 +63,8 @@ namespace Js
         return DynamicObject::SetProperty(propertyId, value, flags, info);
     }
 
-    BOOL ExternalObject::SetProperty(JavascriptString* propertyNameString, Var value, PropertyOperationFlags flags, PropertyValueInfo* info) 
-    {        
+    BOOL ExternalObject::SetProperty(JavascriptString* propertyNameString, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
+    {
         if (!this->VerifyObjectAlive()) return FALSE;
         value = Js::CrossSite::MarshalVar(GetScriptContext(), value);
         // We don't want fixed properties on external objects, either external properties or expando properties.
@@ -73,7 +73,7 @@ namespace Js
         return DynamicObject::SetProperty(propertyNameString, value, flags, info);
     }
 
-    BOOL ExternalObject::SetInternalProperty(PropertyId internalPropertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info) 
+    BOOL ExternalObject::SetInternalProperty(PropertyId internalPropertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
     {
         // Before we added this override in ExternalObject we would go directly to DynamicObject::SetInternalProperty, which does not
         // do the following two.  Let's leave them out to maintain consistency.
@@ -86,7 +86,7 @@ namespace Js
         return DynamicObject::SetInternalProperty(internalPropertyId, value, flags, info);
     }
 
-    BOOL ExternalObject::InitProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info) 
+    BOOL ExternalObject::InitProperty(PropertyId propertyId, Var value, PropertyOperationFlags flags, PropertyValueInfo* info)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         value = Js::CrossSite::MarshalVar(GetScriptContext(), value);
@@ -107,7 +107,7 @@ namespace Js
     }
 
     BOOL ExternalObject::DeleteProperty(PropertyId propertyId, PropertyOperationFlags flags)
-    {        
+    {
         if (!this->VerifyObjectAlive()) return FALSE;
         return DynamicObject::DeleteProperty(propertyId, flags);
     }
@@ -132,8 +132,8 @@ namespace Js
         return DynamicObject::HasItemQuery(index);
     }
 
-    PropertyQueryFlags ExternalObject::GetItemQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
-    {     
+    PropertyQueryFlags ExternalObject::GetItemQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
+    {
         if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
         PropertyQueryFlags result = DynamicObject::GetItemQuery(originalInstance, index, value, requestContext);
@@ -144,7 +144,7 @@ namespace Js
         return result;
     }
 
-    PropertyQueryFlags ExternalObject::GetItemReferenceQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext) 
+    PropertyQueryFlags ExternalObject::GetItemReferenceQuery(Var originalInstance, uint32 index, Var* value, ScriptContext * requestContext)
     {
         if (!this->VerifyObjectAlive()) return PropertyQueryFlags::Property_NotFound;
         originalInstance = CrossSite::MarshalVar(GetScriptContext(), originalInstance);
@@ -170,14 +170,14 @@ namespace Js
         return result;
     }
 
-    BOOL ExternalObject::SetItem(uint32 index, Var value, PropertyOperationFlags flags) 
+    BOOL ExternalObject::SetItem(uint32 index, Var value, PropertyOperationFlags flags)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         value = Js::CrossSite::MarshalVar(GetScriptContext(), value);
         return DynamicObject::SetItem(index, value, flags);
     }
 
-    BOOL ExternalObject::DeleteItem(uint32 index, PropertyOperationFlags flags) 
+    BOOL ExternalObject::DeleteItem(uint32 index, PropertyOperationFlags flags)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         return DynamicObject::DeleteItem(index, flags);
@@ -195,31 +195,31 @@ namespace Js
         return DynamicObject::IsWritable(propertyId);
     }
 
-    BOOL ExternalObject::IsConfigurable(PropertyId propertyId) 
+    BOOL ExternalObject::IsConfigurable(PropertyId propertyId)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         return DynamicObject::IsConfigurable(propertyId);
     }
 
-    BOOL ExternalObject::IsEnumerable(PropertyId propertyId) 
+    BOOL ExternalObject::IsEnumerable(PropertyId propertyId)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         return DynamicObject::IsEnumerable(propertyId);
     }
 
-    BOOL ExternalObject::SetEnumerable(PropertyId propertyId, BOOL value) 
+    BOOL ExternalObject::SetEnumerable(PropertyId propertyId, BOOL value)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         return DynamicObject::SetEnumerable(propertyId, value);
     }
 
-    BOOL ExternalObject::SetWritable(PropertyId propertyId, BOOL value) 
+    BOOL ExternalObject::SetWritable(PropertyId propertyId, BOOL value)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         return DynamicObject::SetWritable(propertyId, value);
     }
 
-    BOOL ExternalObject::SetConfigurable(PropertyId propertyId, BOOL value) 
+    BOOL ExternalObject::SetConfigurable(PropertyId propertyId, BOOL value)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         return DynamicObject::SetConfigurable(propertyId, value);
@@ -231,7 +231,7 @@ namespace Js
         return DynamicObject::SetAttributes(propertyId, attributes);
     }
 
-    BOOL ExternalObject::SetAccessors(PropertyId propertyId, Var getter, Var setter, Js::PropertyOperationFlags flags) 
+    BOOL ExternalObject::SetAccessors(PropertyId propertyId, Var getter, Var setter, Js::PropertyOperationFlags flags)
     {
         if (!this->VerifyObjectAlive()) return FALSE;
         if (getter)
@@ -254,7 +254,7 @@ namespace Js
 
         BOOL result = DynamicObject::GetAccessors(propertyId, getter, setter, requestContext);
         if (result)
-        {            
+        {
             if (*getter)
             {
                 *getter = Js::CrossSite::MarshalVar(requestContext, *getter);
@@ -298,7 +298,7 @@ namespace Js
         return result;
     }
 
-    HRESULT ExternalObject::QueryObjectInterface(REFIID riid, void **ppvObj) 
+    HRESULT ExternalObject::QueryObjectInterface(REFIID riid, void **ppvObj)
     {
         if (!this->IsObjectAlive())
         {
@@ -389,7 +389,7 @@ namespace Js
     }
 
     ExternalType::ExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint,
-        DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId) 
+        DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId)
         : DynamicType(scriptContext, typeId, prototype, nullptr, typeHandler, isLocked, isShared), nameId(nameId), operations(operations), hasInheritedTypeIds(false)
     {
         this->flags |= TypeFlagMask_EngineExternal;
@@ -397,8 +397,8 @@ namespace Js
     }
 
      ExternalType::ExternalType(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint,
-         DynamicTypeHandler * typeHandler, bool isLocked, bool isShared,  PropertyId nameId) 
-         : DynamicType(scriptContext, typeId, prototype, nullptr, typeHandler, isLocked, isShared), nameId(nameId), operations(nullptr) 
+         DynamicTypeHandler * typeHandler, bool isLocked, bool isShared,  PropertyId nameId)
+         : DynamicType(scriptContext, typeId, prototype, nullptr, typeHandler, isLocked, isShared), nameId(nameId), operations(nullptr)
      {
          this->flags |= TypeFlagMask_EngineExternal;
          Initialize(entryPoint);
@@ -407,7 +407,7 @@ namespace Js
     Var __cdecl ExternalType::ExternalEntryThunk(RecyclableObject* recyclableObject, CallInfo callInfo, ...)
     {
         RUNTIME_ARGUMENTS(args, callInfo);
-        ExternalObject* externalObject = Js::ExternalObject::FromVar(recyclableObject);
+        ExternalObject* externalObject = Js::VarTo<Js::ExternalObject>(recyclableObject);
         ExternalType* externalType = static_cast<ExternalType*>(externalObject->GetType());
         ScriptContext* scriptContext = externalType->GetScriptContext();
         Assert(!scriptContext->GetThreadContext()->IsDisableImplicitException());
@@ -417,10 +417,10 @@ namespace Js
             JavascriptError::ThrowTypeError(scriptContext, JSERR_This_NullOrUndefined);
         }
         // We need to verify "this" pointer is active as well. The problem is that DOM prototype functions are
-        // the same across multiple frames, and caller can do function.call(closedthis) 
+        // the same across multiple frames, and caller can do function.call(closedthis)
         if (!Js::TaggedNumber::Is(args.Values[0]))
         {
-            Js::RecyclableObject::FromVar(args.Values[0])->GetScriptContext()->VerifyAlive();
+            Js::VarTo<Js::RecyclableObject>(args.Values[0])->GetScriptContext()->VerifyAlive();
         }
 
         Var result = scriptContext->GetLibrary()->GetUndefined();
@@ -428,12 +428,12 @@ namespace Js
         {
             AssertMsg(args.Info.Count > 0, "Should always have implicit 'this'");
             // translate direct host for fastDOM.
-            if (args.Values[0] == scriptContext->GetGlobalObject() || 
+            if (args.Values[0] == scriptContext->GetGlobalObject() ||
                 args.Values[0] == scriptContext->GetLibrary()->GetUndefined())
             {
                 args.Values[0] = scriptContext->GetGlobalObject()->GetDirectHostObject();
             }
-            
+
             // Don't do stack probe since BEGIN_LEAVE_SCRIPT_WITH_EXCEPTION does that for us already
             result = externalType->nativeMethod(recyclableObject, callInfo, args.Values);
         }
@@ -453,10 +453,10 @@ namespace Js
     Var __cdecl ExternalType::CrossSiteExternalEntryThunk(RecyclableObject* recyclableObject, CallInfo callInfo, ...)
     {
         RUNTIME_ARGUMENTS(args, callInfo);
-        
-        DynamicObject * dynamicObject = DynamicObject::FromVar(recyclableObject);
+
+        DynamicObject * dynamicObject = VarTo<DynamicObject>(recyclableObject);
         ScriptContext * targetScriptContext = dynamicObject->GetScriptContext();
-        targetScriptContext->VerifyAliveWithHostContext(!dynamicObject->IsExternal(), 
+        targetScriptContext->VerifyAliveWithHostContext(!dynamicObject->IsExternal(),
             ThreadContext::GetContextForCurrentThread()->GetPreviousHostScriptContext());
         return CrossSite::CommonThunk(recyclableObject, ExternalType::ExternalEntryThunk, args);
     }
@@ -473,7 +473,7 @@ namespace Js
 
     ExternalTypeWithInheritedTypeIds::ExternalTypeWithInheritedTypeIds(ScriptContext* scriptContext, TypeId typeId, RecyclableObject* prototype, ExternalMethod entryPoint,
         DynamicTypeHandler * typeHandler, bool isLocked, bool isShared, ITypeOperations * operations, PropertyId nameId, const JavascriptTypeId* inheritedTypeIds, UINT inheritedTypeIdsCount)
-        : ExternalType(scriptContext, typeId, prototype, entryPoint, typeHandler, isLocked, isShared, operations, nameId), 
+        : ExternalType(scriptContext, typeId, prototype, entryPoint, typeHandler, isLocked, isShared, operations, nameId),
             inheritedTypeIdsCount(inheritedTypeIdsCount), inheritedTypeIds(inheritedTypeIds)
     {
         this->hasInheritedTypeIds = true;

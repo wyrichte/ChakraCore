@@ -299,7 +299,7 @@ namespace Js
         };
         return DefaultOperationsWrapper(scriptDirect, instance, fn, NOERROR);
     }
-    
+
     HRESULT STDMETHODCALLTYPE DefaultScriptOperations::SetItem(
         /* [in] */ IActiveScriptDirect* scriptDirect,
         /* [in] */ Var instance,
@@ -454,7 +454,7 @@ namespace Js
         };
         return DefaultOperationsWrapper(scriptDirect, instance, fn, E_INVALIDARG);
     }
-    
+
     HRESULT STDMETHODCALLTYPE
     DefaultScriptOperations::IsWritable(
         /* [in] */ IActiveScriptDirect* scriptDirect,
@@ -479,7 +479,7 @@ namespace Js
         };
         return DefaultOperationsWrapper(scriptDirect, instance, fn, E_INVALIDARG);
     }
-    
+
     HRESULT STDMETHODCALLTYPE
     DefaultScriptOperations::IsConfigurable(
         /* [in] */ IActiveScriptDirect* scriptDirect,
@@ -570,7 +570,7 @@ namespace Js
         };
         return DefaultOperationsWrapper(scriptDirect, instance, fn, E_INVALIDARG);
     }
-    
+
     HRESULT STDMETHODCALLTYPE
     DefaultScriptOperations::SetAccessors(
         /* [in] */ IActiveScriptDirect* scriptDirect,
@@ -593,7 +593,7 @@ namespace Js
         };
         return DefaultOperationsWrapper(scriptDirect, instance, fn, E_INVALIDARG);
     }
-    
+
     HRESULT STDMETHODCALLTYPE DefaultScriptOperations::GetAccessors(
         /* [in] */ IActiveScriptDirect* scriptDirect,
         /* [in] */ Var instance,
@@ -766,7 +766,7 @@ namespace Js
             return E_INVALIDARG;
         }
 
-        RecyclableObject* objInstance = RecyclableObject::FromVar(instance);
+        RecyclableObject* objInstance = VarTo<RecyclableObject>(instance);
         if (objInstance->IsExternal())
         {
             Js::CustomExternalObject * customExternalObject = (Js::CustomExternalObject *)objInstance;
@@ -816,9 +816,9 @@ namespace Js
 
         IfNullReturnError(constructor, E_INVALIDARG);
         IfNullReturnError(instance, E_INVALIDARG);
-        RecyclableObject* objConstructor = RecyclableObject::FromVar(constructor);
+        RecyclableObject* objConstructor = VarTo<RecyclableObject>(constructor);
         auto fn = [&] (Js::RecyclableObject* objInstance, Js::ScriptContext* scriptContext) -> HRESULT {
-            if (objConstructor->IsExternal() && ExternalObject::FromVar(constructor)->IsCustomExternalObject())
+            if (objConstructor->IsExternal() && VarTo<ExternalObject>(constructor)->IsCustomExternalObject())
             {
                 Var funcPrototype = JavascriptOperators::GetProperty(objConstructor, PropertyIds::prototype, scriptContext);
                 *result = JavascriptFunction::HasInstance(funcPrototype, instance, scriptContext, NULL, NULL);
@@ -871,7 +871,7 @@ namespace Js
 
    HRESULT STDMETHODCALLTYPE DefaultScriptOperations::GetHeapObjectInfo(
        /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-        /* [in] */ Var instance, 
+        /* [in] */ Var instance,
         /* [in] */ ProfilerHeapObjectInfoFlags flags,
         /* [out] */ HostProfilerHeapObject** result,
         /* [out] */ HeapObjectInfoReturnResult* returnResult)
@@ -886,7 +886,7 @@ namespace Js
         return S_OK;
     }
 
- 
+
     Js::ScriptContext *
     DefaultScriptOperations::GetCurrentScriptContext(IActiveScriptDirect* scriptDirect)
     {
@@ -899,7 +899,7 @@ namespace Js
         else
         {
             OUTPUT_TRACE_DEBUGONLY(Js::RunPhase, _u("DefaultScriptOperations::GetCurrentScriptContext() - requestSite is null"));
-            
+
 #if DBG
             // verify the script state is closed
             SCRIPTSTATE scriptState;

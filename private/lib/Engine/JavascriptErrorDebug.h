@@ -25,14 +25,6 @@ namespace Js
             restrictedStrings.capabilitySid = nullptr;
         }
 
-        static bool Is(Var aValue);
-        static JavascriptErrorDebug* FromVar(Var aValue)
-        {
-            AssertMsg(Is(aValue), "Ensure var is actually a 'JavascriptErrorDebug'");
-
-            return static_cast<JavascriptErrorDebug *>(JavascriptError::FromVar(aValue));
-        }
-
         // For differentiating between JavascriptError and JavascriptErrorDebug
         bool HasDebugInfo();
 
@@ -96,5 +88,7 @@ namespace Js
         static void SetErrorMessage(JavascriptError *pError, HRESULT errCode, PCWSTR varDescription, ScriptContext* scriptContext);
         static void __declspec(noreturn) SetMessageAndThrowError(ScriptContext * scriptContext, JavascriptError * pError, int32 hCode, EXCEPINFO * pei);
     };
+
+    template <> bool VarIsImpl<JavascriptErrorDebug>(RecyclableObject* object);
 #endif
 }

@@ -282,9 +282,9 @@ namespace Js
 
         case SCA_Uint8ClampedArray:
             // If Khronos Interop is not enabled, we don't have Uint8ClampedArray available.
-            // This is a scenario where the source buffer was created in a newer document mode 
-            // but needs to be deserialized in an older document mode. 
-            // What we want to do is return the buffer as a CanvasPixelArray instead of 
+            // This is a scenario where the source buffer was created in a newer document mode
+            // but needs to be deserialized in an older document mode.
+            // What we want to do is return the buffer as a CanvasPixelArray instead of
             // Uint8ClampedArray since the older document mode knows what CanvasPixelArray is but
             // not what Uint8ClampedArray is.
             // We don't support pixelarray in edge anymore.
@@ -318,7 +318,7 @@ namespace Js
     void DeserializationCloner<Reader>::CloneProperties(SrcTypeId typeId, Src src, Dst dst)
     {
         ScriptContext* scriptContext = GetScriptContext();
-        RecyclableObject* obj = RecyclableObject::FromVar(dst);
+        RecyclableObject* obj = VarTo<RecyclableObject>(dst);
 
         if (obj->IsExternal()) // Read host object properties
         {
@@ -389,7 +389,7 @@ Error:
     template <class Reader>
     void DeserializationCloner<Reader>::CloneMap(Src src, Dst dst)
     {
-        JavascriptMap* map = JavascriptMap::FromVar(dst);
+        JavascriptMap* map = VarTo<JavascriptMap>(dst);
 
         int32 size;
         m_reader->Read(&size);
@@ -418,7 +418,7 @@ Error:
     template <class Reader>
     void DeserializationCloner<Reader>::CloneSet(Src src, Dst dst)
     {
-        JavascriptSet* set = JavascriptSet::FromVar(dst);
+        JavascriptSet* set = VarTo<JavascriptSet>(dst);
 
         int32 size;
         m_reader->Read(&size);
@@ -442,7 +442,7 @@ Error:
     {
         Assert(FALSE); // Should never call this. Object reference handled explictly.
     }
-    
+
     //
     // Try to read a SCAString layout in the form of: [byteLen] [string content] [padding].
     // SCAString is also used for property name in object layout. In case of property terminator,

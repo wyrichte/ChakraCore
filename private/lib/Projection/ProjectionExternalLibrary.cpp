@@ -56,7 +56,7 @@ Js::JavascriptError* ProjectionExternalLibrary::CreateWinRTError(IErrorInfo* per
         return scriptContext->GetLibrary()->CreateError();
     }
     AssertMsg(winrtErrorType, "Where's winrtErrorType?");
-    Js::JavascriptLibrary *library = scriptContext->GetLibrary(); 
+    Js::JavascriptLibrary *library = scriptContext->GetLibrary();
     Js::JavascriptError *pError = nullptr;
     if (perrinfo != nullptr)
     {
@@ -129,6 +129,6 @@ void ProjectionExternalLibrary::InitializeWinRTPromiseConstructor()
     ProjectionContext* projectionContext = scriptSite->GetScriptEngine()->GetProjectionContext();
     Assert(projectionContext != nullptr);
 
-    this->winRTPromiseConstructor = Js::JavascriptFunction::FromVar(GetWinRTPromiseEngineInterfaceExtensionObject()->GetPromiseConstructor(scriptContext));
+    this->winRTPromiseConstructor = Js::VarTo<Js::JavascriptFunction>(GetWinRTPromiseEngineInterfaceExtensionObject()->GetPromiseConstructor(scriptContext));
 }
 

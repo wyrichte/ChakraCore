@@ -24,7 +24,7 @@ namespace Projection
         ULONG originalCount;
         IUnknown * u;
     public:
-        EnsureRefCountChange(IUnknown * u, ULONG expectedChange) 
+        EnsureRefCountChange(IUnknown * u, ULONG expectedChange)
             : u(u), expectedChange(expectedChange)
         {
             originalCount = u->AddRef() - 1;
@@ -38,15 +38,15 @@ namespace Projection
     };
 #endif
 
-    struct ParameterInfo 
+    struct ParameterInfo
     {
     };
-    
+
     struct RuntimeClassParameterInfo : ParameterInfo
     {
 #if DEBUG
         static const int staticSignature = 0xd980e99;
-        int instanceSignature; 
+        int instanceSignature;
 #endif
         MetadataStringId typeNameId;
         const IID & iidDefault;
@@ -70,7 +70,7 @@ namespace Projection
     {
 #if DEBUG
         static const int staticSignature = 0xe980e99;
-        int instanceSignature; 
+        int instanceSignature;
 #endif
 
         MetadataStringId typeNameId;
@@ -164,7 +164,7 @@ namespace Projection
     {
         HRESULT hr = S_OK;
         INT64 ticks;
-        if (Js::JavascriptWinRTDate::Is(varInput))
+        if (Js::VarIs<Js::JavascriptWinRTDate>(varInput))
         {
             // Handle it getting dirty as well as just a regular date object being passed in
             Js::JavascriptWinRTDate* pWinRTDate = (Js::JavascriptWinRTDate*) varInput;
@@ -185,9 +185,9 @@ namespace Projection
                 }
             }
         }
-        else if (Js::JavascriptDate::Is(varInput))
+        else if (Js::VarIs<Js::JavascriptDate>(varInput))
         {
-            Js::JavascriptDate* pDate = Js::JavascriptDate::FromVar(varInput);
+            Js::JavascriptDate* pDate = Js::VarTo<Js::JavascriptDate>(varInput);
 
             if (Js::JavascriptNumber::IsNan(pDate->GetTime()))
             {
@@ -228,7 +228,7 @@ namespace Projection
 
     struct UInt32Traits : public BaseTraits<unsigned __int32>
     {
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             return (TBase)Js::JavascriptConversion::ToInt32(var, projectionContext->GetScriptContext());
         }
@@ -238,9 +238,9 @@ namespace Projection
         }
     };
 
-    struct Int32Traits : public BaseTraits<__int32> 
+    struct Int32Traits : public BaseTraits<__int32>
     {
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             return (TBase)Js::JavascriptConversion::ToInt32(var, projectionContext->GetScriptContext());
         }
@@ -252,7 +252,7 @@ namespace Projection
 
     struct SingleTraits : public BaseTraits<float>
     {
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             return (TBase)Js::JavascriptConversion::ToNumber(var, projectionContext->GetScriptContext());
         }
@@ -264,7 +264,7 @@ namespace Projection
 
     struct DoubleTraits : public BaseTraits<double>
     {
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             return (TBase)Js::JavascriptConversion::ToNumber(var, projectionContext->GetScriptContext());
         }
@@ -276,11 +276,11 @@ namespace Projection
 
     struct BoolTraits : public BaseTraits<bool>
     {
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             if (Js::JavascriptOperators::GetTypeId(var) == Js::TypeIds_BooleanObject)
             {
-                return Js::JavascriptBooleanObject::FromVar(var)->GetValue() ? true: false; 
+                return Js::VarTo<Js::JavascriptBooleanObject>(var)->GetValue() ? true: false;
             }
             return Js::JavascriptConversion::ToBoolean(var, projectionContext->GetScriptContext()) ? true: false;
         }
@@ -292,7 +292,7 @@ namespace Projection
 
     struct DateTimeTraits : public BaseTraits<Windows::Foundation::DateTime>
     {
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             TBase dateTime;
             dateTime.UniversalTime = GetDateTimeOfJavascriptDate(var, projectionContext);
@@ -316,7 +316,7 @@ namespace Projection
     {
         static const bool requiresContext = true;
 
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext * context, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext * context, ProjectionContext *projectionContext)
         {
             auto scriptContext = projectionContext->GetScriptContext();
             auto str = Js::JavascriptConversion::ToString(var, scriptContext);
@@ -346,7 +346,7 @@ namespace Projection
         {
             UINT32 length;
             auto stringMethods = projectionContext->GetThreadContext()->GetWinRTStringLibrary();
-            auto sz = stringMethods->WindowsGetStringRawBuffer(hs, &length); 
+            auto sz = stringMethods->WindowsGetStringRawBuffer(hs, &length);
             auto result = Js::JavascriptString::NewCopyBuffer(sz, length, projectionContext->GetScriptContext()); // NOTE: We could make a new basic type for HSTRINGs and avoid this copy.
             stringMethods->WindowsDeleteString(hs);
             return result;
@@ -355,7 +355,7 @@ namespace Projection
         inline static void ReleaseInAfterCall(TBase hs, TContext * context, ProjectionContext *projectionContext)
         {
             projectionContext->GetThreadContext()->GetWinRTStringLibrary()->WindowsDeleteString(hs);
-            if (pinVar && context && context->pinned) 
+            if (pinVar && context && context->pinned)
             {
                 context->pinned.Unroot(projectionContext->GetScriptContext()->GetRecycler());
             }
@@ -366,7 +366,7 @@ namespace Projection
     Var FastPathProjectionObjectCreate(IUnknown *raw, PropertyId typeNameId, ProjectionContext *projectionContext, ConstructorArguments* constructorArguments = nullptr)
     {
         Assert(raw != nullptr);
-        projectionContext->TypeInstanceCreated(raw); 
+        projectionContext->TypeInstanceCreated(raw);
         auto projectionWriter = projectionContext->GetProjectionWriter();
         auto scriptContext = projectionContext->GetScriptContext();
         Var result = nullptr;
@@ -395,7 +395,7 @@ namespace Projection
 
     struct RuntimeClassTraits : public BaseTraits<IUnknown*>
     {
-        inline static TBase FromVar(ParameterInfo * parameterInfo, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo * parameterInfo, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             auto runtimeClassParameterInfo = RuntimeClassParameterInfo::From(parameterInfo);
             return TryGetInterface<true>(var, runtimeClassParameterInfo->typeNameId, runtimeClassParameterInfo->iidDefault, MetadataStringIdNil, projectionContext->GetScriptContext(), nullptr);
@@ -407,7 +407,7 @@ namespace Projection
             auto runtimeClassParameterInfo = RuntimeClassParameterInfo::From(parameterInfo);
             Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
-            if(raw) 
+            if(raw)
             {
                 return FastPathProjectionObjectCreate(raw, runtimeClassParameterInfo->typeNameId, projectionContext);
             }
@@ -419,7 +419,7 @@ namespace Projection
     {
         static const bool toVarRequiresRuntimeClassName = true;
 
-        inline static TBase FromVar(ParameterInfo * parameterInfo, Js::Var var, TContext, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo * parameterInfo, Js::Var var, TContext, ProjectionContext *projectionContext)
         {
             auto interfaceParameterInfo = InterfaceParameterInfo::From(parameterInfo);
             ProjectionMarshaler marshal(CalleeRetainsOwnership, projectionContext, false);
@@ -432,13 +432,13 @@ namespace Projection
             auto interfaceParameterInfo = InterfaceParameterInfo::From(parameterInfo);
             Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
 
-            if(raw) 
+            if(raw)
             {
                 uint32 lengthClassName;
                 auto winrtStringLib = scriptContext->GetThreadContext()->GetWinRTStringLibrary();
                 LPCWSTR strClassName = winrtStringLib->WindowsGetStringRawBuffer(className, &lengthClassName);
                 // PropertyValue marshaling would have to go through marhaler
-                if ((interfaceParameterInfo->specialization == nullptr || interfaceParameterInfo->specialization->specializationType != specPropertyValueSpecialization) && 
+                if ((interfaceParameterInfo->specialization == nullptr || interfaceParameterInfo->specialization->specializationType != specPropertyValueSpecialization) &&
                     (className == nullptr || interfaceParameterInfo->typeNameId == IdOfString(scriptContext, strClassName)))
                 {
                     // Fast Path = same String name as Interface expected
@@ -481,8 +481,8 @@ namespace Projection
             }
         }
 
-        inline static bool IsAsync(ParameterInfo* parameterInfo) 
-        { 
+        inline static bool IsAsync(ParameterInfo* parameterInfo)
+        {
             auto interfaceParameterInfo = InterfaceParameterInfo::From(parameterInfo);
             if (interfaceParameterInfo->specialization && interfaceParameterInfo->specialization->specializationType == specPromiseSpecialization)
             {
@@ -554,10 +554,10 @@ namespace Projection
                 length = 0;
                 return;
             }
-            isArray = ArrayAsCollection::IsArrayInstance(var) ? true : false; 
-            isArrayProjection = ArrayProjection::Is(var) ? true : false; 
-            auto isTypedArray = Js::TypedArrayBase::Is(var) ? true : false; 
-            isJavascriptArray = Js::JavascriptArray::Is(var) ? true : false;
+            isArray = ArrayAsCollection::IsArrayInstance(var) ? true : false;
+            isArrayProjection = ArrayProjection::Is(var) ? true : false;
+            auto isTypedArray = Js::VarIs<Js::TypedArrayBase>(var) ? true : false;
+            isJavascriptArray = Js::JavascriptArray::IsNonES5Array(var) ? true : false;
 
             if (!isArray && !isArrayProjection && !isTypedArray)
             {
@@ -567,7 +567,7 @@ namespace Projection
             if (isArray)
             {
                 length = ArrayAsCollection::GetLength(static_cast<Js::JavascriptArray *>(var));
-            } 
+            }
             else if (isTypedArray)
             {
                 Js::JavascriptError::ThrowTypeError(scriptContext, VBSERR_TypeMismatch);
@@ -600,7 +600,7 @@ namespace Projection
             ::memset(elementContext, 0, sizeof(TElementContext) * length);
         }
     };
-    
+
     template<typename TElementTraits>
     struct ArrayTraits : BaseTraits<typename TElementTraits::TBase *, ArrayContext<typename TElementTraits> >
     {
@@ -614,7 +614,7 @@ namespace Projection
             return TContext();
         }
 
-        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext * context, ProjectionContext *projectionContext) 
+        inline static TBase FromVar(ParameterInfo *, Js::Var var, TContext * context, ProjectionContext *projectionContext)
         {
             auto scriptContext = projectionContext->GetScriptContext();
             context->Analyze(var, scriptContext);
@@ -637,10 +637,10 @@ namespace Projection
                     context->AllocateElementContexts();
                 }
 
-                if (context->isJavascriptArray) 
+                if (context->isJavascriptArray)
                 {
                     // Fast-path for JavascriptArray
-                    auto arr = Js::JavascriptArray::FromVar(var);
+                    auto arr = Js::VarTo<Js::JavascriptArray>(var);
 
                     arr->WalkExisting([&](uint32 index, Var element) {
                         if (TElementTraits::requiresContext)
@@ -659,14 +659,14 @@ namespace Projection
                         if (TElementTraits::requiresContext)
                             context->elements[index] = TElementTraits::FromVar(nullptr, varElement, &context->elementContext[index], projectionContext);
                         else
-                            context->elements[index] = TElementTraits::FromVar(nullptr, varElement, nullptr, projectionContext);                    
+                            context->elements[index] = TElementTraits::FromVar(nullptr, varElement, nullptr, projectionContext);
                     }
                 }
             }
             return context->elements;
         }
 
-        inline static uint32 GetLength(TContext * context) 
+        inline static uint32 GetLength(TContext * context)
         {
             return context->length;
         }
@@ -688,7 +688,7 @@ namespace Projection
     Var FastPath(Js::Var method, Js::CallInfo callInfo, ...)
     {
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<FastPathSignature*>(function->GetSignature());
         auto dynamicCallSignature = signature->dynamicCallSignature;
         Assert(callInfo.Count > 0);
@@ -730,7 +730,7 @@ namespace Projection
     Var FastPathIn(Js::Var method, Js::CallInfo callInfo, ...)
     {
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<FastPathSignature*>(function->GetSignature());
         auto dynamicCallSignature = signature->dynamicCallSignature;
         Js::ScriptContext *scriptContext = dynamicCallSignature->projectionContext->GetScriptContext();
@@ -787,7 +787,7 @@ namespace Projection
     template<typename T1>
     Var FastPathOut(Js::Var method, Js::CallInfo callInfo, ...)
     {
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<FastPathSignature*>(function->GetSignature());
         ARGUMENTS(args, callInfo);
         Assert(callInfo.Count > 0);
@@ -838,13 +838,13 @@ namespace Projection
             }
             IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
             Var result;
-            
+
             if (isAsyncDebuggingEnabled)
             {
                 PromiseConstructorArguments constructorArguments(asyncOperationId);
                 result = T1::ToVar(signature->parameters[0], p1, className, signature->dynamicCallSignature->method->nameId, projectionContext, &constructorArguments);
             }
-            else 
+            else
             {
                 result = T1::ToVar(signature->parameters[0], p1, className, signature->dynamicCallSignature->method->nameId, projectionContext);
             }
@@ -857,7 +857,7 @@ namespace Projection
     Var FastPathInIn(Js::Var method, Js::CallInfo callInfo, ...)
     {
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<FastPathSignature*>(function->GetSignature());
         auto dynamicCallSignature = signature->dynamicCallSignature;
         Js::ScriptContext *scriptContext = dynamicCallSignature->projectionContext->GetScriptContext();
@@ -904,14 +904,14 @@ namespace Projection
         Js::JavascriptError::ThrowError(scriptContext, JSERR_WinRTFunction_TooFewArguments, StringOfId(scriptContext, signature->dynamicCallSignature->method->nameId));
     }
 
-    
+
     template<typename T1, typename T2>
     Var FastPathInOut(Js::Var method, Js::CallInfo callInfo, ...)
     {
         typedef HRESULT fn(IUnknown*, T1::TBase, T2::TBase *);
 
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<FastPathSignature*>(function->GetSignature());
         auto dynamicCallSignature = signature->dynamicCallSignature;
         Js::ScriptContext *scriptContext = dynamicCallSignature->projectionContext->GetScriptContext();
@@ -966,18 +966,18 @@ namespace Projection
                 IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
                 Var result;
-            
+
                 if (isAsyncDebuggingEnabled)
                 {
                     PromiseConstructorArguments constructorArguments(asyncOperationId);
                     result = T2::ToVar(signature->parameters[1], p2, className, signature->dynamicCallSignature->method->nameId, projectionContext, &constructorArguments);
                 }
-                else 
+                else
                 {
                     result = T2::ToVar(signature->parameters[1], p2, className, signature->dynamicCallSignature->method->nameId, projectionContext);
                 }
 
-                return result; 
+                return result;
             }
             return DynamicCall(dynamicCallSignature, method, args, callInfo);
         }
@@ -1000,18 +1000,18 @@ namespace Projection
         // Get the factory
         AutoCOMPtr<IActivationFactory> factory;
         Js::JavascriptErrorDebug::ClearErrorInfo(scriptContext);
-        hr = projectionContext->CreateTypeFactoryInstance(projectionContext->StringOfId(runtimeClassThis->typeId), __uuidof(IActivationFactory), (IUnknown**)&factory); 
-        IfFailedMapAndThrowHrWithInfo(scriptContext, hr); 
+        hr = projectionContext->CreateTypeFactoryInstance(projectionContext->StringOfId(runtimeClassThis->typeId), __uuidof(IActivationFactory), (IUnknown**)&factory);
+        IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
         // This is the last step, to preserve error behaviors above
-        runtimeClassThis->factory = factory.Detach(); 
+        runtimeClassThis->factory = factory.Detach();
         projectionContext->GetProjectionWriter()->AddRuntimeClassThisToCleanupOnClose(runtimeClassThis);
     }
 
     struct StaticFastPathSignature : public FinalizableObject
     {
         Signature * dynamicCallSignature; // The non-fastpath signature
-        IUnknown * factory; 
+        IUnknown * factory;
         LPVOID vtableEntry;
         ParameterInfo ** parameters;
         void* fastPathFunction;
@@ -1023,7 +1023,7 @@ namespace Projection
 
 
         void Finalize(bool isShutdown) override {}
-        void Dispose(bool isShutdown) override 
+        void Dispose(bool isShutdown) override
         {
             if (factory  && !isShutdown)
             {
@@ -1038,7 +1038,7 @@ namespace Projection
     {
         typedef HRESULT fn(IUnknown*);
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<StaticFastPathSignature*>(function->GetSignature());
         Assert(callInfo.Count > 0);
         auto scriptContext = function->GetScriptContext();
@@ -1064,7 +1064,7 @@ namespace Projection
     {
         typedef HRESULT fn(IUnknown*, T1::TBase*);
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<StaticFastPathSignature*>(function->GetSignature());
         auto projectionContext = signature->dynamicCallSignature->projectionContext;
         auto scriptContext = projectionContext->GetScriptContext();
@@ -1101,13 +1101,13 @@ namespace Projection
         IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
         Var result;
-            
+
         if (isAsyncDebuggingEnabled)
         {
             PromiseConstructorArguments constructorArguments(asyncOperationId);
             result = T1::ToVar(signature->parameters[0], p1, className, signature->dynamicCallSignature->method->nameId, projectionContext, &constructorArguments);
         }
-        else 
+        else
         {
             result = T1::ToVar(signature->parameters[0], p1, className, signature->dynamicCallSignature->method->nameId, projectionContext);
         }
@@ -1121,7 +1121,7 @@ namespace Projection
     Var StaticFastPathIn(Js::Var method, Js::CallInfo callInfo, ...)
     {
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<StaticFastPathSignature*>(function->GetSignature());
         auto projectionContext = signature->dynamicCallSignature->projectionContext;
         auto scriptContext = projectionContext->GetScriptContext();
@@ -1167,7 +1167,7 @@ namespace Projection
     {
         typedef HRESULT fn(IUnknown*, T1::TBase, T2::TBase);
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<StaticFastPathSignature*>(function->GetSignature());
         auto projectionContext = signature->dynamicCallSignature->projectionContext;
         auto scriptContext = projectionContext->GetScriptContext();
@@ -1206,7 +1206,7 @@ namespace Projection
     {
         typedef HRESULT fn(IUnknown*, T1::TBase, T2::TBase*);
         ARGUMENTS(args, callInfo);
-        auto function = Js::JavascriptWinRTFunction::FromVar(method);
+        auto function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         auto signature = reinterpret_cast<StaticFastPathSignature*>(function->GetSignature());
         auto dynamicCallSignature = signature->dynamicCallSignature;
         auto projectionContext = dynamicCallSignature->projectionContext;
@@ -1251,13 +1251,13 @@ namespace Projection
             IfFailedMapAndThrowHrWithInfo(scriptContext, hr);
 
             Var result;
-            
+
             if (isAsyncDebuggingEnabled)
             {
                 PromiseConstructorArguments constructorArguments(asyncOperationId);
                 result = T2::ToVar(signature->parameters[1], p2, className, signature->dynamicCallSignature->method->nameId, projectionContext, &constructorArguments);
             }
-            else 
+            else
             {
                 result = T2::ToVar(signature->parameters[1], p2, className, signature->dynamicCallSignature->method->nameId, projectionContext);
             }
@@ -1284,7 +1284,7 @@ namespace Projection
                 auto typeDefType = TypeDefinitionType::From(type);
                 HTYPE htype = nullptr;
                 RuntimeClassTypeInformation * typeInformation = nullptr;
-                
+
                 bool runtimeClassTypeExists;
                 {
                     // In fast path case, the signature and all parameters should be resloved before calling the winRT function
@@ -1314,7 +1314,7 @@ namespace Projection
                         {
                             Js::VerifyOkCatastrophic(hr);
                         }
-                        parameterInfos[index] = RecyclerNew(recycler, InterfaceParameterInfo, typeDefType->typeId, typeInformation->GetThisInfo()->defaultInterface->instantiated, 
+                        parameterInfos[index] = RecyclerNew(recycler, InterfaceParameterInfo, typeDefType->typeId, typeInformation->GetThisInfo()->defaultInterface->instantiated,
                             typeInformation->GetThisInfo()->GetSpecialization(), expr);
                     }
                 }
@@ -1370,7 +1370,7 @@ namespace Projection
                 staticSignature->fastPathFunction = fn;
             }
             staticSignature->parameters = parameters;
-            return projectionWriter->BuildDirectFunction((Var)staticSignature, needFastPathThunk? DefaultFastPathThunk<false> :fn, nameId, fConstructor);                                                                    
+            return projectionWriter->BuildDirectFunction((Var)staticSignature, needFastPathThunk? DefaultFastPathThunk<false> :fn, nameId, fConstructor);
         };
         auto makeStatic = [&](void * fn) -> Js::JavascriptWinRTFunction * {
             // Static 'factory'
@@ -1380,7 +1380,7 @@ namespace Projection
                 FastPathPopulateRuntimeClassThis(runtimeClassThis, projectionContext);
             }
 
-            StaticFastPathSignature * staticSignature = nullptr; 
+            StaticFastPathSignature * staticSignature = nullptr;
             IUnknown * factory = nullptr;
             HRESULT hr = S_OK;
             BOOL needFastPathThunk = FALSE;
@@ -1409,7 +1409,7 @@ namespace Projection
                         staticSignature->fastPathFunction = fn;
                     }
                     END_TRANSLATE_EXCEPTION_AND_ERROROBJECT_TO_HRESULT(hr)
-                    
+
                     if (factory!=nullptr && FAILED(hr))
                     {
                         factory->Release();
@@ -1418,7 +1418,7 @@ namespace Projection
             }
             END_LEAVE_SCRIPT(scriptContext)
             IfFailedMapAndThrowHr(scriptContext, hr);
-            return projectionWriter->BuildDirectFunction((Var)staticSignature, needFastPathThunk? DefaultFastPathThunk<true> : fn, nameId, fConstructor);                                                                    
+            return projectionWriter->BuildDirectFunction((Var)staticSignature, needFastPathThunk? DefaultFastPathThunk<true> : fn, nameId, fConstructor);
         };
 
         auto callPattern = method->GetParameters()->callPattern;
@@ -1429,7 +1429,7 @@ namespace Projection
             {
                 auto fn = StaticFastPathOut<false, RuntimeClassTraits>;
                 return makeStatic(fn);
-            } 
+            }
             else if (wcscmp(callPattern,_u("-String"))==0)
             {
                 auto fn = StaticFastPathOut<false, HStringReferenceTraits<false> >;
@@ -1776,7 +1776,7 @@ namespace Projection
     Js::Var DefaultFastPathThunk(Js::RecyclableObject* method, Js::CallInfo callInfo, ...)
     {
         ARGUMENTS(args, callInfo);
-        Js::JavascriptWinRTFunction* function = Js::JavascriptWinRTFunction::FromVar(method);
+        Js::JavascriptWinRTFunction* function = Js::VarTo<Js::JavascriptWinRTFunction>(method);
         Signature* dynamicCallSignature;
         void* fastPathMethod;
         if (isStaticMethod)
@@ -1792,7 +1792,7 @@ namespace Projection
             fastPathMethod = signature->fastPathFunction;
         }
         Js::ScriptContext *scriptContext = dynamicCallSignature->projectionContext->GetScriptContext();
-        VerifyDeprecatedAttributeOnce(dynamicCallSignature->method, scriptContext, 
+        VerifyDeprecatedAttributeOnce(dynamicCallSignature->method, scriptContext,
             (callInfo.Flags & CallFlags_New) ? DeprecatedInvocation_Class : DeprecatedInvocation_Method);
         BEGIN_SAFE_REENTRANT_CALL(scriptContext->GetThreadContext())
         {

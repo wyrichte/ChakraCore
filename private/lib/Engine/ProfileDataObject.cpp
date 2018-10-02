@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 #include "EnginePch.h"
@@ -27,18 +27,18 @@ namespace Js
 
         // Create arrays wrapping the profile data.
         CompileAssert(sizeof(ImplicitCallFlags) == sizeof(uint8));
-        AddWrappedArray<uint8>(loopImplicitCallFlags, 
+        AddWrappedArray<uint8>(loopImplicitCallFlags,
             (byte*)PointerValue(funcBody->GetAnyDynamicProfileInfo()->loopImplicitCallFlags), funcBody->GetLoopCount());
-        AddWrappedArray<ValueType::TSize>(returnTypeInfo, 
+        AddWrappedArray<ValueType::TSize>(returnTypeInfo,
             (byte*)PointerValue(funcBody->GetAnyDynamicProfileInfo()->returnTypeInfo), funcBody->GetProfiledReturnTypeCount());
-        AddWrappedArray<ValueType::TSize>(parameterInfo, 
+        AddWrappedArray<ValueType::TSize>(parameterInfo,
             (byte*)PointerValue(funcBody->GetAnyDynamicProfileInfo()->parameterInfo), funcBody->GetProfiledInParamsCount());
 
         // Build the constants
         BuildConstants();
     }
 
-    template<class T> 
+    template<class T>
     void ProfileDataObject::AddWrappedArray(PropertyId propertyId, byte *buffer, uint32 length)
     {
         JavascriptLibrary* jsLibrary = this->GetScriptContext()->GetLibrary();
@@ -49,14 +49,14 @@ namespace Js
                         buffer,
                         length * sizeof(T),
                         jsLibrary->GetArrayBufferType());
-        
-        Var value = 
+
+        Var value =
             TypedArray<T>::Create(arrayBuffer, 0, length, jsLibrary);
 
         // Set the array on the profile data object as a readonly property.
         DynamicObject::SetPropertyWithAttributes(
-            propertyId, 
-            value, 
+            propertyId,
+            value,
             PropertyAttributes_All & ~PropertyAttributes_Writable,
             NULL
             );
@@ -95,7 +95,7 @@ namespace Js
         SetConstantProperty(_u("VALUE_TYPE_OBJECT_BIT_COUNT"), VALUE_TYPE_OBJECT_BIT_COUNT, valueTypeObj);
 
         DynamicObject::SetPropertyWithAttributes(
-            propValueType, 
+            propValueType,
             valueTypeObj,
             PropertyAttributes_All & ~PropertyAttributes_Writable,
             NULL
@@ -112,7 +112,7 @@ namespace Js
         SetConstantProperty(_u("All"), ImplicitCall_All, icf);
         SetConstantProperty(_u("Async"), ImplicitCall_AsyncHostOperation, icf);
         DynamicObject::SetPropertyWithAttributes(
-            propImplicitCallFlags, 
+            propImplicitCallFlags,
             icf,
             PropertyAttributes_All & ~PropertyAttributes_Writable,
             NULL
@@ -125,9 +125,9 @@ namespace Js
         const PropertyRecord *propRecord;
         threadContext->GetOrAddPropertyId(str, wcslen(str), &propRecord);
 
-        DynamicObject::FromVar(object)->SetPropertyWithAttributes(
-            propRecord->GetPropertyId(), 
-            JavascriptNumber::ToVar(value, this->GetScriptContext()), 
+        VarTo<DynamicObject>(object)->SetPropertyWithAttributes(
+            propRecord->GetPropertyId(),
+            JavascriptNumber::ToVar(value, this->GetScriptContext()),
             PropertyAttributes_All & ~PropertyAttributes_Writable,
             NULL
             );

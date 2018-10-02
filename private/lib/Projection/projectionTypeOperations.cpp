@@ -25,7 +25,7 @@ namespace Projection
     // *** Overrides of DefaultScriptOperations
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::QueryInterface(
         /* [in] */ REFIID riid,
-        /* [iid_is][out] */ __RPC__deref_out void __RPC_FAR *__RPC_FAR *ppvObject)  
+        /* [iid_is][out] */ __RPC__deref_out void __RPC_FAR *__RPC_FAR *ppvObject)
     {
         if (riid == _uuidof(ITypeOperations))
         {
@@ -48,23 +48,23 @@ namespace Projection
         return NOERROR;
     }
 
-    ULONG STDMETHODCALLTYPE ProjectionTypeOperations::AddRef( void) 
+    ULONG STDMETHODCALLTYPE ProjectionTypeOperations::AddRef( void)
     {
         ULONG newRef  = InterlockedIncrement(&refCount);
         return newRef;
     }
 
-    ULONG STDMETHODCALLTYPE ProjectionTypeOperations::Release() 
+    ULONG STDMETHODCALLTYPE ProjectionTypeOperations::Release()
     {
         ULONG newRef = InterlockedDecrement(&refCount);
         return newRef;
-    }    
+    }
 
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetOperationUsage(
-        /* [out] */ OperationUsage *flags) 
+        /* [out] */ OperationUsage *flags)
     {
         Assert(flags != nullptr);
-        *flags = projectionTypeOperationUsage; 
+        *flags = projectionTypeOperationUsage;
 
 #if DBG
         OperationUsage defaultUsage;
@@ -82,7 +82,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->HasOwnProperty(scriptDirect, instance, propertyId, result);
     }
@@ -92,7 +92,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *propertyPresent) 
+        /* [out] */ BOOL *propertyPresent)
     {
         return Projection::GetDefaultTypeOperations()->GetOwnProperty(scriptDirect, instance, propertyId, value, propertyPresent);
     }
@@ -102,7 +102,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *propertyPresent) 
+        /* [out] */ BOOL *propertyPresent)
     {
         return Projection::GetDefaultTypeOperations()->GetPropertyReference(scriptDirect, instance, propertyId, value, propertyPresent);
     }
@@ -112,7 +112,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [in] */ Var value,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->SetProperty(scriptDirect, instance, propertyId, value, result);
     }
@@ -121,7 +121,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->DeleteProperty(scriptDirect, instance, propertyId, result);
     }
@@ -131,7 +131,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [out] */ Var *value,
-        /* [out] */ BOOL *itemPresent) 
+        /* [out] */ BOOL *itemPresent)
     {
         return Projection::GetDefaultTypeOperations()->GetOwnItem(scriptDirect, instance, index, value, itemPresent);
     }
@@ -141,7 +141,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [in] */ Var value,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->SetItem(scriptDirect, instance, index, value, result);
     }
@@ -150,7 +150,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ Var index,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->DeleteItem(scriptDirect, instance, index, result);
     }
@@ -160,7 +160,7 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ BOOL enumNonEnumerable,
         /* [in] */ BOOL enumSymbols,
-        /* [out] */ IVarEnumerator **enumerator) 
+        /* [out] */ IVarEnumerator **enumerator)
     {
         return Projection::GetDefaultTypeOperations()->GetEnumerator(scriptDirect, instance, enumNonEnumerable, enumSymbols, enumerator);
     }
@@ -169,7 +169,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->IsEnumerable(scriptDirect, instance, propertyId, result);
     }
@@ -178,7 +178,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->IsWritable(scriptDirect, instance, propertyId, result);
     }
@@ -187,7 +187,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->IsConfigurable(scriptDirect, instance, propertyId, result);
     }
@@ -196,7 +196,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         return Projection::GetDefaultTypeOperations()->SetEnumerable(scriptDirect, instance, propertyId, value);
     }
@@ -205,7 +205,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         return Projection::GetDefaultTypeOperations()->SetWritable(scriptDirect, instance, propertyId, value);
     }
@@ -214,7 +214,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
-        /* [in] */ BOOL value) 
+        /* [in] */ BOOL value)
     {
         return Projection::GetDefaultTypeOperations()->SetConfigurable(scriptDirect, instance, propertyId, value);
     }
@@ -235,12 +235,12 @@ namespace Projection
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
         /* [in] */ Var getter,
-        /* [in] */ Var setter) 
+        /* [in] */ Var setter)
     {
         return Projection::GetDefaultTypeOperations()->SetAccessors(scriptDirect, instance, propertyId, getter, setter);
     }
 
-    HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetSetter( 
+    HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetSetter(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ PropertyId propertyId,
@@ -250,20 +250,20 @@ namespace Projection
         return Projection::GetDefaultTypeOperations()->GetSetter(scriptDirect, instance, propertyId, setter, flags);
     }
 
-    HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::Equals( 
+    HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::Equals(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ Var other,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->Equals(scriptDirect, instance, other, result);
     }
 
-    HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::StrictEquals( 
+    HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::StrictEquals(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ Var other,
-        /* [out] */ BOOL *result) 
+        /* [out] */ BOOL *result)
     {
         return Projection::GetDefaultTypeOperations()->StrictEquals(scriptDirect, instance, other, result);
     }
@@ -272,7 +272,7 @@ namespace Projection
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
         /* [in] */ REFIID riid,
-        /* [out] */ void **ppvObj) 
+        /* [out] */ void **ppvObj)
     {
         return E_NOINTERFACE;
     }
@@ -280,22 +280,22 @@ namespace Projection
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetInitializer(
         /* [out] */ InitializeMethod * initializer,
         /* [out] */ int * initSlotCapacity,
-        /* [out] */ BOOL * hasAccessors) 
+        /* [out] */ BOOL * hasAccessors)
     {
         return E_NOTIMPL;
     }
 
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetFinalizer(
-        /* [out] */ FinalizeMethod * finalizer) 
+        /* [out] */ FinalizeMethod * finalizer)
     {
-        return E_NOTIMPL; 
+        return E_NOTIMPL;
     }
 
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::HasInstance(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var constructor,
-        /* [in] */ Var instance, 
-        /* [out] */ BOOL* result) 
+        /* [in] */ Var instance,
+        /* [out] */ BOOL* result)
     {
         Assert(false);
         return E_NOTIMPL;
@@ -304,7 +304,7 @@ namespace Projection
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetNamespaceParent(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
         /* [in] */ Var instance,
-        /* [out] */ Var* namespaceParent) 
+        /* [out] */ Var* namespaceParent)
     {
         return E_NOTIMPL;
     }
@@ -319,7 +319,7 @@ namespace Projection
 
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetHeapObjectInfo(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-        /* [in] */ Var instance, 
+        /* [in] */ Var instance,
         /* [in] */ ProfilerHeapObjectInfoFlags flags,
         /* [out] */ HostProfilerHeapObject** result,
         /* [out] */ HeapObjectInfoReturnResult* returnResult)
@@ -331,7 +331,7 @@ namespace Projection
 
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::HasOwnItem(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
-        /* [in] */ Var instance, 
+        /* [in] */ Var instance,
         /* [in] */ Var index,
         /* [out] */ BOOL* result)
     {
@@ -341,7 +341,7 @@ namespace Projection
     HRESULT STDMETHODCALLTYPE ProjectionTypeOperations::GetItemSetter(
         /* [in] */ __RPC__in_opt IActiveScriptDirect *scriptDirect,
             /* [in] */ Var instance,
-            /* [in] */ Var index, 
+            /* [in] */ Var index,
             /* [out] */ Var* setter,
             /* [out] */ ::DescriptorFlags* flags)
     {
@@ -354,7 +354,7 @@ namespace Projection
             /* [in] */ PropertyId propertyId,
             /* [in] */ Var value,
             /* [in] */ PropertyAttributes attributes,
-            /* [in] */ SideEffects effects, 
+            /* [in] */ SideEffects effects,
             /* [out]*/ BOOL* result)
     {
         return Projection::GetDefaultTypeOperations()->SetPropertyWithAttributes(scriptDirect, instance, propertyId, value, attributes, effects, result);
@@ -372,10 +372,10 @@ namespace Projection
         Js::TypeId typeId = ro->GetTypeId();
         if (typeId == Js::TypeIds_Function)
         {
-            auto function = Js::JavascriptFunction::FromVar(ro);
+            auto function = Js::VarTo<Js::JavascriptFunction>(ro);
             if (function->IsWinRTFunction())
             {
-                auto winrtFunction = Js::JavascriptWinRTFunction::FromVar(ro);
+                auto winrtFunction = Js::VarTo<Js::JavascriptWinRTFunction>(ro);
                 if (winrtFunction->IsConstructorFunction())
                 {
                     return true;

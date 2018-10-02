@@ -7,7 +7,7 @@
 #include "JavascriptTypedObjectSlotAccessorFunction.h"
 #include "ChakraHostScriptContext.h"
 
-bool 
+bool
 ChakraHostScriptContext::SetCrossSiteForFunctionType(Js::JavascriptFunction * function)
 {
     Js::FunctionInfo* functionInfo = function->GetFunctionInfo();
@@ -18,10 +18,10 @@ ChakraHostScriptContext::SetCrossSiteForFunctionType(Js::JavascriptFunction * fu
         return false;
     }
 
-    Assert(!Js::ScriptFunction::Is(function));
+    Assert(!Js::VarIs<Js::ScriptFunction>(function));
     Assert(VirtualTableInfo<Js::CrossSiteObject<Js::JavascriptTypedObjectSlotAccessorFunction>>::HasVirtualTable(function));
     Assert((function->GetFunctionInfo()->GetAttributes() & Js::FunctionInfo::Attributes::NeedCrossSiteSecurityCheck) != 0);
-    Assert(!function->GetDynamicType()->GetIsShared() 
+    Assert(!function->GetDynamicType()->GetIsShared()
         || function->GetDynamicType()->GetTypeHandler() == function->GetLibrary()->functionTypeHandler);
 
     // The Crosssite thunk of the function will be different due to Profiler and debugger

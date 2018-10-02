@@ -22,12 +22,12 @@ namespace Js
 
     __declspec(thread)  char16 JavascriptErrorDebug::msgBuff[512];
 
-    bool JavascriptErrorDebug::Is(Var aValue)
+    template <> bool VarIsImpl<JavascriptErrorDebug>(RecyclableObject* object)
     {
-        AssertMsg(aValue != NULL, "Error is NULL - did it come from an oom exception?");
-        if (JavascriptOperators::GetTypeId(aValue) == TypeIds_Error)
+        AssertMsg(object != NULL, "Error is NULL - did it come from an oom exception?");
+        if (JavascriptOperators::GetTypeId(object) == TypeIds_Error)
         {
-            JavascriptError * error = JavascriptError::FromVar(aValue);
+            JavascriptError * error = VarTo<JavascriptError>(object);
             return error->HasDebugInfo();
         }
         return false;
@@ -130,7 +130,7 @@ namespace Js
         HRESULT result = GetExcepAndErrorInfo(scriptContext, hr, &excepinfo, &roerrstr, &perrinfo);
 
         JavascriptError* pError = nullptr;
-        
+
 #ifdef ENABLE_PROJECTION
         if (kjstWinRTError == errorType)
         {
@@ -180,12 +180,12 @@ namespace Js
 
 #ifdef ENABLE_PROJECTION
         // Get the restricted error string - but only if the WinRT is enabled and we are targeting WinBlue+.
-        if (JavascriptErrorDebug::Is(pError)
+        if (VarIs<JavascriptErrorDebug>(pError)
             && scriptContext->GetConfig()->IsWinRTEnabled()
             && scriptContext->GetConfig()->GetProjectionConfig() != nullptr
             && scriptContext->GetConfig()->GetProjectionConfig()->IsTargetWindowsBlueOrLater())
         {
-            restrictedDescription = JavascriptErrorDebug::FromVar(pError)->GetRestrictedErrorString();
+            restrictedDescription = VarTo<JavascriptErrorDebug>(pError)->GetRestrictedErrorString();
             length += SysStringLen(restrictedDescription);
         }
 #endif

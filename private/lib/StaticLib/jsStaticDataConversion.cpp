@@ -27,9 +27,9 @@ namespace JsStaticAPI
             return NOERROR;
         }
 #endif
-        else if (Js::JavascriptBoolean::Is(obj))
+        else if (Js::VarIs<Js::JavascriptBoolean>(obj))
         {
-            *value =  Js::JavascriptBoolean::UnsafeFromVar(obj)->GetValue();
+            *value =  Js::UnsafeVarTo<Js::JavascriptBoolean>(obj)->GetValue();
             return NOERROR;
         }
 
@@ -44,8 +44,8 @@ namespace JsStaticAPI
 
     IActiveScriptDirect* DataConversion::VarToScriptDirectNoRef(Var obj)
     {
-        Assert(Js::RecyclableObject::Is(obj));
-        Js::ScriptContext* scriptContext = Js::RecyclableObject::UnsafeFromVar(obj)->GetScriptContext();
+        Assert(Js::VarIs<Js::RecyclableObject>(obj));
+        Js::ScriptContext* scriptContext = Js::UnsafeVarTo<Js::RecyclableObject>(obj)->GetScriptContext();
         if (scriptContext->IsClosed())
         {
             return NULL;
@@ -90,7 +90,7 @@ namespace JsStaticAPI
 
     HRESULT DataConversion::VarToExtensionWithTypeIdRange(Var obj, void** buffer, JavascriptTypeId* typeId, JavascriptTypeId beginTypeId, JavascriptTypeId endTypeId)
     {
-        if (!Js::RecyclableObject::Is(obj))
+        if (!Js::VarIs<Js::RecyclableObject>(obj))
         {
             return E_INVALIDARG;
         }

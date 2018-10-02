@@ -227,7 +227,7 @@ HRESULT ScriptEngine::InitializeThreadBound()
             policyManager->SetLimit(0xC0000000);
         }
 
-        // set a callback to failfast on OOM, 
+        // set a callback to failfast on OOM,
         // also try sorting out cases that are more indicative of a DOM failure:
         // - too many pinned objects
         // - too many closed script contexts
@@ -240,7 +240,7 @@ HRESULT ScriptEngine::InitializeThreadBound()
 
                 if (allocationEvent == AllocationPolicyManager::MemoryAllocateEvent::MemoryFailure &&
                     apm->GetUsage() + allocationSize > apm->GetLimit() &&
-                    CONFIG_FLAG(EnableFatalErrorOnOOM) && 
+                    CONFIG_FLAG(EnableFatalErrorOnOOM) &&
                     !threadContext->TestThreadContextFlag(ThreadContextFlagDisableFatalOnOOM))
                 {
 
@@ -1016,14 +1016,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionName(_In_ Var instance, _Out_
     }
 
     // Only function object supported
-    if (!Js::JavascriptFunction::Is(instance))
+    if (!Js::VarIs<Js::JavascriptFunction>(instance))
     {
         return E_INVALIDARG;
     }
 
     HRESULT hr = E_FAIL;
 
-    Js::JavascriptFunction * jsFunction = Js::JavascriptFunction::FromVar(instance);
+    Js::JavascriptFunction * jsFunction = Js::VarTo<Js::JavascriptFunction>(instance);
 
     // For the bound function type, get the actual function.
     if (jsFunction->IsBoundFunction())
@@ -1081,14 +1081,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionContext(_In_ Var instance, _O
     }
 
     // Only function object supported
-    if (!Js::JavascriptFunction::Is(instance))
+    if (!Js::VarIs<Js::JavascriptFunction>(instance))
     {
         return E_INVALIDARG;
     }
 
     HRESULT hr = E_FAIL;
 
-    Js::JavascriptFunction * jsFunction = Js::JavascriptFunction::FromVar(instance);
+    Js::JavascriptFunction * jsFunction = Js::VarTo<Js::JavascriptFunction>(instance);
 
     if (jsFunction->GetScriptContext()->IsClosed())
     {
@@ -1160,14 +1160,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionIds(
     }
 
     // Only function object supported
-    if (!Js::JavascriptFunction::Is(instance))
+    if (!Js::VarIs<Js::JavascriptFunction>(instance))
     {
         return E_INVALIDARG;
     }
 
     HRESULT hr = E_FAIL;
 
-    Js::JavascriptFunction * jsFunction = Js::JavascriptFunction::FromVar(instance);
+    Js::JavascriptFunction * jsFunction = Js::VarTo<Js::JavascriptFunction>(instance);
 
     // For the bound function type, get the actual function.
     if (jsFunction->IsBoundFunction())
@@ -1228,14 +1228,14 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionInfo(
     }
 
     // Only function object supported
-    if (!Js::JavascriptFunction::Is(instance))
+    if (!Js::VarIs<Js::JavascriptFunction>(instance))
     {
         return E_INVALIDARG;
     }
 
     HRESULT hr = E_FAIL;
 
-    Js::JavascriptFunction * jsFunction = Js::JavascriptFunction::FromVar(instance);
+    Js::JavascriptFunction * jsFunction = Js::VarTo<Js::JavascriptFunction>(instance);
 
     // For the bound function type, get the actual function.
     if (jsFunction->IsBoundFunction())
@@ -1253,7 +1253,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::GetFunctionInfo(
         BEGIN_TRANSLATE_OOM_TO_HRESULT
         {
             Js::ParseableFunctionInfo * pFBody = proxy->EnsureDeserialized();
-        
+
             if (pBstrName != nullptr)
             {
                 *pBstrName = nullptr;
@@ -5605,7 +5605,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
         if (SUCCEEDED(hr))
         {
-            
+
             if (dwBgParseCookie != 0)
             {
                 hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, dwBgParseCookie, pszSrc, srcInfo, &func, pse, srcLength, utf8SourceInfo, sourceIndex);
@@ -6532,7 +6532,7 @@ HRESULT STDMETHODCALLTYPE ScriptEngine::ParseInternal(
             {
                 BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
                 {
-                    scriptContext->AddToEvalMap(key, true, Js::ScriptFunction::FromVar(jsFunc));
+                    scriptContext->AddToEvalMap(key, true, Js::VarTo<Js::ScriptFunction>(jsFunc));
                 }
                 END_TRANSLATE_OOM_TO_HRESULT(hr);
             }
@@ -6824,9 +6824,9 @@ HRESULT __stdcall JsVarToScriptDirect(Var instance, IActiveScriptDirect** script
 {
     HRESULT hr = E_FAIL;
     *scriptDirectRef = nullptr;
-    if (Js::RecyclableObject::Is(instance))
+    if (Js::VarIs<Js::RecyclableObject>(instance))
     {
-        Js::RecyclableObject* object = Js::RecyclableObject::FromVar(instance);
+        Js::RecyclableObject* object = Js::VarTo<Js::RecyclableObject>(instance);
         Js::ScriptContext* scriptContext = object->GetScriptContext();
         // Verify that this is being called from the same thread.
         Assert(scriptContext->GetRecycler() == ThreadContext::GetContextForCurrentThread()->GetRecycler());
@@ -6852,7 +6852,7 @@ HRESULT __stdcall JsVarToExtension(Var instance,void** extensionRef)
     }
     // In finalize time the type information might not be available anymore,
     // but the object vtbl should still be intact.
-    if (Js::TaggedNumber::Is(instance) || !(Js::RecyclableObject::FromVar(instance))->IsExternalVirtual())
+    if (Js::TaggedNumber::Is(instance) || !(Js::VarTo<Js::RecyclableObject>(instance))->IsExternalVirtual())
     {
         hr = E_INVALIDARG;
     }

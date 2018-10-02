@@ -97,13 +97,13 @@ namespace Projection
     {                                                                                                                                                                       \
         Js::JavascriptExceptionObject * exceptionObject = err.GetAndClear();                                                                                                \
         Var errorObject = exceptionObject->GetThrownObject(nullptr);                                                                                                        \
-        if (errorObject != nullptr && (Js::JavascriptError::Is(errorObject) || Js::JavascriptError::IsRemoteError(errorObject)))                                            \
+        if (errorObject != nullptr && (Js::VarIs<Js::JavascriptError>(errorObject) || Js::JavascriptError::IsRemoteError(errorObject)))                                            \
         {                                                                                                                                                                   \
-            hr = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::RecyclableObject::FromVar(errorObject), nullptr);                                                  \
+            hr = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::VarTo<Js::RecyclableObject>(errorObject), nullptr);                                                  \
                                                                                                                                                                             \
-            if (Js::JavascriptErrorDebug::Is(errorObject))                                                                                                                  \
+            if (Js::VarIs<Js::JavascriptErrorDebug>(errorObject))                                                                                                                  \
             {                                                                                                                                                               \
-                Js::JavascriptErrorDebug::FromVar(errorObject)->SetErrorInfo();                                                                                             \
+                Js::VarTo<Js::JavascriptErrorDebug>(errorObject)->SetErrorInfo();                                                                                             \
             }                                                                                                                                                               \
         }                                                                                                                                                                   \
         else                                                                                                                                                                \

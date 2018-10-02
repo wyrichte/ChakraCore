@@ -49,7 +49,7 @@ void ActiveScriptError::Free()
         m_errInfo->Release();
         m_errInfo = nullptr;
     }
-    if (thrownObject != nullptr && Js::RecyclableObject::Is(this->thrownObject) && m_wasRooted)
+    if (thrownObject != nullptr && Js::VarIs<Js::RecyclableObject>(this->thrownObject) && m_wasRooted)
     {
 #if DBG
         if (recycler->IsValidObject(thrownObject))
@@ -395,7 +395,7 @@ void ActiveScriptError::FillParseErrorInfo(ExtendedExceptionInfo &exInfo)
 {
     // Fake error type. Only for WWA. It can not be thrown.
     FillText(exInfo.errorType.typeText, _u("Parse error"));
-    exInfo.errorType.typeNumber = 
+    exInfo.errorType.typeNumber =
         ErrorTypeHelper::MapToExternal(Js::JavascriptError::MapParseError(exInfo.exceptionInfo.scode));
     exInfo.flags = ExtendedExceptionInfo_Available;
     exInfo.callStack.frameCount = 0;
@@ -409,10 +409,10 @@ HRESULT ActiveScriptError::CreateCompileError(const SRCINFO * psi, CompileScript
     ActiveScriptError* pase = new ActiveScriptError; // The constructor sets the reference-count to 1
     if (nullptr == pase)
         return HR(E_OUTOFMEMORY);
-    
+
     CopyException(&pase->m_ei.exceptionInfo, &pcse->ei);
     FillParseErrorInfo(pase->m_ei);
-    
+
     if(sourceInfo)
     {
         if (sourceInfo->HasDebugDocument())
@@ -479,15 +479,15 @@ HRESULT ActiveScriptError::CreateRuntimeError(Js::JavascriptExceptionObject * ex
         return E_OUTOFMEMORY;
     }
 
-    if (requestContext != nullptr) 
+    if (requestContext != nullptr)
     {
         pase->recycler = requestContext->GetThreadContext()->GetRecycler();
         BEGIN_TRANSLATE_OOM_TO_HRESULT_NESTED
         {
             pase->thrownObject = exceptionObject->GetThrownObject(requestContext);
-            if (pase->thrownObject != nullptr && Js::RecyclableObject::Is(pase->thrownObject))
+            if (pase->thrownObject != nullptr && Js::VarIs<Js::RecyclableObject>(pase->thrownObject))
             {
-                // AddRef at creation time, and Release at last refcount. This is similar to 
+                // AddRef at creation time, and Release at last refcount. This is similar to
                 // normal JavascriptDispatch.
 #if DBG
                 if (pase->recycler->IsValidObject(pase->thrownObject))
@@ -573,19 +573,19 @@ HRESULT ActiveScriptError::FillExcepInfo(Js::JavascriptExceptionObject* exceptio
         JsErrorType errorTypeNumber = CustomError;
         // Pass in nullptr to get the original thrown object instead of a dispatch
         Var errorObject = exceptionObject->GetThrownObject(nullptr);
-        if (Js::JavascriptError::Is(errorObject) ||
+        if (Js::VarIs<Js::JavascriptError>(errorObject) ||
             Js::JavascriptError::IsRemoteError(errorObject))
         {
-            exceptionHR = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::RecyclableObject::FromVar(errorObject), &messageSz);
+            exceptionHR = Js::JavascriptError::GetRuntimeErrorWithScriptEnter(Js::VarTo<Js::RecyclableObject>(errorObject), &messageSz);
             // We can't get at the type for remote error objects, so they will just be returned as default of CustomError
-            if (extendedExcepInfo && Js::JavascriptError::Is(errorObject))
+            if (extendedExcepInfo && Js::VarIs<Js::JavascriptError>(errorObject))
             {
-                errorTypeNumber = ErrorTypeHelper::MapToExternal(Js::JavascriptError::FromVar(errorObject)->GetErrorType());
+                errorTypeNumber = ErrorTypeHelper::MapToExternal(Js::VarTo<Js::JavascriptError>(errorObject)->GetErrorType());
             }
 
-            if (restrictedErrorString && Js::JavascriptErrorDebug::Is(errorObject))
+            if (restrictedErrorString && Js::VarIs<Js::JavascriptErrorDebug>(errorObject))
             {
-                Js::JavascriptErrorDebug * errDebug = Js::JavascriptErrorDebug::FromVar(errorObject);
+                Js::JavascriptErrorDebug * errDebug = Js::VarTo<Js::JavascriptErrorDebug>(errorObject);
 
                 restrictedErrorString->restrictedErrStr = errDebug->GetRestrictedErrorString();
 
@@ -597,10 +597,10 @@ HRESULT ActiveScriptError::FillExcepInfo(Js::JavascriptExceptionObject* exceptio
         else
         {
             Js::ScriptContext* scriptContext = exceptionObject->GetScriptContext();
-           
+
             // Calling GetSz() is fine because underlying string is allocated using recycler
             // as separate allocation from it's wrapping JavascriptString.
-            messageSz = Js::JavascriptExternalConversion::ToString(errorObject, scriptContext)->GetSz();            
+            messageSz = Js::JavascriptExternalConversion::ToString(errorObject, scriptContext)->GetSz();
         }
         if (extendedExcepInfo)
         {
@@ -619,7 +619,7 @@ HRESULT ActiveScriptError::FillExcepInfo(Js::JavascriptExceptionObject* exceptio
         messageSz = nullptr;
         CoTaskMemFree((LPVOID)extendedExcepInfo->errorType.typeText);
         extendedExcepInfo->errorType.typeText = nullptr;
-    } 
+    }
     CATCH_UNHANDLED_EXCEPTION(hr)
 
     FillExcepInfo(exceptionHR, messageSz, excepInfo);
@@ -695,7 +695,7 @@ ActiveScriptError::ExternalStackTrace::ExternalStackTrace(HRESULT exceptionHR, J
     {
         // This is the one last time the stack will be created before process termination. We can generate a long stack.
         m_totalFrameCount = m_numFramesToCopy = stackTrace->Count();
-        if (originalStackTrace) 
+        if (originalStackTrace)
             m_totalFrameCount += originalStackTrace->Count() + 1;
         m_numFramesToCopy = m_totalFrameCount;
     }
@@ -763,7 +763,7 @@ void ActiveScriptError::ExternalStackTrace::Dump()
     Output::Print(_u("\nExtendedExceptionInfo stack trace for thrown exception, count is %d\n"), TotalFrameCount());
     CallStackFrame* framesOut = AllFrames();
     for (int i = 0; i < TotalFrameCount(); i++)
-    {        
+    {
         Output::Print(_u("    %3d: %s (%d, %d)\n"), i, framesOut[i].functionName, framesOut[i].lineNumber, framesOut[i].characterPosition);
     }
     Output::Flush();
@@ -841,10 +841,10 @@ void ActiveScriptError::FillStackTrace(HRESULT exceptionHR, Js::JavascriptExcept
     }
     else
     {
-        if (originalStackTrace != nullptr) 
+        if (originalStackTrace != nullptr)
         {
             hr = DumpOneStack(originalStackTrace->Count(), originalStackTrace);
-            if (SUCCEEDED(hr)) 
+            if (SUCCEEDED(hr))
             {
                 CallStackFrame currentOutFrame = {};
                 hr = FillText(currentOutFrame.functionName, CallStackFrameHelper::DelimiterString);
@@ -866,7 +866,7 @@ void ActiveScriptError::FillStackTrace(HRESULT exceptionHR, Js::JavascriptExcept
     if (FAILED(hr))
     {
         FreeStackTrace(excepInfo.callStack);
-    } 
+    }
 
     est.Dump();
 }
@@ -910,7 +910,7 @@ void ActiveScriptError::FreeStackTrace(CallStack& callStack)
 {
     for (uint i=0; i < callStack.frameCount; i++)
     {
-        if (callStack.frames[i].activeScriptDirect != nullptr) 
+        if (callStack.frames[i].activeScriptDirect != nullptr)
         {
             callStack.frames[i].activeScriptDirect->Release();
         }
@@ -933,9 +933,9 @@ void ActiveScriptError::StoreErrorInfo(Js::JavascriptExceptionObject * exception
     {
         *errInfo = nullptr;
         Var errorObject = exceptionObject->GetThrownObject(nullptr);
-        if (errorObject && Js::JavascriptErrorDebug::Is(errorObject))
+        if (errorObject && Js::VarIs<Js::JavascriptErrorDebug>(errorObject))
         {
-            Js::JavascriptErrorDebug * errDebug = Js::JavascriptErrorDebug::FromVar(errorObject);
+            Js::JavascriptErrorDebug * errDebug = Js::VarTo<Js::JavascriptErrorDebug>(errorObject);
             if (errDebug)
             {
                 *errInfo = errDebug->GetRestrictedErrorInfo();
