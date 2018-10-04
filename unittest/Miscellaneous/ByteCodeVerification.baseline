@@ -1,4 +1,4 @@
-Bytecode GUID = {9FAAF688-ACBA-4092-BA5B-77D97D3CD53A}
+Bytecode GUID = {3149B52F-5789-47B2-83EC-04670A814491}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1670,7 +1670,6 @@ Property: builtInJavascriptStringEntrySplit
 Property: builtInJavascriptStringEntrySubstring
 Property: builtInJavascriptStringEntryRepeat
 Property: builtInJavascriptStringEntryIndexOf
-Property: builtInJavascriptNumberEntryIsNaN
 Property: builtInGlobalObjectEntryIsFinite
 Property: builtInGlobalObjectEntryIsNaN
 Property: builtInGlobalObjectEntryEval
