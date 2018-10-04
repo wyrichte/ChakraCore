@@ -1626,11 +1626,18 @@ Property: Array_filter
 Property: Array_flat
 Property: Array_flatMap
 Property: Array_forEach
+Property: Array_some
+Property: Array_every
+Property: Array_includes
+Property: Array_reduce
 Property: Object_fromEntries
 Property: FunctionKind
 Property: builtInJavascriptArrayEntryFilter
 Property: builtInJavascriptArrayEntryForEach
 Property: builtInJavascriptArrayEntryIndexOf
+Property: builtInJavascriptArrayEntrySome
+Property: builtInJavascriptArrayEntryEvery
+Property: builtInJavascriptArrayEntryIncludes
 Property: EngineInterface
 Property: builtInCallInstanceFunction
 Property: builtInMathAbs
@@ -1663,6 +1670,7 @@ Property: builtInJavascriptStringEntrySplit
 Property: builtInJavascriptStringEntrySubstring
 Property: builtInJavascriptStringEntryRepeat
 Property: builtInJavascriptStringEntryIndexOf
+Property: builtInJavascriptNumberEntryIsNaN
 Property: builtInGlobalObjectEntryIsFinite
 Property: builtInGlobalObjectEntryIsNaN
 Property: builtInGlobalObjectEntryEval
@@ -1677,6 +1685,7 @@ Property: raiseNotAConstructor
 Property: raiseObjectIsNonExtensible
 Property: raiseLengthIsTooBig
 Property: raiseNonObjectFromIterable
+Property: raiseEmptyArrayAndInitValueNotPresent
 Property: raiseNeedObjectOfType
 Property: raiseInvalidCurrencyCode
 Property: raiseMissingCurrencyCode

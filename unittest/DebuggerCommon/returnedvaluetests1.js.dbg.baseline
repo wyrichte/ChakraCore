@@ -118,7 +118,8 @@
     "locals": {
       "this": "{...}",
       "[Anonymous function returned]": "<large string>",
-      "[every returned]": "true",
+      "[builtInCallInstanceFunction returned]": "<large string>",
+      "[Array.prototype.every returned]": "true",
       "arguments": "{...}",
       "d": "<large string>",
       "[Scope]1": "Run",
