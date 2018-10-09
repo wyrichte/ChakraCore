@@ -7,7 +7,7 @@ SyntaxError: Module import default cannot be resolved
 SyntaxError: Module import or export statement unexpected here
 	at Anonymous function() (ModuleLateSyntaxErrors.js:1:1)
 	at module (ModuleLateSyntaxErrors.js:1:1)
-SyntaxError: Syntax error
+SyntaxError: Unexpected keyword 'export' after ''
 	at Anonymous function() (ModuleLateSyntaxErrors.js:1:1)
 	at module (ModuleLateSyntaxErrors.js:1:1)
 SyntaxError: Module import default cannot be resolved
