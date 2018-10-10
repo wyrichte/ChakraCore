@@ -462,4 +462,20 @@
       <files>46684.js</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>47074.js</files>
+      <compile-flags>-Sja:4 -Fja:6</compile-flags>
+    </default>
+  </test>  
+  <test>
+    <default>
+      <files>47319.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47359.js</files>
+    </default>
+  </test>
 </regress-exe>
