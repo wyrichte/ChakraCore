@@ -44,7 +44,7 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>
         %(AdditionalDependencies);
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
+        $(MinCorePrivSdkLibPathL)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
         $(SdkLibPath)\advapi32.lib;
         $(SdkLibPath)\kernel32.lib;
         $(SdkLibPath)\mincore.lib;

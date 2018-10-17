@@ -36,6 +36,7 @@
           $(ChakraCoreRootDirectory)lib\common;
           $(ChakraCoreRootDirectory)lib\common\core;
           $(ChakraCoreRootDirectory)lib\common\memory;
+          $(MinWinPrivSdkIncPath)\dbg;
           %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
     </ClCompile>
@@ -57,6 +58,7 @@
         $(SdkLibPath);
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);
         $(InternalSdkLibPath);
+        $(MinWinPrivSdkLibPath);
         $(IntDir)..\ChakraDiagLib
       </AdditionalLibraryDirectories>
     </Link>

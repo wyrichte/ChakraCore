@@ -64,17 +64,17 @@
         $(OneCoreSdkLibPath)\$(OneCoreTargetVersionStr)\onecore.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\mincore_private.lib;
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
-        $(OneCoreShellLibPath)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-message-l1-1-1.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-window-l1-1-0.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-windowclass-l1-1-0.lib;
-        $(MinCorePrivSdkLibPath)\api-ms-win-ntuser-rectangle-l1-1-0.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-synch-l1-1-0.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-shell-shell32-l1-2-1.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-draw-l1-1-2.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-misc-l1-1-0.lib;
-        $(MinCorePrivSdkLibPath)\ext-ms-win-ntuser-gui-l1-1-0.lib;
+        $(MinCorePrivSdkLibPathL)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
+        $(OneCoreShellInternalLibPathL)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-ntuser-message-l1-1-1.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-ntuser-window-l1-1-0.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-ntuser-windowclass-l1-1-0.lib;
+        $(MinCorePrivSdkLibPathL)\api-ms-win-ntuser-rectangle-l1-1-0.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-ntuser-synch-l1-1-0.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-shell-shell32-l1-2-1.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-ntuser-draw-l1-1-2.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-ntuser-misc-l1-1-0.lib;
+        $(MinCorePrivSdkLibPathL)\ext-ms-win-ntuser-gui-l1-1-0.lib;
         $(SdkLibPath)\onecore_downlevel.lib;
         <!-- For InternetCrackURl and CreateURLMoniker for HtmlApp.cpp -->
         $(SdkLibPath)\urlmon.lib;

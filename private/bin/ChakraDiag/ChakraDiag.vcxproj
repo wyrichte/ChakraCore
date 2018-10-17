@@ -86,10 +86,10 @@
         $(SdkLibPath)\ntdll.lib;
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(MinCoreSdkLibPath)\mincore_obsolete.lib;
-        $(OneCoreShellLibPath)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
+        $(OneCoreShellInternalLibPathL)\$(WindowsVersionStr)\api-ms-win-shcore-stream-l1.lib;
 
         <!-- _DoNotUseDirectly_CULprintf in codex -->
-        $(OneCoreUapShellLibPath)\CommonUtilityLibrary.lib;
+        $(OneCoreShellLibPath)\CommonUtilityLibrary.lib;
 
         <!-- Setting store -->
         $(OneCoreUapInetcoreLibPath)\iertutilp.lib;

@@ -66,6 +66,7 @@ namespace Js
     class DynamicType;                      // Used by ThreadContext.h
     class DynamicObject;
     class JavascriptString;                 // Used by ThreadContext.h
+    class JavascriptBigInt;                 // Used by ThreadContext.h
     class StringCopyInfo;
     class ProbeManager;                     // Used by ThreadContext.h
     class ProbeContainer;
@@ -123,6 +124,7 @@ namespace Js
     class JavascriptBooleanObject;          // Used by JavascriptLibrary.h
     class JavascriptNumberObject;           // Used by JavascriptLibrary.h
     class JavascriptStringObject;           // Used by JavascriptLibrary.h
+    class JavascriptBigIntObject;           // Used by JavascriptLibrary.h
     class ObjectPrototypeObject;            // Used by JavascriptLibrary.h
     class JavascriptSymbol;                 // Used by JavascriptLibrary.h
     class JavascriptSymbolObject;           // Used by JavascriptLibrary.h
@@ -415,6 +417,7 @@ namespace Wasm
 #include "ExternalObject.h"
 #include "CustomExternalType.h"         // Needed by mshtmldac
 #include "JavascriptString.h"           // Needed by JavascriptString DAC
+#include "JavascriptBigInt.h"
 #define IsJsDiag
 #include "StringCopyInfo.h"
 #include "StringCopyInfo.cpp"
@@ -431,6 +434,7 @@ namespace Wasm
 #undef IsJsDiag
 #include "BufferStringBuilder.h"
 #include "JavascriptStringObject.h"     // Needed by JavascriptStringObject DAC
+#include "JavascriptBigIntObject.h"
 #include "SparseArraySegment.h"         // Needed by JavascriptArray.h
 #include "JavascriptArray.h"            // Needed by JavascriptArray DAC
 #include "ES5ArrayTypeHandler.h"

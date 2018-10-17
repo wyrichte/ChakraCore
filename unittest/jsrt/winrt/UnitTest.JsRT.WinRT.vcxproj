@@ -39,9 +39,9 @@
         %(AdditionalDependencies);
         $(InternalSdkLibPath)\nothrownew.lib;
         $(SdkLibPath)\onecore_downlevel.lib;
-        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
-        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-string-l1.lib;
-        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-error-l1.lib;
+        $(MinCoreSdkLibPathL)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
+        $(MinCoreSdkLibPathL)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-string-l1.lib;
+        $(MinCoreSdkLibPathL)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-error-l1.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Common.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Wex.Logger.lib;
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\wextest\cue\Te.Common.lib;

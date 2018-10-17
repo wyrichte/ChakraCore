@@ -11,7 +11,7 @@
     <!-- ========= From tools\makefile.def ========= -->
     <!-- DLOAD handler -->
     <DelayImpLib Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">$(MinWinPrivSdkLibPath)\dloadwin7helper.lib</DelayImpLib>
-    <DelayImpLib Condition="'$(NtTargetVersion)'!='$(NtTargetVersion_Win7)'">$(SdkLibPath)\dloadhelper.lib;$(MinWinPrivSdkLibPath)\$(MinWinTargetVersionStr)\api-ms-win-core-delayload-l1.lib</DelayImpLib>
+    <DelayImpLib Condition="'$(NtTargetVersion)'!='$(NtTargetVersion_Win7)'">$(SdkLibPath)\dloadhelper.lib;$(MinWinPrivSdkLibPathL)\$(MinWinTargetVersionStr)\api-ms-win-core-delayload-l1.lib</DelayImpLib>
 
     <ApiSetTargetVersion_1_0>0x0100</ApiSetTargetVersion_1_0>
     <ApiSetTargetVersion_1_1>0x0101</ApiSetTargetVersion_1_1>
@@ -68,7 +68,7 @@
 
     <!-- ========= From tools\makefile.def ========= -->
     <DelayImpLib Condition="'$(NtTargetVersion)'=='$(NtTargetVersion_Win7)'">$(MinWinPrivSdkLibPath)\dloadwin7helper.lib</DelayImpLib>
-    <DelayImpLib Condition="'$(NtTargetVersion)'!='$(NtTargetVersion_Win7)'">$(SdkLibPath)\dloadhelper.lib;$(MinWinPrivSdkLibPath)\$(MinWinTargetVersionStr)\api-ms-win-core-delayload-l1.lib</DelayImpLib>
+    <DelayImpLib Condition="'$(NtTargetVersion)'!='$(NtTargetVersion_Win7)'">$(SdkLibPath)\dloadhelper.lib;$(MinWinPrivSdkLibPathL)\$(MinWinTargetVersionStr)\api-ms-win-core-delayload-l1.lib</DelayImpLib>
 
       <!-- Always use SdkIncPath for the Chakra full builds. In Git, this will result in us using the
          manifest xmls in the expanded NuGet package -->
@@ -184,6 +184,20 @@
         $(SdkLibPath)\msvcrt.lib;
         $(InternalSdkLibPath)\ucrtshims_msvcrt.lib
       </AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(UseUnicrt)'=='true'">
+        %(AdditionalDependencies);
+        $(SdkLibPath)\ucrt$(DebugUCRT).lib;
+        $(InternalSdkLibPath)\guard_support.lib;
+        $(InternalSdkLibPath)\ucrt\legacy_stdio_definitions.lib;
+        $(InternalSdkLibPath)\ucrt\legacy_stdio_wide_specifiers.lib;
+        $(InternalSdkLibPath)\ucrt\msvcrt.lib;
+        $(InternalSdkLibPath)\ucrt_dbgcrt_shims.lib;
+        $(InternalSdkLibPath)\ucrt\msvcprt$(DebugUCRT).lib;
+        $(MinWinSdkLibPathL)\1.6\api-ms-win-crt-private-l1.lib;
+      </AdditionalDependencies>
+      <AdditionalOptions Condition="'$(UseUnicrt)'=='true'">
+        %(AdditionalOptions) /INCLUDE:__PLEASE_LINK_WITH_legacy_stdio_wide_specifiers.lib
+      </AdditionalOptions>
 
       <!-- Incremental LTCG crashes the razzle version of the compiler a lot, disable for now -->
       <LinkTimeCodeGeneration Condition="'%(LinkTimeCodeGeneration)'=='UseFastLinkTimeCodeGeneration'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
@@ -197,6 +211,20 @@
         $(SdkLibPath)\msvcrt.lib;
         $(InternalSdkLibPath)\ucrtshims_msvcrt.lib
       </AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(UseUnicrt)'=='true'">
+        %(AdditionalDependencies);
+        $(SdkLibPath)\ucrt$(DebugUCRT).lib;
+        $(InternalSdkLibPath)\guard_support.lib;
+        $(InternalSdkLibPath)\ucrt\legacy_stdio_definitions.lib;
+        $(InternalSdkLibPath)\ucrt\legacy_stdio_wide_specifiers.lib;
+        $(InternalSdkLibPath)\ucrt\msvcrt.lib;
+        $(InternalSdkLibPath)\ucrt_dbgcrt_shims.lib;
+        $(InternalSdkLibPath)\ucrt\msvcprt$(DebugUCRT).lib;
+        $(MinWinSdkLibPathL)\1.6\api-ms-win-crt-private-l1.lib;
+      </AdditionalDependencies>
+      <AdditionalOptions Condition="'$(UseUnicrt)'=='true'">
+        %(AdditionalOptions) /INCLUDE:__PLEASE_LINK_WITH_legacy_stdio_wide_specifiers.lib
+      </AdditionalOptions>
     </ImpLib>
   </ItemDefinitionGroup>
 
@@ -274,7 +302,7 @@
         $(SdkLibPath)\dbghelp.lib;
 
         <!-- For IsMessageBoxWPresent -->
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
+        $(MinCorePrivSdkLibPathL)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
     </ChakraCommonLinkDependencies>
   </PropertyGroup>
 

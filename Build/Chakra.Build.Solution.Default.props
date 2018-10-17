@@ -5,8 +5,15 @@
     <SdkIncPath>$(PUBLIC_ROOT)\sdk\inc</SdkIncPath>
     <SdkIncPathArchSpecific>$(PUBLIC_ROOT)\sdk\inc\$(PlatformPathNameAlt)</SdkIncPathArchSpecific>
     <SdkLibPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt)</SdkLibPath>
+    <PublicInternalPath>$(PUBLIC_ROOT)\internal</PublicInternalPath>
+    <PublicOnecoreInternalPath>$(PUBLIC_ROOT)\onecore\internal</PublicOnecoreInternalPath>
+    <OnecoreSdkIncPath>$(PUBLIC_ROOT)\onecore\internal\sdk\inc</OnecoreSdkIncPath>
+    <InternalSdkIncPath>$(PublicInternalPath)\sdk\inc</InternalSdkIncPath>
+
     <CrtIncPath>$(SdkIncPath)\crt</CrtIncPath>
     <MinCoreSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\mincore\$(PlatformPathNameAlt)</MinCoreSdkLibPath>
+    <MinCoreSdkLibPathL>$(PublicOnecoreInternalPath)\sdk\lib\mincore\$(PlatformPathNameAlt)</MinCoreSdkLibPathL>
+    <MinWinSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\minwin\$(PlatformPathNameAlt)</MinWinSdkLibPath>
     <OneCoreSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\onecore\$(PlatformPathNameAlt)</OneCoreSdkLibPath>
     <OneCorePrivSdkLibPath>$(PUBLIC_ROOT)\internal\onecore\priv_sdk\lib\$(PlatformPathNameAlt)</OneCorePrivSdkLibPath>
 
@@ -16,7 +23,9 @@
     <ComIncPath>$(PublicInternalPath)\com\inc</ComIncPath>
     <MinWinPrivSdkIncPath>$(PublicInternalPath)\minwin\priv_sdk\inc</MinWinPrivSdkIncPath>
     <MinWinPrivSdkLibPath>$(PublicInternalPath)\minwin\priv_sdk\lib\$(PlatformPathNameAlt)</MinWinPrivSdkLibPath>
+    <MinWinPrivSdkLibPathL>$(PublicOnecoreInternalPath)\minwin\priv_sdk\lib\$(PlatformPathNameAlt)</MinWinPrivSdkLibPathL>
     <MinCorePrivSdkLibPath>$(PublicInternalPath)\mincore\priv_sdk\lib\$(PlatformPathNameAlt)</MinCorePrivSdkLibPath>
+    <MinCorePrivSdkLibPathL>$(PublicOnecoreInternalPath)\mincore\priv_sdk\lib\$(PlatformPathNameAlt)</MinCorePrivSdkLibPathL>
     <BaseLibPath Condition="'$(BaseLibPath)'==''">$(PublicInternalPath)\base\lib\$(PlatformPathNameAlt)</BaseLibPath>
 
     <OneCoreBaseLibDest Condition="'$(OneCoreBaseLibDest)' == ''">$(PublicInternalPath)\onecorebase\lib</OneCoreBaseLibDest>
@@ -26,6 +35,9 @@
     <OneCoreSdkToolsIncPath Condition="'$(OneCoreSdkToolsIncPath)' == ''">$(PublicInternalPath)\onecoresdktools\inc</OneCoreSdkToolsIncPath>
     <OneCoreShellLibDest Condition="'$(OneCoreShellLibDest)' == ''">$(PublicInternalPath)\onecoreshell\lib</OneCoreShellLibDest>
     <OneCoreShellLibPath Condition="'$(OneCoreShellLibPath)' == ''">$(OneCoreShellLibDest)\$(PlatformPathNameAlt)</OneCoreShellLibPath>
+    <OneCoreShellInternalIncPathL Condition="'$(OneCoreShellInternalIncPathL)' == ''">$(PublicOnecoreInternalPath)\shell\inc</OneCoreShellInternalIncPathL>
+    <OneCoreShellInternalLibDestL Condition="'$(OneCoreShellInternalLibDestL)' == ''">$(PublicOnecoreInternalPath)\shell\lib</OneCoreShellInternalLibDestL>
+    <OneCoreShellInternalLibPathL Condition="'$(OneCoreShellInternalLibPathL)' == ''">$(OneCoreShellInternalLibDestL)\$(PlatformPathNameAlt)</OneCoreShellInternalLibPathL>
     <OneCoreUapComIncPath Condition="'$(OneCoreUapComIncPath)' == ''">$(PublicInternalPath)\onecoreuapcom\inc</OneCoreUapComIncPath>
     <OneCoreUapInetcoreLibDest Condition="'$(OneCoreUapInetcoreLibDest)' == ''">$(PublicInternalPath)\onecoreuapinetcore\lib</OneCoreUapInetcoreLibDest>
     <OneCoreUapInetcoreLibPath Condition="'$(OneCoreUapInetcoreLibPath)' == ''">$(OneCoreUapInetcoreLibDest)\$(PlatformPathNameAlt)</OneCoreUapInetcoreLibPath>
@@ -50,6 +62,8 @@
     <IncludePath>$(IncludePath);$(SdkIncPath)</IncludePath>
     <IncludePath>$(IncludePath);$(SdkIncPath)\minwin</IncludePath>
     <IncludePath>$(IncludePath);$(SdkIncPath)\mincore</IncludePath>
+    <IncludePath>$(IncludePath);$(OnecoreSdkIncPath)\minwin</IncludePath>
+    <IncludePath>$(IncludePath);$(OnecoreSdkIncPath)\mincore</IncludePath>
     <IncludePath>$(IncludePath);$(SolutionDir)..\..\inc</IncludePath>
        
     <ExecutablePath>$(OSBUILDTOOLSROOT)\vc\HostX86\$(PlatformPathName);$(RazzleToolPath)\x86</ExecutablePath>

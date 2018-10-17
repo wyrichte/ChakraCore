@@ -74,7 +74,7 @@
         $(OneCoreUapInetcoreLibPath)\EdgeSettingsId.lib;
 
         <!-- For _DoNotUseDirectly_CULprintf in codex -->
-        $(OneCoreUapShellLibPath)\CommonUtilityLibrary.lib
+        $(OneCoreShellLibPath)\CommonUtilityLibrary.lib
       </AdditionalDependencies>
       <!-- IsMessageBoxWPresent -->
       <DelayLoadDLLs>%(DelayLoadDLLs);oleaut32.dll</DelayLoadDLLs>
@@ -104,15 +104,15 @@
       <AdditionalDependencies>
         $(ChakraLibs);
         %(AdditionalDependencies);
-       
+
         $(IELibPath)\devtb\dtbhost_edge\$(ObjectDirectory)iedevtools_host_iel1_edge.lib;
 
 
         $(IELibPath)\ScriptProjectionHost\iel3_edge\$(ObjectDirectory)ScriptProjectionHost_Edge_iel3.lib;
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
+        $(MinCorePrivSdkLibPathL)\$(MinCoreTargetVersionStr)\ext-ms-win-rometadata-dispenser-l1.lib;
         $(OneCoreBaseLibPath)\appmodel\common\appmodel.common.lib;
-        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
-        $(MinCoreSdkLibPath)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
+        $(MinCoreSdkLibPathL)\$(MinCoreTargetVersionStr)\api-ms-win-core-winrt-l1.lib;
+        $(MinCoreSdkLibPathL)\$(MinCoreTargetVersionStr)\api-ms-win-ro-typeresolution-l1.lib
       </AdditionalDependencies>
       <DelayLoadDLLs>
         %(DelayLoadDLLs);

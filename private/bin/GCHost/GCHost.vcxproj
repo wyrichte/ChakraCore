@@ -33,7 +33,7 @@
         $(SdkLibPath)\dbghelp.lib;
 
         <!-- For IsMessageBoxWPresent -->
-        $(MinCorePrivSdkLibPath)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
+        $(MinCorePrivSdkLibPathL)\$(MinCoreTargetVersionStr)\ext-ms-win-ntuser-dialogbox-l1.lib
       </AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
