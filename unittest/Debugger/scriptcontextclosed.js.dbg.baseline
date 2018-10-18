@@ -82,7 +82,8 @@
           "__proto__": "{...}",
           "a": "1",
           "b": "2",
-          "c": "Permission denied"
+          "c": "Permission denied",
+          "d": "1"
         }
       }
     }
