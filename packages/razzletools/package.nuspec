@@ -20,10 +20,10 @@
 
     <!-- Needed for compiling manifest -->
     <file src="x86\mc.exe" target="x86" />
-    <file src="amd64\mc.exe" target="amd64" />
+    <file src="x86\mc.exe" target="amd64" />
 
     <file src="x86\ctrpp.exe" target="x86" />
-    <file src="amd64\ctrpp.exe" target="amd64" />
+    <file src="x86\ctrpp.exe" target="amd64" />
     <file src="providers\**" target="providers" />
     <file src="public\**" target="public" />
 

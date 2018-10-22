@@ -154,7 +154,6 @@ namespace Projection
     {
         if (m_pPropertyValue == nullptr)
         {
-            // If m_pScriptSite is null, then the script context is closed and projectionContext has been freed
             IfNullReturnError(m_pScriptSite, E_ACCESSDENIED);
 
             HRESULT hr = ObjectAsIPropertyValue::Create(projectionContext, this, &m_pPropertyValue);

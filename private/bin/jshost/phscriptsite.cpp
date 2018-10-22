@@ -11,7 +11,6 @@
 #include "guids.h"
 #include "Core\BasePtr.h"
 #include "Memory\AutoPtr.h"
-#include "hostsysinfo.h"
 #include "AutoBSTR.h"
 #include "EdgeJsStatic.h"
 #include "ChakraEngineExports.h"
@@ -182,7 +181,7 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     CComPtr<IActiveScriptDirect> activeScriptDirect;
     HRESULT hr = NOERROR;
 
-    hr = CoInitializeEx(nullptr, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED); 
+    hr = CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED); 
     if (FAILED(hr))
     {
         return hr;
@@ -290,6 +289,11 @@ HRESULT JsHostActiveScriptSite::CreateScriptEngine(bool isPrimaryEngine)
     {
         hr = activeScriptDirect->SetJITConnectionInfo(JITProcessManager::GetRpcProccessHandle(), nullptr /*serverSecurityDescriptor*/, JITProcessManager::GetRpcConnectionId());
         IfFailedGo(hr);
+    }
+
+    if (IsDiagnosticsScriptSite())
+    {
+        JsStaticAPI::JavascriptLibrary::SetPrivilegeLevelLowForDiagOM(activeScriptDirect);
     }
 
 LReturn:
@@ -1032,6 +1036,31 @@ Error:
     return hr;
 }
 
+HRESULT PerformBytecodeExpressionTest(JsHostActiveScriptSite *scriptSite, DWORD lengthInBytes, BYTE *contentsRaw, DWORD_PTR dwSourceCookie)
+{
+    byte * byteCodeBuffer = nullptr;
+    HRESULT hr = S_OK;
+    DWORD byteCodeBufferSize = 1;
+    EXCEPINFO excepinfo = { 0 };
+    CComVariant pVarResult;
+
+    SimpleSourceMapper *sourceMapper = new SimpleSourceMapper();
+    sourceMapper->Initialize((BYTE*)contentsRaw, lengthInBytes);
+
+    CComPtr<IActiveScriptDirect> activeScriptDirect;
+    scriptSite->GetActiveScriptDirect(&activeScriptDirect);
+
+    IfFailGo(JsStaticAPI::Script::GenerateByteCodeBuffer(activeScriptDirect, lengthInBytes, (BYTE*)contentsRaw, nullptr, dwSourceCookie, &excepinfo, SCRIPTTEXT_ISEXPRESSION, &byteCodeBuffer, &byteCodeBufferSize));
+    IfFailGo(JsStaticAPI::Script::ExecuteByteCodeBuffer(activeScriptDirect, byteCodeBufferSize, byteCodeBuffer, sourceMapper, nullptr, dwSourceCookie, SCRIPTTEXT_ISEXPRESSION, &excepinfo, &pVarResult));
+
+    IfFailGo(pVarResult.ChangeType(VT_BSTR));
+
+    fwprintf(stdout, _u("%s\n"), (WCHAR*)pVarResult.bstrVal);
+
+Error:
+    return hr;
+}
+
 HRESULT GenerateLibraryByteCodeHeader(JsHostActiveScriptSite * scriptSite, DWORD lengthBytes, BYTE * contentsRaw, DWORD_PTR dwSourceCookie, LPCWSTR bcFullPath, LPCWSTR libraryNameWide)
 {
     IActiveScript * activeScript = nullptr;
@@ -1193,9 +1222,9 @@ DWORD WINAPI StartBGParseThreadProc(LPVOID lpParam)
                 thisData->dwFlag = SCRIPTTEXT_ISVISIBLE | (HostConfigFlags::flags.HostManagedSource ? SCRIPTTEXT_HOSTMANAGESSOURCE : 0);
                 // JsBackgroundParse not supported in Debug mode
                 if (!(HostConfigFlags::flags.EnableDebug || HostConfigFlags::flags.DebugLaunch))
-                {
-                    JsStaticAPI::ScriptContents script = { 0 };
-                    script.container = (LPVOID)thisData->contents;
+                {   
+                    JsStaticAPI::ScriptContents script;
+                    script.container.strUtf8 = (BYTE*)thisData->contents;
                     script.containerType = JsStaticAPI::ScriptContainerType::HeapAllocatedBuffer;
                     script.encodingType = JsStaticAPI::ScriptEncodingType::Utf8;
                     script.contentLengthInBytes = thisData->length;
@@ -1286,7 +1315,7 @@ HRESULT JsHostActiveScriptSite::LoadMultipleScripts(LPCOLESTR filename)
 
             // Increment m_dwNextSourceCookie first, so that if below ParseScriptText calls WScript.LoadScriptFile we'll use the correct next source cookie.
             DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
-
+        
             char16 fullpath[_MAX_PATH];
             swprintf_s(fullpath, L"%s%s", baseDir.c_str(), thisData->ffd.cFileName);
             RegisterScriptDir(dwSourceCookie, fullpath);
@@ -1328,6 +1357,7 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     char16 fullpath[_MAX_PATH];
     bool contentsFromModuleSourceMap = false;
     bool printFileOpenError = !HostConfigFlags::flags.MuteHostErrorMsgIsEnabled;
+    JsHostMemoryMappedBuffer* memoryMappedBuffer = nullptr;
 
     auto moduleFromSourceMap = moduleSourceMap.find(scriptFilename);
 
@@ -1365,10 +1395,25 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     {
         RegisterScriptDir(m_dwNextSourceCookie, fullpath);
 
-        if (nullptr != StrStrW(scriptFilename, L"*")) 
+        if (nullptr != StrStrW(scriptFilename, L"*"))
         {
             // If path is a wildcard, load, parse, and execute all matching files in parallel
             containsWildcard = true;
+        }
+        else if (HostConfigFlags::flags.MapScriptFile && !isModuleCode)
+        {
+            AssertMsg(!HostConfigFlags::flags.HostManagedSource, "Mapped script files are never host managed, their ownership is always transfered to the engine");
+
+            hr = MapScriptFile(fullpath, &memoryMappedBuffer, printFileOpenError);
+            m_fileMap[m_dwNextSourceCookie].m_fileName.assign(fullpath, len);
+
+            IfFailGo(hr);
+            hr = ExecuteScriptFromMemoryMappedBuffer(memoryMappedBuffer);
+            if (HostConfigFlags::flags.IgnoreScriptErrorCode)
+            {
+                return S_OK;
+            }
+            return hr;
         }
         else
         {
@@ -1413,6 +1458,11 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromFile(LPCWSTR scriptFilename, void*
     {
         DWORD_PTR dwSourceCookie = this->AddUrl(fullpath);
         hr = PerformUTF8BoundaryTest(this, lengthBytes, (BYTE*)contentsRaw, dwSourceCookie);
+    }
+    else if (HostConfigFlags::flags.PerformBytecodeExpressionTestIsEnabled)
+    {
+        DWORD_PTR dwSourceCookie = this->AddUrl(fullpath);
+        hr = PerformBytecodeExpressionTest(this, lengthBytes, (BYTE*)contentsRaw, dwSourceCookie);
     }
     else if (isUtf8 && HostConfigFlags::flags.GenerateLibraryByteCodeHeaderIsEnabled)
     {
@@ -1678,8 +1728,8 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
                     // QueueBackgroundParse only supports UTF8 for now
                     // QueueBackgroundParse not supported in Debug mode
                     DWORD bgParseCookie = 0;
-                    JsStaticAPI::ScriptContents script = { 0 };
-                    script.container = (LPVOID)pbUtf8;
+                    JsStaticAPI::ScriptContents script;
+                    script.container.strUtf8 = pbUtf8;
                     script.containerType = JsStaticAPI::ScriptContainerType::HeapAllocatedBuffer;
                     script.encodingType = JsStaticAPI::ScriptEncodingType::Utf8;
                     script.contentLengthInBytes = cbBytes;
@@ -1712,6 +1762,38 @@ HRESULT JsHostActiveScriptSite::LoadScriptFromString(LPCOLESTR contents, _In_opt
             }
         }
     }
+
+    return hr;
+}
+
+HRESULT JsHostActiveScriptSite::ExecuteScriptFromMemoryMappedBuffer(__in JsHostMemoryMappedBuffer* memoryMappedBuffer)
+{
+    CComPtr<IActiveScript> activeScript;
+    HRESULT hr = GetActiveScript(&activeScript);
+    CComQIPtr<IActiveScriptDirect> activeScriptDirect(activeScript);
+    if (activeScriptDirect == NULL)
+    {
+        return E_NOINTERFACE;
+    }
+
+    // Increment m_dwNextSourceCookie first, so that if below call to Execute calls WScript.LoadScriptFile we'll use the correct next source cookie.
+    DWORD_PTR dwSourceCookie = m_dwNextSourceCookie++;
+    RegisterScriptDir(dwSourceCookie, const_cast<wchar_t*>(memoryMappedBuffer->GetScriptPath()));
+
+    EXCEPINFO excepinfo;
+
+    JsStaticAPI::ScriptContents scriptContents;
+    JsStaticAPI::ScriptExecuteMetadata scriptMetadata;
+
+    scriptContents.container.utf8ByteChunk = memoryMappedBuffer;
+    scriptContents.containerType = JsStaticAPI::ScriptContainerType::ChunkPtr;
+    scriptContents.encodingType = JsStaticAPI::ScriptEncodingType::Utf8;
+    scriptContents.sourceContext = dwSourceCookie;
+    scriptContents.contentLengthInBytes = memoryMappedBuffer->GetFilledSizeInBytes();
+
+    scriptMetadata.flags = SCRIPTTEXT_ISVISIBLE;
+
+    hr = JsStaticAPI::Script::Execute(activeScriptDirect, &scriptContents, &scriptMetadata, NULL, &excepinfo);
 
     return hr;
 }
@@ -2145,8 +2227,7 @@ STDMETHODIMP JsHostActiveScriptSite::OnScriptError(IActiveScriptError * error)
     {
         _wsplitpath_s(filenameFlag, NULL, 0, NULL, 0, filename, _MAX_FNAME, ext, _MAX_EXT);
         // Check if file name begins with specified ActiveScriptError test prefix
-        if (!HostSystemInfo::SupportsOnlyMultiThreadedCOM()
-            && wcsncmp(filename, _u("ActiveScriptError_"), wcslen(_u("ActiveScriptError_"))) == 0)
+        if (wcsncmp(filename, _u("ActiveScriptError_"), wcslen(_u("ActiveScriptError_"))) == 0)
         {    
             IActiveScriptWinRTErrorDebug* debugEx = NULL;
             hr = error->QueryInterface(__uuidof(IActiveScriptWinRTErrorDebug), (void**)&debugEx);

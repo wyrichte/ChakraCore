@@ -374,6 +374,7 @@ namespace Wasm
 #define CHAKRATEL_LANGSTATS_INC_LANGFEATURECOUNT(esVersion, feature, m_scriptContext)
 #endif
 
+#include "DelayFreeArrayBufferHelper.h"
 #include "ThreadContextInfo.h"
 #include "ThreadContext.h"
 #include "ThreadContextTLSEntry.h"
@@ -469,7 +470,7 @@ namespace Wasm
 #include "JavascriptRegExpConstructor.h"    // Used by DAC.h
 #include "JSONString.h"
 #include "CharClassifier.h"
-#include "WithScopeObject.h"
+#include "UnscopablesWrapperObject.h"
 #include "BreakpointProbe.h"                // Used by DebugDocument.h
 #include "DebugDocument.h"                  // Used by ScriptDebugDocument.h
 #include "scrpting.h"                       // Used by ScriptDebugDocument.h

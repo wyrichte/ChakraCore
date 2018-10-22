@@ -3,6 +3,8 @@
 //-------------------------------------------------------------------------------------------------------
 #pragma once
 
+interface IActiveScriptAsyncCausalityCallBack;
+
 class AsyncDebug
 {
 public:
@@ -87,8 +89,8 @@ public:
     static Js::Var CompleteAsyncOperation(__in Js::RecyclableObject* function, __in Js::CallInfo callInfo, ...);
 
     // The set of engine-side wrappers around the causality API.
+    static HRESULT WrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in_opt IActiveScriptAsyncCausalityCallBack* asyncOpcallback, __in LogLevel logLevel, __in GUID platformId, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
     static HRESULT WrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
-    static HRESULT WrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in GUID platformId, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
     static HRESULT WrapperForTraceOperationCompletion(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in AsyncOperationId operationId, __in AsyncOperationStatus status);
     static HRESULT WrapperForTraceOperationCompletion(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in GUID platformId, __in AsyncOperationId operationId, __in AsyncOperationStatus status);
     static HRESULT WrapperForTraceSynchronousWorkStart(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in AsyncOperationId operationId, __in AsyncCallbackType workType);
@@ -98,8 +100,8 @@ public:
     static HRESULT WrapperForTraceOperationRelation(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in GUID platformId, __in AsyncOperationId operationId, __in AsyncCallbackStatus relation);
 
     // Wrapper which is called by ScriptEngine. Assumes script is not active.
-    static HRESULT HostWrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in GUID platformId, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
-    static HRESULT HostWrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
+    static HRESULT HostWrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in_opt IActiveScriptAsyncCausalityCallBack* asyncOpcallback, __in LogLevel logLevel, __in GUID platformId, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
+    static HRESULT HostWrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in_opt IActiveScriptAsyncCausalityCallBack* asyncOpcallback, __in LogLevel logLevel, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
 
     // Wrapper which is called from script. Assumes script is active.
     static HRESULT ScriptWrapperForTraceOperationCreation(__in Js::ScriptContext* scriptContext, __in LogLevel logLevel, __in AsyncOperationId operationId, __in_z_opt LPCWSTR operationName);
@@ -112,19 +114,8 @@ public:
 protected:
 
 #ifdef ENABLE_JS_ETW
-// Make this struct fully packed because ETW treats the buffer of frames as a single un-padded byte buffer.
-#pragma pack(push, 1)
-    struct ETWStackFrame
-    {
-        UINT64 documentId;
-        UINT32 sourceLocationStartIndex;
-        UINT32 sourceLocationLength;
-        UINT16 nameIndex;
-    };
-#pragma pack(pop)
-
-    static void EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::AsyncOperationId operationId);
+    static void EmitStackWalk(Js::ScriptContext* scriptContext, IActiveScriptAsyncCausalityCallBack* asyncOpcallback, AsyncDebug::AsyncOperationId operationId);
 #endif
 
-    __declspec(thread) static AsyncOperationId nextAsyncOperationId;
+    static AsyncOperationId nextAsyncOperationId;
 };

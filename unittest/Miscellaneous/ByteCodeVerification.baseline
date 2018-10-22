@@ -260,7 +260,7 @@ OpCode: BrLong = 257. Layout = BrLong
 OpCode: BrOnHasProperty = 258. Layout = BrProperty
 OpCode: BrNotUndecl_A = 259. Layout = BrReg1
 OpCode: Conv_Str = 260. Layout = Reg2
-OpCode: NewWithObject = 261. Layout = Reg2
+OpCode: NewUnscopablesWrapperObject = 261. Layout = Reg2
 OpCode: UnwrapWithObj = 262. Layout = Reg2
 OpCode: SetComputedNameVar = 263. Layout = Reg2
 OpCode: LdParamObj = 264. Layout = Reg1

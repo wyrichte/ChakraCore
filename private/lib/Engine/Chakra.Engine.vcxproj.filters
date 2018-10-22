@@ -64,6 +64,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)JavascriptTypedObjectSlotAccessorFunction.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptExternalLibrary.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptErrorDebug.cpp" />
+    <ClCompile Include="MemoryMappedSourceBufferHolder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="activescripterror.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="JavascriptErrorDebug.h" />
     <ClInclude Include="COMVariant.h" />
     <ClInclude Include="AutoBSTR.h" />
+    <ClInclude Include="MemoryMappedSourceBufferHolder.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl" />

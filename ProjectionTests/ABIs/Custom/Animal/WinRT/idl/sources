@@ -22,5 +22,3 @@ BINPLACE_EXCLUDE_FILE=winmds.txt
 
 INCLUDES= \
     $(INETCORE_DIR)\jscript\ProjectionTests\ABIs\Custom\TeachRT\WinRT\idl; \
-    $(OBJECT_INETCORE_DIR)\jscript\ProjectionTests\ABIs\Custom\TeachRT\WinRT\idl\$(O);\
-    

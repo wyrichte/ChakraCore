@@ -1682,7 +1682,28 @@ JD_PRIVATE_COMMAND(memstats,
                 // IE11 don't have this arena allocator
                 DisplayArenaAllocatorData("TC-IsInstIC", threadContextExtRemoteTyped.Field("isInstInlineCacheThreadInfoAllocator"), showZeroEntries);
             }
-            DisplayArenaAllocatorData("TC-ProtoChain", threadContextExtRemoteTyped.Field("prototypeChainEnsuredToHaveOnlyWritableDataPropertiesAllocator"), showZeroEntries);
+
+            //
+            // As of commit dff92fa82, protoChainEnsuredToHaveOnlyWritableDataPropertiesAllocator no longer exists
+            // Instead the allocator was refactored into a different struct and is now accessed through the corresponding
+            // registry struct (noSpecialPropertyRegistry or onlyWritablePropertyRegistry
+            //
+            if (threadContextExtRemoteTyped.HasField("prototypeChainEnsuredToHaveOnlyWritableDataPropertiesAllocator"))
+            {
+                DisplayArenaAllocatorData("TC-ProtoChain", threadContextExtRemoteTyped.Field("prototypeChainEnsuredToHaveOnlyWritableDataPropertiesAllocator"), showZeroEntries);
+            }
+
+            if (threadContextExtRemoteTyped.HasField("noSpecialPropertyRegistry"))
+            {
+                ExtRemoteTyped noSpecialPropertyRegistry = threadContextExtRemoteTyped.Field("noSpecialPropertyRegistry");
+                DisplayArenaAllocatorData("TC-Proto-NSP", noSpecialPropertyRegistry.Field("arena"), showZeroEntries);
+            }
+
+            if (threadContextExtRemoteTyped.HasField("onlyWritablePropertyRegistry"))
+            {
+                ExtRemoteTyped noSpecialPropertyRegistry = threadContextExtRemoteTyped.Field("onlyWritablePropertyRegistry");
+                DisplayArenaAllocatorData("TC-Proto-OWP", noSpecialPropertyRegistry.Field("arena"), showZeroEntries);
+            }
 
             threadContext.ForEachScriptContext([showZeroEntries](RemoteScriptContext scriptContext)
             {

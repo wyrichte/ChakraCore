@@ -80,18 +80,18 @@ bool AsyncDebug::IsAsyncDebuggingEnabled(Js::ScriptContext* scriptContext)
     return CONFIG_FLAG(AsyncDebugging);
 }
 
-HRESULT AsyncDebug::HostWrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, LogLevel logLevel, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
+HRESULT AsyncDebug::HostWrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, IActiveScriptAsyncCausalityCallBack* asyncOpcallback, LogLevel logLevel, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
 {
-    return HostWrapperForTraceOperationCreation(scriptContext, logLevel, ChakraPlatformGUID, operationId, operationName);
+    return HostWrapperForTraceOperationCreation(scriptContext, asyncOpcallback, logLevel, ChakraPlatformGUID, operationId, operationName);
 }
 
-HRESULT AsyncDebug::HostWrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, LogLevel logLevel, GUID platformId, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
+HRESULT AsyncDebug::HostWrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, IActiveScriptAsyncCausalityCallBack* asyncOpcallback, LogLevel logLevel, GUID platformId, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
 {
     HRESULT hr = S_OK;
 
     BEGIN_TRANSLATE_EXCEPTION_TO_HRESULT
     {
-        hr = WrapperForTraceOperationCreation(scriptContext, logLevel, platformId, operationId, operationName);
+        hr = WrapperForTraceOperationCreation(scriptContext, asyncOpcallback, logLevel, platformId, operationId, operationName);
     }
     END_TRANSLATE_EXCEPTION_TO_HRESULT(hr);
 
@@ -124,10 +124,10 @@ HRESULT AsyncDebug::ScriptWrapperForTraceOperationCreation(Js::ScriptContext* sc
 
 HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, LogLevel logLevel, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
 {
-    return WrapperForTraceOperationCreation(scriptContext, logLevel, ChakraPlatformGUID, operationId, operationName);
+    return WrapperForTraceOperationCreation(scriptContext, nullptr, logLevel, ChakraPlatformGUID, operationId, operationName);
 }
 
-HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, LogLevel logLevel, GUID platformId, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
+HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptContext, IActiveScriptAsyncCausalityCallBack* asyncOpcallback, LogLevel logLevel, GUID platformId, AsyncDebug::AsyncOperationId operationId, LPCWSTR operationName)
 {
     HRESULT hr = S_OK;
 
@@ -151,9 +151,9 @@ HRESULT AsyncDebug::WrapperForTraceOperationCreation(Js::ScriptContext* scriptCo
 #ifdef ENABLE_JS_ETW
     // Walk the stack if debugger is attached and the listener is active for the ETW event or if we are tracing async calls.
     // Tracing should only be enabled for unit tests or manually troubleshooting and is easier to configure than an ETW consumer.
-    if (scriptContext->IsScriptContextInDebugMode() && (EventEnabledJSCRIPT_ASYNCCAUSALITY_STACKTRACE() || CONFIG_FLAG(TraceAsyncDebugCalls)))
+    if (scriptContext->IsScriptContextInDebugMode())
     {
-        EmitStackWalk(scriptContext, operationId);
+        EmitStackWalk(scriptContext, asyncOpcallback, operationId);
     }
 
     if (EventEnabledJSCRIPT_ASYNCCAUSALITY_STACKTRACE_V2() || PHASE_TRACE1(Js::StackFramesEventPhase))
@@ -645,7 +645,7 @@ AsyncDebug::AsyncOperationId AsyncDebug::BeginAsyncOperationForWinRTMethodCall(L
 // Info:        Walk the JavaScript stack and emit it via an ETW event.
 // Parameters:  scriptContext - The ScriptContext of the executing script.
 //              operationId - The async operation id used to correlate the stack to an outstanding operation.
-void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::AsyncOperationId operationId)
+void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, IActiveScriptAsyncCausalityCallBack* asyncOpcallback, AsyncDebug::AsyncOperationId operationId)
 {
     // If call root level is zero, there is no EntryExitRecord and the stack walk will fail.
     if (scriptContext->GetThreadContext()->GetCallRootLevel() == 0)
@@ -658,7 +658,7 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
         const ushort stackTraceLimit = (ushort)Js::JavascriptExceptionOperators::DefaultStackTraceLimit;
         unsigned short nameBufferLength = 0;
         Js::StringBuilder<ArenaAllocator> nameBuffer(tempAllocator);
-        AsyncDebug::ETWStackFrame frames[stackTraceLimit];
+        AsyncOpStackFrame frames[stackTraceLimit];
         Js::JavascriptStackWalker walker(scriptContext);
                 
         nameBuffer.Reset();
@@ -732,11 +732,26 @@ void AsyncDebug::EmitStackWalk(Js::ScriptContext* scriptContext, AsyncDebug::Asy
 
         // Account for the terminating null character.
         nameBufferLength++;
-        
-        JS_ETW(EventWriteJSCRIPT_ASYNCCAUSALITY_STACKTRACE(operationId, frameCount, nameBufferLength, nameBufferString, sizeof(AsyncDebug::ETWStackFrame), frames));
+
+        // Call the async operation starting callback for the host
+        if (asyncOpcallback != nullptr)
+        {
+            AsyncCallStack callStack = {0};
+            callStack.description = nameBufferString;
+#pragma warning(push)
+#pragma warning(disable:4244)
+            callStack.operationId = operationId;
+#pragma warning(pop)
+            callStack.stackFrameCount = frameCount;
+            callStack.stackFrames = frames;
+            asyncOpcallback->OnAsyncOperationStarting(&callStack);
+        }
+
+        if (EventEnabledJSCRIPT_ASYNCCAUSALITY_STACKTRACE() || CONFIG_FLAG(TraceAsyncDebugCalls))
+        {
+            JS_ETW(EventWriteJSCRIPT_ASYNCCAUSALITY_STACKTRACE(operationId, frameCount, nameBufferLength, nameBufferString, sizeof(AsyncOpStackFrame), frames));
+        }
     }
     END_TEMP_ALLOCATOR(tempAllocator, scriptContext);
 }
 #endif
-
-

@@ -5,13 +5,16 @@
     <SdkIncPath>$(PUBLIC_ROOT)\sdk\inc</SdkIncPath>
     <SdkIncPathArchSpecific>$(PUBLIC_ROOT)\sdk\inc\$(PlatformPathNameAlt)</SdkIncPathArchSpecific>
     <SdkLibPath>$(PUBLIC_ROOT)\sdk\lib\$(PlatformPathNameAlt)</SdkLibPath>
+    <PublicInternalPath>$(PUBLIC_ROOT)\internal</PublicInternalPath>
+    <InternalSdkIncPath>$(PublicInternalPath)\sdk\inc</InternalSdkIncPath>
+
     <CrtIncPath>$(SdkIncPath)\crt</CrtIncPath>
+    <UCrtIncPaths>$(SdkIncPath)\ucrt;$(PublicInternalPath)\sdk\inc\ucrt;$(PublicInternalPath)\sdk\inc\ucrt\stl120</UCrtIncPaths>
     <MinCoreSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\mincore\$(PlatformPathNameAlt)</MinCoreSdkLibPath>
+    <MinWinSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\minwin\$(PlatformPathNameAlt)</MinWinSdkLibPath>
     <OneCoreSdkLibPath>$(PUBLIC_ROOT)\sdk\lib\onecore\$(PlatformPathNameAlt)</OneCoreSdkLibPath>
     <OneCorePrivSdkLibPath>$(PUBLIC_ROOT)\internal\onecore\priv_sdk\lib\$(PlatformPathNameAlt)</OneCorePrivSdkLibPath>
 
-    <PublicInternalPath>$(PUBLIC_ROOT)\internal</PublicInternalPath>
-    <InternalSdkIncPath>$(PublicInternalPath)\sdk\inc</InternalSdkIncPath>
     <InternalSdkLibPath>$(PublicInternalPath)\sdk\lib\$(PlatformPathNameAlt)</InternalSdkLibPath>
     <ComIncPath>$(PublicInternalPath)\com\inc</ComIncPath>
     <MinWinPrivSdkIncPath>$(PublicInternalPath)\minwin\priv_sdk\inc</MinWinPrivSdkIncPath>
@@ -24,6 +27,7 @@
     <OneCoreComIncPath Condition="'$(OneCoreComIncPath)' == ''">$(PublicInternalPath)\onecorecom\inc</OneCoreComIncPath>
     <OneCoreInetcoreIncPath Condition="'$(OneCoreInetcoreIncPath)' == ''">$(PublicInternalPath)\onecoreinetcore\inc</OneCoreInetcoreIncPath>
     <OneCoreSdkToolsIncPath Condition="'$(OneCoreSdkToolsIncPath)' == ''">$(PublicInternalPath)\onecoresdktools\inc</OneCoreSdkToolsIncPath>
+    <OneCoreShellIncPath Condition="'$(OneCoreShellIncPath)' == ''">$(PublicInternalPath)\onecoreshell\inc</OneCoreShellIncPath>
     <OneCoreShellLibDest Condition="'$(OneCoreShellLibDest)' == ''">$(PublicInternalPath)\onecoreshell\lib</OneCoreShellLibDest>
     <OneCoreShellLibPath Condition="'$(OneCoreShellLibPath)' == ''">$(OneCoreShellLibDest)\$(PlatformPathNameAlt)</OneCoreShellLibPath>
     <OneCoreUapComIncPath Condition="'$(OneCoreUapComIncPath)' == ''">$(PublicInternalPath)\onecoreuapcom\inc</OneCoreUapComIncPath>

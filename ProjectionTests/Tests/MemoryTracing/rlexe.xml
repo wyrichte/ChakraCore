@@ -91,7 +91,8 @@
             <files>Promise.js</files>
             <baseline>Promise.baseline</baseline>
             <compile-flags>-TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
-            <tags>exclude_win7,exclude_fre,exclude_amd64</tags>
+            <!-- exclude_drt see Bug 17063620: Nightly 28692 [+]: ProjectionTests/Tests/MemoryTracing changes REGRESS deleted behavior -->
+            <tags>exclude_win7,exclude_fre,exclude_amd64,exclude_drt</tags>
         </default>
     </test>
 
@@ -100,7 +101,8 @@
             <files>Promise.js</files>
             <baseline>Promise.baseline</baseline>
             <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
-            <tags>exclude_win7,exclude_fre,exclude_native,exclude_nostress,exclude_snap,exclude_amd64</tags>
+            <!-- exclude_drt see Bug 17063620: Nightly 28692 [+]: ProjectionTests/Tests/MemoryTracing changes REGRESS deleted behavior -->
+            <tags>exclude_win7,exclude_fre,exclude_native,exclude_nostress,exclude_snap,exclude_amd64,exclude_drt</tags>
         </default>
     </test>
 
@@ -109,8 +111,9 @@
             <files>Promise.js</files>
             <baseline>Promise.baseline</baseline>
             <compile-flags>-RecyclerStress -TraceWin8Allocations -CheckMemoryLeak- -CollectGarbage</compile-flags>
+            <!-- exclude_drt see Bug 17063620: Nightly 28692 [+]: ProjectionTests/Tests/MemoryTracing changes REGRESS deleted behavior -->
             <!-- On x86chk and armchk in native mode the test produces a bit different but still correct output -->
-            <tags>exclude_win7,exclude_fre,exclude_interpreted,exclude_x86,exclude_arm,exclude_nostress,exclude_snap</tags>
+            <tags>exclude_win7,exclude_fre,exclude_interpreted,exclude_x86,exclude_arm,exclude_nostress,exclude_snap,exclude_drt</tags>
         </default>
     </test>
 

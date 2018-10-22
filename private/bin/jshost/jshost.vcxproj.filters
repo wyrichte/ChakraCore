@@ -30,6 +30,7 @@
     <ClCompile Include="JITProcessManager.cpp" />
     <ClCompile Include="MockDomObject.cpp" />
     <ClCompile Include="ByteCodeVerification.cpp" />
+    <ClCompile Include="JsHostMemoryMappedBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ComObject.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="JITProcessManager.h" />
     <ClInclude Include="MockDomObject.h" />
     <ClInclude Include="ByteCodeVerification.h" />
+    <ClInclude Include="JsHostMemoryMappedBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">

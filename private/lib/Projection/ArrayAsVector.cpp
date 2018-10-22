@@ -144,10 +144,7 @@ namespace Projection
             {
                 iterable = ProjectionModel::FindRequiredMatchingInterfaceByPiid(vector, ProjectionModel::IID_IIterable1);
             }
-
-            // If m_pScriptSite is null, then the script context is closed and projectionContext has been freed
             IfNullReturnError(m_pScriptSite, E_ACCESSDENIED);
-
             HRESULT hr = ArrayAsIterable::Create(projectionContext, m_pUnderlyingArray, iterable, &m_pIterable, m_iid, this);
             IfFailedReturn(hr);
         }

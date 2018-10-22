@@ -70,7 +70,11 @@
     <default>
       <files>neuterApi.js</files>
       <baseline>neuterApi.baseline</baseline>
-      <tags>Slow</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>neuterApi_1.js</files>
     </default>
   </test>
   <test>
@@ -108,6 +112,7 @@
       <files>AllocAbove3gb.js</files>
       <compile-flags>-EnableFatalErrorOnOOM-</compile-flags>
       <baseline>AllocAbove3gb_unlimited.baseline</baseline>
+      <tags>exclude_arm,exclude_x86</tags>
     </default>
   </test>
 </regress-exe>

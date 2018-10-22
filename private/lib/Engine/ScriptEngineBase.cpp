@@ -1,3 +1,5 @@
+#include "..\StaticLib\base\scriptenginebase.h"
+#include "..\StaticLib\base\scriptenginebase.h"
 //---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
@@ -314,6 +316,100 @@ HRESULT ScriptEngineBase::ExecuteBackgroundParse(DWORD dwBgParseCookie, DWORD_PT
 {
     ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
     return scriptEngine->FinishBackgroundParse(dwBgParseCookie, dwSourceContext, dwFlags, pvarResult, pexcepinfo);
+}
+
+HRESULT ScriptEngineBase::ExecuteScript(JsStaticAPI::ScriptContents* contents,
+                                        JsStaticAPI::ScriptExecuteMetadata* metadata,
+                                        VARIANT*  pvarResult,
+                                        EXCEPINFO* pexcepinfo)
+{
+    ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
+    LPCOLESTR pstrItemName = NULL;
+    IUnknown *punkContext = NULL;
+    DWORD     dwFlags = 0;
+
+    if (metadata)
+    {
+        pstrItemName = metadata->rootScriptName;
+        dwFlags = metadata->flags;
+        punkContext = metadata->context;
+    }
+
+    if (contents->containerType == JsStaticAPI::ScriptContainerType::ChunkPtr)
+    {
+        if (contents->encodingType == JsStaticAPI::ScriptEncodingType::Utf8)
+        {
+            Streams::IByteChunk* pMemoryMappedBuffer = contents->container.utf8ByteChunk;
+            return scriptEngine->ExecuteByteChunk(pMemoryMappedBuffer,
+                contents->contentStartOffset,
+                contents->contentLengthInBytes,
+                pstrItemName,
+                punkContext,
+                contents->sourceContext,
+                contents->startingLineNumber,
+                dwFlags,
+                pvarResult,
+                pexcepinfo);
+        }
+        else
+        {
+            // TODO: Support IWideCharChunk
+            return E_NOTIMPL;
+        }
+    }
+    else if (contents->containerType == JsStaticAPI::ScriptContainerType::HeapAllocatedBuffer)
+    {
+        if (contents->encodingType == JsStaticAPI::ScriptEncodingType::Utf8)
+        {
+            return scriptEngine->ParseScriptText(contents->container.strUtf8,
+                contents->contentStartOffset,
+                contents->contentLengthInBytes,
+                pstrItemName,
+                punkContext,
+                NULL, /* strDelimiter */
+                contents->sourceContext,
+                contents->startingLineNumber,
+                dwFlags,
+                pvarResult,
+                pexcepinfo);
+        }
+        else if (contents->encodingType == JsStaticAPI::ScriptEncodingType::Utf16)
+        {
+            return scriptEngine->ParseScriptText(contents->container.strUtf16,
+                pstrItemName,
+                punkContext,
+                NULL, /* strDelimiter */
+                contents->sourceContext,
+                contents->startingLineNumber,
+                dwFlags,
+                pvarResult,
+                pexcepinfo);
+        }
+        else
+        {
+            return E_INVALIDARG;
+        }
+    }
+    else
+    {
+        return E_INVALIDARG;
+    }
+}
+
+HRESULT ScriptEngineBase::SetPrivilegeLevelLowForDiagOM()
+{
+    HRESULT hr = S_OK;
+#ifdef ENABLE_DEBUG_CONFIG_OPTIONS
+    if ((hr = VerifyOnEntry()) == S_OK && this->scriptContext->IsDiagnosticsScriptContext())
+    {
+        this->scriptContext->SetPrivilegeLevel(ScriptContextPrivilegeLevel::Low);
+    }
+    else
+    {
+        Assert(false);
+    }
+#endif
+    return hr;
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::Execute(
@@ -843,6 +939,85 @@ HRESULT ScriptEngineBase::CreateTypeFromScript(
     IfFailedReturn(hr);
 
     return CreateTypeFromPrototype(typeId, objPrototype, entryPoint, operations, fDeferred, nameId, bindReference, typeRef);
+}
+
+ulong ComputeGrfscrUTF8ForSerialization()
+{
+    ulong result = ComputeGrfscrUTF8();
+    return result | fscrNoPreJit;
+}
+
+ulong ComputeGrfscrUTF8ForDeserialization()
+{
+    ulong result = ComputeGrfscrUTF8();
+
+    if (CONFIG_FLAG(CreateFunctionProxy))
+    {
+        result = result | fscrAllowFunctionProxy;
+    }
+    return result;
+}
+
+HRESULT ScriptEngineBase::ExecuteByteCodeBufferCommon(
+    DWORD dwByteCodeSize,
+    __RPC__in_ecount_full(dwByteCodeSize) BYTE *byteCode,
+    IActiveScriptByteCodeSource *pbyteCodeSource,
+    __RPC__in_opt IUnknown *punkContext,
+    DWORD_PTR dwSourceContext,
+    DWORD dwFlags,
+    __RPC__out EXCEPINFO *pexcepinfo,
+    VARIANT *pvarResult)
+{
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::ExecuteByteCodeBuffer\n"));
+
+    if (pexcepinfo != nullptr)
+    {
+        ZeroMemory(pexcepinfo, sizeof(EXCEPINFO));
+    }
+
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (Js::Configuration::Global.flags.ExecuteByteCodeBufferReturnsInvalidByteCode)
+    {
+        OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::ExecuteByteCodeBuffer: Forced failure.\n"));
+        return SCRIPT_E_INVALID_BYTECODE;
+    }
+#endif
+
+    ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
+
+    return scriptEngine->DeserializeByteCodes(dwByteCodeSize, byteCode, pbyteCodeSource, punkContext, dwSourceContext, ComputeGrfscrUTF8ForDeserialization, true, dwFlags, nullptr, pexcepinfo, pvarResult);
+}
+
+HRESULT ScriptEngineBase::GenerateByteCodeBufferCommon(
+    DWORD dwSourceCodeLength,
+    __RPC__in_ecount_full(dwSourceCodeLength) BYTE *utf8Code,
+    __RPC__in_opt IUnknown *punkContext,
+    DWORD_PTR dwSourceContext,
+    __RPC__in EXCEPINFO *pexcepinfo,
+    DWORD dwFlags,
+    __RPC__deref_out_ecount_full_opt(*pdwByteCodeSize) BYTE **byteCode,
+    __RPC__out DWORD *pdwByteCodeSize)
+{
+    OUTPUT_TRACE(Js::ByteCodeSerializationPhase, _u("ScriptEngine::GenerateByteCodeBuffer\n"));
+
+    CHECK_POINTER(byteCode);
+    *byteCode = nullptr;
+    if (pdwByteCodeSize != nullptr)
+    {
+        *pdwByteCodeSize = 0;
+    }
+
+    // Temporarily turn on flags for APPX team
+#if ENABLE_DEBUG_CONFIG_OPTIONS
+    if (Js::Configuration::Global.flags.GenerateByteCodeBufferReturnsCantGenerate)
+    {
+        return SCRIPT_E_CANT_GENERATE;
+    }
+#endif
+
+    ScriptEngine* scriptEngine = static_cast<ScriptEngine*>(this);
+
+    return scriptEngine->SerializeByteCodes(dwSourceCodeLength, utf8Code, punkContext, dwSourceContext, ComputeGrfscrUTF8ForSerialization, dwFlags, pexcepinfo, byteCode, pdwByteCodeSize);
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateTypedObjectFromScript(
@@ -1988,8 +2163,8 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetScriptType(
         *scriptType = ScriptType_Symbol;
         break;
 
-    case Js::TypeIds_WithScopeObject:
-        AssertMsg(false, "WithScopeObjects should not be exposed");
+    case Js::TypeIds_UnscopablesWrapperObject:
+        AssertMsg(false, "UnscopablesWrapperObjects should not be exposed");
         break;
 
     case Js::TypeIds_Error:
@@ -2753,6 +2928,18 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateIteratorNextFunction(Javascrip
     return hr;
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetBufferContent(__in Js::RefCountedBuffer *buffer, __out BYTE ** bufferContent)
+{
+    HRESULT hr = NOERROR;
+    IfNullReturnError(buffer, E_INVALIDARG);
+    IfNullReturnError(bufferContent, E_INVALIDARG);
+    
+    // Note that we don't need to verify on entry as we may be called in the different thread. Just give the buffer blob back
+    *bufferContent = buffer->GetBuffer();
+    return hr;
+}
+
+
 #include "Library\JSONParser.h"
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::ParseJson(
@@ -2919,22 +3106,33 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::GetTypedArrayBuffer(
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::DetachTypedArrayBuffer(
     __in Var instance,
-    __deref_out_bcount(*pBufferLength) BYTE** ppBuffer,
-    __out UINT* pBufferLength,
-    __out TypedArrayBufferAllocationType * pAllocationType,
+    __out Js::RefCountedBuffer** refCountedDetachedBuffer,
+    __out_opt BYTE** detachedBuffer,
+    __out UINT* bufferLength,
+    __out TypedArrayBufferAllocationType * allocationType,
     __out_opt TypedArrayType* typedArrayType,
     __out_opt INT* elementSize)
 {
-    *ppBuffer = nullptr;
-    *pBufferLength = 0;
-    *pAllocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_Heap;
+    IfNullReturnError(refCountedDetachedBuffer, E_INVALIDARG);
+    *refCountedDetachedBuffer = nullptr;
+    IfNullReturnError(bufferLength, E_INVALIDARG);
+    *bufferLength = 0;
+    IfNullReturnError(allocationType, E_INVALIDARG);
+    *allocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_Heap;
+
     if (typedArrayType != nullptr)
     {
         *typedArrayType = Int8Array;
     }
+
     if (elementSize != nullptr)
     {
         *elementSize = 0;
+    }
+
+    if (detachedBuffer != nullptr)
+    {
+        *detachedBuffer = nullptr;
     }
 
     HRESULT hr = S_OK;
@@ -2966,46 +3164,82 @@ HRESULT STDMETHODCALLTYPE ScriptEngineBase::DetachTypedArrayBuffer(
         switch (state->allocationType)
         {
         case Js::ArrayBufferAllocationType::Heap:
-            *pAllocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_Heap;
+            *allocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_Heap;
             break;
         case Js::ArrayBufferAllocationType::MemAlloc:
-            *pAllocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_MemAlloc;
+            *allocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_MemAlloc;
             break;
         case Js::ArrayBufferAllocationType::CoTask:
-            *pAllocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_CoTask;
+            *allocationType = TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_CoTask;
             break;
         default:
             AssertMsg(false, "Unknown allocationType of ArrayBufferDetachedStateBase ");
         }
 
-        *ppBuffer = state->buffer;
-        *pBufferLength = state->bufferLength;
+        state->AddRefBufferContent();
+        *refCountedDetachedBuffer = state->buffer;
+        if (detachedBuffer != nullptr)
+        {
+            *detachedBuffer = state->buffer != nullptr ? (BYTE*)state->buffer->GetBuffer() : nullptr;
+        }
+        *bufferLength = state->bufferLength;
         state->MarkAsClaimed();
     }
     END_TRANSLATE_OOM_TO_HRESULT(hr)
-
     return hr;
 }
 
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::DetachTypedArrayBuffer(
+    __in Var instance,
+    __deref_out_bcount(*pBufferLength) BYTE** ppBuffer,
+    __out UINT* pBufferLength,
+    __out TypedArrayBufferAllocationType * pAllocationType,
+    __out_opt TypedArrayType* typedArrayType,
+    __out_opt INT* elementSize)
+{
+    // This function will eventually be removed.
+    AssertOrFailFast(false);
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE ScriptEngineBase::FreeDetachedTypedArrayBuffer(__in Js::RefCountedBuffer * refCountedBuffer,
+    __in UINT bufferLength,
+    __in TypedArrayBufferAllocationType allocationType)
+{
+    if (refCountedBuffer != nullptr)
+    {
+        long ref = refCountedBuffer->Release();
+        if (ref == 0)
+        {
+            BYTE * buffer = refCountedBuffer->GetBuffer();
+            if (buffer != nullptr)
+            {
+                switch (allocationType)
+                {
+                case TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_Heap:
+                    free(buffer);
+                    break;
+                case TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_MemAlloc:
+                    VirtualFree((LPVOID)buffer, 0, MEM_RELEASE);
+                    break;
+                case TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_CoTask:
+                    CoTaskMemFree(buffer);
+                    break;
+                }
+            }
+            HeapDelete(refCountedBuffer);
+        }
+    }
+    return S_OK;
+}
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::FreeDetachedTypedArrayBuffer(__in BYTE * pBuffer,
     __in UINT bufferLength,
     __in TypedArrayBufferAllocationType allocationType)
 {
-    switch (allocationType)
-    {
-    case TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_Heap:
-        free(pBuffer);
-        break;
-    case TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_MemAlloc:
-        VirtualFree((LPVOID)pBuffer, 0, MEM_RELEASE);
-        break;
-    case TypedArrayBufferAllocationType::TypedArrayBufferAllocationType_CoTask:
-        CoTaskMemFree(pBuffer);
-        break;
-    }
-
-    return S_OK;
+    // This function will eventually be removed.
+    AssertOrFailFast(false);
+    return E_NOTIMPL;
 }
 
 HRESULT STDMETHODCALLTYPE ScriptEngineBase::CreateRegex(

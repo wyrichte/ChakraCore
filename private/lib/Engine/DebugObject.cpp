@@ -1465,14 +1465,15 @@ Js::Var DebugObject::DetachAndFreeObject(Js::RecyclableObject* function, Js::Cal
         return scriptContext->GetLibrary()->GetUndefined();
     }
 
-    BYTE* outBuffer = nullptr;
+    Js::RefCountedBuffer* outBuffer = nullptr;
+    BYTE * outDetachedBuffer = nullptr;
     UINT outBufferLength = 0;
     TypedArrayBufferAllocationType outAllocationType;
     HRESULT hr;
 
     BEGIN_LEAVE_SCRIPT(scriptContext) 
     {
-        hr = scriptEngine->DetachTypedArrayBuffer(args.Values[1], &outBuffer, &outBufferLength, &outAllocationType, nullptr, nullptr);
+        hr = scriptEngine->DetachTypedArrayBuffer(args.Values[1], &outBuffer, &outDetachedBuffer, &outBufferLength, &outAllocationType, nullptr, nullptr);
     }
     END_LEAVE_SCRIPT(scriptContext);
 

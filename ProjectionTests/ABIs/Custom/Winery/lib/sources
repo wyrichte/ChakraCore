@@ -15,15 +15,9 @@ MSC_WARNING_LEVEL=/W4
 PRECOMPILED_CXX=1
 PRECOMPILED_INCLUDE=stdafx.h
 
-# replace "..\idl" with "$(OBJ_PATH)\..\idl\$(O);" once MIDL 
-# changes are available
 INCLUDES= \
     $(ONECORECOM_INC_PATH); \
-    $(COM_INC_PATH);\
-    $(COM_INC_PATH)\winrt;\
-    $(OBJ_PATH)\..\lib\$(O);\
-    $(OBJ_PATH)\..\idl\$(O);\
-    ..\idl;\
+    $(OBJ_PATH)\..\idl\$(O); \
 
 _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
 

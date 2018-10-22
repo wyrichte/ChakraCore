@@ -77,7 +77,7 @@ const ActiveScriptProfilerHeapEnum::InternalTypeIdMap ActiveScriptProfilerHeapEn
     { Js::TypeIds_SIMDBool16x8, HeapObjectType_SIMD },
     { Js::TypeIds_SIMDBool8x16, HeapObjectType_SIMD },
     { Js::TypeIds_HostDispatch, HeapObjectType_HostObject },
-    { Js::TypeIds_WithScopeObject, HeapObjectType_Scope },
+    { Js::TypeIds_UnscopablesWrapperObject, HeapObjectType_Scope },
     { Js::TypeIds_UndeclBlockVar, HeapObjectType_Invalid},
     { Js::TypeIds_Proxy, HeapObjectType_ProxyObject},
     { Js::TypeIds_Function, HeapObjectType_FunctionObject},

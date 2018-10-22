@@ -13,11 +13,12 @@
       <PreprocessorDefinitions>_WIN32_WINNT=$(Win32_WinNTVersion);WINVER=$(Win32_WinNTVersion);_WIN32_IE=0x0800;WIN32;BUILD_WINDOWS;NO_SHLWAPI_ISOS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(NotLeanAndMean)' == ''">%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN=1</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(NTDDIVersion)'!=''" >%(PreprocessorDefinitions);NTDDI_VERSION=$(NTDDIVersion)</PreprocessorDefinitions>
-      <ForcedIncludeFiles>%(ForcedIncludeFiles);$(PUBLIC_ROOT)\shared\inc\warning.h;$(PublicInternalPath)\base\inc\warning_x.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles);$(PUBLIC_ROOT)\internal\sdk\inc\warning.h</ForcedIncludeFiles>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
 
       <!-- ====== Microsoft.Build.Cpp.props ====== -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(CrtIncPath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(UseUniCrt)' == 'false'">%(AdditionalIncludeDirectories);$(CrtIncPath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(UseUniCrt)' != 'false'">%(AdditionalIncludeDirectories);$(UCrtIncPaths)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(InternalSdkIncPath);$(PublicInternalPath)\onecoreuapinetcore\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
@@ -35,12 +36,18 @@
       <AdditionalDependencies>$(SdkLibPath)\ntstc_msvcrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(StlVersion)'=='120'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(CrtIncPath)\stl120</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_STL120_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(SdkLibPath)\ntstc_msvcrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <!-- Atl -->
   <ItemDefinitionGroup Condition="'$(UseStaticAtl)'=='true'">
     <ClCompile>
-      <!-- The ATL header ATLCONV.h has a static definition in a function which will cause an error if we remove the threadSafeInit flag.
-           So keeping the flag for now until it is fixed in ATL. -->
-      <AdditionalOptions>-Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);_ATL_STATIC_REGISTRY</PreprocessorDefinitions>
       <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '21'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl21</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(AtlVersion)' == '30'">%(AdditionalIncludeDirectories);$(PUBLIC_ROOT)\sdk\inc\atl30</AdditionalIncludeDirectories>

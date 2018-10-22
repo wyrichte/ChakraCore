@@ -24,7 +24,7 @@
       <AdditionalIncludeDirectories>
         $(ChakraRootDirectory)core\lib\Common;
         %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>      
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

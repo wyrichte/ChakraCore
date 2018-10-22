@@ -2,6 +2,7 @@ TARGETNAME=WWAHostJSCounterProvider
 TARGETTYPE=PROGRAM
 
 USE_STL=1
+STL_VER=70
 
 SOURCES=WWAHostJSCounterProvider.cpp
 
@@ -15,6 +16,9 @@ UMTYPE = console
 
 
 TARGETLIBS= \
-    $(TARGETLIBS) \
     $(SDK_LIB_PATH)\onecore_downlevel.lib \
-     \
+
+# VSTS 14847240: Locally suppress individual -Wv:17 compiler warnings.
+# For more information, visit https://osgwiki.com/wiki/Windows_C%2B%2B_Toolset_Status.
+USER_C_FLAGS=$(USER_C_FLAGS) /wd4302 # 'conversion': truncation from 'type1' to 'type2'
+USER_C_FLAGS=$(USER_C_FLAGS) /wd4311 # 'variable': pointer truncation from 'type 1' to 'type 2'

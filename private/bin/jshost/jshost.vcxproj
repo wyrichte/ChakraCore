@@ -13,6 +13,7 @@
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
     <BuildForCoreSystem>true</BuildForCoreSystem>
+    <UseUniCrt>false</UseUniCrt>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
     <!-- Setting TestCode=true will prevent MUI from being generated in razzle -->
@@ -47,6 +48,7 @@
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_CRT_NON_CONFORMING_WCSTOK;</PreprocessorDefinitions>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
@@ -151,6 +153,7 @@
     <ClCompile Include="HtmlWinSink.cpp" />
     <ClCompile Include="JITProcessManager.cpp" />
     <ClCompile Include="JsHost.cpp" />
+    <ClCompile Include="JsHostMemoryMappedBuffer.cpp" />
     <ClCompile Include="MockDomObject.cpp" />
     <ClCompile Include="MockImageData.cpp" />
     <ClCompile Include="MockSCAContext.cpp" />
@@ -187,6 +190,7 @@
     <ClInclude Include="HtmlAppWindow.h" />
     <ClInclude Include="HtmlWinSink.h" />
     <ClInclude Include="JITProcessManager.h" />
+    <ClInclude Include="JsHostMemoryMappedBuffer.h" />
     <ClInclude Include="MessageQueue.h" />
     <ClInclude Include="MockDomObject.h" />
     <ClInclude Include="MockImageData.h" />

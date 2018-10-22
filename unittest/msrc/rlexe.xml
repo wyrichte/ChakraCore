@@ -111,6 +111,11 @@
   </test>
   <test>
     <default>
+      <files>41428.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>41491.js</files>
     </default>
   </test>
@@ -354,7 +359,50 @@
   </test>
   <test>
     <default>
+      <files>msrc43229.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msrc43781.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msrc43781_1.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43292.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>43534.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43572.js</files>
+      <compile-flags>-pageheap:2 -bgjit- -CollectGarbage -lic:4 -Sja:4 -Fja:6 -maxInterpretCount:2 -MinBailOutsBeforeRejit:2</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43186.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43186_array.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43186_regression.js</files>
+      <compile-flags>-maxinterpretcount:1 -maxsimplejitruncount:1</compile-flags>
     </default>
   </test>
   <test>
@@ -370,8 +418,114 @@
   </test>
   <test>
     <default>
+      <files>43701.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43727.js</files>
+      <baseline>43727.baseline</baseline>
+      <tags>exclude_x86</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>44220.js</files>
       <compile-flags>-pageheap:2</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>44967.js</files>
+      <baseline>44967.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>43811.js</files>
+      <compile-flags>-mic:1 -off:simplejit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45199.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45022.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45193.js</files>
+      <baseline>45193.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45218.js</files>
+    </default>
+  </test>
+  <!--test>
+    <default>
+      <files>msrc43728.js</files>
+    </default>
+  </test-->
+  <test>
+    <default>
+      <files>msrc44808.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45387.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>44409.js</files>
+      <compile-flags>-MinBailOutsBeforeRejit:2 -CollectGarbage -Sja:0 -Fja:1 -lic:1 -maxInterpretCount:2 -bgjit- -pageheap:2</compile-flags>
+      <baseline>44409.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45722.js</files>
+      <compile-flags>-recyclerconcurrentstress</compile-flags>
+      <tags>exclude_test</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45787.js</files>
+      <compile-flags>-force:deferParse -bgjit- -pageheap:2</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45826.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45874.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45899.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>msrc45273.js</files>
+      <baseline>msrc45273.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>45908.js</files>
     </default>
   </test>
   <test>
@@ -459,7 +613,23 @@
   </test>
   <test>
     <default>
+      <files>45722_assert.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>46684.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>46433.js</files>
+      <baseline>46433.baseline</baseline>
+    </default>
+  </test>
+   <test>
+    <default>
+      <files>46663.js</files>
     </default>
   </test>
   <test>
@@ -467,15 +637,30 @@
       <files>47074.js</files>
       <compile-flags>-Sja:4 -Fja:6</compile-flags>
     </default>
-  </test>  
+  </test>
   <test>
     <default>
-      <files>47319.js</files>
+      <files>47284.js</files>
     </default>
   </test>
   <test>
     <default>
-      <files>47359.js</files>
+    	<files>47319.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+    	<files>47359.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47072.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47208.js</files>
     </default>
   </test>
 </regress-exe>

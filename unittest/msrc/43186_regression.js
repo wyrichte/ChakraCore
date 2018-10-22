@@ -7,7 +7,7 @@ function test0() {
     var func2 = function (argMath1) {
         func0();
         func0();
-
+        
         var uniqobj0 = {
             prop0: ary[0],
             prop1: argMath1--,

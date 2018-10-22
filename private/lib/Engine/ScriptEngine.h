@@ -8,6 +8,7 @@
 // Explicitly enable HeapDumper private interface in retail builds.
 #define ENABLE_HEAP_DUMPER
 
+#include <streamspublished.h>
 extern const EXCEPINFO NoException;
 
 ulong ComputeGrfscrUTF16();
@@ -607,6 +608,19 @@ public:
 
     // Misc stubs and utils
 
+    HRESULT ExecuteByteChunk(
+        __in Streams::IByteChunk* pBuffer,
+        __in ULONG     ulCodeOffset,
+        __in DWORD     dwLength,
+        __in LPCOLESTR pstrItemName,
+        __in IUnknown* punkContext,
+        __in DWORDLONG dwSourceContext,
+        __in ULONG     ulStartingLineNumber,
+        __in DWORD     dwFlags,
+        __out VARIANT*  pvarResult,
+        __out EXCEPINFO* pexcepinfo
+        );
+
     HRESULT CreateHeapEnum(ActiveScriptProfilerHeapEnum **ppEnum, bool preEnumHeap2, PROFILER_HEAP_ENUM_FLAGS enumFlags = PROFILER_HEAP_ENUM_FLAGS::PROFILER_HEAP_ENUM_FLAGS_NONE);
 
     HRESULT StartProfilingInternal(
@@ -619,6 +633,7 @@ public:
     void OnLeaveScript(void);
 
     IActiveScriptDirectHost* GetActiveScriptDirectHostNoRef();
+    IActiveScriptAsyncCausalityCallBack* GetActiveScriptAsyncCausalityCallBackNoRef();
     HRESULT GetIActiveScriptSite (IActiveScriptSite** ppass);
     HRESULT GetActiveScriptSiteWindow (IActiveScriptSiteWindow** ppassw);
 
@@ -641,23 +656,54 @@ public:
     HRESULT GetObjectOfItem(IDispatch** ppdisp, NamedItem* pnid, LPCOLESTR pszSubItem = NULL);
     NamedItem* FindNamedItem (LPCOLESTR pcszName);
 
+    // Various options that are passed in to the family of compile functions
+    // Note that these options are not read-only upon creation- as the script
+    // goes through the compile process, these options can be updated
+    // There are also purely out-param fields on this struct that are valid after
+    // the compile function is executed
+    struct CompileScriptOptions
+    {
+        BYTE* originalSourceBuffer;                 // In param- the original source buffer, before we might have applied any offsets to it
+        DWORD dwBgParseCookie;                      // Cookie used by background parse to identify the script
+        ulong grfscr;                               // Script flags
+        SRCINFO* srcInfo;                           // Source information
+        LPCOLESTR pszTitle;                         // The title of the script item
+        CompileScriptException* pse;                // Populated if the script hit an exception
+        Js::SimpleDataCacheWrapper* pDataCache;     // The DataCache wrapper where script execution metadata (like startup functions/bytecode cache) are persisted
+        Streams::IByteChunk* pMemoryMappedBuffer;   // The IByteChunk pointer in case the sources are memory mapped
+        bool isEngineManagedSource;                 // In param- let's the engine know that the source holder it allocates is allowed to free the source buffer
+        bool scriptBufferIsSourceHolderManaged;     // Out param- let's the caller know that a source holder is now managing the source buffer
+
+        CompileScriptOptions() :
+            originalSourceBuffer(NULL),
+            dwBgParseCookie(0),
+            grfscr(0),
+            srcInfo(nullptr),
+            pszTitle(NULL),
+            pse(nullptr),
+            pDataCache(nullptr),
+            pMemoryMappedBuffer(nullptr),
+            isEngineManagedSource(false),
+            scriptBufferIsSourceHolderManaged(false)
+        {
+        }
+    };
+
     // Compile Function type
-    typedef HRESULT (ScriptEngine::*CoreCompileFunction)(void * pszSrc, size_t cbLength, DWORD dwBgParseCookie,
-        ulong grfscr, SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
+    typedef HRESULT (ScriptEngine::*CoreCompileFunction)(void * pszSrc, size_t cbLength, CompileScriptOptions* compileOptions,
         CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting,
-        Js::Utf8SourceInfo** pSourceInfo, Js::SimpleDataCacheWrapper* pDataCache);
+        Js::Utf8SourceInfo** pSourceInfo);
     typedef ulong (ComputeGrfscrFunction)();
-    typedef HRESULT (ScriptEngine::*CompileScriptType)(void * pszSrc, size_t len, DWORD dwBgParseCookie, ulong grfscr,
-        SRCINFO* srcInfo, LPCOLESTR pszTitle, CompileScriptException* pse,
+    typedef HRESULT(ScriptEngine::*CompileScriptType)(void * pszSrc, size_t len, CompileScriptOptions* compileOptions,
         CScriptBody** ppbody, Js::ParseableFunctionInfo** ppFuncInfo, BOOL &fUsedExisting,
-        Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile,
-        Js::SimpleDataCacheWrapper* pDataCache);
+        Js::Utf8SourceInfo** ppSourceInfo, CoreCompileFunction fnCoreCompile);
+
     CompileScriptType CompileFunction;
 
-    HRESULT CreateScriptBody(void * pszSrc, size_t len, DWORD dwBgParseCookie, DWORD dwFlags, bool allowDeferParse, SRCINFO* psi,
-        const void *pszDelimiter, LPCOLESTR pszTitle, CoreCompileFunction fnCoreCompile,
-        ComputeGrfscrFunction ComputeGrfscr, BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo,
-        EXCEPINFO* pei = nullptr, CScriptBody** ppbody = nullptr, Js::SimpleDataCacheWrapper* pDataCache = nullptr);
+    HRESULT CreateScriptBody(void * pszSrc, size_t len, CompileScriptOptions* compileOptions, DWORD dwFlags,
+        bool allowDeferParse, CoreCompileFunction fnCoreCompile, ComputeGrfscrFunction ComputeGrfscr,
+        BOOL &fUsedExisting, Js::ParseableFunctionInfo** ppFuncInfo, Js::Utf8SourceInfo** ppSourceInfo,
+        EXCEPINFO* pei = nullptr, CScriptBody** ppbody = nullptr);
 
     void RemoveEventSinks(EventSink *eventSink) { return eventSinks->Remove(eventSink);}
     ArenaAllocator* GetScriptAllocator() { return scriptAllocator;}
@@ -692,14 +738,14 @@ public:
     static const char16 *GetDispatchFunctionNameAndContext(Js::JavascriptFunction *pFunction, Js::ScriptContext **ppFunctionScriptContext);
     typedef JsUtil::Cache<Js::Utf8SourceInfo *, CScriptBody *, RecyclerNonLeafAllocator, PrimeSizePolicy, JsUtil::MRURetentionPolicy<Js::Utf8SourceInfo *, ScriptBodyMRUSize>, DefaultComparer, JsUtil::DictionaryEntry> ScriptBodyDictionary;
 
+    HRESULT SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Code, IUnknown *punkContext, DWORD_PTR dwSourceContext, ComputeGrfscrFunction ComputeGrfscr, DWORD dwFlags, EXCEPINFO *pexcepinfo, BYTE **byteCode, DWORD *pdwByteCodeSize);
+    HRESULT DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode, IActiveScriptByteCodeSource* sourceProvider, IUnknown *punkContext, DWORD_PTR dwSourceContext, ComputeGrfscrFunction ComputeGrfscr, bool execute, DWORD dwFlags, Js::NativeModule *nativeModule, EXCEPINFO *pexcepinfo, VARIANT * pvarResult);
+
 protected:
     // This allows us to override notification in a derived test class
     virtual void NotifyScriptStateChange(SCRIPTSTATE ss);
 
 private:
-    HRESULT SerializeByteCodes(DWORD dwSourceCodeLength, BYTE *utf8Code, IUnknown *punkContext, DWORD_PTR dwSourceContext, ComputeGrfscrFunction ComputeGrfscr, EXCEPINFO *pexcepinfo, BYTE **byteCode, DWORD *pdwByteCodeSize);
-    HRESULT DeserializeByteCodes(DWORD dwByteCodeSize, BYTE *byteCode, IActiveScriptByteCodeSource* sourceProvider, IUnknown *punkContext, DWORD_PTR dwSourceContext, ComputeGrfscrFunction ComputeGrfscr, bool execute, Js::NativeModule *nativeModule, EXCEPINFO *pexcepinfo);
-
     HRESULT AddScriptletCore(
         /* [in]  */ LPCOLESTR pstrDefaultName,
         /* [in]  */ LPCOLESTR pstrCode,
@@ -716,10 +762,8 @@ private:
 
     HRESULT ParseScriptTextCore(
         /* [in]  */ void * pstrCode,
-        /* [in]  */ DWORD dwBgParseCookie,
-        /* [in]  */ LPCOLESTR pstrItemName,
+        /* [in]  */ CompileScriptOptions* compileOptions,
         /* [in]  */ IUnknown* punkContext,
-        /* [in]  */ const void * pstrDelimiter,
         /* [in]  */ DWORD_PTR dwSourceContext,
         /* [in]  */ ULONG     ulStartingLineNumber,
         /* [in]  */ DWORD     dwFlags,
@@ -859,88 +903,58 @@ private:
     HRESULT DefaultCompile(
         __in void * pszSrc,
         __in size_t len,
-        __in DWORD dwBgParseCookie,
-        __in ulong grfscr,
-        __in SRCINFO* srcInfo,
-        __in LPCOLESTR pszTitle,
-        __in_opt CompileScriptException* pse,
+        __in CompileScriptOptions* compileOptions,
         __out CScriptBody** ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo,
-        __in CoreCompileFunction fnCoreCompile,
-        __in Js::SimpleDataCacheWrapper* pDataCache);
+        __in CoreCompileFunction fnCoreCompile);
 
     HRESULT ProfileModeCompile(
         __in void * pszSrc,
         __in size_t len,
-        __in DWORD dwBgParseCookie,
-        __in ulong grfscr,
-        __in SRCINFO* srcInfo,
-        __in LPCOLESTR pszTitle,
-        __in_opt CompileScriptException* pse,
+        __in CompileScriptOptions* compileOptions,
         __out CScriptBody** ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
         __out Js::Utf8SourceInfo** ppSourceInfo,
-        __in CoreCompileFunction fnCoreCompile,
-        __in Js::SimpleDataCacheWrapper* pDataCache);
+        __in CoreCompileFunction fnCoreCompile);
 
     HRESULT CompileByteCodeBuffer(
         __in void * pszSrc,
         __in size_t cbLength,
-        __in DWORD dwBgParseCookie,
-        __in ulong grfscr,
-        __in SRCINFO* srcInfo,
-        __in LPCOLESTR pszTitle,
-        __in_opt CompileScriptException* pse,
+        __in CompileScriptOptions* compileOptions,
         __out CScriptBody** ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
-        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr,
-        __in Js::SimpleDataCacheWrapper* pDataCache = nullptr);
+        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr);
 
     HRESULT CompileUTF16(
         __in void * pszSrc,
         __in size_t cbLength,
-        __in DWORD dwBgParseCookie,
-        __in ulong grfscr,
-        __in SRCINFO* srcInfo,
-        __in LPCOLESTR pszTitle,
-        __in_opt CompileScriptException* pse,
+        __in CompileScriptOptions* compileOptions,
         __out CScriptBody** ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
-        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr,
-        __in Js::SimpleDataCacheWrapper* pDataCache = nullptr);
+        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr);
 
     HRESULT CompileUTF8(
         __in void *pszSrc,
         __in size_t cbLength,
-        __in DWORD dwBgParseCookie,
-        __in ulong grfscr,
-        __in SRCINFO *srcInfo,
-        __in LPCOLESTR pszTitle,
-        __in_opt CompileScriptException *pse,
+        __in CompileScriptOptions* compileOptions,
         __out CScriptBody **ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
         __out BOOL &fUsedExisting,
-        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr,
-        __in Js::SimpleDataCacheWrapper* pDataCache = nullptr);
+        __out Js::Utf8SourceInfo** ppSourceInfo = nullptr);
 
     HRESULT CompileUTF8Core(
-        __in Js::Utf8SourceInfo* sourceInfo,
-        __in DWORD dwBgParseCookie,
-        __in charcount_t cchLength,
-        __in ulong grfscr,
-        __in SRCINFO *srcInfo,
-        __in LPCOLESTR pszTitle,
-        __in BOOL fOriginalUTF8Code,
-        __in_opt CompileScriptException *pse,
+        __in  Js::Utf8SourceInfo* sourceInfo,
+        __in  charcount_t cchLength,
+        __in  CompileScriptOptions* options,
+        __in  BOOL fOriginalUTF8Code,
         __out CScriptBody **ppbody,
         __out Js::ParseableFunctionInfo** ppFuncInfo,
-        __out BOOL &fUsedExisting,
-        __in Js::SimpleDataCacheWrapper* pDataCache);
+        __out BOOL &fUsedExisting);
 public:
     HRESULT FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
 private:
@@ -960,6 +974,7 @@ private:
     SCRIPTSTATE      m_ssState;             // Current script state
     IActiveScriptSite* m_pActiveScriptSite;             // owning IActiveScriptSite (AddRefed)
     IActiveScriptDirectHost* m_activeScriptDirectHost;
+    IActiveScriptAsyncCausalityCallBack* m_activeScriptAsyncCallback;
 
     // Default: 1 poll per second
     static const DWORD DefaultTicksPerPoll = 1000;
@@ -1199,6 +1214,7 @@ private:
 public:
     ULONG GetSourceContextPairCount() const { return this->pairCount; }
     SourceContextPair * GetSourceContextPairs() const { return this->pSourceContextPairs; }
+    DWORD GetWebWorkerID() const { return this->webWorkerID; }
 };
 
 inline HRESULT ScriptEngine::DbgStepOutComplete(void)

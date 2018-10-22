@@ -9,6 +9,7 @@ set BUILD_DEP_DIRS=^
 %SDXROOT%\onecoreuap\inetcore\manifests\inbox;^
 %SDXROOT%\onecoreuap\inetcore\lib\devtb\dtbhost_edge;^
 %SDXROOT%\onecoreuap\inetcore\lib\ScriptProjectionHost\iel3_edge;^
+%SDXROOT%\onecoreuap\inetcore\published\internal\inc;^
 %SDXROOT%\onecoreuap\inetcore\jscript;^
 %SDXROOT%\inetcore\onecoreuap\inetcore\jscript\ProjectionTests;
 

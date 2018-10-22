@@ -1,0 +1,17 @@
+[
+  {
+    "evaluate": {
+      "eval('a');": "1"
+    }
+  },
+  {
+    "evaluate": {
+      "eval('WScript.Echo(\"This line should be executed.\");eval(\"y\");')": "Security Error"
+    }
+  },
+  {
+    "evaluate": {
+      "eval('WScript.Echo(\"This should get executed.\");');eval('WScript.Echo(\"This should NOT get executed.\");');": "Security Error"
+    }
+  }
+]

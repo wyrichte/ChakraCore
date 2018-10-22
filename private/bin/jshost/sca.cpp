@@ -5,7 +5,6 @@
 ********************************************************/
 #include "stdafx.h"
 #include "SCALookup.h"
-#include "hostsysinfo.h"
 
 HTYPE SCA::htypeImageData = NULL;
 CComPtr<ITypeOperations> SCA::s_pImageDataTypeOperations;
@@ -156,16 +155,8 @@ Var SCA::Serialize(Var function, CallInfo callInfo, Var* args)
         if (isSerializeToFile)
         {
             AssertMsg(callInfo.Count < 5, "Transfer isn't supported with serialization to file.");
-            if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
-            {
-                IfFailGo(SHCreateStreamOnFile(filename,
-                    STGM_CREATE | STGM_WRITE | STGM_SHARE_EXCLUSIVE, &pStream));
-            }
-            else
-            {
-                IfFailGo(SHCreateStreamOnFileEx(filename,
-                    STGM_CREATE | STGM_WRITE | STGM_SHARE_EXCLUSIVE, FILE_ATTRIBUTE_NORMAL, TRUE, NULL, &pStream));
-            }
+            IfFailGo(SHCreateStreamOnFileEx(filename,
+                STGM_CREATE | STGM_WRITE | STGM_SHARE_EXCLUSIVE, FILE_ATTRIBUTE_NORMAL, TRUE, NULL, &pStream));
 
             IServiceProvider* pServiceProvider = NULL;
             IfFailGo(pScriptDirect->GetServiceProviderOfCaller(&pServiceProvider));
@@ -279,6 +270,48 @@ Error:
     return pScriptDirect.GetUndefined();
 }
 
+Var SCA::DeserializeFromData(IActiveScript * activeScript, BYTE *data, UINT len, void *dependentObj)
+{
+    HRESULT hr = S_OK;
+    ScriptDirect pScriptDirect;
+    CComPtr<IStream> pStream;
+    CComPtr<ISCAContext> pISCAContext;
+
+    CComPtr<MockSCAContext> pSCAContext;
+    SCAContextType context = SCAContext_Persist; // default
+    CComPtr<IUnknown> pTarget;
+    pScriptDirect.From(activeScript);
+    Var retVal = pScriptDirect.GetUndefined();
+    IfFailGo(ComObject<MockSCAContext>::CreateInstance(&pSCAContext));
+
+    IfFailGo(pSCAContext->Init(context, nullptr));
+    IfFailGo(((IUnknown*)pSCAContext)->QueryInterface(&pISCAContext));
+
+    IfFailGo(CreateMemStream(data, len, &pStream));
+
+    IServiceProvider* pServiceProvider = NULL;
+    IfFailGo(pScriptDirect->GetServiceProviderOfCaller(&pServiceProvider));
+
+    if (dependentObj)
+    {
+        IUnknown *dependentObject = (IUnknown *)dependentObj;
+        pSCAContext->SetDependentObject(dependentObject);
+        // One release for the pSCAContext->GetDependentObject's AddRef
+        dependentObject->Release();
+    }
+
+    Var obj;
+    hr = pScriptDirect->Deserialize(pSCAContext, pStream, pServiceProvider, &obj);
+    pScriptDirect->ReleaseServiceProviderOfCaller(pServiceProvider);
+    IfFailGo(hr);
+    retVal = obj;
+
+Error:
+    pScriptDirect.ThrowIfFailed(hr);
+    return retVal;
+
+}
+
 //
 // SCA.deserialize(data, [options])
 //  data:           The data or filename to deserialize
@@ -359,16 +392,8 @@ HRESULT SCA::GetInStream(ScriptDirect& pScriptDirect, Var data, IStream** ppStre
         {
             CComBSTR filename;
             IfFailGo(pScriptDirect->VarToString(data, &filename));
-            if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
-            {
-                IfFailGo(SHCreateStreamOnFile(filename,
-                    STGM_READ | STGM_SHARE_EXCLUSIVE, &pStream));
-            }
-            else
-            {
-                IfFailGo(SHCreateStreamOnFileEx(filename,
-                    STGM_READ | STGM_SHARE_EXCLUSIVE, 0, FALSE, NULL, &pStream));
-            }
+            IfFailGo(SHCreateStreamOnFileEx(filename,
+                STGM_READ | STGM_SHARE_EXCLUSIVE, 0, FALSE, NULL, &pStream));
         }
         else
         {

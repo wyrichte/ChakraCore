@@ -7,3 +7,6 @@ EVENTS_GENERATE_EVENTS_FOR_USERMODE=1
 COUNTERS_MANIFEST=Microsoft-Scripting-JScript9.InternalCounters.man
 
 EVENTS_MANIFEST=Microsoft-Scripting-JScript9.Internal.man
+
+PASS0_PUBLISH= \
+    {$(OBJ_PATH)\$(O)\Microsoft-Scripting-Jscript9.InternalCounters.h=$(PROJECT_INC_PATH)\Microsoft-Scripting-Jscript9.InternalCounters.h} \

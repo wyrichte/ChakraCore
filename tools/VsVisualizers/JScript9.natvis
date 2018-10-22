@@ -436,7 +436,7 @@
   </Type>
   <Type Name="JsUtil::BaseDictionary&lt;*&gt;">
     <DisplayString Condition="count > 0">Size = {count}</DisplayString>
-    <DisplayString Condition="count == 0">Empty</DisplayString>
+    <DisplayString Condition="count &lt;= 0">Empty</DisplayString>
     <Expand>
       <Item Name="[size]">count</Item>
       <CustomListItems>

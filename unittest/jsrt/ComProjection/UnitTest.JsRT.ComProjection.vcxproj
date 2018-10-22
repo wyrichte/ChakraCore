@@ -12,6 +12,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>30</AtlVersion>
+    <UseUniCrt>false</UseUniCrt>
     <BuildForCoreSystem>true</BuildForCoreSystem>
     <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
   </PropertyGroup>
