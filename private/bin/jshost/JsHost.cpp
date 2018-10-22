@@ -14,7 +14,6 @@
 #endif
 #include "MemProtectHeap.h"
 #include "TestLargeAddress.h"
-#include "hostsysinfo.h"
 
 HINSTANCE jscriptLibrary = NULL;
 IGlobalInterfaceTable * git = NULL;
@@ -28,6 +27,7 @@ NativeTestEntryPoint pfNativeTestEntryPoint = NULL;
 int nativeTestargc = 0;
 LPWSTR* nativeTestargv = NULL;
 HANDLE jsEtwConsoleEvent = nullptr;
+DWORD g_mainThreadID = 0;
 
 ///
 /// JsRT test harness
@@ -465,7 +465,7 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
 
     HRESULT hr = S_OK;
   
-    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);    
+    hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);    
     if (FAILED(hr))
     {
         return hr;
@@ -512,12 +512,16 @@ DWORD WINAPI EngineThreadProcImpl(LPVOID param)
                             {
                                 WScriptFastDom::ReceiveBroadcastCallBack((void*)msg.wParam, (int)msg.lParam);
                             }
+                            else if (msg.message == WM_JS_POSTMESSAGE)
+                            {
+                                WScriptFastDom::ReceiveJsPostMessage((void*)msg.wParam);
+                            }
                             else
                             {
-                                TranslateMessage(&msg);
-                                DispatchMessage(&msg);
-                            }
+                            TranslateMessage(&msg);
+                            DispatchMessage(&msg);
                         }
+                    }
 
                     }
                     break;
@@ -642,6 +646,46 @@ HRESULT CreateNewEngine(JsHostActiveScriptSite ** scriptSite, bool freeAtShutdow
     }
 
     return hr;
+}
+
+void ProcessWindowsMessages()
+{
+    MSG msg;
+    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+    {
+        if (msg.message == WM_JS_POSTMESSAGE)
+        {
+            WScriptFastDom::ReceiveJsPostMessage((void*)msg.wParam);
+        }
+        else
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+    }
+
+}
+
+DWORD GetPrimaryThreadId()
+{
+    return g_mainThreadID;
+}
+
+IActiveScript * GetActiveScriptFromThreadId(DWORD threadId)
+{
+    AutoCriticalSection autoHostThreadCS(&hostThreadMapCs);
+    auto iter = hostThreadMap.find(threadId);
+
+    if (iter != hostThreadMap.end())
+    {
+        // Release the value reference but don't erase the map entry, as we need the threadId key to wait at final shutdown.
+        IActiveScript *activeScript = nullptr;
+        if (iter->second->GetActiveScript(&activeScript) == S_OK)
+        {
+            return activeScript;
+        }
+    }
+    return nullptr;
 }
 
 HRESULT ShutdownEngine(JsHostActiveScriptSite* scriptSite)
@@ -1020,6 +1064,7 @@ HRESULT DoOneIASIteration(BSTR filename)
 
     // Create the main engine thread
     HANDLE mainEngineThread = GetCurrentThread();
+    g_mainThreadID = GetCurrentThreadId();
 
     MessageQueue *messageQueue = new MessageQueue();
     WScriptFastDom::AddMessageQueue(messageQueue);
@@ -1086,6 +1131,13 @@ HRESULT DoOneIASIteration(BSTR filename)
 
         // Process all queued callbacks.
         messageQueue->ProcessAll();
+
+        while (messageQueue->ShouldProcessWindowsMessages())
+        {
+            ProcessWindowsMessages();
+            Sleep(10);
+            messageQueue->ProcessAll();
+        }
 
         WScriptFastDom::ClearMainScriptSite();
         mainScriptSite->Release();
@@ -1179,7 +1231,7 @@ int _cdecl ExecuteIASTests(int argc, __in_ecount(argc) LPWSTR argv[])
     int ret = 1;
     HRESULT hr = S_OK;
  
-    hr = CoInitializeEx(NULL, HostSystemInfo::SupportsOnlyMultiThreadedCOM() ? COINIT_MULTITHREADED : COINIT_APARTMENTTHREADED);   
+    hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);   
     if (FAILED(hr))
     {
         wprintf(_u("FATAL ERROR: CoInitializeEx() failed. hr=0x%x\n"), hr);

@@ -9,6 +9,7 @@
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
+    <UseUniCrt>false</UseUniCrt>
     <AtlVersion>70</AtlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) Microsoft. All rights reserved. 
+// Copyright (C) Microsoft. All rights reserved.
 //----------------------------------------------------------------------------
 
 HRESULT OnJScript9Loaded();
@@ -28,7 +28,7 @@ struct TestHooks
     typedef void (__stdcall * HostPrintUsage)();
     typedef HRESULT (__stdcall *SetConfigFlagsPtr)(int argc, LPWSTR argv[], ICustomConfigFlags * pCustomConfigFlags);
 
-    typedef HRESULT (__stdcall *PrintConfigFlagsUsageStringPtr)(void);   
+    typedef HRESULT (__stdcall *PrintConfigFlagsUsageStringPtr)(void);
     typedef HRESULT (__stdcall *GetRestrictedStringPtr)(Var error, BSTR * string);
     typedef HRESULT (__stdcall *GetCapabilitySidPtr)(Var error, BSTR * string);
     typedef LPTSTR (__stdcall *GetSystemStringFromHrPtr)(HRESULT hr);
@@ -37,9 +37,9 @@ struct TestHooks
     typedef void (__stdcall *DoNotSupportWeakDelegatePtr)(IActiveScriptDirect * scriptDirect);
     typedef BOOL (__stdcall *SupportsWeakDelegatePtr)(IActiveScriptDirect * scriptDirect);
     typedef BOOL (__stdcall * NotifyOnScriptStateChangedCallBackFuncPtr)(IActiveScriptDirect* scriptDirectRef, SCRIPTSTATE ss, void** engineSpecificStorage);
-    typedef HRESULT (__stdcall *NotifyOnScriptStateChanged)(NotifyOnScriptStateChangedCallBackFuncPtr pfCallBack);    
+    typedef HRESULT (__stdcall *NotifyOnScriptStateChanged)(NotifyOnScriptStateChangedCallBackFuncPtr pfCallBack);
     typedef HRESULT (__stdcall *ClearAllProjectionCachesPtr)(IActiveScriptDirect * scriptDirect);
-    typedef HRESULT (__stdcall *SetAssertToConsoleFlagPtr)(bool flag);    
+    typedef HRESULT (__stdcall *SetAssertToConsoleFlagPtr)(bool flag);
     typedef HRESULT (__stdcall *SetEnableCheckMemoryLeakOutputPtr)(bool flag);
     typedef HRESULT(__stdcall *FlushOutputPtr)();
     typedef HRESULT (__stdcall * FinalGCPtr)();
@@ -71,20 +71,20 @@ struct TestHooks
     JsVarToExtensionPtr pfJsVarToExtension;
     SetConfigFlagsPtr pfSetConfigFlags;
     GenerateValidPointersMapHeaderPtr pfGenerateValidPointersMapHeader;
-    PrintConfigFlagsUsageStringPtr pfPrintConfigFlagsUsageString; 
+    PrintConfigFlagsUsageStringPtr pfPrintConfigFlagsUsageString;
     GetRestrictedStringPtr pfGetRestrictedString;
     GetCapabilitySidPtr pfGetCapabilitySid;
     GetSystemStringFromHrPtr pfGetSystemStringFromHr;
     GetMemoryFootprintOfRCPtr pfGetMemoryFootprintOfRC;
     DoNotSupportWeakDelegatePtr pfDoNotSupportWeakDelegate;
     SupportsWeakDelegatePtr pfSupportsWeakDelegate;
-    NotifyOnScriptStateChanged pfNotifyOnScriptStateChanged;    
+    NotifyOnScriptStateChanged pfNotifyOnScriptStateChanged;
     ClearAllProjectionCachesPtr pfClearAllProjectionCaches;
     SetAssertToConsoleFlagPtr pfSetAssertToConsoleFlag;
     SetEnableCheckMemoryLeakOutputPtr pfSetEnableCheckMemoryLeakOutput;
     FinalGCPtr pfFinalGC;
     SetGetHeapObjectInfoPtr pfSetGetHeapObjectInfoPtr;
-    GetThreadServicePtr pfnGetThreadService;    
+    GetThreadServicePtr pfnGetThreadService;
     StartScriptProfilingPtr pfStartScriptProfiling;
     StopScriptProfilingPtr pfStopScriptProfiling;
     DisplayMemStatsPtr pfDisplayMemStats;

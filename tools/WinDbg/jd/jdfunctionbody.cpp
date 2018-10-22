@@ -54,7 +54,7 @@ EXT_COMMAND(ffb,
 
         if (functionId != nullptr)
         {
-            int tokens = sscanf(functionId, "%d.%d", &sourceIdFilter, &functionIdFilter);
+            int tokens = sscanf(functionId, "%I64u.%I64u", &sourceIdFilter, &functionIdFilter);
             if (tokens != 2)
             {
                 Out("Invalid function id- expected <source id>.<function id>\n");
@@ -64,7 +64,7 @@ EXT_COMMAND(ffb,
 
         if (sourceLocation != nullptr)
         {
-            int tokens = sscanf(sourceLocation, "%d.%d", &sourceLineFilter, &sourceColumnFilter);
+            int tokens = sscanf(sourceLocation, "%I64u.%I64u", &sourceLineFilter, &sourceColumnFilter);
             if (tokens != 2)
             {
                 Out("Invalid source location- expected <source row>.<source column>\n");

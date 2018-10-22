@@ -20,7 +20,6 @@ RESOURCE_FILE = jscript9diagdump.rc
 
 TARGETLIBS = \
     $(SDK_LIB_PATH)\onecore_downlevel.lib \
-    $(SDK_LIB_PATH)\oleaut32.lib \
     $(ATL_LIBS) \
 
 SOURCES = \

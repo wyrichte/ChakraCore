@@ -1,12 +1,3 @@
-!if "$(MANAGED_RESOURCE_FILES)" != ""
-
-$(MANAGED_RESOURCE_FILES):
-!if "$(BUILD_PASS)" == "PASS0"
-	$(URTRUN_20) resgen /useSourcePath /compile $@
-!endif
-
-!endif
-
 # $(_NTBINDIR)\tools\managed\v4.0\mt.exe -manifest $(ProjectDir)$(TargetFileName).manifest -outputresource:$(TargetDir)$(TargetFileName);1
 
 MERGE_MANIFEST_FILE:

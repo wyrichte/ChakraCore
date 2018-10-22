@@ -107,6 +107,22 @@ HRESULT ScriptSite::CheckEvalRestriction() const
 {
     Assert(this->m_IASDSite != nullptr);
 
+    if (this->GetScriptSiteContext() != nullptr &&
+        this->GetScriptSiteContext()->IsScriptContextInDebugMode() &&
+        this->GetScriptSiteContext()->GetDebugContext()->GetHostDebugContext() != nullptr)
+    {
+        ChakraHostDebugContext * chakraHostDebugContext = (ChakraHostDebugContext*)(this->GetScriptSiteContext()->GetDebugContext()->GetHostDebugContext());
+
+        if (chakraHostDebugContext->IsAllowFirstRestrictedEval())
+        {
+            // VSO 15426787 - https://microsoft.visualstudio.com/DefaultCollection/OS/_queries?id=15426787&_a=edit
+            // F12 console wraps user code in eval and when at break calls CDebugEval::Execute
+            // If CSP (Eval restriction) is enabled we need to execute the top level eval
+            chakraHostDebugContext->SetAllowFirstRestrictedEval(false);
+            return S_OK;
+        }
+    }
+
     return (this->m_IASDSite != nullptr) ? this->m_IASDSite->CheckEvalRestriction() : S_OK;
 }
 

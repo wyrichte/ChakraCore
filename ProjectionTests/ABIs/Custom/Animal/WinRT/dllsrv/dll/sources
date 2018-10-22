@@ -1,8 +1,9 @@
 !include ..\sources.inc
 TARGET_DESTINATION=Projection\WinRt:Projection\APPX
 
-INCLUDES= $(INCLUDES)\
-    $(OBJ_PATH)\..\..\..\..\TeachRT\WinRT\idl\dll\$(O);\
+INCLUDES= \
+    $(INCLUDES); \
+    $(OBJ_PATH)\..\..\..\..\TeachRT\WinRT\idl\dll\$(O); \
 
 TARGETLIBS=$(TARGETLIBS)\
     $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_kernel32.lib \

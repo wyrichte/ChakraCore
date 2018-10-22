@@ -1,5 +1,4 @@
 BUILD_PASS1_CONSUMES= \
-    inetcore\jscript\private\bin\microsoft.javascript|PASS1 \
     onecoreuap\inetcore\jscript\private\bin\microsoft.javascript|PASS1 \
 
 PUBLIC_PASS1_CONSUMES= \
@@ -8,16 +7,8 @@ PUBLIC_PASS1_CONSUMES= \
     onecore\redist\mspartners\taef\ref\netfx4.5\wex.common.managed|PASS1 \
     onecore\redist\mspartners\taef\ref\netfx4.5\wex.logger.interop|PASS1 \
     onecore\redist\mspartners\vs2010\vsts\binary_release\msil|PASS1 \
-    redist\mspartners\vs2010\vsts\binary_release\msil|PASS1 \
-    sdktools\wextest\sparta\runtime\taef\managed\netfx4.5|PASS1 \
-    sdktools\wextest\sparta\runtime\wex.common\managed\netfx4.5|PASS1 \
-    sdktools\wextest\sparta\runtime\wex.logger\interop\netfx4.5|PASS1 \
 
 BUILD_PASS2_CONSUMES= \
-    inetcore\jscript\private\bin\chakra\release|PASS2 \
-    inetcore\jscript\private\bin\chakra\release_chk|PASS2 \
-    inetcore\jscript\private\bin\chakra\test|PASS2 \
-    inetcore\jscript\unittest\microsoft.javascript\api|PASS2 \
     onecoreuap\inetcore\jscript\private\bin\chakra\release|PASS2 \
     onecoreuap\inetcore\jscript\private\bin\chakra\release_chk|PASS2 \
     onecoreuap\inetcore\jscript\private\bin\chakra\test|PASS2 \

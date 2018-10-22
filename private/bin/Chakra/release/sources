@@ -1,7 +1,15 @@
 !include $(PROJECT_ROOT)\platform.inc
 !include $(JSCRIPT_ROOT)\jslib.inc
 
+!if defined(_CHAKRA_UCRT_BUILD)
+USE_UNICRT=1
+USE_MSVCRT=1
+USE_STL=1
+STL_VER=STL_VER_CURRENT
+!else
 USE_NOTHROW_NEW=1
+!endif
+
 BUILD_FOR_CORESYSTEM=1
 USE_DEFAULT_WIN32_LIBS=0
 USE_UMBRELLA_LIBS=1
@@ -23,14 +31,11 @@ DLLDEF_OBJECTS=$(DLLDEF_OBJECTS) \
     $(JS_LIBS_ENGINE) \
     $(JS_LIBS_JITSERVER) \
 
-MUI_DRV=1
-
 INCLUDES= \
     $(INCLUDES) \
     $(COREINCLUDES); \
     $(SDK_LIB_PATH); \
     $(SDK_INC_PATH); \
-    $(SDK_INC_PATH)\atl30; \
     $(COM_INC_PATH); \
     $(COM_INC_PATH)\winrt; \
     $(PROJECT_ROOT)\lib\inc; \
@@ -73,7 +78,7 @@ LINKLIBS= \
     $(MINCORE_PRIV_SDK_LIB_PATH)\pathcchapis.lib    \
     $(OBJECT_INETCORE_DIR)\lib\devtb\dtbhost_edge\$(O)\iedevtools_host_iel1_edge.lib \
     $(OBJECT_INETCORE_DIR)\lib\ScriptProjectionHost\iel3_edge\$(O)\ScriptProjectionHost_Edge_iel3.lib \
-    $(ONECOREUAPSHELL_LIB_PATH)\commonutilitylibrary.lib \
+    $(ONECORESHELL_LIB_PATH)\commonutilitylibrary.lib \
 
 TARGETLIBS= \
     $(ONECOREBASE_LIB_PATH)\appmodel\common\appmodel.common.lib \
@@ -84,7 +89,6 @@ TARGETLIBS= \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-core-winrt-l1.lib \
     $(MINCORE_SDK_LIB_VPATH)\api-ms-win-ro-typeresolution-l1.lib \
     $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
-    $(SDK_LIB_PATH)\muiload.lib \
     $(SDK_LIB_PATH)\onecore_downlevel.lib \
     $(SDK_LIB_PATH)\ntdll.lib \
 !if (!$(FREEBUILD))
@@ -118,13 +122,16 @@ DLOAD_ERROR_HANDLER=kernelbase.dll
 TARGETNAME=chakra
 TARGET_DESTINATION=retail
 TARGETTYPE=DYNLINK
-GENERATE_MUI=1
+
+MUI=0
+MUI_COMMENT=OS.16706276 requested removal of MUI because the resources aren't being localized
 
 DLLDEF=$(OBJ_PATH)\$(O)\Chakra.def
 
 SOURCES = \
-    ..\chakra.rc \
-    ..\ChakraDllFunc.cpp
+    ..\chakra.rc  \
+    ..\ChakraDllFunc.cpp \
+    ..\ChakraVersionBuildCommit.cpp
 
 RESOURCE_FILE=..\chakra.rc
 

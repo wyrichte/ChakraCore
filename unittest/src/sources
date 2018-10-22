@@ -8,7 +8,15 @@ MSC_WARNING_LEVEL=/W4 /WX
 DLLDEF=
 TARGETTYPE=DYNLINK
 TARGETNAME=ut_jscript
+
+!if defined(_CHAKRA_UCRT_BUILD)
+USE_UNICRT=1
+USE_MSVCRT=1
+STL_VER=STL_VER_CURRENT
+!endif
+
 USE_STL=1
+STL_VER=70
 USE_ATL=1
 USE_RTTI=1
 
@@ -18,12 +26,11 @@ USE_RTTI=1
 C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE
 
 INCLUDES= \
-          $(INCLUDES);    \
-          $(COREINCLUDES); \
-          ..\..\private\lib\Telemetry; \
-          $(SDK_INC_PATH)\crt\stl70; \
-          $(SDK_INC_PATH)\atl30; \
-          $(SDKTOOLS_INC_PATH)\WexTest\Cue; \
+!if !defined(_CHAKRA_UCRT_BUILD)
+    $(SDK_INC_PATH)\crt\stl70; \
+!endif
+    $(COREINCLUDES); \
+    $(SDKTOOLS_INC_PATH)\WexTest\Cue; \
 
 PRECOMPILED_INCLUDE=stdafx.h
 PRECOMPILED_SOURCEFILE=stdafx.cpp
@@ -33,7 +40,7 @@ LINKLIBS= \
 !IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
     ..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
 !ENDIF
-    $(ONECOREUAPSHELL_LIB_PATH)\commonutilitylibrary.lib       \
+    $(ONECORESHELL_LIB_PATH)\commonutilitylibrary.lib       \
     $(OBJECT_JSCRIPT_DIR)\private\core_razzle_build\common\codex\$(O)\chakra.common.codex.lib \
     $(PROJECT_LIB_PATH)\iertutilp.lib \
     $(PROJECT_LIB_PATH)\EdgeSettingsId.lib \
@@ -41,26 +48,20 @@ LINKLIBS= \
     $(JS_LIBS_COMMON) \
 
 TARGETLIBS=     \
-    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_kernel32.lib \
-    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_advapi32.lib \
-    $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
-    $(SDK_LIB_PATH)\oleaut32.lib \
-    $(SDK_LIB_PATH)\muiload.lib \
-    $(SDK_LIB_PATH)\ntdll.lib \
-    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_ole32.lib \
-    $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_version.lib \
-    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\dbghelp.lib \
     $(ONECORE_PRIV_SDK_LIB_PATH)\OneCore_Forwarder_user32.lib \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
 !endif
+    $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
+    $(SDK_LIB_PATH)\ntdll.lib \
+    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
     $(SDKTOOLS_LIB_PATH)\WexTest\Cue\Wex.Common.lib \
     $(SDKTOOLS_LIB_PATH)\WexTest\Cue\Wex.Logger.lib \
 
 DELAYLOAD = $(DELAYLOAD) \
 !IF (!$(FREEBUILD))
-    ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \
+    ext-ms-win-ntuser-dialogbox-l1.dll; \
 !ENDIF
 
 ALLOW_NT_STYLE_DLOAD_ERROR_HANDLER=1

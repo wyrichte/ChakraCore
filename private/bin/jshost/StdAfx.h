@@ -137,6 +137,7 @@
 #include <shdeprecated.h>  
 #include <DocObjectService.h>
 #include "MockDomObject.h"
+#include "JsHostMemoryMappedBuffer.h"
 
 #include "TestHooks.h"
 #include "TestUtilitiesReferences.h"
@@ -171,6 +172,9 @@ EXTERN_C CRITICAL_SECTION hostThreadMapCs;
 HRESULT CreateEngineThread(HANDLE * thread, HANDLE * terminateThreadEvent = 0);
 HRESULT CreateNewEngine(HANDLE thread, JsHostActiveScriptSite ** scriptSite, bool freeAtShutdown, bool actAsDiagnosticsHost, bool isPrimary, WORD domainId);
 HRESULT ShutdownEngine(JsHostActiveScriptSite* scriptSite);
+IActiveScript * GetActiveScriptFromThreadId(DWORD threadId);
+DWORD GetPrimaryThreadId();
+void ProcessWindowsMessages();
 
 // BEGIN debug operations
 void PerformSourceRundown();

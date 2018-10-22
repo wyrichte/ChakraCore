@@ -35,8 +35,24 @@ public:
 class MessageQueue
 {
     std::multimap<unsigned int, MessageBase*> m_queue;
+    bool m_processWindowsMessages;
 
 public:
+    MessageQueue()
+        : m_processWindowsMessages(false)
+    {
+    }
+
+    void SetProcessWindowsMessages(bool set)
+    {
+        m_processWindowsMessages = set;
+    }
+
+    bool ShouldProcessWindowsMessages()
+    { 
+        return m_processWindowsMessages;
+    }
+
     ~MessageQueue()
     {
         for (const auto& pair : m_queue)

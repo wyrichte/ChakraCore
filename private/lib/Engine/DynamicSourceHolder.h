@@ -106,13 +106,15 @@ namespace Js
 
         virtual void Finalize(bool isShutdown) override;
 
-        virtual void Dispose(bool isShutdown) override
-        {
-        }
+        virtual void Dispose(bool isShutdown) override;
 
         virtual void Mark(Recycler * recycler) override
         {
         }
+
+        // No real buffer to free
+        // Dispose will take care of freeing the sourceMapper pointer
+        virtual void Unload() override { }
 
         bool Equals(ISourceHolder* other)
         {

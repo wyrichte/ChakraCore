@@ -450,8 +450,8 @@ BOOL HostDispatch::Equals(__in Var other, __out BOOL* value, Js::ScriptContext *
             *value = FALSE;
             return FALSE;
         }
-    case Js::TypeIds_WithScopeObject:
-        AssertMsg(false, "WithScopeObjects should not be exposed");
+    case Js::TypeIds_UnscopablesWrapperObject:
+        AssertMsg(false, "UnscopablesWrapperObjects should not be exposed");
         *value = FALSE;
         break;
 

@@ -1,0 +1,51 @@
+<html>
+<body>
+    <div id="testDiv"></div>
+    <script type="text/javascript" src="..\..\core\test\UnitTestFramework\UnitTestFramework.js"></script>
+    <script type="text/javascript">
+        var noError = false;
+        var unscopables = [
+            "before",
+            "after",
+            "replaceWith",
+            "remove",
+            "prepend",
+            "append"
+        ];
+        var div = document.querySelector('#testDiv');
+        
+        var tests = [
+            {
+                name: "@@unscopable property access in event handler",
+                body: function () {
+                    for (let unscopable of unscopables) {
+                        noError = false;
+                        div.setAttribute("onclick", `${unscopable}; ${unscopable} = 2; noError = true;`);
+                        div.dispatchEvent(new Event("click"));
+                        assert.isFalse(noError, `Property '${unscopable}' access in event handler throws`);
+                        
+                        noError = false;
+                        div.setAttribute("onclick", `eval('${unscopable}; ${unscopable} = 2;'); noError = true;`);
+                        div.dispatchEvent(new Event("click"));
+                        assert.isFalse(noError, `Eval containing property '${unscopable}' access in event handler throws`);
+                        
+                        window[unscopable] = 1;
+                        
+                        noError = false;
+                        div.setAttribute("onclick", `${unscopable}; ${unscopable} = 2; noError = true;`);
+                        div.dispatchEvent(new Event("click"));
+                        assert.isTrue(noError, `Scope chain property '${unscopable}' access in event handler does not throw`);
+                        
+                        noError = false;
+                        div.setAttribute("onclick", `eval('${unscopable}; ${unscopable} = 2;'); noError = true;`);
+                        div.dispatchEvent(new Event("click"));
+                        assert.isTrue(noError, `Eval containing scope chain property '${unscopable}' access in event handler does not throw`);
+                    }
+                }
+            }
+        ];
+
+    testRunner.runTests(tests, { verbose: false });
+    </script>
+</body>
+</html>

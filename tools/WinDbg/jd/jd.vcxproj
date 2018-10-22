@@ -10,6 +10,8 @@
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
+    <UseUniCrt>false</UseUniCrt>
+    <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
     <BuildForCoreSystem>true</BuildForCoreSystem>
     <AtlVersion>70</AtlVersion>
@@ -27,7 +29,7 @@
         4290;     <!-- C++ exception specification ignored except to indicate a function is not __declspec(nothrow) -->
         4458;     <!-- declaration of '' hides class memeber --></DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;_USRDLL;JD_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
           $(ChakraRootDirectory)private\bin\ChakraDiag;
           $(ChakraRootDirectory)private\bin\jdtest;
@@ -36,6 +38,7 @@
           $(ChakraCoreRootDirectory)lib\common;
           $(ChakraCoreRootDirectory)lib\common\core;
           $(ChakraCoreRootDirectory)lib\common\memory;
+          $(MinWinPrivSdkIncPath)\dbg;
           %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
     </ClCompile>
@@ -57,6 +60,7 @@
         $(SdkLibPath);
         $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt);
         $(InternalSdkLibPath);
+        $(MinWinPrivSdkLibPath);
         $(IntDir)..\ChakraDiagLib
       </AdditionalLibraryDirectories>
     </Link>

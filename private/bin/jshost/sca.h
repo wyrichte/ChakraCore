@@ -11,6 +11,8 @@ class SCA
 private:
     static HTYPE htypeImageData;
     static CComPtr<ITypeOperations> s_pImageDataTypeOperations;
+public:
+    static Var DeserializeFromData(IActiveScript *activeScript, BYTE *data, UINT len, void *dependentObject);
 
 private:
     static HRESULT EnsureImageDataType(ScriptDirect& pScriptDirect);

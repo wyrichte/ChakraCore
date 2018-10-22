@@ -11,6 +11,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseUniCrt>false</UseUniCrt>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
   </PropertyGroup>
@@ -42,7 +43,6 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)debuggercontroller.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HostConfigFlags.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)HostSysInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)JScript9Interface.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HostCommonGuids.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -55,7 +55,6 @@
   <ItemGroup>
     <ClInclude Include="debuggercontroller.h" />
     <ClInclude Include="HostConfigFlags.h" />
-    <ClInclude Include="HostSysInfo.h" />
     <ClInclude Include="HostConfigFlagsList.h" />
     <ClInclude Include="JScript9Interface.h" />
     <ClInclude Include="HostCommonPch.h" />

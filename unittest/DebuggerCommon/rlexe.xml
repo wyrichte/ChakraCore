@@ -214,7 +214,7 @@
   <test>
     <default>
       <files>ES6_intl_simple_attach.js</files>
-      <compile-flags>-targeted -dbgbaseline:ES6_intl_simple_attach.js.dbg.baseline -Intl</compile-flags>
+      <compile-flags>-targeted -dbgbaseline:ES6_intl_simple_attach.js.dbg.baseline</compile-flags>
       <baseline>ES6_intl_simple_attach.js.baseline</baseline>
     </default>
   </test>

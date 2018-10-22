@@ -20,6 +20,12 @@ namespace Js
     class JavascriptExceptionObject;
 }
 
+namespace JsStaticAPI
+{
+    struct ScriptContents;
+    struct ScriptExecuteMetadata;
+}
+
 class ScriptSite;
 class ThreadContext;
 
@@ -577,7 +583,50 @@ public:
 
     virtual HRESULT STDMETHODCALLTYPE CreateIteratorNextFunction(JavascriptTypeId typeId, __out Var* func);
 
+    virtual HRESULT STDMETHODCALLTYPE DetachTypedArrayBuffer(
+        __in Var instance,
+        __out Js::RefCountedBuffer** refCountedDetachedBuffer,
+        __out_opt BYTE** detachedBuffer,
+        __out UINT* bufferLength,
+        __out TypedArrayBufferAllocationType * allocationType,
+        __out_opt TypedArrayType* typedArrayType,
+        __out_opt INT* elementSize);
+
+    virtual HRESULT STDMETHODCALLTYPE FreeDetachedTypedArrayBuffer(
+        __in Js::RefCountedBuffer* refCountedBffer,
+        __in UINT bufferLength,
+        __in TypedArrayBufferAllocationType allocationType);
+
+    virtual HRESULT STDMETHODCALLTYPE GetBufferContent(__in Js::RefCountedBuffer *buffer, __out BYTE ** bufferContent);
+
     virtual HRESULT ExecuteBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwSourceContext, DWORD dwFlags, VARIANT* pvarResult, EXCEPINFO* pexcepinfo);
+
+    virtual HRESULT ExecuteScript(JsStaticAPI::ScriptContents* pContents,
+                                  JsStaticAPI::ScriptExecuteMetadata* pMetadata,
+                                  VARIANT*  pvarResult,
+                                  EXCEPINFO* pexcepinfo);
+
+    virtual HRESULT SetPrivilegeLevelLowForDiagOM();
+
+    virtual HRESULT GenerateByteCodeBufferCommon(
+        DWORD dwSourceCodeLength,
+        __RPC__in_ecount_full(dwSourceCodeLength) BYTE *utf8Code,
+        __RPC__in_opt IUnknown *punkContext,
+        DWORD_PTR dwSourceContext,
+        __RPC__in EXCEPINFO *pexcepinfo,
+        DWORD dwFlags,
+        __RPC__deref_out_ecount_full_opt(*pdwByteCodeSize) BYTE **byteCode,
+        __RPC__out DWORD *pdwByteCodeSize);
+
+    virtual HRESULT ExecuteByteCodeBufferCommon(
+        DWORD dwByteCodeSize,
+        __RPC__in_ecount_full(dwByteCodeSize) BYTE *byteCode,
+        IActiveScriptByteCodeSource *pbyteCodeSource,
+        __RPC__in_opt IUnknown *punkContext,
+        DWORD_PTR dwSourceContext,
+        DWORD dwFlags,
+        __RPC__out EXCEPINFO *pexcepinfo,
+        VARIANT *pvarResult);
 
 public:
     Js::ScriptContext*  scriptContext;

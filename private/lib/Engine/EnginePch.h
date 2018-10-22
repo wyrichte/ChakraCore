@@ -72,6 +72,7 @@
 #endif
 #include "jscriptinfo.h"
 #include "DynamicSourceHolder.h"
+#include "MemoryMappedSourceBufferHolder.h"
 #include "customEnumerator.h"
 #include "ErrorTypeHelper.h"
 

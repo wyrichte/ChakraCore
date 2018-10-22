@@ -11,7 +11,11 @@ TEST_CODE=1
 # Turns on fretest for test code
 !include $(JSCRIPT_ROOT)\jslibtest.inc
 
+!if $(_CHAKRA_UCRT_BUILD)
+INCLUDES=$(COREINCLUDES);$(DS_INC_PATH);$(JSCRIPT_ROOT)\dll\jscript;$(OBJ_PATH)\..\..\dll\jscript\$(O);
+!else
 INCLUDES=$(COREINCLUDES);$(DS_INC_PATH);$(SDK_INC_PATH)\crt\stl70;$(JSCRIPT_ROOT)\dll\jscript;$(OBJ_PATH)\..\..\dll\jscript\$(O);
+!endif
 
 #4740: flow in or out of inline asm code suppresses global optimization
 MSC_WARNING_LEVEL=$(MSC_WARNING_LEVEL) /wd4740
@@ -21,6 +25,11 @@ C_DEFINES =$(C_DEFINES) -DWINNT -DUNICODE -D_UNICODE -DRECYCLER_TEST=1
 
 MSC_WARNING_LEVEL=-$(WARNING_LEVEL:W3=W4)
 
+!if defined(_CHAKRA_UCRT_BUILD)
+USE_UNICRT=1
+USE_MSVCRT=1
+STL_VER=STL_VER_CURRENT
+!endif
 USE_STL=1
 USE_ATL=1
 USE_RTTI=1
@@ -31,20 +40,26 @@ UMTYPE = console
 C_DEFINES =$(C_DEFINES) -DPROFILE_DICTIONARY
 !endif
 
-
-# Note: EXCLUDE_BACKEND comes from inetcore\jscript\project.mk
-
+!if !defined(_CHAKRA_UCRT_BUILD)
 # Make sure that common.memory.lib is passed to linker prior to msvcrt so that our new/delete 
 # do not cause 'already defined in msvcrt.lib error'.
 CRTLIBS= \
     $(OBJECT_JSCRIPT_DIR)\lib\common\memory\$(JS_LIBTYPE)\$(O)\jscript.common.memory.lib
+!endif
+
+!endif
+
+# Note: EXCLUDE_BACKEND comes from inetcore\jscript\project.mk
 
 TARGETLIBS=     \
+!if !defined(_CHAKRA_UCRT_BUILD)
 !IF (!$(FREEBUILD) || defined(FRETEST) || defined(NTTESTENV)) && "$(TARGET_DIRECTORY)" != "arm" && "$(TARGET_DIRECTORY)" != "arm64"
     ..\..\tools\external\lib\$(TARGET_DIRECTORY)\jitprofiling.lib \
 !ENDIF
     $(SHELL_LIB_PATH)\CommonUtilityLibrary.lib       \
     $(OBJECT_INETCORE_DIR)\jscript\core\lib\common\codex\$(O)\Chakra.Common.Codex.lib \
+!endif
+    $(OBJECT_INETCORE_DIR)\jscript\private\core_razzle_build\common\codex\$(O)\Chakra.Common.Codex.lib \
     $(PROJECT_LIB_PATH)\iertutilp.lib \
     $(PROJECT_LIB_PATH)\EdgeSettingsId.lib \
     $(PROJECT_LIB_PATH)\EdgeSettingsApi.lib \

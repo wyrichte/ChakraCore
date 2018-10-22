@@ -3,6 +3,17 @@
   <PropertyGroup>
     <BuildingGitRepo>true</BuildingGitRepo>
     <BuildingGitRepo Condition="'$(PUBLIC_ROOT)'!=''">false</BuildingGitRepo>
+
+    <UseUniCrt Condition="'$(UseUniCrt)' == '' and '$(_CHAKRA_UCRT_BUILD)' != ''">true</UseUniCrt>
+    <UseUniCrt Condition="'$(_CHAKRA_UCRT_BUILD)' == ''">false</UseUniCrt>
+    <DebugUCRT />
+    <DebugUCRT Condition="'$(Configuration)'!='Release' and '$(Configuration)'!='Test'">d</DebugUCRT>
+    <StlVersion Condition="'$(UseUniCrt)' == 'true'">StlVerCurrent</StlVersion>
+    <UseStl Condition="'$(UseUniCrt)' == 'true'">true</UseStl>
+    <UseStl Condition="'$(UseStl)' == '' and '$(UseUniCrt)' == 'false'">false</UseStl>
+    <StlUnicrtAllowed Condition="'$(UseUniCrt)' == 'true'">true</StlUnicrtAllowed>
+    <!-- Use Program-mode uCRT -->
+    <_UcrtUseProgramModeGlobalState Condition="'$(UseUniCrt)' == 'true'">true</_UcrtUseProgramModeGlobalState>
   </PropertyGroup>
 
   <ItemDefinitionGroup>
@@ -46,7 +57,7 @@
 
   <PropertyGroup Condition="'$(ChakraICU)'==''">
     <ChakraICU>windows</ChakraICU>
-    <IcuVersionMajor>60</IcuVersionMajor>
+    <IcuVersionMajor>61</IcuVersionMajor>
   </PropertyGroup>
 
 </Project>

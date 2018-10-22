@@ -21,12 +21,8 @@ PRECOMPILED_INCLUDE=..\stdafx.h
 
 INCLUDES= \
     $(ONECORECOM_INC_PATH); \
-    $(COM_INC_PATH);\
-    $(ONECORECOM_INC_PATH)\winrt; \
-    $(COM_INC_PATH)\winrt;\
-    $(OBJ_PATH)\..\..\lib\$(O);\
-    ..\..\lib;\
-    $(OBJ_PATH)\..\..\idl\$(O);\
+    ..\..\lib; \
+    $(OBJ_PATH)\..\..\idl\$(O); \
 	
 SOURCES=\
     ..\module.cpp \

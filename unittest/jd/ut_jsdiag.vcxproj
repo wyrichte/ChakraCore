@@ -11,6 +11,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
+    <UseUniCrt>false</UseUniCrt>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
     <BuildForCoreSystem>true</BuildForCoreSystem>
@@ -36,6 +37,7 @@
 
         $(ONECORESDKTOOLSINCPATH);
 
+        $(MinWinPrivSdkIncPath)\dbg;
         $(SdkToolsIncPath);
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
@@ -43,7 +45,7 @@
     </ClCompile>
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">
       <AdditionalDependencies>
-        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\engextcpp.lib;
+        $(PublicInternalPath)\minwin\priv_sdk\lib\$(PlatformPathNameAlt)\engextcpp.lib;
         %(AdditionalDependencies);
       </AdditionalDependencies>
       <ModuleDefinitionFile>ut_jsdiag.def</ModuleDefinitionFile>
@@ -53,7 +55,7 @@
         $(MinCoreSdkLibPath)\mincore_fw.lib;
         $(SdkLibPath)\dbghelp.lib;
         $(SdkLibPath)\dbgeng.lib;
-        $(PublicInternalPath)\sdktools\lib\$(PlatformPathNameAlt)\engextcpp.lib;
+        $(PublicInternalPath)\minwin\priv_sdk\lib\$(PlatformPathNameAlt)\engextcpp.lib;
         $(SdkLibPath)\oleaut32.lib;
         %(AdditionalDependencies);
       </AdditionalDependencies>

@@ -2,7 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <PlatformToolset>v120</PlatformToolset>
-    <UseUnicrt>false</UseUnicrt>
     <UrtVer>4.5</UrtVer>
     <Use_Asmmeta>false</Use_Asmmeta>
   </PropertyGroup>
@@ -73,7 +72,7 @@
     <ChakraCommonMinLibs>$(ChakraCommonMinLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\exceptions\$(RazzleJscriptObjectDirectory)Chakra.Common.Exceptions.lib</ChakraCommonMinLibs>
 
     <ChakraCommonLibs>$(ChakraCommonMinLibs)</ChakraCommonLibs>
-    <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCommonLib)</ChakraCommonLibs>    
+    <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCommonLib)</ChakraCommonLibs>
     <ChakraCommonLibs>$(ChakraCommonLibs);$(RazzleJscriptObjectRoot)\private\core_razzle_build\common\util\$(RazzleJscriptObjectDirectory)Chakra.Common.Util.lib</ChakraCommonLibs>
     <ChakraCommonLibs>$(ChakraCommonLibs);$(ChakraCommonCodexLib)</ChakraCommonLibs>
 

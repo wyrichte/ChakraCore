@@ -23,7 +23,6 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
-          $(PUBLIC_ROOT)\sdk\inc\crt\stl70;
           $(IntDir);
           $(ChakraRootDirectory)core\lib\Common;
           $(ChakraRootDirectory)core\lib\Common\Core;
@@ -31,7 +30,6 @@
 
           %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_STL70_;_STATIC_CPPLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>

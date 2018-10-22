@@ -5,6 +5,7 @@ TARGETTYPE=DYNLINK
 
 USE_MSVCRT=1
 USE_STL=1
+STL_VER=70
 
 NTTARGETFILE1=\
  $(OBJ_PATH)\$O\jsthunk_thunks.obj \
@@ -17,7 +18,7 @@ ARM_SOURCES=arm\jsthunkasm.asm
 I386_SOURCES=i386\jsthunkasm.asm
 
 INCLUDES= \
- $(MINWIN_PRIV_SDK_INC_PATH)\ntos; \
+    $(MINWIN_PRIV_SDK_INC_PATH)\ntos; \
 
 C_DEFINES=\
  $(C_DEFINES) \
@@ -26,9 +27,9 @@ C_DEFINES=\
 TARGET_DESTINATION=retail
 
 TARGETLIBS=\
- $(SDK_LIB_PATH)\mincore.lib \
- $(SDK_LIB_PATH)\ntdll.lib \
- $(OBJ_PATH)\$O\jsthunk_thunks.obj \
+    $(SDK_LIB_PATH)\mincore.lib \
+    $(SDK_LIB_PATH)\ntdll.lib \
+    $(OBJ_PATH)\$O\jsthunk_thunks.obj \
 
 # The functions are all identical, but yet it is important that they remain unique.
 LINKER_NOICF=1

@@ -62,7 +62,7 @@ var Base64Binary = {
 		var i = 0;
 		var j = 0;
 		var iPrev = 0;
-		
+
 		if (arrayBuffer)
 			uarray = new Uint8Array(arrayBuffer);
 		else
@@ -98,7 +98,7 @@ var Base64Binary = {
 			
 			iPrev++;
 		}
-	
+		
 		return uarray;	
 	}
 }

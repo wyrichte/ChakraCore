@@ -1,14 +1,7 @@
 PUBLIC_PASS0_CONSUMES= \
-    base\published|PASS0 \
-    com\published\idlole\public|PASS0 \
-    com\published\idlole\publish|PASS0 \
-    com\winrt\buildtools\winmetadata|PASS0 \
     minkernel\published\base|PASS0 \
     onecore\base\published|PASS0 \
     onecore\com\published\idlole\public|PASS0 \
     onecore\com\published\idlole\publish|PASS0 \
     onecore\com\winrt\buildtools\winmetadata|PASS0 \
-
-BUILD_PASS2_CONSUMES= \
-    base\splat\test\cbsdata\multi-branch\packages_amd64|PASS2 \
 

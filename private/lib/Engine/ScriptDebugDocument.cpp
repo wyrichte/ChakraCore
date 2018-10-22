@@ -199,12 +199,11 @@ HRESULT ScriptDebugDocument::ReParentToCaller()
                         // Saving the exception, as this code path could re-enter through jscript debugger APIs
                         BEGIN_NO_EXCEPTION
                         {
-                            hr = m_debugDocHelper->Detach();
+                            hr = DetachDocHelper();
                         }
                         END_NO_EXCEPTION
                         if (SUCCEEDED(hr))
                         {
-                            m_isAttached = false;
                             hr = AttachNode(pNode, pCallerNode);
                             if (SUCCEEDED(hr))
                             {
@@ -238,6 +237,7 @@ HRESULT ScriptDebugDocument::Register(const char16 * title)
     const SRCINFO * srcInfo = utfSourceInfo->GetSrcInfo();
     bool isDynamic = srcInfo->sourceContextInfo->IsDynamic();
     bool isHostManagedSource = utfSourceInfo->IsHostManagedSource();
+    bool isWebWorker = scriptEngine->GetWebWorkerID() != Js::Constants::NonWebWorkerContextId;
     WCHAR * shortName = NULL;
     WCHAR *longName = NULL;
     AutoCOMPtr<IDebugApplicationNode> pParentNode;
@@ -286,16 +286,21 @@ HRESULT ScriptDebugDocument::Register(const char16 * title)
         }
 
         IDebugApplication *pDebugApp = NULL;
-        
+
         IfFailGo(scriptEngine->GetDebugApplicationCoreNoRef(&pDebugApp));
-        
+
         // For dynamic stuff, no text attribute have defined, previously TEXT_DOC_ATTR_READONLY is always used.
-        IfFailGo(m_debugDocHelper->Init(pDebugApp, shortName,  longName, isDynamic ? TEXT_DOC_ATTR_READONLY : TEXT_DOC_ATTR_TYPE_SCRIPT));
+        TEXT_DOC_ATTR docAttr = isDynamic ? TEXT_DOC_ATTR_READONLY : TEXT_DOC_ATTR_TYPE_SCRIPT;
+        if (isWebWorker)
+        {
+            docAttr |= TEXT_DOC_ATTR_TYPE_WORKER;
+        }
+        IfFailGo(m_debugDocHelper->Init(pDebugApp, shortName, longName, docAttr));
 
         IfFailGo(m_debugDocHelper->DefineScriptBlock(0, utfSourceInfo->GetCchLength(), scriptEngine, FALSE /*no scriptlet*/, &m_debugSourceCookie));
     } // !isHostManagedSource
     OUTPUT_TRACE(Js::DebuggerPhase, _u("ScriptDebugDocument::Register: Host managed source: %d, dwsourcecontext %p, Title: %s \n"), isHostManagedSource, srcInfo->sourceContextInfo->dwHostSourceContext, title);
-    
+
     // Ensure Utf8SourceInfo has a reference to IDebugDocumentText before we add the text.
     if(SUCCEEDED(this->GetDocumentContext(srcInfo->ichMinHost, /*length*/ 1, &spDebugDocumentContext)))
     {
@@ -435,6 +440,17 @@ HRESULT ScriptDebugDocument::AttachNode(IDebugApplicationNode *pNode, IDebugAppl
     return hr;
 }
 
+HRESULT ScriptDebugDocument::DetachDocHelper()
+{
+    HRESULT hr = m_debugDocHelper->Detach();
+    if (SUCCEEDED(hr))
+    {
+        m_debugSourceCookie = NULL;
+        m_isAttached = FALSE;
+    }
+    return hr;
+}
+
 void ScriptDebugDocument::CloseDocument()
 {
     __super::CloseDocument();
@@ -454,7 +470,7 @@ void ScriptDebugDocument::CloseDocument()
             // Saving the exception, as this code path could re-enter through jscript debugger APIs
             BEGIN_NO_EXCEPTION
             {
-                m_debugDocHelper->Detach();
+                (void)DetachDocHelper();
             }
             END_NO_EXCEPTION
         }

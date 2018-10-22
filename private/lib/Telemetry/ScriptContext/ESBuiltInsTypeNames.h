@@ -61,7 +61,7 @@ TYPENAME_MAP( TypeIds_Symbol, Symbol )
 /*TYPENAME_MAP( TypeIds_Enumerator, Object )*/
 TYPENAME_MAP( TypeIds_VariantDate, Date )
 TYPENAME_MAP( TypeIds_HostDispatch, Object )
-TYPENAME_MAP( TypeIds_WithScopeObject, Object )
+TYPENAME_MAP( TypeIds_UnscopablesWrapperObject, Object )
 /*TYPENAME_MAP( TypeIds_UndeclBlockVar, Object )*/
 TYPENAME_MAP( TypeIds_Proxy, Object )
 TYPENAME_MAP( TypeIds_Function, Function )

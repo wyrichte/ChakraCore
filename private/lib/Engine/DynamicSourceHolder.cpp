@@ -34,16 +34,15 @@ namespace Js
         }
     }
 
+    // Must be invoked when not in script 
+    // (guaranteed in Finalize, which is the only current caller)
     void DynamicSourceHolder::UnMapSource()
     {
         AssertMsg(this->isSourceMapped, "Source isn't mapped!");
         AssertMsg(this->mappedSource != nullptr, "Mapped source is nullptr.");
         AssertMsg(this->sourceMapper != nullptr, "Source mapper is nullptr, means the object has been finalized.");
 
-        LEAVE_SCRIPT_IF_ACTIVE(this->scriptContext,
-            {
-                this->sourceMapper->UnmapSourceCode();
-            });
+        this->sourceMapper->UnmapSourceCode();
 
         this->isSourceMapped = false;
         this->mappedSource = nullptr;
@@ -56,12 +55,11 @@ namespace Js
         {
             UnMapSource();
         }
+    }
 
-        LEAVE_SCRIPT_IF_ACTIVE(this->scriptContext,
-            {
-                sourceMapper->Release();
-            });
-
-        sourceMapper = nullptr;
+    void DynamicSourceHolder::Dispose(bool iShutdown)
+    {
+        this->sourceMapper->Release();
+        this->sourceMapper = nullptr;
     }
 }

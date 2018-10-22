@@ -58,4 +58,11 @@
       <baseline>domlength.baseline</baseline>
     </default>
   </test>
+  <test>
+    <default>
+      <files>bytecodeExpression.js</files>
+      <compile-flags>-PerformBytecodeExpressionTest</compile-flags>
+      <tags>exclude_serialized</tags>
+    </default>
+  </test> 
 </regress-exe>

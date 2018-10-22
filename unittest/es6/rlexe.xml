@@ -297,4 +297,10 @@
     <files>proxybug3.js</files>
   </default>
 </test>
+<test>
+  <default> 
+    <files>unscopableEventHandlers.html</files>
+    <compile-flags>-args summary -endargs</compile-flags>
+  </default>
+</test>
 </regress-exe>

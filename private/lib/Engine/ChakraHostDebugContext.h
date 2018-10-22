@@ -12,7 +12,10 @@ public:
     {
         this->scriptSite = scriptSite;
         scriptSite->AddRef();
+
+        this->allowFirstRestrictedEval = false;
     }
+
     ~ChakraHostDebugContext()
     {
         scriptSite->Release();
@@ -78,8 +81,13 @@ public:
     }
 
     ScriptSite * GetScriptSite() { return scriptSite; }
+
+    bool IsAllowFirstRestrictedEval() const { return this->allowFirstRestrictedEval; }
+    void SetAllowFirstRestrictedEval(bool set) { this->allowFirstRestrictedEval = set; }
+
 private:
     ScriptSite * scriptSite;
+    bool allowFirstRestrictedEval;
 
     static int __cdecl ElementsComparer(__in void* context, __in const void* item1, __in const void* item2)
     {
