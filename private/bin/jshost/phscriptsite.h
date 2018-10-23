@@ -10,6 +10,7 @@
 #include "JsHostScriptSite.h"
 #include "docobj.h"
 #include <string>
+#include "JsHostMemoryMappedBuffer.h"
 
 // Global buffer for VirtualAlloc used by a test, instantiation is in phscriptsite.cpp; while clean up in final GC.
 extern LPVOID UTF8BoundaryTestBuffer;
@@ -115,6 +116,7 @@ private:
     HRESULT LoadScriptFromFile(LPCOLESTR filename, Var* errorObject = nullptr, bool isModuleCode = false);
     HRESULT LoadScriptFromString(LPCOLESTR contents, _In_opt_bytecount_(cbBytes) LPBYTE pbUtf8, UINT cbBytes, _Out_opt_ bool* pUsedUtf8, char16 *fullPath = nullptr);
     HRESULT LoadMultipleScripts(LPCOLESTR filename);
+    HRESULT ExecuteScriptFromMemoryMappedBuffer(__in JsHostMemoryMappedBuffer* memoryMappedBuffer);
 
     HRESULT LoadModuleFromString(bool isUtf8, 
         LPCWSTR fileName, UINT fileNameLength, LPCWSTR contentRaw, UINT byteLength, Var* errorObject, LPCWSTR fullName = nullptr);

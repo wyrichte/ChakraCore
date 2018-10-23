@@ -246,6 +246,15 @@ HRESULT JavascriptThreadService::CollectGarbage(Recycler* recycler, SCRIPTGCTYPE
         case SCRIPTGCTYPE_CONCURRENT_FINISHONLY:
             recycler->FinishConcurrent<FinishConcurrentDefault>();
             break;
+        case SCRIPTGCTYPE_FORCEINTHREAD_EXHAUSTIVE:
+            recycler->CollectNow<CollectNowForceInThreadExternalExhaustive>();
+            break;
+        case SCRIPTGCTYPE_FORCEINTHREAD_EXHAUSTIVE_NOSTACK:
+            {
+                Recycler::AutoEnterExternalStackSkippingGCMode autoGC(recycler);
+                recycler->CollectNow<CollectNowForceInThreadExternalExhaustiveNoStack>();
+            }
+            break;
         }
 #ifdef RECYCLER_TRACE
         recycler->SetDomCollect(false);

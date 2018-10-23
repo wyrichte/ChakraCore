@@ -3,6 +3,11 @@ TARGETTYPE=PROGRAM
 UMENTRY = wmain
 UMTYPE = console
 
+!if defined(_CHAKRA_UCRT_BUILD)
+USE_UNICRT=1
+USE_MSVCRT=1
+!endif
+
 USE_NOTHROW_NEW=1
 
 
@@ -14,8 +19,8 @@ TEST_CODE=1
 # Turns on fretest for test code
 !include $(JSCRIPT_ROOT)\jslibtest.inc
 
-INCLUDES=$(COREINCLUDES); \
-    ..\..\lib\Telemetry; \
+INCLUDES= \
+    $(COREINCLUDES); \
 
 # Make sure that common.memory.lib is passed to linker prior to msvcrt so that our new/delete
 # do not cause 'already defined in msvcrt.lib error'.
@@ -33,23 +38,17 @@ LINKLIBS= \
 # user32: Needed by Js::Throw::ReportAssert to show a message box
 
 TARGETLIBS=     \
-    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
-    $(MINCORE_SDK_LIB_PATH)\mincore_fw.lib    \
-    $(MINCORE_PRIV_SDK_LIB_VPATH)\mincore_private.lib \
-    $(ONECOREUAPSHELL_LIB_PATH)\commonutilitylibrary.lib       \
-    $(PROJECT_LIB_PATH)\iertutilp.lib \
-    $(PROJECT_LIB_PATH)\EdgeSettingsId.lib \
-    $(PROJECT_LIB_PATH)\EdgeSettingsApi.lib \
-    $(SDK_LIB_PATH)\ntdll.lib \
 !if !$(FREEBUILD)
     $(SDK_LIB_PATH)\dbghelp.lib \
     $(MINCORE_PRIV_SDK_LIB_VPATH)\ext-ms-win-ntuser-dialogbox-l1.lib \
 !endif
+    $(ONECORE_SDK_LIB_VPATH)\onecore.lib \
+    $(SDK_LIB_PATH)\ntdll.lib \
 
 DELAYLOAD = \
     oleaut32.dll; \
 !IF (!$(FREEBUILD))
-    ext-ms-win-ntuser-dialogbox-l1-1-0.dll; \
+    ext-ms-win-ntuser-dialogbox-l1.dll; \
 !ENDIF
 
 ALLOW_NT_STYLE_DLOAD_ERROR_HANDLER=1

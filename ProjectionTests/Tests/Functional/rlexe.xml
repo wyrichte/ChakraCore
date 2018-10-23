@@ -144,7 +144,8 @@
       <baseline>StackForETW1.baseline</baseline>
       <compile-flags> -JsEtwConsole:"-keywordmask jscript9:0x80000"</compile-flags>
       <timeout>120</timeout>
-      <tags>exclude_win7,exclude_fre,JsEtwConsole</tags>
+      <!-- exclude_drt see OS Bug 17063551: Nightly 28692 [+]: ProjectionTests/Tests/Functional changes REGRESS stacktrace -->
+      <tags>exclude_win7,exclude_fre,JsEtwConsole,exclude_drt</tags>
     </default>
   </test>
 
@@ -154,7 +155,10 @@
       <baseline>stacktraceevent_1.baseline</baseline>
       <compile-flags>-Intl- -trace:StackFramesEvent -JsEtwConsole:"-keywordmask jscript9:0x40000 jscript9"</compile-flags>
       <timeout>120</timeout>
-      <tags>exclude_win7,exclude_fre,JsEtwConsole</tags>
+      <!-- OS#15766632 exclude_drt pending investigation -->
+      <!-- The above bug was closed but test was not reactivated? -->
+      <!-- exclude_drt see OS Bug 17063551: Nightly 28692 [+]: ProjectionTests/Tests/Functional changes REGRESS stacktrace -->
+      <tags>exclude_win7,exclude_fre,JsEtwConsole,exclude_drt</tags>
     </default>
   </test>
 

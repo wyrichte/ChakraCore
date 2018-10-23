@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
   <test>
     <default>
@@ -74,7 +74,7 @@
   </test>
   <test>
     <default>
-      <tags>exclude_jsrt,Slow</tags>
+      <tags>exclude_jsrt</tags>
       <compile-flags>-nativetest:NativeUnitTests.dll TypedArrayES6</compile-flags>
       <files>dummy.js</files>
       <baseline>TypedArray.ES6.baseline</baseline>

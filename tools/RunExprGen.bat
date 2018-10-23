@@ -47,7 +47,7 @@ IF "%6" neq ""  (
   set hybridDebuggerTestPercentage=%6
 )
 
-set _ChakraBuildConfig=
+set _ChakraBuildConfig=Debug
 if "%_BuildType%" EQU "chk" (
     set _ChakraBuildConfig=Debug
 ) else if "%_BuildType%" EQU "debug" (

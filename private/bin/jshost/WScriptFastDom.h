@@ -9,6 +9,7 @@
 typedef void(*NotifyCallback)();
 
 const UINT WM_BROADCAST_SAB = WM_USER + 0x100;
+const UINT WM_JS_POSTMESSAGE = WM_BROADCAST_SAB + 1;
 
 struct EngineThreadData
 {
@@ -24,6 +25,24 @@ struct EngineThreadData
     EngineThreadData* parent;
 
     bool leaving;
+};
+
+template <typename T>
+class AutoDelete
+{
+    T * m_t;
+public:
+    AutoDelete(T *t) : m_t(t) { }
+    ~AutoDelete()
+    {
+        if (m_t)
+        {
+            delete m_t;
+            m_t = nullptr;
+        }
+    }
+
+    T* operator->() { return m_t; }
 };
 
 EngineThreadData* GetEngineThreadData();
@@ -58,7 +77,7 @@ public:
     {
     private:
         ModuleRecord moduleRecord;
-		CComBSTR specifier;
+        CComBSTR specifier;
         CComPtr<IActiveScriptDirect> scriptDirect;
 
         ModuleMessage(ModuleRecord module, LPCWSTR specifier, IActiveScriptDirect* activeScriptDirect);
@@ -122,6 +141,7 @@ public:
     static Var Echo(Var function, CallInfo callInfo, Var* args);
     static Var DispatchDOMMutationBreakpoint(Var function, CallInfo callInfo, Var* args);
     static Var Quit(Var function, CallInfo callInfo, Var* args);
+    static Var Done(Var function, CallInfo callInfo, Var* args);
     static Var QuitHtmlHost(Var function, CallInfo callInfo, Var* args);
     static Var StdErrWriteLine(Var function, CallInfo callInfo, Var* args);
     static Var StdErrWrite(Var function, CallInfo callInfo, Var* args);
@@ -167,6 +187,10 @@ public:
     static Var Leaving(Var function, CallInfo callInfo, Var* args);
     static Var Sleep(Var function, CallInfo callInfo, Var* args);
     static void ReceiveBroadcastCallBack(void* sharedContent, int id);
+    static void ReceiveJsPostMessage(void* bufferContent);
+    static void SentEventToOnMessage(ScriptDirect &scriptDirect, Var event);
+
+    static Var PostMessage(Var function, CallInfo callInfo, Var* args);
 
     static HRESULT Initialize(IActiveScript * activeScript, BOOL inHTMLHost = FALSE, NotifyCallback keepaliveCallback = nullptr);
     static HRESULT InitializeStreams(IActiveScriptDirect *activeScriptDirect, Var wscript);
@@ -185,6 +209,10 @@ private:
     static Var EchoToStream(FILE * stream, bool newLine, Var function, unsigned int count, Var * args);
     static HRESULT AddMethodToObject(__in LPWSTR propertyName, __in IActiveScriptDirect* scriptDirect, __inout Var wscript, __in ScriptMethod signature);
     static HRESULT AddToScriptEngineMapNoThrow(Var globalObject, IJsHostScriptSite* jsHostScriptSite);
+    static HRESULT AddToGlobalObjectToThreadIdMap(Var globalObject, DWORD threadID);
+
+    // Returns 0 on failures
+    static DWORD WScriptFastDom::GlobalObjectToThreadID(Var globalObject);
     static HRESULT RemoveFromScriptEngineMapNoThrow(Var globalObject, IJsHostScriptSite** jsHostScriptSite);
 
     static MessageQueue *s_messageQueue;
@@ -198,5 +226,9 @@ private:
     static HRESULT GetWorkingSetFromActiveScript(IActiveScriptDirect* activeScript, VARIANT* varResult);
     static HRESULT GetHtmlDebugFunctionHelper(Var function, CallInfo callInfo, Var* args, IDispatchEx** dispFunction);
     static void CheckRecordedException(IActiveScriptDirect* activeScript, HRESULT hr, bool release = true);
+    static Var GetSCAMethods(ScriptDirect scriptDirect, LPCWSTR methodName);
+    static Var GetSCASerializeMethod(ScriptDirect scriptDirect);
+    static Var GetSCADeserializeMethod(ScriptDirect scriptDirect);
+
 };
 

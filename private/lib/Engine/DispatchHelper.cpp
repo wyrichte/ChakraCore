@@ -1318,7 +1318,7 @@ HRESULT DispatchHelper::GetStringForNumber(VARIANT *src, __out_ecount(pszLen) OL
     {
         case VT_I4:
             lwT = src->lVal;
-            _ltow(lwT, psz, 10);
+            _ltow_s(lwT, psz, pszLen, 10);
             break;
 
         case VT_R8:

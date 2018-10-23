@@ -5,6 +5,7 @@
 ********************************************************/
 #include "EnginePch.h"
 #include "Language\InterpreterStackFrame.h"
+#include "ChakraHostDebugContext.h"
 
 #pragma warning(push)
 #pragma warning(disable:4211)       // nonstandard extension used: redefined extern to static
@@ -1293,6 +1294,9 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
         // Fast path for some expression which are part of the locals.
         charcount_t len = Js::JavascriptString::GetBufferLength(pszSrc);
 
+        ChakraHostDebugContext * chakraHostDebugContext = (ChakraHostDebugContext*)(scriptContext->GetDebugContext()->GetHostDebugContext());
+        chakraHostDebugContext->SetAllowFirstRestrictedEval(true);
+
         Js::JavascriptExceptionObject *exceptionObject = nullptr;
         // scope
         {
@@ -1305,6 +1309,15 @@ HRESULT CDebugStackFrame::EvaluateImmediate(LPCOLESTR pszSrc, DWORD dwFlags,
         }
 
         m_framePointers->ReleaseStrongReference();
+
+        if (!DebugHelper::IsScriptSiteClosed(m_scriptSite, &hr))
+        {
+            chakraHostDebugContext->SetAllowFirstRestrictedEval(false);
+        }
+        else
+        {
+            return hr;
+        }
 
         if (resolvedObject.obj == nullptr)
         {

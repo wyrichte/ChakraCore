@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-  <!-- TODO (doilij) core: fails in core with mysterious exception -->
+  <!-- TODO (doilij) core: fails due to Windows Globalization error only when run under ch -->
   <test>
     <default>
       <compile-flags>-Intl</compile-flags>

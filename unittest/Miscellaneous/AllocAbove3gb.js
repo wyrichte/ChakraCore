@@ -17,8 +17,8 @@ try
     {
         root = new C1(root);
     }
-
-    console.log("UNREACHABLE");
+    
+    console.log("NO ERROR ON > 3Gb");
 }
 catch(e)
 {

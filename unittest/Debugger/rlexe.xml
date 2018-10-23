@@ -938,7 +938,7 @@
       <files>stacktraceevent_1.js</files>
       <compile-flags>-trace:StackFramesEvent</compile-flags>
       <baseline>stacktraceevent_1.baseline</baseline>
-      <tags>exclude_dynapogo</tags>
+      <tags>exclude_dynapogo,require_icu</tags>
     </default>
   </test>
   <test>
@@ -998,6 +998,8 @@
       <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
+  <!-- Test disabled due to EdgeHtml bug. OS# 16070113: Fetch logic misses a delayed close scenario and ends up loading an empty document in F12's Debugger pane. -->
+  <!--
   <test>
     <default>
       <files>test_iframe1.html</files>
@@ -1005,6 +1007,7 @@
       <tags>exclude_dynapogo,exclude_chk</tags>
     </default>
   </test>
+  -->
   <test>
     <default>
       <files>html_workertest.html</files>
@@ -1042,7 +1045,7 @@
       <!-- OS# 15765615:  [RS4] Disabled failing HTML test. The setTimeout.html debugger unit test fails in RS4. Needs further investigation. -->
       <tags>exclude_dynapogo,exclude_chk,exclude_drt</tags>
       <baseline>settimeout.html.baseline</baseline>
-    </default>
+      </default>
   </test>
   <test>
     <default>
@@ -2240,6 +2243,13 @@
       <files>debugEval_ConsoleScope.js</files>
       <compile-flags>-DiagnosticsEngine</compile-flags>
       <tags>exclude_serialized</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>allowTopLevelRestrictedEval.js</files>
+      <compile-flags>-debuglaunch -targeted -EvalRestriction -inspectmaxstringlength:100 -dbgbaseline:allowTopLevelRestrictedEval.js.dbg.baseline</compile-flags>
+      <baseline>allowTopLevelRestrictedEval.js.baseline</baseline>
     </default>
   </test>
 </regress-exe>

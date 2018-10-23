@@ -21,12 +21,8 @@ MSC_WARNING_LEVEL=/W4
 
 INCLUDES= \
     $(ONECORECOM_INC_PATH); \
-    $(COM_INC_PATH);\
-    $(COM_INC_PATH)\winrt;\
-    $(OBJ_PATH)\..\..\idl\$(O);\
-    $(OBJ_PATH)\..\..\lib\$(O);\
-    ..\..\lib;\
-    $(PROJECT_ROOT)\winrt\async\inc;\
+    $(OBJ_PATH)\..\..\idl\$(O); \
+    ..\..\lib; \
 
 SOURCES=\
     ..\module.cpp \

@@ -8,7 +8,7 @@ DLLENTRY=_DllMainCRTStartup
 !if "$(DBGSDK_INC_PATH)" != ""
 INCLUDES = $(DBGSDK_INC_PATH);$(INCLUDES)
 !else
-INCLUDES = $(ONECORESDKTOOLS_INC_PATH);$(ONECOREUAPSDKTOOLS_INC_PATH);$(SDKTOOLS_INC_PATH);$(INCLUDES)
+INCLUDES = $(ONECORESDKTOOLS_INC_PATH);$(ONECOREUAPSDKTOOLS_INC_PATH);$(MINWIN_PRIV_SDK_INC_PATH)\dbg;$(SDKTOOLS_INC_PATH);$(INCLUDES)
 !endif
 !if "$(DBGSDK_LIB_PATH)" != ""
 DBGSDK_LIB_PATH = $(DBGSDK_LIB_PATH)\$(TARGET_DIRECTORY)
@@ -18,7 +18,7 @@ DBGSDK_LIB_PATH = $(SDK_LIB_PATH)
 !if "$(DBGLIB_LIB_PATH)" != ""
 DBGLIB_LIB_PATH = $(DBGLIB_LIB_PATH)\$(TARGET_DIRECTORY)
 !else
-DBGLIB_LIB_PATH = $(SDKTOOLS_LIB_PATH)
+DBGLIB_LIB_PATH = $(MINWIN_PRIV_SDK_LIB_PATH)
 !endif
 
 # Link to atlsd.lib without requiring DEBUG_CRTS
@@ -35,11 +35,7 @@ INCLUDES = \
     $(INCLUDES); \
     $(JSCRIPT_ROOT)\core\lib\common; \
     $(JSCRIPT_ROOT)\core\lib\common\core; \
-    $(JSCRIPT_ROOT)\core\lib\common\common; \
     $(JSCRIPT_ROOT)\core\lib\common\memory; \
-    $(JSCRIPT_ROOT)\publish; \
-    $(JSCRIPT_ROOT)\core\lib\backend;\
-    $(PROJECT_OBJ_ROOT)\jscript\publish\$(O); \
     $(JSCRIPT_ROOT)\private\bin\jshost; \
     $(JSCRIPT_ROOT)\private\bin\jdtest; \
     $(JSCRIPT_ROOT)\private\bin\ChakraDiag \
@@ -47,19 +43,14 @@ INCLUDES = \
 LINKLIBS = $(DBGLIB_LIB_PATH)\engextcpp.lib
 
 TARGETLIBS = \
-        $(ATL_LIBS) \
-         \
-        $(SDK_LIB_PATH)\onecore_downlevel.lib \
-        $(SDK_LIB_PATH)\onecore_downlevel.lib \
-        $(SDK_LIB_PATH)\oleaut32.lib \
-         \
-        $(DBGSDK_LIB_PATH)\dbghelp.lib \
-        $(DBGSDK_LIB_PATH)\dbgeng.lib \
-        $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\release\$(O)\guids.obj \
-        $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\lib\$(O)\ChakraDiagLib.lib \
+    $(ATL_LIBS) \
+    $(SDK_LIB_PATH)\onecore_downlevel.lib \
+    $(DBGSDK_LIB_PATH)\dbghelp.lib \
+    $(OBJECT_JSCRIPT_DIR)\private\bin\ChakraDiag\lib\$(O)\ChakraDiagLib.lib \
 
 USE_MSVCRT = 1
 USE_STL = 1
+STL_VER = 70
 UMTYPE = windows
 
 #4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)

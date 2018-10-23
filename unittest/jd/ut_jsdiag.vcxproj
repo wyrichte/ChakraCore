@@ -11,6 +11,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
+    <UseUniCrt>false</UseUniCrt>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
     <BuildForCoreSystem>true</BuildForCoreSystem>

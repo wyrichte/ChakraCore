@@ -16,6 +16,7 @@
     <BuildForCoreSystem>true</BuildForCoreSystem>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
+    <UseUniCrt>false</UseUniCrt>
     <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />

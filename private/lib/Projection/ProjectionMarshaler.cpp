@@ -2919,11 +2919,11 @@ namespace Projection
         JS_ETW(EventWriteJSCRIPT_PROJECTION_PROPERTYVALUEVARFROMGRCN_START(runtimeClassString));
 
         Js::ScriptContext *scriptContext = projectionContext->GetScriptContext();
-        WCHAR *sIReference = wcsstr(runtimeClassString, _u("Windows.Foundation.IReference`1"));
+        PCWSTR sIReference = wcsstr(runtimeClassString, _u("Windows.Foundation.IReference`1"));
         // If the string doesnt start with IReference`1 then try and check for IReferenceArray
         if (sIReference == nullptr || sIReference != runtimeClassString)
         {
-            WCHAR *sIReferenceArray = wcsstr(runtimeClassString, _u("Windows.Foundation.IReferenceArray`1"));
+            PCWSTR sIReferenceArray = wcsstr(runtimeClassString, _u("Windows.Foundation.IReferenceArray`1"));
             // If the string doesnt start with IReferenceArray`1 either then we dont support this type, throw error
             if (sIReferenceArray == nullptr || sIReferenceArray != runtimeClassString)
             {

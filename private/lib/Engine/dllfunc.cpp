@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved. 
 //----------------------------------------------------------------------------
 
@@ -426,30 +426,6 @@ LONG CComEngineModule::GetLockCount()
     return (LONG)s_cLibRef;
 }
 
-static bool GetDeviceFamily(_Out_opt_ ULONG* pulDeviceFamily)
-{
-    bool deviceInfoRetrieved = false;
-
-    HMODULE hModNtDll = GetModuleHandle(_u("ntdll.dll"));
-    if (hModNtDll == nullptr)
-    {
-        RaiseException(0, EXCEPTION_NONCONTINUABLE, 0, 0);
-    }
-    typedef void(*PFNRTLGETDEVICEFAMILYINFOENUM)(ULONGLONG*, ULONG*, ULONG*);
-    PFNRTLGETDEVICEFAMILYINFOENUM pfnRtlGetDeviceFamilyInfoEnum =
-        reinterpret_cast<PFNRTLGETDEVICEFAMILYINFOENUM>(GetProcAddress(hModNtDll, "RtlGetDeviceFamilyInfoEnum"));
-
-    if (pfnRtlGetDeviceFamilyInfoEnum)
-    {
-        ULONGLONG UAPInfo;
-        ULONG DeviceForm;
-        pfnRtlGetDeviceFamilyInfoEnum(&UAPInfo, pulDeviceFamily, &DeviceForm);
-        deviceInfoRetrieved = true;
-    }
-
-    return deviceInfoRetrieved;
-}
-
 #if DBG
 // __DATE__ and __TIME__ are only available in debug for chakra.dll
 #define USE_DATE_TIME_MACRO
@@ -459,14 +435,9 @@ static bool GetDeviceFamily(_Out_opt_ ULONG* pulDeviceFamily)
 
 void ChakraBinaryAutoSystemInfoInit(AutoSystemInfo * autoSystemInfo)
 {
-    ULONG DeviceFamily;
-    if (GetDeviceFamily(&DeviceFamily))
-    {
-        bool isMobile = (DeviceFamily == 0x00000004 /*DEVICEFAMILYINFOENUM_MOBILE*/);
-        autoSystemInfo->shouldQCMoreFrequently = isMobile;
-        autoSystemInfo->supportsOnlyMultiThreadedCOM = isMobile;  //TODO: pick some other platform to the list
-        autoSystemInfo->isLowMemoryDevice = isMobile;  //TODO: pick some other platform to the list
-    }
+    autoSystemInfo->shouldQCMoreFrequently = false;
+    autoSystemInfo->supportsOnlyMultiThreadedCOM = false;  //TODO: pick some other platform to the list
+    autoSystemInfo->isLowMemoryDevice = false;  //TODO: pick some other platform to the list
 
 #ifdef USE_DATE_TIME_MACRO
     autoSystemInfo->buildDateHash = JsUtil::CharacterBuffer<char>::StaticGetHashCode(__DATE__, _countof(__DATE__));

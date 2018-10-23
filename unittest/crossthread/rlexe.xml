@@ -174,7 +174,7 @@
     <default>
       <compile-flags>-ESSharedArrayBuffer -targeted -debuglaunch -dbgbaseline:388447parent_Intl.js.dbg.baseline</compile-flags>
       <files>388447parent_Intl.js</files>
-      <tags>require_wasm</tags>
+      <tags>require_wasm,require_icu</tags>
     </default>
   </test>
   <test>
@@ -251,6 +251,16 @@
       <files>objectcall.js</files>
       <compile-flags>-enableMiscWScriptFunctions</compile-flags>
       <tags>exclude_fre</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>postmessage1.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>postmessage2.js</files>
     </default>
   </test>
 </regress-exe>

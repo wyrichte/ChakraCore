@@ -7,8 +7,8 @@ NO_LKG171_FLAGS=1
 # don't include implicit disable warnings
 DISABLE_IMPLICIT_COMPILER_WARNING_SUPPRESSION=1
 
-# inetcore\project.mk and inetcore.pathdefinitions.sources.inc disabled some warning that we still want.
-# Override with our own list.
+# inetcore\project.mk and inetcore.pathdefinitions.sources.inc disabled some warning that we still want. 
+# Override with our own list.  
 # All of these are for the benefit of test code that doesn't include lib\common\warnings.
 
 # 4100: unreferenced formal parameter
@@ -196,10 +196,3 @@ PERFLIBS=$(ROOT)\external\lib\icecap.lib
 !endif
 
 USE_PDB_TO_COMPILE=1
-
-_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WINBLUE)
-
-!if $(FREEBUILD)
-_NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN10_RS2)
-!endif
-

@@ -76,7 +76,7 @@ LargeAddressThreadProc(LPVOID lpParameter)
 int 
 TestLargeAddress(int argc, __in_ecount(argc) LPWSTR argv[], MainFunc pfunc)
 {
-    // Reserve all lower 4G memory space    
+    // Reserve all lower 4G memory space
     uint const allocationGranuality = 64 * 1024;
 #if _M_X64
     uintptr_t const endAddress = (uintptr_t)4 * (1024 * 1024 * 1024);

@@ -12,6 +12,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
+    <UseUniCrt>false</UseUniCrt>
     <UseStl>true</UseStl>
     <StlVersion>70</StlVersion>
     <BuildForCoreSystem>true</BuildForCoreSystem>
@@ -34,9 +35,12 @@
         $(ChakraRootDirectory)private\lib\HostCommon;
         $(ChakraRootDirectory)private\lib\JsrtChakra;
         $(ChakraRootDirectory)core\lib\jsrt;
+
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
+
         $(ONECORESDKTOOLSINCPATH);
+
         $(SdkToolsIncPath);
         %(AdditionalIncludeDirectories);
       </AdditionalIncludeDirectories>

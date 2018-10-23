@@ -14,6 +14,8 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseStaticAtl>true</UseStaticAtl>
     <AtlVersion>70</AtlVersion>
+    <UseUniCrt>false</UseUniCrt>
+    <StlVersion>70</StlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

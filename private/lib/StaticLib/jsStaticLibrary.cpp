@@ -190,6 +190,40 @@ namespace JsStaticAPI
     }
 #endif
 
+    HRESULT JavascriptLibrary::DetachTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect,
+        __in Var instance,
+        __out Js::RefCountedBuffer** refCountedDetachedBuffer,
+        __out_opt BYTE** detachedBuffer,
+        __out UINT* bufferLength,
+        __out TypedArrayBufferAllocationType * allocationType,
+        __out_opt TypedArrayType* typedArrayType,
+        __out_opt INT* elementSize)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->DetachTypedArrayBuffer(instance, refCountedDetachedBuffer, detachedBuffer, bufferLength, allocationType, typedArrayType, elementSize);
+    }
+
+    HRESULT JavascriptLibrary::FreeDetachedTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect,
+        __in Js::RefCountedBuffer* refCountedBuffer,
+        __in UINT bufferLength,
+        __in TypedArrayBufferAllocationType allocationType)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->FreeDetachedTypedArrayBuffer(refCountedBuffer, bufferLength, allocationType);
+    }
+
+    HRESULT JavascriptLibrary::GetBufferContent(IActiveScriptDirect* activeScriptDirect, __in Js::RefCountedBuffer *buffer, __out BYTE **bufferContent)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->GetBufferContent(buffer, bufferContent);
+    }
+
+    HRESULT JavascriptLibrary::SetPrivilegeLevelLowForDiagOM(IActiveScriptDirect* activeScriptDirect)
+    {
+        ScriptEngineBase* scriptEngineBase = ScriptEngineBase::FromIActiveScriptDirect(activeScriptDirect);
+        return scriptEngineBase->SetPrivilegeLevelLowForDiagOM();
+    }
+
     HRESULT JavascriptLibrary::SetNoScriptScope(/* in */ IJavascriptThreadService *threadService, bool noScriptScope)
     {
         if (threadService == nullptr)

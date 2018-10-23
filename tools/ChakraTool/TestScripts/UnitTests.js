@@ -149,16 +149,31 @@
             config.dynamicProfileInputFlag = "";
         }
 
+        var equivalentBuildTypes = {
+            chk: "debug",
+            fre: "test"
+        };
+        var equivalentPlatforms = {
+            amd64: "x64"
+        };
+
         var notTagsArray = [
             "fail",
             "edit",
             "fail_{0}".format(config.os),
             "exclude_{0}".format(config.os),
             "exclude_{0}".format(config.buildType),
-            "exclude_{0}".format(config.platform)
+            "exclude_{0}".format(equivalentBuildTypes[config.buildType]),
+            "exclude_{0}".format(config.platform),
+            "exclude_windows",
+            "require_winglob"
         ];
 
         var tagsArray = [];
+
+        if (equivalentPlatforms[config.platform]) {
+            notTagsArray.push("exclude_{0}".format(equivalentPlatforms[config.platform]));
+        }
 
         if (config.snap) {
             notTagsArray.push("exclude_snap");

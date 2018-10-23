@@ -11,15 +11,12 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseStaticAtl>true</UseStaticAtl>
-    <AtlVersion>30</AtlVersion>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <!-- Localization related stuff for build.exe
       TODO: How do we do localization when we do binary injection? -->
   <PropertyGroup Condition="'$(BuildingWithBuildExe)'=='true'">
-    <MuiDrv>true</MuiDrv>
     <PreProcessLocalization>true</PreProcessLocalization>
     <BeforeResourceCompileTargets>
       $(BeforeResourceCompileTargets);
@@ -30,8 +27,6 @@
     </BeforeResourceCompileTargets>
     <AfterResourceCompileTargets>
       $(AfterResourceCompileTargets)
-      LinkerMUISplit;
-      CoreLocalization;
       LocalizeBaseFile;
       MiscLocalization;
       LocalizePerfCounters;
@@ -41,8 +36,6 @@
   <ItemDefinitionGroup Condition="'$(BuildingWithBuildExe)'=='true'">
     <ResourceCompile>
       <AdditionalOptions>%(AdditionalOptions) -z "MS Sans Serif,Helv/MS Shell Dlg"</AdditionalOptions>
-      <AdditionalOptions>%(AdditionalOptions) -q $(IntermediateOutputPath)Mui_drv.rcc</AdditionalOptions>
-      <!-- <AdditionalOptions>%(AdditionalOptions) -fm $(IntermediateOutputPath)$(TargetName).muires</AdditionalOptions>-->
       <AdditionalOptions>%(AdditionalOptions) -ta </AdditionalOptions>
     </ResourceCompile>
   </ItemDefinitionGroup>
@@ -66,7 +59,6 @@
         %(AdditionalDependencies);
         $(ChakraCommonLinkDependencies);
         $(MinCorePrivSdkLibPath)\pathcchapis.lib;
-        $(SdkLibPath)\muiload.lib;
 
         <!-- Setting store -->
         $(OneCoreUapInetcoreLibPath)\iertutilp.lib;

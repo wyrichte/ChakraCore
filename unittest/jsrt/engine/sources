@@ -13,10 +13,9 @@ USE_NATIVE_EH                   =   1
 C_DEFINES                       =   $(C_DEFINES) -DUNICODE -D_UNICODE -DINLINE_TEST_METHOD_MARKUP
 
 
-INCLUDES                        =   $(INCLUDES);                                           \
-                                    $(SDKTOOLS_INC_PATH)\WexTest\Cue;                      \
-                                    $(SDK_INC_PATH)\crt\stl70;                             \
-                                    ..\inc;                                                \
+INCLUDES                        = \
+    $(SDKTOOLS_INC_PATH)\WexTest\Cue; \
+    ..\inc; \
 
 PRECOMPILED_INCLUDE             =   StdAfx.h
 PRECOMPILED_SOURCEFILE          =   StdAfx.cpp

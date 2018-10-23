@@ -6,7 +6,6 @@
 #include "stdafx.h"
 #include "WscriptFastDom.h"
 #include "Jscript9Interface.h"
-#include "hostsysinfo.h"
 #include "PlatformAgnostic\ChakraICU.h"
 
 #include <initguid.h>
@@ -14,6 +13,7 @@
 #include <fcntl.h>
 
 std::multimap<Var, IJsHostScriptSite*> scriptEngineMap;
+std::multimap<Var, DWORD> globalObjectToThread;
 
 MessageQueue *WScriptFastDom::s_messageQueue = NULL;
 JsHostActiveScriptSite* WScriptFastDom::s_mainScriptSite = nullptr;
@@ -461,6 +461,12 @@ Var WScriptFastDom::Quit(Var function, CallInfo callInfo, Var* args)
     ExitProcess(exitCode);
 }
 
+Var WScriptFastDom::Done(Var function, CallInfo callInfo, Var* args)
+{
+    s_messageQueue->SetProcessWindowsMessages(false);
+    return function;
+}
+
 Var WScriptFastDom::QuitHtmlHost(Var function, CallInfo callInfo, Var* args)
 {
     // Post a custom quit message to delay shutdown gracefully. This is invoked from WScript.Quit,
@@ -785,12 +791,6 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
         }
         else if (runInfo.context == RunInfo::ContextType::crossThread)
         {
-            if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
-            {
-                Assert(FALSE); // crossthread scenario is not supported for WP8.
-                runInfo.hr = E_INVALIDARG;
-            }
-            else
             {
                 HANDLE newThread;
                 runInfo.hr = CreateEngineThread(&newThread);
@@ -819,6 +819,7 @@ Var WScriptFastDom::LoadScriptFile(Var function, CallInfo callInfo, Var* args)
                                         if (SUCCEEDED(runInfo.hr))
                                         {
                                             runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
+                                            AddToGlobalObjectToThreadIdMap(returnValue, GetThreadId(newThread));
                                         }
                                     }
                                 }
@@ -1059,12 +1060,6 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
         }
         else if (runInfo.context == RunInfo::ContextType::crossThread)
         {
-            if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
-            {
-                Assert(FALSE); // crossthread scenario is not supported for WP8.
-                runInfo.hr = E_INVALIDARG;
-            }
-            else
             {
                 HANDLE newThread;
                 runInfo.hr = CreateEngineThread(&newThread);
@@ -1094,6 +1089,7 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
                                         if (SUCCEEDED(runInfo.hr))
                                         {
                                             runInfo.hr = AddToScriptEngineMapNoThrow(returnValue, jsHostScriptSite);
+                                            AddToGlobalObjectToThreadIdMap(returnValue, GetThreadId(newThread));
                                         }
                                     }
                                 }
@@ -1157,6 +1153,36 @@ Var WScriptFastDom::LoadScript(Var function, CallInfo callInfo, Var* args)
 
     return returnValue;
 }
+
+HRESULT WScriptFastDom::AddToGlobalObjectToThreadIdMap(Var globalObject, DWORD threadID)
+{
+    HRESULT hr = S_OK;
+    AutoCriticalSection autoHostThreadCS(&hostThreadMapCs);
+    try
+    {
+        globalObjectToThread.insert(std::pair<Var, DWORD>(globalObject, threadID));
+    }
+    catch (const exception &)
+    {
+        hr = E_FAIL;
+    }
+
+    return hr;
+}
+
+DWORD WScriptFastDom::GlobalObjectToThreadID(Var globalObject)
+{
+    AutoCriticalSection autoHostThreadCS(&hostThreadMapCs);
+    DWORD threadID = 0;
+    auto iter = globalObjectToThread.find(globalObject);
+    if (iter != globalObjectToThread.end())
+    {
+        threadID = iter->second;
+    }
+
+    return threadID;
+}
+
 
 HRESULT WScriptFastDom::AddToScriptEngineMapNoThrow(Var globalObject, IJsHostScriptSite* jsHostScriptSite)
 {
@@ -1862,6 +1888,186 @@ Error:
     return result;
 }
 
+Var WScriptFastDom::GetSCASerializeMethod(ScriptDirect scriptDirect)
+{
+    return GetSCAMethods(scriptDirect, _u("serialize"));
+}
+
+Var WScriptFastDom::GetSCADeserializeMethod(ScriptDirect scriptDirect)
+{
+    return GetSCAMethods(scriptDirect, _u("deserialize"));
+}
+
+Var WScriptFastDom::GetSCAMethods(ScriptDirect scriptDirect, LPCWSTR methodName)
+{
+    HRESULT hr = S_OK;
+    Var retResult = nullptr;
+    Var globalObject = nullptr;
+    Var scaVar = nullptr, methodVar = nullptr;
+
+    IfFailGo(scriptDirect->GetGlobalObject(&globalObject));
+    IfFailGo(scriptDirect.GetOwnProperty(globalObject, _u("SCA"), &scaVar));
+    IfFailGo(scriptDirect.GetOwnProperty(scaVar, methodName, &methodVar));
+    retResult = methodVar;
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return retResult;
+}
+
+struct PostMessageData
+{
+    BYTE *data;
+    UINT length;
+    void *dependentObject;
+    PostMessageData(BYTE *d, UINT len, void * object)
+        : data(d), length(len), dependentObject(object)
+    { }
+};
+
+// From main to worker (or cross thread global object)
+// WScript.postMessage(<worker object/global object>, object, [transfer list]);
+// From worker to main
+// WScript.postMessage(undefined, object, [transfer list]);
+// Use WScript.Done() to tell to not process any further messages in the message loop.
+
+Var WScriptFastDom::PostMessage(Var function, CallInfo callInfo, Var* args)
+{
+    HRESULT hr = S_OK;
+    Var retResult = nullptr, undef = nullptr;
+    ScriptDirect scriptDirect;
+
+    IfFailGo(scriptDirect.From(function));
+    undef = retResult = scriptDirect.GetUndefined();
+
+    Var serializeMethod = GetSCASerializeMethod(scriptDirect);
+    if (callInfo.Count <= 2 || serializeMethod == nullptr)
+    {
+        wprintf(_u("Invalid arguments to WScript.postMessage\n"));
+        hr = E_INVALIDARG;
+    }
+    else
+    {
+        DWORD threadID = 0;
+        if (args[1] == undef)
+        {
+            // This has to be called from the other thread (so called webworker thread)
+            if (s_mainScriptSite != nullptr)
+            {
+                wprintf(_u("WScript.postMessage: First arguments should not be undefined for main page\n"));
+                hr = E_FAIL;
+                goto Error;
+            }
+
+            threadID = GetPrimaryThreadId();
+            if (threadID == 0)
+            {
+                hr = E_FAIL;
+                goto Error;
+            }
+        }
+        else
+        {
+            threadID = GlobalObjectToThreadID(args[1]);
+            if (threadID == 0)
+            {
+                wprintf(_u("WScript.postMessage: unable to find global object of engine on another thread\n"));
+                hr = E_FAIL;
+                goto Error;
+            }
+        }
+
+        HRESULT hr;
+        Var globalObject = NULL;
+        Var contextObject = nullptr, contextPropVar = nullptr;
+        IfFailGo(scriptDirect->CreateObject(&contextObject));
+        IfFailGo(scriptDirect->StringToVar(_u("crossthread"), 11, &contextPropVar));
+        IfFailGo(scriptDirect.AddProperty(contextObject, _u("context"), contextPropVar));
+
+        IfFailGo(scriptDirect->GetGlobalObject(&globalObject));
+
+        Var rootObject = args[2];
+        if (callInfo.Count > 3)
+        {
+            Var args1[] = { globalObject, rootObject, contextObject, undef, args[3] };
+            CallInfo callInfo1 = { _countof(args1), CallFlags_None };
+            IfFailGo(scriptDirect->Execute(serializeMethod, callInfo1, args1, NULL, &retResult));
+        }
+        else
+        {
+            Var args1[] = { globalObject, rootObject, contextObject, undef};
+            CallInfo callInfo1 = { _countof(args1), CallFlags_None };
+            IfFailGo(scriptDirect->Execute(serializeMethod, callInfo1, args1, NULL, &retResult));
+        }
+
+        Var pointerValue = nullptr;
+        IfFailGo(scriptDirect.GetProperty(retResult, _u("__state__"), &pointerValue));
+        long long outInt64 = 0;
+        IfFailGo(scriptDirect->VarToInt64(pointerValue, &outInt64));
+
+        BYTE* pb = nullptr;
+        UINT len;
+        IfFailGo(scriptDirect->GetTypedArrayBuffer(retResult, &pb, &len, NULL, NULL));
+
+        PostMessageData *msgData = new PostMessageData(pb, len, (void*)outInt64);
+
+        s_messageQueue->SetProcessWindowsMessages(true);
+
+        // msgData will be free in the ReceiveJsPostMessage
+        PostThreadMessage(threadID, WM_JS_POSTMESSAGE, (WPARAM)msgData, (LPARAM)0);
+    }
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return retResult;
+}
+
+void WScriptFastDom::SentEventToOnMessage(ScriptDirect &scriptDirect, Var event)
+{
+    HRESULT hr = S_OK;
+    Var retResult = nullptr;
+    Var globalObject = nullptr, methodVar = nullptr;
+
+    IfFailGo(scriptDirect->GetGlobalObject(&globalObject));
+    IfFailGo(scriptDirect.GetOwnProperty(globalObject, _u("onmessage"), &methodVar));
+
+    {
+        Var args[] = { globalObject, event };
+        CallInfo callInfo = { _countof(args), CallFlags_None };
+        IfFailGo(scriptDirect->Execute(methodVar, callInfo, args, NULL, &retResult));
+    }
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return;
+}
+
+// Reciever of WScript.postMessage on another thread.
+void WScriptFastDom::ReceiveJsPostMessage(void* content)
+{
+    Assert(content != nullptr);
+    HRESULT hr = S_OK;
+
+    AutoDelete<PostMessageData> msgData((PostMessageData *)content);
+    CComPtr<IActiveScript> activeScriptOnThread(nullptr);
+    activeScriptOnThread.Attach(GetActiveScriptFromThreadId(GetCurrentThreadId()));
+
+    Var data = SCA::DeserializeFromData(activeScriptOnThread, msgData->data, msgData->length, msgData->dependentObject);
+
+    Var eventObject = nullptr;
+    ScriptDirect scriptDirect;
+    scriptDirect.From(activeScriptOnThread);
+
+    // Constructing event object = { "data" : data};
+    IfFailGo(scriptDirect->CreateObject(&eventObject));
+    IfFailGo(scriptDirect.AddProperty(eventObject, _u("data"), data));
+
+    SentEventToOnMessage(scriptDirect, eventObject);
+
+Error:
+    scriptDirect.ThrowIfFailed(hr);
+    return;
+}
 
 void WScriptFastDom::ReceiveBroadcastCallBack(void* sharedContent, int id)
 {
@@ -2196,6 +2402,10 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     }
     IfFailedGo(hr);
 
+    // This is to tell the message loop to stop processing message. (Quit above is the process termination)
+    hr = AddMethodToObject(_u("Done"), activeScriptDirect, wscript, WScriptFastDom::Done);
+    IfFailedGo(hr);
+
     if (isHTMLHost)
     {
         s_keepaliveCallback = keepaliveCallback;
@@ -2312,6 +2522,9 @@ HRESULT WScriptFastDom::Initialize(IActiveScript * activeScript, BOOL isHTMLHost
     IfFailedGo(hr);
 
     hr = AddMethodToObject(_u("SetRestrictedMode"), activeScriptDirect, wscript, WScriptFastDom::SetRestrictedMode);
+    IfFailedGo(hr);
+
+    hr = AddMethodToObject(_u("postMessage"), activeScriptDirect, wscript, WScriptFastDom::PostMessage);
     IfFailedGo(hr);
 
     if (!isHTMLHost && HostConfigFlags::flags.Test262)

@@ -57,11 +57,11 @@ Theory of operation:
 #include <ntrtl.h>
 #include <ntosdef.h>
 #if defined(_AMD64_)
-#include <amd64\ntrtlamd64.h>
+#include <ntrtlamd64.h>
 #elif defined(_ARM_)
-#include <arm\ntrtlarm.h>
+#include <ntrtlarm.h>
 #elif defined(_ARM64_)
-#include <arm64\ntrtlarm64.h>
+#include <ntrtlarm64.h>
 #endif
 #include <nturtl.h>
 #include <windows.h>

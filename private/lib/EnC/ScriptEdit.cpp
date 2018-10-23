@@ -445,10 +445,10 @@ namespace Js
     {
         // Decode newFullText into utf8
         const charcount_t cchSource = length;
-        const size_t cbUtf8Buffer = (static_cast<size_t>(cchSource)+1) * 3;
+        const size_t cbUtf8Buffer = UInt32Math::MulAdd<3, 1>(cchSource);
         AutoAllocatorArrayPtr<utf8char_t, ForceLeafAllocator<EditAllocator>::AllocatorType> utf8Buffer(
             EditNewArrayLeaf(alloc, utf8char_t, cbUtf8Buffer), cbUtf8Buffer, alloc);
-        const size_t cbSource = utf8::EncodeIntoAndNullTerminate(utf8Buffer, source, cchSource);
+        const size_t cbSource = utf8::EncodeIntoAndNullTerminate<utf8::Utf8EncodingKind::Cesu8>(utf8Buffer, cbUtf8Buffer, source, cchSource);
 
         if (!srcInfo)
         {

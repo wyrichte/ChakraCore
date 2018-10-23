@@ -2,6 +2,21 @@ PUBLIC_PASS0_CONSUMES= \
     onecore\redist\mspartners\netfx45\core\binary_release|PASS0 \
 
 PUBLIC_PASS1_CONSUMES= \
+    com\ole32\dll\daytona|PASS1 \
+    minkernel\apiset\libs\ucrt\lib|PASS1 \
+    minkernel\apiset\libs\ucrt\ucrtprivate\1-0|PASS1 \
+    minkernel\crts\crtw32\linkopts\ucrt_dbgcrt_shims|PASS1 \
     minkernel\crts\crtw32\linkopts\ucrtlib\msvcrt|PASS1 \
+    minkernel\crts\crtw32\stdcpp100\msvcprt|PASS1 \
+    minkernel\crts\crtw32\stdcpp\ntstc_msvcrt|PASS1 \
     minkernel\crts\libw32\lib\extdlllib|PASS1 \
+    minkernel\crts\ucrt\devdiv\stl\src\md_lib|PASS1 \
+    minkernel\crts\ucrt\devdiv\stl\src\xmd_lib|PASS1 \
+    minkernel\crts\ucrt\devdiv\vcstartup\src\lib\md|PASS1 \
+    minkernel\crts\ucrt\devdiv\vcstartup\src\linkopts\mt_legacy_stdio_definitions|PASS1 \
+    minkernel\crts\ucrt\devdiv\vcstartup\src\linkopts\mt_legacy_stdio_wide_specifiers|PASS1 \
+    minkernel\crts\ucrt\src\appcrt\dll\xmd_public|PASS1 \
+    minkernel\tools\guard_support|PASS1 \
+    onecore\enduser\vc_binaries\src\atl71\atls\debug|PASS1 \
+    onecore\enduser\vc_binaries\src\atlthunk|PASS1 \
 

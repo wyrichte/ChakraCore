@@ -40,13 +40,13 @@ SOURCES= \
     Helpers\RunnerHelper.cs \
     Properties\AssemblyInfo.cs \
 
-MANAGED_RESOURCE_FILES = \
+RESGEN_SOURCES = \
     ResourceBin.resx,$(OBJ_PATH)\$(O)\JsEtwConsole.ResourceBin.resources \
+
+RESGEN_FLAGS = /useSourcePath
 
 LANGUAGE_SPECIFIC_MANAGED_RESOURCES = \
     $(OBJ_PATH)\$(O)\JsEtwConsole.ResourceBin.resources
-
-NTTARGETFILE0 = $(MANAGED_RESOURCE_FILES)
 
 #
 # Include application manifest inside the PE

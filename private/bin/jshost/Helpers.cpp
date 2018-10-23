@@ -5,6 +5,7 @@
 ********************************************************/
 #include "StdAfx.h"
 #include "codex\Utf8Codex.h"
+#include "JsHostMemoryMappedBuffer.h"
 
 HRESULT JsHostLoadScriptFromFile(LPCWSTR filename, LPCWSTR& contents, bool* isUtf8Out, LPCWSTR* contentsRawOut, UINT* lengthBytesOut, bool printFileOpenError)
 {
@@ -304,4 +305,23 @@ HRESULT LoadPDM(HINSTANCE* phInstPdm, IProcessDebugManager ** ppPDM)
     }
 
     return PrivateCoCreate(hInstPdm, __uuidof(ProcessDebugManager), NULL, CLSCTX_INPROC_SERVER, _uuidof(IProcessDebugManager), (LPVOID*) ppPDM);
+}
+
+HRESULT MapScriptFile(LPCWSTR filename, __out JsHostMemoryMappedBuffer** ppMemoryMappedBuffer, bool printFileOpenError)
+{
+    JsHostMemoryMappedBuffer* pMemoryMappedBuffer = JsHostMemoryMappedBuffer::Create(filename);
+
+    if (!pMemoryMappedBuffer)
+    {
+        if (printFileOpenError)
+        {
+            wprintf(_u("Error mapping file: %s\n"), filename);
+        }
+
+        return E_FAIL;
+    }
+
+    *ppMemoryMappedBuffer = pMemoryMappedBuffer;
+
+    return S_OK;
 }

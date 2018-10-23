@@ -90,6 +90,9 @@ namespace Js
         }
         ThreadContext * threadContext = scriptContext->GetThreadContext();
 
+        // Deliberately avoid disposing. GC'ing an iframe with the script closed can cause issues here.
+        AutoRestoreValue<bool> callDispose(&threadContext->callDispose, false);
+
         if (object->GetCustomExternalType()->IsSimpleWrapper())
         {
             hr = (DefaultScriptOperations::s_DefaultScriptOperations).GetInitializer(&initializer, &initSlotCapacity, &hasAccessors);

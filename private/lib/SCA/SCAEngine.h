@@ -296,6 +296,14 @@ namespace Js
             for (size_t i = 0; i < transferableCount; i++)
             {
                 detachedStatesToSet[i] = JavascriptOperators::DetachVarAndGetState(transferableVars[i]);
+
+                // DetachVarAndGetState can return null in the case of CEO
+                if (detachedStatesToSet[i] != nullptr)
+                {
+                    // This is a guarding add-ref to the buffer. This is to have the buffer alive till we transferred the buffer to the web-worker.
+                    // Once that is transfered it will be deceremented.
+                    detachedStatesToSet[i]->AddRefBufferContent();
+                }
             }
 
             this->detachedStates = detachedStatesToSet.Detach();
@@ -305,12 +313,16 @@ namespace Js
         {
             AssertMsg(index < this->transferableCount, "Index out of range.");
             AssertMsg(this->detachedStates[index] != nullptr, "Should not be claiming at an index that is nullptr.");
-            AssertMsg(!this->detachedStates[index]->HasBeenClaimed(), "Transferable already been claimed, can't re-claim it.");
+            AssertOrFailFastMsg(!this->detachedStates[index]->HasBeenClaimed(), "Transferable already been claimed, can't re-claim it.");
 
             Var toReturn = JavascriptOperators::NewVarFromDetachedState(this->detachedStates[index], library);
-            this->detachedStates[index]->MarkAsClaimed(); 
+
+            // This is releasing the add-ref which we have put in the DetachAll function.
+            this->detachedStates[index]->ReleaseRefBufferContent();
+            this->detachedStates[index]->MarkAsClaimed();
             return toReturn;
         }
+
 
         JsUtil::List<Js::SharedContents*, HeapAllocator>* GetSharedContentsList()
         {

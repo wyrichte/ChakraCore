@@ -49,10 +49,7 @@ _NT_TARGET_VERSION=$(_NT_TARGET_VERSION_WIN8)
 USE_MSVCRT= 1
 
 INCLUDES = \
-    ..;\
-    $(OBJ_PATH)\$(O);\
-    $(COM_INC_PATH)\winrt;\
-    $(MINWIN_PRIV_SDK_INC_PATH)
+    ..; \
 
 SOURCES=\
     $(SOURCES) \

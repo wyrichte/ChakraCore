@@ -74,6 +74,7 @@ private:
     Js::ScriptContext * GetScriptContext() const;
     bool IsScriptActive() const;
     HRESULT AttachNode(IDebugApplicationNode *pNode, IDebugApplicationNode *pParentNode);
+    HRESULT DetachDocHelper();
 
 private:
     long                    m_refCount;

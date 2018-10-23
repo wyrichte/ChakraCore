@@ -11,6 +11,16 @@ enum ErrorReason;
 typedef interface IJavascriptThreadService IJavascriptThreadService;
 class ChakraEngine;
 
+namespace Js
+{
+    class RefCountedBuffer;
+};
+
+namespace Streams
+{
+    struct IByteChunk;
+};
+
 namespace JsStaticAPI
 {
     typedef HRESULT (__stdcall ScriptCallbackMethod)(int numArg, void** arguments);
@@ -52,12 +62,51 @@ namespace JsStaticAPI
 
     struct ScriptContents
     {
-        LPVOID container;
+        union ScriptContainer
+        {
+            LPCOLESTR strUtf16;
+            BYTE*     strUtf8;
+            Streams::IByteChunk* utf8ByteChunk;
+
+            ScriptContainer() :
+                strUtf16(NULL)
+            {}
+
+            ~ScriptContainer() {}
+        } container;
+
         ScriptEncodingType encodingType;
         ScriptContainerType containerType;
         DWORD_PTR sourceContext;
+        ULONG contentStartOffset;
+        ULONG startingLineNumber;
         size_t contentLengthInBytes;
         LPCWSTR fullPath;
+
+        ScriptContents() :
+            encodingType(Utf8),
+            containerType(HeapAllocatedBuffer),
+            sourceContext(NULL),
+            contentStartOffset(0),
+            startingLineNumber(0),
+            contentLengthInBytes(0),
+            fullPath(NULL)
+        {
+        }
+    };
+
+    struct ScriptExecuteMetadata
+    {
+        IUnknown* context;
+        DWORD flags;
+        LPCOLESTR rootScriptName;
+
+        ScriptExecuteMetadata() :
+            context(nullptr),
+            flags(0),
+            rootScriptName(NULL)
+        {
+        }
     };
 
 
@@ -150,6 +199,30 @@ namespace JsStaticAPI
         //  activeScriptDirect      : The IActiveScriptDirect pointer
         static Var __stdcall GetEditSource(IActiveScriptDirect* activeScriptDirect);
 #endif
+
+        /// Detaches and returns the backing refCounted buffer from a JavaScript ArrayBuffer instance. Notes:
+        ///     - After this call, code in JavaScript will see the ArrayBuffer as empty and will not be able to use it.
+        ///     - In order to clean up the memory buffer when it's no longer needed, FreeDetachedTypedArrayBuffer must be called (must use RefCountedBuffer for that)
+        ///     The RefCountedBuffer is a instance which is holding the memory buffer and refCount. Use GetBufferContent to get the underlying memory buffer.
+        static HRESULT __stdcall DetachTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect,
+            __in Var instance,
+            __out Js::RefCountedBuffer** refCountedDetachedBuffer,
+            __out_opt BYTE** detachedBuffer,
+            __out UINT* bufferLength,
+            __out TypedArrayBufferAllocationType * allocationType,
+            __out_opt TypedArrayType* typedArrayType,
+            __out_opt INT* elementSize);
+
+        /// Frees/Release the RefCounted buffer obtained by calling DetachTypedArrayBuffer.
+        static HRESULT __stdcall FreeDetachedTypedArrayBuffer(IActiveScriptDirect* activeScriptDirect,
+            __in Js::RefCountedBuffer* refCountedBuffer,
+            __in UINT bufferLength,
+            __in TypedArrayBufferAllocationType allocationType);
+
+        /// Get underlying buffer blob from the RefCountedBuffer.
+        static HRESULT __stdcall GetBufferContent(IActiveScriptDirect* activeScriptDirect, __in Js::RefCountedBuffer *buffer, __out BYTE **bufferContent);
+
+        static HRESULT __stdcall SetPrivilegeLevelLowForDiagOM(IActiveScriptDirect* activeScriptDirect);
     };
 
     class DataConversion
@@ -227,6 +300,40 @@ namespace JsStaticAPI
     public:
         static inline LONG FatalExceptionFilter(__in LPEXCEPTION_POINTERS lpep);
         static void ReportFatalException(__in HRESULT exceptionCode, __in ErrorReason reasonCode);
+    };
+
+    class Script
+    {
+    public:
+        // Executes arbitrary script contents
+        static HRESULT Execute(
+            /* [in]      */ IActiveScriptDirect* activeScriptDirect,
+            /* [in]      */ ScriptContents* contents,
+            /* [in]      */ ScriptExecuteMetadata* metadata,
+            /* [out_opt] */ VARIANT*  pvarResult,
+            /* [out_opt] */ EXCEPINFO* pexcepinfo);
+
+        static HRESULT GenerateByteCodeBuffer(
+            IActiveScriptDirect* activeScriptDirect,
+            DWORD dwSourceCodeLength,
+            BYTE *utf8Code,
+            IUnknown *punkContext,
+            DWORD_PTR dwSourceContext,
+            EXCEPINFO *pexcepinfo,
+            DWORD     dwFlags,
+            BYTE **byteCode,
+            DWORD *pdwByteCodeSize);
+
+        static HRESULT ExecuteByteCodeBuffer(
+            IActiveScriptDirect* activeScriptDirect,
+            DWORD dwByteCodeSize,
+            BYTE *byteCode,
+            IActiveScriptByteCodeSource *pbyteCodeSource,
+            IUnknown *punkContext,
+            DWORD_PTR dwSourceContext,
+            DWORD     dwFlags,
+            EXCEPINFO *pexcepinfo,
+            VARIANT * pvarResult);
     };
 
     class BGParse

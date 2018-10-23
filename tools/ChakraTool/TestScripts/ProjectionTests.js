@@ -1,5 +1,5 @@
-/// <reference path="..\Utils.js" /> 
-/// <reference path="..\JSExtensions.js" /> 
+/// <reference path="..\Utils.js" />
+/// <reference path="..\JSExtensions.js" />
 /// <reference path="..\main.js" />
 
 (function () {
@@ -21,10 +21,10 @@
         shell.setStdOutWriter(logger.logTestOutput);
         shell.setStdErrWriter(logger.logTestError);
         shell.setCurrentDirectory(config.testFilesRoot);
-        
+
         //Ensures directory exists
         config.testFilesRoot.getDirectory("Logs");
-        
+
         var variantsConfigApplied = testContext.getConfigFromDefinitionObject(variantsConfigObject, config, shell);
         var testFailed = false;
         var variantsToUse = config.variants;
@@ -75,7 +75,7 @@
         return testFailed ? 1 : 0;
     }
 
-    
+
     function enlistmentSetup(shell, config, logger) {
         logger.logLine("Starting Enlistment setup.", "Setup");
         if (String(config.sdRoot) !== String(config.testRoot)) {
@@ -155,13 +155,28 @@
             throw new Error("Win7 is not currently suppoorted.");
         }
 
+        var equivalentBuildTypes = {
+            chk: "debug",
+            fre: "test"
+        };
+        var equivalentPlatforms = {
+            amd64: "x64"
+        };
+
         var notTagsArray = [
             "fail",
             "fail_{0}".format(config.os),
             "exclude_{0}".format(config.os),
             "exclude_{0}".format(config.buildType),
-            "exclude_{0}".format(config.platform)
+            "exclude_{0}".format(equivalentBuildTypes[config.buildType]),
+            "exclude_{0}".format(config.platform),
+            "exclude_windows",
+            "require_winglob"
         ];
+
+        if (equivalentPlatforms[config.platform]) {
+            notTagsArray.push("exclude_{0}".format(equivalentPlatforms[config.platform]));
+        }
         if (config.snapTests) {
             config.snap = false;
             config.setup = false;
@@ -178,7 +193,7 @@
             config.unregister = true;
             notTagsArray.push("exclude_snap");
         }
-        
+
         if (config.drt) {
             logger.logLine();
             logger.logLine("Redirrecting dirs for SNAP mode (DRT).", "Setup");
@@ -218,9 +233,9 @@
             if (config.isEnlistmentSetup) {
                 enlistmentSetup(shell, config, logger);
             }
-            
+
         }
-        
+
         shell.setEnv("_TestsDirectory", config.testFilesRoot);
         var newPath = "";
         if (config.drt) {
@@ -243,7 +258,7 @@
             shell.execute("registerABIs.cmd -unregister");
             shell.popDirectory();
         }
-        
+
         if (config.setup) {
             if (config.objRoot !== undefined) {
                 shell.execute("copy {0}\\inetcore\\jscript\\unittest\\ut_rl\\{1}\\rl.exe {2}".format(config.objRoot, config.buildAlt, config.jsRoot));
@@ -304,17 +319,17 @@
         snapTargetDir.attach(storage);
 
         snapTargetDir.cleanDirectory(true);
-        
+
         var jshostDir = snapTargetDir.getDirectory("JsHost");
         var jshostLocalDir = jshostDir.getDirectory("JsHost.exe.local");
-        
+
 
         if (config.testCab === undefined) {
             config.testCab = "{0}\\Projection\\Tests.cab".format(config.snapBinRoot);
             logger.logLine("No path was specified for switch 'testCab', defaulting to '{0}'.".format(config.testCab), "Setup");
         }
 
-        
+
         if (config.testCab !== undefined) {
             logger.logLine("Extracting test collateral.", "Setup");
             var extraction7ZipCommandLine = "7z x -r -aoa -y {0} -o{1}".format(config.testCab, snapTargetDir);
@@ -329,7 +344,7 @@
             logger.logErrorLine("No test collateral was provided!", "Setup");
         }
 
-        
+
         logger.logLine("Copying ABIs", "Setup");
         var exitCode = shell.xCopy("{0}\\Projection\\winrt\\*.*".format(config.snapBinRoot), jshostDir, "/y");
         if (!exitCode.isSuccess) {
@@ -370,27 +385,27 @@
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         exitCode = shell.xCopy("{0}\\JsHost\\*.*".format(snapTargetDir), "{0}\\Tests\\MetadataParsing".format(snapTargetDir), "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         exitCode = shell.xCopy("{0}\\JsHost\\*.*".format(snapTargetDir), "{0}\\Tests\\RecyclerStress".format(snapTargetDir), "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         exitCode = shell.xCopy("{0}\\JsHost\\*.*".format(snapTargetDir), "{0}\\Tests\\ScriptErrorTests".format(snapTargetDir), "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         exitCode = shell.xCopy("{0}\\JsHost\\*.*".format(snapTargetDir), "{0}\\Tests\\Versioning".format(snapTargetDir), "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         logger.logLine("Copying test binaries", "Setup");
 
         exitCode = shell.xCopy("{0}\\chakratest.dll".format(config.snapBinRoot), jshostDir, "/y");
@@ -422,12 +437,12 @@
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         exitCode = shell.xCopy("{0}\\msdbg2.dll".format(config.snapBinRoot), jshostLocalDir, "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));
         }
-        
+
         exitCode = shell.xCopy("{0}\\pdmproxy100.dll".format(config.snapBinRoot), jshostLocalDir, "/y");
         if (!exitCode.isSuccess) {
             throw new Error("xcopy encountered an error, exit code: {0}".format(exitCode));

@@ -114,7 +114,6 @@ namespace Js
 
             uint*      pinnedObjectCountArray                       = HeapNewNoThrowArrayZ(uint, passCount);
             uint*      closedContextCountArray                      = HeapNewNoThrowArrayZ(uint, passCount);
-
             int64*     threadPageAllocatorDecommitStatsArray        = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
             int64*     leafPageAllocatorDecommitStatsArray          = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
             int64*     largeBlockPageAllocatorDecommitStatsArray    = HeapNewNoThrowArrayZ(int64, PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT);
@@ -334,6 +333,7 @@ namespace Js
 
             if (pinnedObjectCountArray)                     { HeapDeleteArray(passCount, pinnedObjectCountArray); }
             if (closedContextCountArray)                    { HeapDeleteArray(passCount, closedContextCountArray); }
+
 
             if (threadPageAllocatorDecommitStatsArray)      { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, threadPageAllocatorDecommitStatsArray); }
             if (leafPageAllocatorDecommitStatsArray)        { HeapDeleteArray(PAGE_ALLOCATOR_DECOMMIT_STATS_COUNT, leafPageAllocatorDecommitStatsArray); }

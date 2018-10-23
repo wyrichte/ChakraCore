@@ -73,8 +73,7 @@
         4610;     <!-- can never be instantiated - user defined constructor required --><!-- TODO: Should clean this up -->
         4267;     <!-- implicit conversion from 64bit to 32bit value, possible loss of data -->
         4313;     <!-- 'printf': '%p' in format string conflicts with argument 1 of type 'uint64' -->
-        4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' -->
-      </DisableSpecificWarnings>
+        4477;     <!-- 'printf': format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const wchar_t *' --></DisableSpecificWarnings>
       <DisableSpecificWarnings Condition="'$(Platform)'=='x64' OR '$(Platform)'=='Arm64'">
         %(DisableSpecificWarnings);
         4302; <!-- 'type cast': truncation from 'ScriptEngineBase *' to 'DWORD' -->
@@ -158,6 +157,7 @@
     <ClCompile Include="$(MsBuildThisFileDirectory)typeinfobuilder.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)ActiveScriptExternalLibrary.cpp" />
     <ClCompile Include="$(MsBuildThisFileDirectory)JavascriptErrorDebug.cpp" />
+    <ClCompile Include="$(MsBuildThisFileDirectory)MemoryMappedSourceBufferHolder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MsBuildThisFileDirectory)jscriptinfo.idl">
@@ -233,6 +233,7 @@
     <ClInclude Include="JnDOMDirectFields.h" />
     <ClInclude Include="jscriptdllcommon.h" />
     <ClInclude Include="jsfac.h" />
+    <ClInclude Include="MemoryMappedSourceBufferHolder.h" />
     <ClInclude Include="NamedEventHandler.h" />
     <ClInclude Include="NamedItemList.h" />
     <ClInclude Include="NativeVisualizerExtension.h" />

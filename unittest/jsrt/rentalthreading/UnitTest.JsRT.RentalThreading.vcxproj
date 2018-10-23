@@ -10,6 +10,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseUniCrt>false</UseUniCrt>
     <TestCode Condition="'$(BuildingWithBuildExe)'=='true'">true</TestCode>
   </PropertyGroup>
   <Import Project="$(BuildConfigPropsPath)Chakra.Build.Default.props" />

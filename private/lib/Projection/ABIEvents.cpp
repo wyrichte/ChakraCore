@@ -262,8 +262,8 @@ namespace Projection
             Js::JavascriptErrorDebug::MapAndThrowError(scriptContext, hr);
         }
 
-        pDelegate = delegateObject->GetUnknown();
-        weakDelegate = delegateObject->GetPrivateWeakReference();
+        pDelegate.SetPtr(delegateObject->GetUnknown());
+        weakDelegate.SetPtr(delegateObject->GetPrivateWeakReference());
 
         return AddEventHandlerCore(addMethod, inspectable, pDelegate, scriptContext, isDefaultInterface);
     }

@@ -417,7 +417,7 @@
     <default>
       <!-- Reduce baseline variation matrix by disabling EnableFunctionSourceReportForHeapEnum -->
       <tags>HeapEnum,exclude_x86,exclude_amd64,exclude_arm</tags>
-      <compile-flags>-Intl- -WScriptPlatform- -disableDebugObject -dumpHeap -EnableFunctionSourceReportForHeapEnum- -ESSharedArrayBuffer</compile-flags>
+      <compile-flags>-Intl- -WScriptPlatform- -disableDebugObject -dumpHeap -ESSharedArrayBuffer -EnableFunctionSourceReportForHeapEnum-</compile-flags>
       <files>letconst-undeclblockvar.js</files>
       <baseline>letconst-undeclblockvar.arm64.baseline</baseline>
     </default>

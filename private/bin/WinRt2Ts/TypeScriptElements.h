@@ -7,6 +7,8 @@
 #include "MetadataString.h"
 #include "XmlDocReference.h"
 
+#include <memory>
+
 template <typename T>
 class auto_ptr_vector : public std::vector<const T*>
 {

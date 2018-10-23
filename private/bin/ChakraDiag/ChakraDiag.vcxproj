@@ -52,6 +52,7 @@
         $(ChakraPublishIntDir);
         $(ChakraCoreRootDirectory)lib\runtime\types;
 
+
         $(ONECORESDKTOOLSINCPATH);
 
         $(SdkToolsIncPath);
@@ -70,6 +71,8 @@
         4311; <!-- 'type cast': pointer truncation from 'ScriptEngineBase *' to 'DWORD' -->
       </DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <!-- Allow redefinition of private/protected -->
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_ALLOW_KEYWORD_MACROS</PreprocessorDefinitions>
     </ClCompile>
     <!-- Explicity define the ModuleDefinitionFile for the ImpLibtarget.  It doesn't always get set when we are incremental building -->
     <ImpLib Condition="'$(BuildingWithBuildExe)'=='true'">

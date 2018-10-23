@@ -62,8 +62,22 @@ BUILD_PASS1_CONSUMES= \
     onecoreuap\inetcore\jscript\private\lib\winrt\test|PASS1 \
 
 PUBLIC_PASS1_CONSUMES= \
+    minkernel\apiset\libs\ucrt\lib|PASS1 \
+    minkernel\apiset\libs\ucrt\ucrtprivate\1-0|PASS1 \
+    minkernel\crts\crtw32\linkopts\ucrt_dbgcrt_shims|PASS1 \
     minkernel\crts\crtw32\linkopts\ucrtlib\msvcrt|PASS1 \
     minkernel\crts\libw32\lib\extdlllib|PASS1 \
+    minkernel\crts\ucrt\devdiv\stl\src\md_lib|PASS1 \
+    minkernel\crts\ucrt\devdiv\stl\src\wincrt12_msvcprt_internal|PASS1 \
+    minkernel\crts\ucrt\devdiv\stl\src\xmd_lib|PASS1 \
+    minkernel\crts\ucrt\devdiv\vcstartup\src\lib\md|PASS1 \
+    minkernel\crts\ucrt\devdiv\vcstartup\src\linkopts\mt_legacy_stdio_definitions|PASS1 \
+    minkernel\crts\ucrt\devdiv\vcstartup\src\linkopts\mt_legacy_stdio_msvcrt_compatibility|PASS1 \
+    minkernel\crts\ucrt\devdiv\vcstartup\src\linkopts\mt_legacy_stdio_wide_specifiers|PASS1 \
+    minkernel\crts\ucrt\src\appcrt\dll\not-callable-by-os|PASS1 \
+    minkernel\crts\ucrt\src\appcrt\dll\osmode_function_map|PASS1 \
+    minkernel\crts\ucrt\src\appcrt\dll\xmd_public|PASS1 \
+    minkernel\tools\guard_support|PASS1 \
 
 PUBLIC_PASS0_CONSUMES= \
     onecore\redist\mspartners\netfx45\core\binary_release|PASS0 \

@@ -2,8 +2,8 @@
 // Tests to verify typed APIs exposed to hosts
 
 #include "stdafx.h"
+#include "edgejsStatic.h"
 #include "ScriptDirectUnitTests.h"
-#include "hostsysinfo.h"
 
 int ClampInteger(int val, int minVal, int maxVal)
 {
@@ -274,11 +274,29 @@ HRESULT TestES6TypedArrays(IActiveScriptDirect* activeScriptDirect, MyScriptDire
 
     // Verify detachtypedarray buffer
     wprintf(_u("Test DetachTypedArrayBuffer functionality...\n"));
-    BYTE* buffer;
+    Js::RefCountedBuffer *refCountedBuffer;
     UINT byteLength;
     TypedArrayType arrayType;
     TypedArrayBufferAllocationType allocationType;
-    hr = activeScriptDirect->DetachTypedArrayBuffer(typedArrays[0][0], &buffer, &byteLength, &allocationType, &arrayType, /*elementLength*/ nullptr);
+    hr = JsStaticAPI::JavascriptLibrary::DetachTypedArrayBuffer(activeScriptDirect, typedArrays[0][count - 1], &refCountedBuffer, nullptr /*detachedBuffer*/, &byteLength, &allocationType, &arrayType, /*elementLength*/ nullptr);
+    if (FAILED(hr))
+    {
+        Print("JsStaticAPI::JavascriptLibrary::DetachTypedArrayBuffer failed");
+    }
+
+    Var var, func;
+    hr = activeScriptDirect->Parse(_u("var a = 1;"), &func);
+    if (SUCCEEDED(hr))
+    {
+        CallInfo callInfo = { 0, CallFlags_None };
+        hr = activeScriptDirect->Execute(func, callInfo, NULL, NULL, &var);
+    }
+
+    hr = JsStaticAPI::JavascriptLibrary::FreeDetachedTypedArrayBuffer(activeScriptDirect, refCountedBuffer, byteLength, allocationType);
+    if (FAILED(hr))
+    {
+        Print("JsStaticAPI::JavascriptLibrary::FreeDetachedTypedArrayBuffer failed");
+    }
 
     return hr;
 }
@@ -397,18 +415,8 @@ void RunTypedArrayTests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectTest
 {
     try
     {
-        if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
-        {
-            // Due to reduced memory available on Windows Phone, this test OOMs when array size = 0x1000000 (16.7M).
-            // When this test is built for Windows Phone, we need to omit the largest array size.
-            uint dataSize[] = { 0, 1, 4, 16, 32, 100000 };
-            TestES5TypedArrays<MYCOUNTOF(dataSize)>(mytest->GetScriptDirectNoRef(), mytest, dataSize);
-        }
-        else
-        {
-            uint dataSize[] = { 0, 1, 4, 16, 32, 100000, 0x1000000 };
-            TestES5TypedArrays<MYCOUNTOF(dataSize)>(mytest->GetScriptDirectNoRef(), mytest, dataSize);
-        }
+        uint dataSize[] = { 0, 1, 4, 16, 32, 100000, 0x1000000 };
+        TestES5TypedArrays<MYCOUNTOF(dataSize)>(mytest->GetScriptDirectNoRef(), mytest, dataSize);
 
         TestArrayErrors(mytest->GetScriptDirectNoRef(), mytest);
         TestGetES5TypedArrayBuffer(mytest->GetScriptDirectNoRef(), mytest);
@@ -427,18 +435,8 @@ void RunTypedArrayES6Tests(MyScriptDirectTests* mytest, Verifier<MyScriptDirectT
 {
     try
     {
-        if (HostSystemInfo::SupportsOnlyMultiThreadedCOM())
-        {
-            // Due to reduced memory available on Windows Phone, this test OOMs when array size = 0x1000000 (16.7M).
-            // When this test is built for Windows Phone, we need to omit the largest array size.
-            uint dataSize[] = { 0, 1, 4, 16, 32, 100000 };
-            TestES6TypedArrays<MYCOUNTOF(dataSize)>(mytest->GetScriptDirectNoRef(), mytest, dataSize);
-        }
-        else
-        {
-            uint dataSize[] = { 0, 1, 4, 16, 32, 100000, 0x1000000 };
-            TestES6TypedArrays<MYCOUNTOF(dataSize)>(mytest->GetScriptDirectNoRef(), mytest, dataSize);
-        }
+        uint dataSize[] = { 0, 1, 4, 16, 32, 100000, 0x1000000 };
+        TestES6TypedArrays<MYCOUNTOF(dataSize)>(mytest->GetScriptDirectNoRef(), mytest, dataSize);
         TestGetES6TypedArrayBuffer(mytest->GetScriptDirectNoRef(), mytest);
     }
     catch(std::string message)

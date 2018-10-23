@@ -1257,7 +1257,7 @@ function _buildLayoutsTask(sku, bldArch, bldType, binDir, setupRoot, dependents)
     // Building Layouts doesn't seem to work with UNC paths, so enforcing these on the local box.
     var buildTask = taskNew(taskName, taskCommand, dependents, "local");
     buildTask.description = "The buildLayouts task will build box layouts for the specified SKU, architecture, and type.";
-    
+
     var cleanupTask = taskNew("cleanLayouts." + sku + "@" + relOutDir, "runjs cleanLayouts binaries " + bldType + " " + setupRoot, [buildTask], "local");
     cleanupTask.description = "Cleans up intermediate files and directories created by buildLayouts that take up space and don't add value.";
 
@@ -1565,7 +1565,7 @@ function _devBVTTask(bldType, bldArch, binDir, smartyArgs, dependencies, testtyp
         if (clr == "coreclr") {
             dependencies = [_fxpSetupTask(bldType, bldArch)];
         }
-        else 
+        else
         {
             dependencies = [_clrSetupTask(bldType, bldArch, binDir, "/fx /nrad", undefined, verStr)];
         }

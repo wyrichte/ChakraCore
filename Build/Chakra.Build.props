@@ -23,12 +23,13 @@
 
     <MinWinTargetVersion_1_0>0x0100</MinWinTargetVersion_1_0>
     <MinWinTargetVersion_1_1>0x0101</MinWinTargetVersion_1_1>
-    <MinWinTargetVersion_1_4>0x0104</MinWinTargetVersion_1_4>
+    <MinWinTargetVersion_1_4>0x0107</MinWinTargetVersion_1_4>
 
     <OneCoreTargetVersion_1_0>0x0100</OneCoreTargetVersion_1_0>
     <OneCoreTargetVersion_1_1>0x0101</OneCoreTargetVersion_1_1>
     <OneCoreTargetVersion_1_3>0x0103</OneCoreTargetVersion_1_3>
     <OneCoreTargetVersion_1_6>0x0106</OneCoreTargetVersion_1_6>
+    <OneCoreTargetVersion_1_9>0x0109</OneCoreTargetVersion_1_9>
 
 
     <!-- ========= From tools\makefile.api ========= -->
@@ -55,11 +56,12 @@
 
     <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">$(OneCoreTargetVersion_1_0)</OneCoreTargetVersion>
     <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_2)'">$(OneCoreTargetVersion_1_1)</OneCoreTargetVersion>
-    <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(OneCoreTargetVersion_1_6)</OneCoreTargetVersion>
+    <OneCoreTargetVersion Condition="'$(ApiSetTargetVersion)'=='$(ApiSetTargetVersion_1_4)'">$(OneCoreTargetVersion_1_9)</OneCoreTargetVersion>
 
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_0)'">1.0</OneCoreTargetVersionStr>
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_1)'">1.1</OneCoreTargetVersionStr>
     <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_6)'">1.6</OneCoreTargetVersionStr>
+    <OneCoreTargetVersionStr Condition="'$(OneCoreTargetVersion)'=='$(OneCoreTargetVersion_1_9)'">1.9</OneCoreTargetVersionStr>
 
     <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_1)'">6.2</WindowsVersionStr>
     <WindowsVersionStr Condition="'$(ApiSetTargetVersion)'&lt;='$(ApiSetTargetVersion_1_2)'">6.3</WindowsVersionStr>
@@ -83,7 +85,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(BaseDataPath)\MSRC</AdditionalIncludeDirectories>
 
       <!-- ========= For CULHeapAllocHelpers.h (referenced in EdgeSettings.h) ========= -->
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreUapShellIncPath);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(OneCoreShellIncPath);$(PublicInternalPath)\shell\inc</AdditionalIncludeDirectories>
 
       <!-- ========= For holdplaceholder.h (referenced in jnhelpermethod.cpp) ========= -->
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ChakraRootDirectory)private\lib\placeholder</AdditionalIncludeDirectories>
@@ -179,8 +181,8 @@
       <!-- Clear all the library and we build our own lib list -->
       <AdditionalDependencies />
       <!-- CRT -->
-      <AdditionalDependencies>
-        $(AdditionalDependencies);
+      <AdditionalDependencies Condition="'$(UseUnicrt)'=='false'">
+        %(AdditionalDependencies);
         $(SdkLibPath)\msvcrt.lib;
         $(InternalSdkLibPath)\ucrtshims_msvcrt.lib
       </AdditionalDependencies>
@@ -206,8 +208,11 @@
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-        $(AdditionalDependencies);
+
+      <AdditionalDependencies />
+
+      <AdditionalDependencies Condition="'$(UseUnicrt)'=='false'">
+        %(AdditionalDependencies);
         $(SdkLibPath)\msvcrt.lib;
         $(InternalSdkLibPath)\ucrtshims_msvcrt.lib
       </AdditionalDependencies>

@@ -1595,6 +1595,41 @@ interface IJavascriptThreadService : IUnknown
     HRESULT OnVisibilityChange([in] boolean visible);
 };
 
+// Make this struct fully packed because ETW treats the buffer of frames as a single un-padded byte buffer.
+// This structure is used to log the callframe for the ETW events as well as for IActiveScriptAsyncCausalityCallBack.
+typedef struct AsyncOpStackFrame
+{
+    UINT64 documentId;
+    UINT32 sourceLocationStartIndex;
+    UINT32 sourceLocationLength;
+    UINT16 nameIndex;
+} AsyncOpStackFrame;
+
+typedef struct AsyncCallStack 
+{ 
+    LPCWSTR description; 
+    ULONG operationId;  
+    ULONG stackFrameCount; 
+    AsyncOpStackFrame* stackFrames; 
+} AsyncCallStack;
+
+[
+    object,
+    local,
+    uuid(7BB5F7EF-C1C2-40A1-8EBF-2971D82E6DE2),
+    helpstring("IActiveScriptAsyncCausalityCallBack Interface"),
+    pointer_default(unique)
+]
+interface IActiveScriptAsyncCausalityCallBack : IUnknown
+{
+    // This indicates that the async operation is being created/started now. For example, for setTimeout, the timer is starting now
+    void OnAsyncOperationStarting([in] AsyncCallStack* stack); 
+    // This indicates that the async operation is complete and now the callback registered for the async operation completion is now beginning to execute
+    void OnAsyncCallbackStarting([in] ULONG operationId); 
+    // This indicates that the async operation callback registered for the async operation completion is now complete
+    void OnAsyncCallbackCompleting(); 
+};
+
 //
 // Restore the previous setting for C4201 compiler warning
 //
