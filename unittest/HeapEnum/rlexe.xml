@@ -263,6 +263,13 @@
   </test>
   <test>
     <default>
+      <tags>HeapEnum</tags>
+      <files>closure_catch_optional_binding.js</files>
+      <baseline>closure_catch_optional_binding.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
       <tags>HeapEnum,exclude_serialized</tags>
       <files>closure2.js</files>
       <baseline>closure2.baseline</baseline>

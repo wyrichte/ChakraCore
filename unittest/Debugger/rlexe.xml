@@ -417,6 +417,20 @@
   </test>
   <test>
     <default>
+      <files>catch_no_binding.js</files>
+      <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:catch_no_binding.js.dbg.baseline</compile-flags>
+      <tags>exclude_dynapogo</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>catch_no_binding.js</files>
+      <compile-flags>-forceNative -off:simpleJit -debuglaunch -targeted -dbgbaseline:catch_no_binding.js.dbg.baseline</compile-flags>
+      <tags>exclude_dynapogo,exclude_nonative</tags>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>finally.js</files>
       <compile-flags>-noNative -debuglaunch -targeted -dbgbaseline:finally.js.dbg.baseline</compile-flags>
       <tags>exclude_dynapogo</tags>

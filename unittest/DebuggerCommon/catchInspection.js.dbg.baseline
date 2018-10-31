@@ -782,5 +782,43 @@
         "foo7": "<large string>"
       }
     }
+  },
+  {
+    "locals": {
+      "this": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "Symbol.toStringTag": "global",
+        "top": "{...}"
+      },
+      "arguments": {
+        "[Methods]": "{...}",
+        "__proto__": "{...}",
+        "length": "0"
+      },
+      "c": "3",
+      "[Scope]1": {
+        "b": "2"
+      },
+      "[Scope]2": {
+        "a": "1"
+      },
+      "[Globals]": {
+        "Symbol.toStringTag": "global",
+        "top": "{...}",
+        "startTest": "<large string>",
+        "bar": "<large string>",
+        "bar2": "<large string>",
+        "foo": "<large string>",
+        "foo1": "<large string>",
+        "foo10": "<large string>",
+        "foo11": "<large string>",
+        "foo2": "<large string>",
+        "foo3": "<large string>",
+        "foo5": "<large string>",
+        "foo6": "<large string>",
+        "foo7": "<large string>"
+      }
+    }
   }
 ]
