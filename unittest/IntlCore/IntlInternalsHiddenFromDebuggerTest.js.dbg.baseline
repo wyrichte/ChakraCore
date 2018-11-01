@@ -32,39 +32,5 @@
         "frameDescription": "Global code"
       }
     ]
-  },
-  {
-    "callstack": [
-      {
-        "start": 606,
-        "length": 12,
-        "text": "return 'foo'",
-        "frameDescription": "toString"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Intl.Collator.prototype.compare"
-      },
-      {
-        "start": 0,
-        "length": 0,
-        "text": "",
-        "frameDescription": "Array.prototype.sort"
-      },
-      {
-        "start": 723,
-        "length": 21,
-        "text": "array.sort(c.compare)",
-        "frameDescription": "testCallback"
-      },
-      {
-        "start": 752,
-        "length": 14,
-        "text": "testCallback()",
-        "frameDescription": "Global code"
-      }
-    ]
   }
 ]

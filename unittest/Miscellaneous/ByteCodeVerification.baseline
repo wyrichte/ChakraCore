@@ -1,4 +1,4 @@
-Bytecode GUID = {D8913E7E-E430-4B28-81DD-EDD3EE5F263B}
+Bytecode GUID = {49A3F597-0DAD-4BD8-82A0-CEAC52C99E63}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1623,6 +1623,7 @@ Property: Array_values
 Property: Array_keys
 Property: Array_entries
 Property: Array_indexOf
+Property: Array_sort
 Property: Array_filter
 Property: Array_flat
 Property: Array_flatMap

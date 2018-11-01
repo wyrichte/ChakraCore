@@ -7,7 +7,7 @@ Dumping sorted function compiled events
   foo
     Anonymous function
     Anonymous function
-    Array.sort
+    Anonymous function
       toString
         bar
 Passed: Validation
