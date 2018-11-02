@@ -367,6 +367,9 @@ OpCode: SpreadObjectLiteral = 364. Layout = Reg2
 OpCode: StPropIdArrFromVar = 365. Layout = ElementSlot
 OpCode: Restify = 366. Layout = Reg4
 OpCode: NewPropIdArrForCompProps = 367. Layout = Reg1Unsigned1
+OpCode: Conv_Numeric = 368. Layout = Reg2
+OpCode: Incr_Num_A = 369. Layout = Reg2
+OpCode: Decr_Num_A = 370. Layout = Reg2
 OpCodeAsmJs: EndOfBlock = 0. Layout = Empty
 OpCodeAsmJs: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCodeAsmJs: MediumLayoutPrefix = 2. Layout = Empty
