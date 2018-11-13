@@ -663,4 +663,38 @@
       <files>47208.js</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>47113.js</files>
+      <compile-flags>-MaxInterpretCount:0 -force:deferparse</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47511.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47660.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>46952.js</files>
+      <baseline>46952.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47431.js</files>
+      <baseline>47431.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47540.js</files>
+      <compile-flags>-esdynamicimport -mutehosterrormsg -args summary -endargs</compile-flags>
+    </default>
+  </test>
 </regress-exe>
