@@ -4630,7 +4630,7 @@ HRESULT ScriptEngine::FinishBackgroundParse(DWORD dwBgParseCookie, DWORD_PTR dwS
 
     LPCUTF8 pszSrc;
     size_t cbLength;
-    HRESULT hr = BGParseManager::GetBGParseManager()->GetInputFromCookie(dwBgParseCookie, &pszSrc, &cbLength);
+    HRESULT hr = BGParseManager::GetBGParseManager()->GetInputFromCookie(dwBgParseCookie, &pszSrc, &cbLength, nullptr);
     if (hr == S_OK)
     {
         CompileScriptOptions compileOptions;
@@ -5679,7 +5679,9 @@ HRESULT ScriptEngine::CompileUTF8Core(
 
             if (compileOptions->dwBgParseCookie != 0)
             {
-                hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, compileOptions->dwBgParseCookie, pszSrc, compileOptions->srcInfo, &func, compileOptions->pse, srcLength, utf8SourceInfo, sourceIndex);
+                Js::FunctionBody* functionBody = nullptr;
+                hr = BGParseManager::GetBGParseManager()->GetParseResults(scriptContext, compileOptions->dwBgParseCookie, pszSrc, compileOptions->srcInfo, &functionBody, compileOptions->pse, srcLength, utf8SourceInfo, sourceIndex);
+                func = functionBody;
             }
 
             if (func == nullptr)
