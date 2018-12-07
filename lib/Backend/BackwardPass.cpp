@@ -36,7 +36,7 @@ BackwardPass::BackwardPass(Func * func, GlobOpt * globOpt, Js::Phase tag)
 void
 BackwardPass::DoSetDead(IR::Opnd * opnd, bool isDead) const
 {
-    // Note: Dead bit on the Opnd records flow-based liveness.
+    // Note: Dead bit on the Opnd records flow-based liveness. 
     // This is distinct from isLastUse, which records lexical last-ness.
     if (isDead && this->tag == Js::BackwardPhase && !this->IsPrePass())
     {
