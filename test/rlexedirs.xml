@@ -152,11 +152,6 @@
 </dir>
 <dir>
   <default>
-    <files>Operators</files>
-  </default>
-</dir>
-<dir>
-  <default>
     <files>Conversions</files>
   </default>
 </dir>
