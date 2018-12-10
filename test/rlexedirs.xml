@@ -145,11 +145,7 @@
     <files>Prototypes</files>
   </default>
 </dir>
-<dir>
-  <default>
-    <files>GlobalFunctions</files>
-  </default>
-</dir>
+
 <dir>
   <default>
     <files>Conversions</files>
@@ -213,11 +209,7 @@
     <files>Miscellaneous</files>
   </default>
 </dir>
-<dir>
-  <default>
-    <files>fieldopts</files>
-  </default>
-</dir>
+
 <dir>
   <default>
     <files>FixedFields</files>
