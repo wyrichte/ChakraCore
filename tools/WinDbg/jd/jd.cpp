@@ -655,6 +655,35 @@ bool EXT_CLASS_BASE::InEdgeModule(ULONG64 address)
     return (address >= edgeModuleBaseAddress && address < edgeModuleEndAddress);
 }
 
+bool EXT_CLASS_BASE::InAnaheimModule(ULONG64 address)
+{
+    if (anaheimModuleBaseAddress == 0)
+    {
+        char const * v8Module = "v8";
+
+        ULONG moduleIndex = 0;
+        if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName(v8Module, 0, &moduleIndex, &anaheimModuleBaseAddress)))
+        {
+            char const * chromeChildModule = "chrome_child";
+
+            ULONG moduleIndex = 0;
+            if (FAILED(g_Ext->m_Symbols3->GetModuleByModuleName(chromeChildModule, 0, &moduleIndex, &anaheimModuleBaseAddress)))
+            {
+                // Don't error in this case. Assume no anaheim module.
+                anaheimModuleBaseAddress = 1;
+                anaheimModuleEndAddress = 1;
+                return false;
+            }
+        }
+
+        IMAGEHLP_MODULEW64 moduleInfo;
+        g_Ext->GetModuleImagehlpInfo(anaheimModuleBaseAddress, &moduleInfo);
+        anaheimModuleEndAddress = anaheimModuleBaseAddress + moduleInfo.ImageSize;
+    }
+
+    return (address >= anaheimModuleBaseAddress  && address < anaheimModuleEndAddress);
+}
+
 
 // Get VTable of a type
 std::string EXT_CLASS_BASE::GetRemoteVTableName(PCSTR type)

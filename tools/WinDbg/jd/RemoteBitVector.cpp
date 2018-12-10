@@ -5,7 +5,9 @@
 #include "stdafx.h"
 #include "RemoteBitVector.h"
 
-RemoteBitVector::RemoteBitVector(JDRemoteTyped bv) : bv(bv.GetExtRemoteTyped())
+RemoteBitVector::RemoteBitVector(JDRemoteTyped bv) :
+    bv(bv.GetExtRemoteTyped()),
+    bvUnitSize(g_Ext->EvalExprU64(GetExtension()->FillModule("@@c++(sizeof(%s!BVUnit))")))
 {
 }
 
@@ -27,8 +29,7 @@ bool
 RemoteBitVector::Test(ULONG64 index, ULONG64 * bvUnitAddress)
 {
     ExtRemoteTyped data = bv.Field("data");
-    ULONG64 bvUnitSize = g_Ext->EvalExprU64(GetExtension()->FillModule("@@c++(sizeof(%s!BVUnit))"));
-    ULONG64 bitPerUnit = bvUnitSize * 8;
+    ULONG64 bitPerUnit = this->bvUnitSize * 8;
     ExtRemoteTyped bvUnit = data[index / bitPerUnit];
     ULONG64 offset = index % bitPerUnit;
 

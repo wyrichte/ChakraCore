@@ -942,11 +942,12 @@ Addresses * ComputeRoots(RemoteRecycler recycler, RemoteThreadContext* threadCon
         rootPointerManager.TryAdd(entry.address, RootType::RootTypePinned);
     }, dump);
 
+    ExtRemoteTyped recyclerExtRemoteTyped = recycler.GetExtRemoteTyped();
+
     //
     // Scan guest arena (if it's not pending delete)
     //
 
-    ExtRemoteTyped recyclerExtRemoteTyped = recycler.GetExtRemoteTyped();
     ULONG64 recyclerAddress = recycler.GetPtr();
     ULONG64 guestArenaList = recyclerAddress + recyclerExtRemoteTyped.GetFieldOffset("guestArenaList");
 
@@ -1976,6 +1977,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     "{sn;b,o;sortByName;Sort by name instead of bytes}"
     "{su;b,o;sortByUnknown;Sort by unknown}"
     "{vt;b,o;vtable;Vtable Only}"
+    "{ur;b,o;unrooted;Display objects with no roots}"
     "{u;b,o;grouped;Show unknown count}"
     "{g;b,o;group;Group unknown objects}"
     "{lib;b,o;library;Infer and display per library}"
@@ -1995,6 +1997,7 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     const bool sortByName = HasArg("sn");
     const bool sortByUnknown = HasArg("su");
     const bool infer = !HasArg("vt");
+    const bool unrooted = HasArg("ur");
     const bool showUnknown = HasArg("u");
     const bool groupUnknown = HasArg("g");
     const bool hasFilterLib = HasArg("fl");
@@ -2050,6 +2053,10 @@ JD_PRIVATE_COMMAND(jsobjectstats,
     if (trident)
     {
         flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Trident);
+    }
+    if (unrooted)
+    {
+        flags = (RecyclerObjectGraph::TypeInfoFlags)(flags | RecyclerObjectGraph::TypeInfoFlags::Unrooted);
     }
     RecyclerObjectGraph &objectGraph = *(RecyclerObjectGraph::New(recycler, &threadContext, flags));
     ObjectCountData allObjectCounts(infer);

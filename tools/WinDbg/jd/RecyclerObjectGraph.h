@@ -65,9 +65,10 @@ class RecyclerObjectGraph
 public:
     enum TypeInfoFlags
     {
-        None,
-        Infer,
-        Trident
+        None = 0,
+        Infer = 1,
+        Trident = 2,
+        Unrooted = 4
     };
     typedef Graph<ULONG64, RecyclerGraphNodeData, ReservedPageAllocator> GraphImplType;
     typedef GraphImplType::NodeType GraphImplNodeType;
@@ -173,6 +174,7 @@ protected:
     bool m_hasTypeName;
     bool m_hasTypeNameAndFields;
     bool m_interior;
+    bool m_unrooted;
     uint m_maxDepth;
 };
 

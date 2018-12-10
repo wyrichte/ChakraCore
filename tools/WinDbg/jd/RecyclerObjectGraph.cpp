@@ -7,6 +7,7 @@
 #include "ProgressTracker.h"
 #include "RemoteJavascriptLibrary.h"
 #include "RecyclerLibraryGraph.h"
+#include "RemoteBitVector.h"
 
 RecyclerObjectGraph * RecyclerObjectGraph::New(RemoteRecycler recycler, RemoteThreadContext * threadContext, RecyclerObjectGraph::TypeInfoFlags typeInfoFlags)
 {
@@ -70,7 +71,7 @@ void RecyclerObjectGraph::DumpForCsv(const char* outfile)
 }
 
 void RecyclerObjectGraph::Construct(RemoteRecycler recycler, Addresses& roots)
-{    
+{
     ConstructData constructData(recycler);
 
     auto start = _time64(nullptr);
@@ -100,6 +101,46 @@ void RecyclerObjectGraph::Construct(RemoteRecycler recycler, Addresses& roots)
                 constructData.markStack.size(), currNodeCount, object.second->GetDepth(), 
                 (ULONG)((double)(currNodeCount - lastNodeCount) / (double)(currTime - lastTime)));
         }
+    }
+
+    if (m_unrooted)
+    {
+        RemoteHeapBlockMap hbm = recycler.GetHeapBlockMap();
+
+        hbm.ForEachHeapBlock([&](RemoteHeapBlock& remoteHeapBlock)
+        {
+            if (remoteHeapBlock.IsLargeHeapBlock())
+            {
+                ULONG64 sizeOfObjectHeader = GetExtension()->recyclerCachedData.GetSizeOfLargeObjectHeader();
+                remoteHeapBlock.ForEachLargeObjectHeader([&](JDRemoteTyped header)
+                {
+                    ULONG64 objectSize = header.Field("objectSize").GetSizeT();
+
+                    ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
+
+                    MarkObject(constructData, startAddress, 0, RootType::RootTypeTransient, 0);
+                    return false;
+                });
+            }
+            else
+            {
+                ULONG bucketObjectSize = remoteHeapBlock.GetBucketObjectSize();
+                ULONG64 size = remoteHeapBlock.GetSize();
+                ULONG64 startAddress = remoteHeapBlock.GetAddress();
+                RemoteBitVector freeBits = remoteHeapBlock.GetFreeBits();
+                for (ULONG64 address = startAddress; address < startAddress + size; address += bucketObjectSize)
+                {
+                    if (!freeBits.Test(remoteHeapBlock.GetAddressBitIndex(address), nullptr))
+                    {
+                        if (_objectGraph.FindNode(address) == nullptr)
+                        {
+                            MarkObject(constructData, address, 0, RootType::RootTypeTransient, 0);
+                        }
+                    }
+                }
+            }
+            return false;
+        });
     }
 
     if (GetExtension()->ShowProgress())
@@ -402,6 +443,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 {
     bool infer = (typeInfoFlags & TypeInfoFlags::Infer) != 0;
     bool trident = (typeInfoFlags & TypeInfoFlags::Trident) != 0;
+    bool unrooted = (typeInfoFlags & TypeInfoFlags::Unrooted) != 0;
     if (m_hasTypeName)
     {
         if (!trident && !infer)
@@ -1841,6 +1883,7 @@ void RecyclerObjectGraph::EnsureTypeInfo(RemoteRecycler recycler, RemoteThreadCo
 
     m_hasTypeName = true;
     m_trident = trident;
+    m_unrooted = unrooted;
     m_hasTypeNameAndFields = infer;
     progress.Done(infer ? "Object graph type info completed" : "Object graph type info without infer completed");
 }

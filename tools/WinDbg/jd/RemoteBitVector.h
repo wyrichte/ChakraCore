@@ -16,4 +16,5 @@ public:
     static ULONG64 GetBVFixedAllocSize(ULONG64 len);
 private:
     ExtRemoteTyped bv;
+    ULONG64 bvUnitSize;
 };

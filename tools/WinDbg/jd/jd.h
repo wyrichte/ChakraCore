@@ -205,6 +205,7 @@ public:
 
     bool InChakraModule(ULONG64 address);
     bool InEdgeModule(ULONG64 address);
+    bool InAnaheimModule(ULONG64 address);
 
 #define DEFINE_BLOCKTYPE_ENUM_ACCESSOR(name)\
     ULONG64 enum_##name() \
@@ -226,6 +227,8 @@ public:
     ULONG64 chakraModuleEndAddress;
     ULONG64 edgeModuleBaseAddress;
     ULONG64 edgeModuleEndAddress;
+    ULONG64 anaheimModuleBaseAddress;
+    ULONG64 anaheimModuleEndAddress;
 
     void DetectFeatureBySymbol(Nullable<bool>& feature, PCSTR symbol);
     bool PageAllocatorHasExtendedCounters();
