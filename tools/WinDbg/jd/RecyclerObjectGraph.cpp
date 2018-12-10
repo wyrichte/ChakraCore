@@ -114,8 +114,6 @@ void RecyclerObjectGraph::Construct(RemoteRecycler recycler, Addresses& roots)
                 ULONG64 sizeOfObjectHeader = GetExtension()->recyclerCachedData.GetSizeOfLargeObjectHeader();
                 remoteHeapBlock.ForEachLargeObjectHeader([&](JDRemoteTyped header)
                 {
-                    ULONG64 objectSize = header.Field("objectSize").GetSizeT();
-
                     ULONG64 startAddress = header.GetPtr() + sizeOfObjectHeader;
 
                     MarkObject(constructData, startAddress, 0, RootType::RootTypeTransient, 0);
