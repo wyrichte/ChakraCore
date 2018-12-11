@@ -697,4 +697,25 @@
       <compile-flags>-esdynamicimport -mutehosterrormsg -args summary -endargs</compile-flags>
     </default>
   </test>
+  <test>
+    <default>
+      <files>47684.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47694.js</files>
+      <compile-flags>-off:simplejit</compile-flags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48020.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>47810.js</files>
+    </default>
+  </test>
 </regress-exe>
