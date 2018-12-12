@@ -638,7 +638,12 @@ if [[ $WB_CHECK || $WB_ANALYZE ]]; then
 fi
 
 # prepare DbgController.js.h
+DIR_RIGHT_NOW=`pwd = -P`
 CH_DIR="${CHAKRACORE_DIR}/bin/ch"
+cd CH_DIR
+CONTENTS=`ls`
+echo CONTENTS
+cd DIR_RIGHT_NOW
 "${CH_DIR}/jstoc.py" "${CH_DIR}/DbgController.js" controllerScript
 if [[ $? != 0 ]]; then
     exit 1
