@@ -1,4 +1,4 @@
-Bytecode GUID = {B92A5820-4BB2-4D01-96F7-46136010D1D6}
+Bytecode GUID = {E4B5202C-0ACB-48C6-A96F-8A4A29848ED0}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1805,6 +1805,7 @@ Serializable Field: uint ReferencedPropertyIdCount;
 Serializable Field: uint ObjLiteralCount;
 Serializable Field: uint LiteralRegexCount;
 Serializable Field: uint InnerScopeCount;
+Serializable Field: ProfileId ProfiledCallApplyCallSiteCount;
 Serializable Field: ProfileId ProfiledForInLoopCount;
 Serializable Field: RegSlot LocalClosureRegister;
 Serializable Field: RegSlot ParamClosureRegister;
