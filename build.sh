@@ -639,11 +639,22 @@ fi
 
 # prepare DbgController.js.h
 DIR_RIGHT_NOW=`pwd = -P`
-CH_DIR="${CHAKRACORE_DIR}/bin/ch"
-cd $CH_DIR
+echo $DIR_RIGHT_NOW
+cd bin
+DIR_RIGHT_NOW2=`pwd = -P`
+echo $DIR_RIGHT_NOW2
 CONTENTS=`ls`
 echo $CONTENTS
-cd $DIR_RIGHT_NOW
+cd ch
+DIR_RIGHT_NOW3=`pwd = -P`
+echo $DIR_RIGHT_NOW3
+CONTENTS2=`ls`
+echo $CONTENTS2
+
+CH_DIR="${CHAKRACORE_DIR}/bin/ch"
+echo $CH_DIR
+cd $CH_DIR
+
 "${CH_DIR}/jstoc.py" "${CH_DIR}/DbgController.js" controllerScript
 if [[ $? != 0 ]]; then
     exit 1
