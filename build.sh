@@ -11,6 +11,10 @@ CHAKRACORE_DIR=`pwd -P`
 echo "ChakraCoreDir1"
 echo $CHAKRACORE_DIR
 
+DIRNAMEDOLLAR=`dirname $0`
+echo "dirnamedollar"
+echo $DIRNAMEDOLLAR
+
 pushd `dirname $0` > /dev/null
 
 CHAKRACORE_DIR=`pwd -P`
