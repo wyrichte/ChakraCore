@@ -92,6 +92,8 @@ PRINT_USAGE() {
 
 pushd `dirname $0` > /dev/null
 CHAKRACORE_DIR=`pwd -P`
+echo "ChakraCoreDir1"
+echo $CHAKRACORE_DIR
 popd > /dev/null
 _CXX=""
 _CC=""
@@ -404,7 +406,8 @@ while [[ $# -gt 0 ]]; do
 
     shift
 done
-
+echo "ChakraCoreDir2"
+echo $CHAKRACORE_DIR
 if [[ $USE_LOCAL_ICU == 1 ]]; then
     LOCAL_ICU_DIR="$CHAKRACORE_DIR/deps/Chakra.ICU/icu"
     if [[ ! -d $LOCAL_ICU_DIR ]]; then
@@ -559,6 +562,9 @@ if [[ ${#_CXX} > 0 ]]; then
     CC_PREFIX="-DCMAKE_CXX_COMPILER=$_CXX -DCMAKE_C_COMPILER=$_CC"
 fi
 
+echo "ChakraCoreDir3"
+echo $CHAKRACORE_DIR
+
 RELATIVE_BUILD_PATH="../.."
 if [[ $TARGET_PATH == 0 ]]; then
     TARGET_PATH="$CHAKRACORE_DIR/out"
@@ -581,6 +587,9 @@ fi
 
 BUILD_DIRECTORY="${TARGET_PATH}/${BUILD_TYPE:0}"
 echo "Build path: ${BUILD_DIRECTORY}"
+
+echo "ChakraCoreDir4"
+echo $CHAKRACORE_DIR
 
 BUILD_RELATIVE_DIRECTORY=$("$PYTHON2_BINARY" -c "import os.path;print \
     os.path.relpath('${CHAKRACORE_DIR}', '$BUILD_DIRECTORY')")
@@ -618,6 +627,9 @@ if [[ $WB_CHECK || $WB_ANALYZE ]]; then
             echo "--wb-check/wb-analyze ONE_FILE only works with --ninja" && exit 1
         fi
 
+        echo "ChakraCoreDir66666"
+        echo $CHAKRACORE_DIR
+
         if [[ -f $CHAKRACORE_DIR/$WB_FILE ]]; then
             touch $CHAKRACORE_DIR/$WB_FILE
         else
@@ -637,24 +649,11 @@ if [[ $WB_CHECK || $WB_ANALYZE ]]; then
     fi
 fi
 
+       echo "ChakraCoreDir7777"
+        echo $CHAKRACORE_DIR
+
 # prepare DbgController.js.h
-DIR_RIGHT_NOW=`pwd = -P`
-echo $DIR_RIGHT_NOW
-cd bin
-DIR_RIGHT_NOW2=`pwd = -P`
-echo $DIR_RIGHT_NOW2
-CONTENTS=`ls`
-echo $CONTENTS
-cd ch
-DIR_RIGHT_NOW3=`pwd = -P`
-echo $DIR_RIGHT_NOW3
-CONTENTS2=`ls`
-echo $CONTENTS2
-
 CH_DIR="${CHAKRACORE_DIR}/bin/ch"
-echo $CH_DIR
-cd $CH_DIR
-
 "${CH_DIR}/jstoc.py" "${CH_DIR}/DbgController.js" controllerScript
 if [[ $? != 0 ]]; then
     exit 1
