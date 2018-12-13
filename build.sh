@@ -4,6 +4,26 @@
 # Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 #-------------------------------------------------------------------------------------------------------
 
+echo "START"
+echo $0
+
+CHAKRACORE_DIR=`pwd -P`
+echo "ChakraCoreDir1"
+echo $CHAKRACORE_DIR
+
+pushd `dirname $0` > /dev/null
+
+CHAKRACORE_DIR=`pwd -P`
+echo "ChakraCoreDir11111"
+echo $CHAKRACORE_DIR
+
+popd > /dev/null
+
+CHAKRACORE_DIR=`pwd -P`
+echo "ChakraCoreDir1111111111111"
+echo $CHAKRACORE_DIR
+
+
 SAFE_RUN() {
     local SF_RETURN_VALUE=$($1 2>&1)
 
@@ -90,11 +110,7 @@ PRINT_USAGE() {
     echo ""
 }
 
-pushd `dirname $0` > /dev/null
-CHAKRACORE_DIR=`pwd -P`
-echo "ChakraCoreDir1"
-echo $CHAKRACORE_DIR
-popd > /dev/null
+
 _CXX=""
 _CC=""
 VERBOSE="0"
