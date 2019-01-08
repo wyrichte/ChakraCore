@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <regress-exe>
-<dir>
+<dir> 
   <default>
     <files>262</files>
   </default>
@@ -145,16 +145,7 @@
     <files>Prototypes</files>
   </default>
 </dir>
-<dir>
-  <default>
-    <files>GlobalFunctions</files>
-  </default>
-</dir>
-<dir>
-  <default>
-    <files>Operators</files>
-  </default>
-</dir>
+
 <dir>
   <default>
     <files>Conversions</files>
@@ -218,11 +209,7 @@
     <files>Miscellaneous</files>
   </default>
 </dir>
-<dir>
-  <default>
-    <files>fieldopts</files>
-  </default>
-</dir>
+
 <dir>
   <default>
     <files>FixedFields</files>
