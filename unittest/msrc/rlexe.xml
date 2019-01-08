@@ -718,4 +718,15 @@
       <files>47810.js</files>
     </default>
   </test>
+  <test>
+    <default>
+      <files>48281.js</files>
+      <baseline>48281.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48131.js</files>
+    </default>
+  </test>
 </regress-exe>
