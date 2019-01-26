@@ -35,7 +35,8 @@
           "[Methods]": {
             "compare": {
               "__proto__": "<large string>",
-              "length": "2"
+              "length": "2",
+              "name": ""
             },
             "constructor": {
               "[Methods]": "{...}",
@@ -84,7 +85,8 @@
             },
             "format": {
               "__proto__": "<large string>",
-              "length": "1"
+              "length": "1",
+              "name": ""
             },
             "formatToParts": {
               "__proto__": "<large string>",
@@ -131,7 +133,8 @@
             },
             "format": {
               "__proto__": "<large string>",
-              "length": "1"
+              "length": "1",
+              "name": ""
             },
             "formatToParts": {
               "__proto__": "<large string>",
