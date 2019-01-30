@@ -28,10 +28,7 @@
 @echo off
 setlocal
 
-if "%TF_BUILD_BINARIESDIRECTORY%" == "" (
-  echo TF_BUILD_BINARIESDIRECTORY is required for this script to work correctly.
-  exit /b 1
-)
+
 
 set _RootDir=%~dp0..
 set _StagingDir=%TF_BUILD_BINARIESDIRECTORY%
@@ -56,12 +53,6 @@ set _HadFailures=0
   if not "%fShowGetHelp%" == "" (
     call :printGetHelp
     goto :eof
-  )
-
-  if not "%TF_BUILD%" == "True" (
-    echo Error: TF_BUILD environment variable is not set to "True".
-    echo   This script must be run under a TF Build Agent environment.
-    exit /b 2
   )
 
   :: Cannot run tests for arm on build machine and release builds

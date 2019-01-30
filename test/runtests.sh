@@ -27,7 +27,7 @@ while [[ $# -gt 0 ]]; do
         test_variant=$1
         ;;
     esac
-
+    
     shift
 done
 
