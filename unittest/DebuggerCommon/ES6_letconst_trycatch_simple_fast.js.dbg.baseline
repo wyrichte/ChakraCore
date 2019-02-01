@@ -5,6 +5,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callcount": "3",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -29,6 +30,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callcount": "3",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {

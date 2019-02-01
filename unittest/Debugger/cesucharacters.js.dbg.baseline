@@ -8,6 +8,26 @@
           "this.__proto__.__proto__": "null"
         },
         "this.abc": "1",
+        "this.globalThis": {
+          "[Methods]": "{...}",
+          "this.globalThis.__proto__": "{...}",
+          "this.globalThis.abc": "1",
+          "this.globalThis.console": "{...}",
+          "this.globalThis.Debug": "{...}",
+          "this.globalThis.globalThis": "{...}",
+          "this.globalThis.Infinity": "Infinity",
+          "this.globalThis.Intl": "{...}",
+          "this.globalThis.JSON": "{...}",
+          "this.globalThis.Math": "{...}",
+          "this.globalThis.NaN": "NaN",
+          "this.globalThis.obj": "{...}",
+          "this.globalThis.Reflect": "{...}",
+          "this.globalThis.SCA": "{...}",
+          "Symbol.toStringTag": "global",
+          "this.globalThis.undefined": "undefined",
+          "this.globalThis.WebAssembly": "{...}",
+          "this.globalThis.WScript": "{...}"
+        },
         "this.obj": {
           "[Methods]": "{...}",
           "this.obj.__proto__": "{...}"

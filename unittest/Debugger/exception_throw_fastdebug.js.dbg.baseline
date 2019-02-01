@@ -39,6 +39,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callcount": "3",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "{exception}": {

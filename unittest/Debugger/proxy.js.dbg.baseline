@@ -25,6 +25,28 @@
           "[Methods]": "{...}",
           "__proto__": "{...}"
         },
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "assert": "{...}",
+          "console": "{...}",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "helpers": "{...}",
+          "Infinity": "Infinity",
+          "Intl": "{...}",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "Reflect": "{...}",
+          "SCA": "{...}",
+          "Symbol.toStringTag": "global",
+          "testRunner": "{...}",
+          "tests": "<large string>",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "helpers": {
           "[Methods]": "{...}",
           "__proto__": "{...}",

@@ -33,6 +33,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callcount": "5",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -79,6 +80,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callcount": "5",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[baz returned]": "undefined",
@@ -113,6 +115,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callcount": "5",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[bar returned]": "undefined",

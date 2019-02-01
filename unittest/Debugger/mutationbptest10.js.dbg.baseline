@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "obj": "{...}",
         "sneakers": "{...}",
         "Symbol.toStringTag": "global"
@@ -43,6 +44,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "obj": "{...}",
         "sneakers": "{...}",
         "Symbol.toStringTag": "global"
@@ -81,6 +83,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "obj": "{...}",
         "sneakers": "{...}",
         "Symbol.toStringTag": "global"
@@ -120,6 +123,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "obj": "{...}",
         "sneakers": "{...}",
         "Symbol.toStringTag": "global"

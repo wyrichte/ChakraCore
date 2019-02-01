@@ -28,8 +28,30 @@
           "MS_ASYNC_OP_STATUS_SUCCESS": "1",
           "setNonUserCodeExceptions": "Permission denied"
         },
+        "globalThis": {
+          "[Methods]": "{...}",
+          "Atomics": "{...}",
+          "console": "{...}",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "Infinity": "Infinity",
+          "Intl": "",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "Reflect": "{...}",
+          "SCA": "{...}",
+          "Symbol.toStringTag": "global",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}",
+          "x": "",
+          "x2": "{...}"
+        },
         "Infinity": "Infinity",
-        "Intl": "",
+        "Intl": {
+          "__proto__": "{...}"
+        },
         "JSON": {
           "[Methods]": "{...}",
           "__proto__": "{...}",

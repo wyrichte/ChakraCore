@@ -62,6 +62,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a1": "10",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[foo returned]": "50",

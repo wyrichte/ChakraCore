@@ -15,6 +15,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "formal": "undefined",
@@ -57,6 +58,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "formal": "undefined",
@@ -99,6 +101,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "formal": "undefined",

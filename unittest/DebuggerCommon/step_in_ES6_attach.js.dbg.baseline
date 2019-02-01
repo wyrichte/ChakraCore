@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[Return value]": "undefined",
@@ -27,6 +28,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[baz returned]": "undefined",
@@ -53,6 +55,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[bar returned]": "undefined",

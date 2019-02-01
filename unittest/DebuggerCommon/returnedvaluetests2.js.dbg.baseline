@@ -21,6 +21,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "obj1": "{...}",
         "Symbol.toStringTag": "global"
       },
@@ -57,6 +58,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "obj1": "{...}",
         "Symbol.toStringTag": "global"
       },

@@ -5,6 +5,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "undefined",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
@@ -34,6 +35,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "undefined",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {
@@ -63,6 +65,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a": "undefined",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {

@@ -15,6 +15,25 @@
           "__proto__": "{...}",
           "y": "2"
         },
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "a": "{...}",
+          "b": "{...}",
+          "console": "{...}",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "Infinity": "Infinity",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "Reflect": "{...}",
+          "SCA": "{...}",
+          "Symbol.toStringTag": "global",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "Symbol.toStringTag": "global"
       },
       "Symbol.toStringTag": "global",

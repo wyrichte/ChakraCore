@@ -61,6 +61,13 @@
           ],
           "flagsAsValue": 16
         },
+        "globalThis": "{...}",
+        "globalThis - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
         "Symbol.toStringTag": "global",
         "Symbol.toStringTag - [Attributes]": {
           "flags": [
@@ -195,6 +202,13 @@
         },
         "__proto__": "{...}",
         "__proto__ - [Attributes]": {
+          "flags": [
+            "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
+          ],
+          "flagsAsValue": 16
+        },
+        "globalThis": "{...}",
+        "globalThis - [Attributes]": {
           "flags": [
             "DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE"
           ],

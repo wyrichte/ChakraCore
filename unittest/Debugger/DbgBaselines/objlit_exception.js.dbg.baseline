@@ -24,6 +24,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a1": "10",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "{exception}": {
@@ -106,6 +107,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "a1": "10",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "{exception}": "Foo Error",

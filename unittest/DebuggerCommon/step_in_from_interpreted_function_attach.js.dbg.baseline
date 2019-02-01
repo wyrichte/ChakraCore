@@ -33,6 +33,23 @@
           "[Methods]": "{...}",
           "__proto__": "null"
         },
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "console": "{...}",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "Infinity": "Infinity",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "Reflect": "{...}",
+          "SCA": "{...}",
+          "Symbol.toStringTag": "global",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "Symbol.toStringTag": "global"
       },
       "[Date returned]": {

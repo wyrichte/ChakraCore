@@ -54,6 +54,22 @@
           "__proto__": "null"
         },
         "d": "7",
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "console": "{...}",
+          "d": "7",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "i": "0",
+          "Infinity": "Infinity",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "i": "0"
       },
       "arguments": {
@@ -173,6 +189,22 @@
           "__proto__": "null"
         },
         "d": "7",
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "console": "{...}",
+          "d": "7",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "i": "1",
+          "Infinity": "Infinity",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "i": "1"
       },
       "arguments": {
@@ -292,6 +324,22 @@
           "__proto__": "null"
         },
         "d": "7",
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "console": "{...}",
+          "d": "7",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "i": "2",
+          "Infinity": "Infinity",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "i": "2"
       },
       "arguments": {
@@ -411,6 +459,22 @@
           "__proto__": "null"
         },
         "d": "7",
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "console": "{...}",
+          "d": "7",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "i": "3",
+          "Infinity": "Infinity",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "i": "3"
       },
       "arguments": {
@@ -530,6 +594,22 @@
           "__proto__": "null"
         },
         "d": "7",
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "console": "{...}",
+          "d": "7",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "i": "4",
+          "Infinity": "Infinity",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "i": "4"
       },
       "arguments": {
@@ -600,6 +680,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "d": "7",
+        "globalThis": "{...}",
         "i": "5"
       },
       "x": "2",
@@ -625,6 +706,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "d": "7",
+        "globalThis": "{...}",
         "i": "5"
       },
       "x": "2",

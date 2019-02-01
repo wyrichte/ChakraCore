@@ -5,6 +5,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "globalThis": "{...}",
         "obj": "undefined",
         "Symbol.toStringTag": "global"
       },
@@ -58,6 +59,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "globalThis": "{...}",
         "obj": "undefined",
         "Symbol.toStringTag": "global"
       },
@@ -101,6 +103,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "globalThis": "{...}",
         "obj": "undefined",
         "Symbol.toStringTag": "global"
       },
@@ -131,6 +134,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "undefined",
+        "globalThis": "{...}",
         "obj": "undefined",
         "Symbol.toStringTag": "global"
       },
@@ -168,6 +172,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "c": "10",
+        "globalThis": "{...}",
         "obj": "{...}",
         "Symbol.toStringTag": "global"
       },

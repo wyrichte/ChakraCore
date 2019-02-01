@@ -93,6 +93,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global",
         "[200]": "200"
       },

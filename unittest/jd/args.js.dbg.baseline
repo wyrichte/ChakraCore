@@ -6,6 +6,8 @@
         "[Methods]": "{...}",
         "__proto__ - [Type]": "Object",
         "__proto__": "{...}",
+        "globalThis - [Type]": "Object, (Global)",
+        "globalThis": "{...}",
         "Symbol.toStringTag - [Type]": "String",
         "Symbol.toStringTag": "global"
       },

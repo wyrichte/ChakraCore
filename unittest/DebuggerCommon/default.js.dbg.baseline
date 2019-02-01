@@ -783,6 +783,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -805,6 +806,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -836,6 +838,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -864,6 +867,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -900,6 +904,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -922,6 +927,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -948,6 +954,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -970,6 +977,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -1000,6 +1008,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -1023,6 +1032,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "c": {
@@ -1062,6 +1072,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -1084,6 +1095,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -1122,6 +1134,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -1160,6 +1173,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "a": "1",
@@ -1215,6 +1229,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -1242,6 +1257,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -1270,6 +1286,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -1305,6 +1322,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -1332,6 +1350,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -1367,6 +1386,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "glob": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {

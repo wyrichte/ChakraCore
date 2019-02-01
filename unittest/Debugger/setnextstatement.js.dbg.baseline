@@ -89,6 +89,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "ret": "22",
         "Symbol.toStringTag": "global"
       },
@@ -113,6 +114,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "ret": "22",
         "Symbol.toStringTag": "global"
       },

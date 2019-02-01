@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "this.__proto__": "{...}",
+        "this.globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {

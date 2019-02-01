@@ -12,6 +12,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -26,6 +27,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -41,6 +43,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -56,6 +59,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -71,6 +75,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -85,6 +90,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -100,6 +106,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -115,6 +122,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -130,6 +138,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -144,6 +153,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -159,6 +169,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },
@@ -174,6 +185,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "q": "1",
         "Symbol.toStringTag": "global"
       },

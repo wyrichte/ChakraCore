@@ -5,6 +5,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "callcount": "5",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[baz returned]": "undefined",

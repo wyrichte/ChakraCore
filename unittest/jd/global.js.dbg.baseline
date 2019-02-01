@@ -5,6 +5,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "g0": "10",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "Symbol.toStringTag": "global",

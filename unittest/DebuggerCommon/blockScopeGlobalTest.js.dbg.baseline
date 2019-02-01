@@ -4,6 +4,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {
@@ -26,6 +27,7 @@
         "__proto__": "{...}",
         "gC": "3",
         "gD": "4",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "arguments": {

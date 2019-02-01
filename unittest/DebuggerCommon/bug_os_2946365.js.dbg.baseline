@@ -23,6 +23,25 @@
           "[8]": "9",
           "[9]": "10"
         },
+        "globalThis": {
+          "[Methods]": "{...}",
+          "__proto__": "{...}",
+          "a": "[...]",
+          "console": "{...}",
+          "Debug": "{...}",
+          "globalThis": "{...}",
+          "Infinity": "Infinity",
+          "Intl": "{...}",
+          "JSON": "{...}",
+          "Math": "{...}",
+          "NaN": "NaN",
+          "Reflect": "{...}",
+          "SCA": "{...}",
+          "Symbol.toStringTag": "global",
+          "undefined": "undefined",
+          "WebAssembly": "{...}",
+          "WScript": "{...}"
+        },
         "Symbol.toStringTag": "global"
       },
       "arguments": {

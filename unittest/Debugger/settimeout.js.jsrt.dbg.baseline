@@ -10,6 +10,7 @@
       "this": {
         "[Methods]": "{...}",
         "__proto__": "{...}",
+        "globalThis": "{...}",
         "i": "7",
         "ids": "[0,1,2,3,4,5,6]",
         "Symbol.toStringTag": "global",

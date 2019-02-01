@@ -5,6 +5,7 @@
         "[Methods]": "{...}",
         "__proto__": "{...}",
         "b": "{...}",
+        "globalThis": "{...}",
         "Symbol.toStringTag": "global"
       },
       "[Pending Mutation]": {

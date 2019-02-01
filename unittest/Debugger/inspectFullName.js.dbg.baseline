@@ -132,6 +132,31 @@
           "this.c1.b": "[]",
           "this.c1.e": "undefined"
         },
+        "this.globalThis": {
+          "[Methods]": "{...}",
+          "this.globalThis.__proto__": "{...}",
+          "this.globalThis[\"\"]": "{...}",
+          "this.globalThis.__foo": "{...}",
+          "this.globalThis.a": "{...}",
+          "this.globalThis.a1": "[]",
+          "this.globalThis.arr": "[]",
+          "this.globalThis.c1": "{...}",
+          "this.globalThis.console": "{...}",
+          "this.globalThis.Debug": "{...}",
+          "this.globalThis.globalThis": "{...}",
+          "this.globalThis.Infinity": "Infinity",
+          "this.globalThis.Intl": "{...}",
+          "this.globalThis.JSON": "{...}",
+          "this.globalThis.Math": "{...}",
+          "this.globalThis.NaN": "NaN",
+          "this.globalThis.null": "{...}",
+          "this.globalThis.Reflect": "{...}",
+          "this.globalThis.SCA": "{...}",
+          "Symbol.toStringTag": "global",
+          "this.globalThis.undefined": "undefined",
+          "this.globalThis.WebAssembly": "{...}",
+          "this.globalThis.WScript": "{...}"
+        },
         "this.null": {
           "this.null.__proto__": "{...}",
           "this.null.null": "1"
