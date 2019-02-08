@@ -138,6 +138,13 @@ public:
         return scriptSite->EnqueuePromiseTask(varTask);
     }
 
+    HRESULT ThrowIfFailed(HRESULT hr) override
+    {
+        hr;
+        // No support yet
+        return S_OK;
+    }
+
     HRESULT FetchImportedModule(Js::ModuleRecordBase* referencingModule, LPCOLESTR specifier, Js::ModuleRecordBase** dependentModuleRecord)
     {
         return scriptSite->FetchImportedModule(referencingModule, specifier, dependentModuleRecord);
