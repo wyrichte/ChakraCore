@@ -729,4 +729,45 @@
       <files>48131.js</files>
     </default>
   </test>
+  <test>
+  <default>
+    <files>48347.js</files>
+    <tags>exclude_x86</tags>
+  </default>
+  </test>
+  <test>
+    <default>
+      <files>48387.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48543.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48548.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48733.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48754.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48994.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48996.js</files>
+    </default>
+  </test>
 </regress-exe>
