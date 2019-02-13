@@ -742,6 +742,11 @@
   </test>
   <test>
     <default>
+      <files>48528.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>48543.js</files>
     </default>
   </test>
