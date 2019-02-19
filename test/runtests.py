@@ -707,7 +707,11 @@ class TestLoader(object):
     # load all tests in folder using rlexe.xml file
     def _load_tests(self, folder, file):
         try:
+            print(folder)
             xmlpath = os.path.join(folder, 'rlexe.xml')
+            print(xmlpath)
+            et_parse = ET.parse(xmlpath)
+            print(et_parse)
             xml = ET.parse(xmlpath).getroot()
         except IOError:
             return []
