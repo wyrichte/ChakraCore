@@ -383,6 +383,7 @@ namespace JsrtUnitTests
                 VERIFY_IS_TRUE(data != JS_INVALID_REFERENCE); // data now holds ref
                 VERIFY_IS_TRUE(!finalized);
 
+                VERIFY_IS_TRUE(JsSetObjectBeforeCollectCallback(data, &data, nullptr) == JsNoError); // clear the existing callback
                 SetObjectBeforeCollectCallback(data, [&](JsRef) { return ++called >= OBJECTBEFORECOLLECT_GC_ITERATIONS; /*collect after OBJECTBEFORECOLLECT_GC_ITERATIONS*/ });
                 VERIFY_IS_TRUE(JsRelease(data, nullptr) == JsNoError); // Release ref added by callback
                 data = nullptr;
