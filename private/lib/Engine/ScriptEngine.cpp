@@ -5666,7 +5666,7 @@ HRESULT ScriptEngine::CompileUTF8Core(
     fUsedExisting = FALSE;
     Js::ParseableFunctionInfo* pRootFunc = nullptr;
 
-    uint sourceIndex = 0;
+    uint sourceIndex = Js::Constants::InvalidSourceIndex;
     LPCUTF8 pszSrc = utf8SourceInfo->GetSource(_u("ScriptEngine::CompileUTF8Core"));
     size_t cbLength = utf8SourceInfo->GetCbLength(_u("ScriptEngine::CompileUTF8Core"));
     // BLOCK
@@ -5721,6 +5721,11 @@ HRESULT ScriptEngine::CompileUTF8Core(
                 // recompile if we have asm.js parse error
                 compileOptions->grfscr |= fscrNoAsmJs;
                 compileOptions->pse->Free();
+                if (sourceIndex != Js::Constants::InvalidSourceIndex)
+                {
+                    // If we registered source, we should remove it or we will register another source info
+                    scriptContext->RemoveSource(sourceIndex);
+                }
                 hr = CompileUTF8Core(utf8SourceInfo, cchLength, compileOptions, fOriginalUTF8Code, ppbody, ppFuncInfo, fUsedExisting);
             }
             return hr;
