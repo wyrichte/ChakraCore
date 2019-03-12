@@ -757,6 +757,11 @@
   </test>
   <test>
     <default>
+      <files>48729.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>48733.js</files>
     </default>
   </test>
@@ -773,6 +778,40 @@
   <test>
     <default>
       <files>48996.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48625_min.js</files>
+      <baseline>48625_min.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48625.js</files>
+      <baseline>48625.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>48727.js</files>
+      <tags>exclude_x64</tags>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>49006.js</files>
+      <baseline>49006.baseline</baseline>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>49617.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
+      <files>49548.js</files>
     </default>
   </test>
 </regress-exe>

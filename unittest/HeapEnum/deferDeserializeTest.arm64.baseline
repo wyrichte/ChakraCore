@@ -282,7 +282,7 @@
  |  |    [Prototype] type: ObjectObject (seen)
  |  |    [Properties] count: 9
  |  |    | 0 EngineInterface: type: ObjectObject flags: (new) optional info records (1)
- |  |    |    [Prototype] type: ObjectObject (seen)
+ |  |    |    [Prototype] type: Null (seen)
  |  |    | 1 write: type: FunctionObject flags: (new) optional info records (2)
  |  |    |    [Prototype] type: FunctionObject (seen)
  |  |    |    [Properties] count: 2
