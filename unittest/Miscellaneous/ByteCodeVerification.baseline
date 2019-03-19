@@ -1,4 +1,4 @@
-Bytecode GUID = {11BA1CDD-86FC-4489-95EB-355A78E78EF8}
+Bytecode GUID = {3EDF890E-55F9-4646-A9AC-53127700D405}
 OpCode: EndOfBlock = 0. Layout = Empty
 OpCode: ExtendedOpcodePrefix = 1. Layout = Empty
 OpCode: MediumLayoutPrefix = 2. Layout = Empty
@@ -1003,6 +1003,7 @@ InternalProperty: CachedUDateFormat
 InternalProperty: CachedUPluralRules
 InternalProperty: RevocableProxy
 InternalProperty: MutationBp
+InternalProperty: EmbedderData
 Property: _symbolHasInstance
 Property: _symbolIsConcatSpreadable
 Property: _symbolIterator
