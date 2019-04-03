@@ -4,7 +4,7 @@
 //-------------------------------------------------------------------------------------------------------
 
 // Limits taken from WasmLimits.h
-const MaxTypes = 1000000;
+const MaxTypes = 1000000; 
 const MaxFunctions = 1000000;
 const MaxImports = 100000;
 const MaxExports = 100000;
